@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOOMICS 차지백 프로세스 플로우 다이어그램 | BizOps</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 32px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @media print {
+    body { background: #0f172a; padding: 16px; }
+    .no-print { display: none !important; }
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .header h1 {
+    font-size: 30px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #f87171, #fb923c);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .header .sub {
+    color: #94a3b8;
+    font-size: 14px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(248,113,113,0.15);
+    border: 1px solid rgba(248,113,113,0.3);
+    color: #fca5a5;
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 8px;
+  }
+
+  /* ===== KPI ===== */
+  .kpi-bar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 36px;
+    flex-wrap: wrap;
+  }
+  .kpi-item {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 24px;
+    text-align: center;
+    min-width: 140px;
+  }
+  .kpi-item .num {
+    font-size: 26px;
+    font-weight: 800;
+    color: #f87171;
+  }
+  .kpi-item .num .unit {
+    font-size: 14px;
+    font-weight: 600;
+    color: #fb923c;
+  }
+  .kpi-item .label {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  /* ===== FLOW CONTAINER ===== */
+  .flow-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  /* ===== FLOW ROW ===== */
+  .flow-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 0;
+    position: relative;
+  }
+
+  /* ===== ARROW ===== */
+  .arrow-down {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 0;
+  }
+  .arrow-down svg {
+    width: 24px;
+    height: 32px;
+  }
+  .arrow-down .arrow-label {
+    font-size: 11px;
+    color: #64748b;
+    margin-left: 8px;
+    align-self: center;
+  }
+
+  /* ===== NODE ===== */
+  .node {
+    border-radius: 14px;
+    padding: 18px 28px;
+    text-align: center;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+  .node:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+  }
+  .node .title {
+    font-weight: 700;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+  .node .desc {
+    font-size: 12px;
+    opacity: 0.8;
+    line-height: 1.5;
+  }
+  .node .emoji {
+    font-size: 24px;
+    margin-bottom: 6px;
+    display: block;
+  }
+  .node .step-num {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 28px;
+    height: 28px;
+    background: #dc2626;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #0f172a;
+    box-shadow: 0 2px 8px rgba(220,38,38,0.4);
+  }
+
+  /* Node types */
+  .node-start {
+    background: linear-gradient(135deg, #7f1d1d, #dc2626);
+    border: 2px solid #f87171;
+    min-width: 280px;
+    box-shadow: 0 0 20px rgba(220,38,38,0.3);
+  }
+  .node-process {
+    background: linear-gradient(135deg, #1e3a5f, #1e4976);
+    border: 1px solid #3b82f6;
+    min-width: 280px;
+  }
+  .node-decision {
+    background: linear-gradient(135deg, #7c3aed, #a855f7);
+    border: 2px solid #c084fc;
+    min-width: 320px;
+    box-shadow: 0 0 20px rgba(168,85,247,0.2);
+  }
+  .node-action {
+    background: linear-gradient(135deg, #0f766e, #14b8a6);
+    border: 1px solid #2dd4bf;
+    min-width: 280px;
+  }
+  .node-danger {
+    background: linear-gradient(135deg, #9a3412, #ea580c);
+    border: 2px solid #fb923c;
+    min-width: 280px;
+    box-shadow: 0 0 15px rgba(234,88,12,0.2);
+  }
+  .node-end {
+    background: linear-gradient(135deg, #065f46, #059669);
+    border: 2px solid #34d399;
+    min-width: 260px;
+    box-shadow: 0 0 15px rgba(52,211,153,0.2);
+  }
+  .node-record {
+    background: linear-gradient(135deg, #1e40af, #3b82f6);
+    border: 2px solid #60a5fa;
+    min-width: 280px;
+    box-shadow: 0 0 15px rgba(59,130,246,0.2);
+  }
+
+  /* ===== BRANCH ===== */
+  .branch-row {
+    display: flex;
+    justify-content: center;
+    gap: 60px;
+    align-items: flex-start;
+  }
+  .branch {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .branch-label {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 14px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+  }
+  .branch-yes { background: #166534; color: #4ade80; border: 1px solid #22c55e; }
+  .branch-no { background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }
+
+  /* ===== PG GRID ===== */
+  .pg-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .pg-card {
+    border-radius: 12px;
+    padding: 14px 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+    position: relative;
+    overflow: hidden;
+  }
+  .pg-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+  }
+  .pg-card .pct {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    font-size: 11px;
+    font-weight: 700;
+    opacity: 0.9;
+  }
+  .pg-card .emoji { font-size: 22px; margin-bottom: 6px; }
+  .pg-card .title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .pg-card .desc { font-size: 10px; opacity: 0.75; line-height: 1.4; }
+
+  /* PG colors */
+  .pg-paypal { background: linear-gradient(135deg, #003087, #0070ba); border: 1px solid #60a5fa; }
+  .pg-cko { background: linear-gradient(135deg, #0a0a0a, #1a1a2e); border: 1px solid #00d632; }
+  .pg-cko .title { color: #00d632; }
+  .pg-airwallex { background: linear-gradient(135deg, #4338ca, #6366f1); border: 1px solid #818cf8; }
+  .pg-pwl { background: linear-gradient(135deg, #92400e, #d97706); border: 1px solid #fbbf24; color: #1a1a2e; }
+  .pg-pwl .desc { color: #292524; }
+  .pg-worldpay { background: linear-gradient(135deg, #9f1239, #e11d48); border: 1px solid #fb7185; }
+  .pg-payletter { background: linear-gradient(135deg, #115e59, #0d9488); border: 1px solid #2dd4bf; }
+  .pg-mycard { background: linear-gradient(135deg, #3730a3, #4f46e5); border: 1px solid #818cf8; }
+  .pg-opn { background: linear-gradient(135deg, #334155, #475569); border: 1px solid #94a3b8; }
+
+  /* ===== TEMPLATE GRID ===== */
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .tmpl-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+    text-align: center;
+    font-size: 12px;
+  }
+  .tmpl-card .tmpl-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+  .tmpl-card .tmpl-desc {
+    color: #94a3b8;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+  .tmpl-card.tmpl-red { border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05); }
+  .tmpl-card.tmpl-blue { border-color: rgba(96,165,250,0.3); background: rgba(96,165,250,0.05); }
+  .tmpl-card.tmpl-green { border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.05); }
+
+  /* ===== SECTION DIVIDER ===== */
+  .section-label {
+    text-align: center;
+    margin: 28px 0 16px;
+  }
+  .section-label span {
+    display: inline-block;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 6px 20px;
+    border-radius: 8px;
+    font-size: 12px;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ===== SANCTION GRID ===== */
+  .sanction-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .sanction-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 12px;
+  }
+  .sanction-card .sc-title {
+    font-weight: 700;
+    font-size: 13px;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .sanction-card ul {
+    list-style: none;
+    padding: 0;
+  }
+  .sanction-card li {
+    padding: 3px 0;
+    color: #cbd5e1;
+    font-size: 11px;
+  }
+  .sanction-card li::before {
+    content: "• ";
+    color: #94a3b8;
+  }
+  .sanction-admin {
+    border-color: rgba(248,113,113,0.3);
+    background: rgba(248,113,113,0.05);
+  }
+
+  /* ===== REASON GRID ===== */
+  .reason-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+  .reason-chip {
+    border-radius: 10px;
+    padding: 12px 10px;
+    text-align: center;
+    font-size: 11px;
+  }
+  .reason-chip .r-pct { font-size: 20px; font-weight: 800; display: block; margin-bottom: 2px; }
+  .reason-chip .r-name { font-weight: 600; }
+  .reason-chip .r-count { font-size: 10px; opacity: 0.7; }
+  .reason-unauth { background: linear-gradient(135deg, #7f1d1d, #991b1b); border: 1px solid #f87171; }
+  .reason-fraud { background: linear-gradient(135deg, #92400e, #a16207); border: 1px solid #fbbf24; }
+  .reason-cancel { background: linear-gradient(135deg, #1e40af, #2563eb); border: 1px solid #60a5fa; }
+  .reason-notdesc { background: linear-gradient(135deg, #581c87, #7c3aed); border: 1px solid #c084fc; }
+  .reason-other { background: linear-gradient(135deg, #334155, #475569); border: 1px solid #94a3b8; }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    padding: 20px;
+    color: #64748b;
+    font-size: 11px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer a { color: #60a5fa; text-decoration: none; }
+
+  /* ===== MERGE POINT ===== */
+  .merge-dot {
+    display: flex;
+    justify-content: center;
+    padding: 4px 0;
+  }
+  .merge-dot::before {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background: #64748b;
+    border-radius: 50%;
+    border: 2px solid #94a3b8;
+  }
+
+  /* ===== PARALLEL ===== */
+  .parallel-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    align-items: stretch;
+  }
+  .parallel-lane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    max-width: 340px;
+  }
+  .lane-label {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  /* ===== LINK BAR ===== */
+  .link-bar {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .link-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #cbd5e1;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .link-chip:hover {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    transform: translateY(-1px);
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>TOOMICS 차지백 프로세스 플로우</h1>
+  <p class="sub">Chargeback Operation Flow Diagram — PG사 접수 → 소명 → 제재 전 프로세스</p>
+  <div class="badge">CHARGEBACK FLOW v1.1 · BizOps Team · 2026-02-20</div>
+</div>
+
+<!-- KPI -->
+<div class="kpi-bar">
+  <div class="kpi-item">
+    <div class="num">4,220<span class="unit">건</span></div>
+    <div class="label">14개월 누적 (25.01~26.02)</div>
+  </div>
+  <div class="kpi-item">
+    <div class="num">~310<span class="unit">/월</span></div>
+    <div class="label">월평균 차지백</div>
+  </div>
+  <div class="kpi-item">
+    <div class="num">8<span class="unit"> PG사</span></div>
+    <div class="label">소명 대상 PG</div>
+  </div>
+  <div class="kpi-item">
+    <div class="num">6<span class="unit"> Step</span></div>
+    <div class="label">처리 프로세스</div>
+  </div>
+</div>
+
+<div class="flow-container">
+
+<!-- ==================== SECTION 1: 접수 ==================== -->
+<div class="section-label"><span>STEP 1 · PG사 접수 확인</span></div>
+
+<div class="flow-row">
+  <div class="node node-start">
+    <span class="step-num">1</span>
+    <span class="emoji">🔔</span>
+    <div class="title">PG사 차지백 접수 확인</div>
+    <div class="desc">각 PG사 대시보드 매일 접속 → 신규 차지백 건 확인</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- PG사 8개 -->
+<div class="pg-grid">
+  <div class="pg-card pg-paypal">
+    <span class="pct">68%</span>
+    <div class="emoji">💳</div>
+    <div class="title">PayPal</div>
+    <div class="desc">2,857건 · Resolution Center<br>메인+부계정 분리 운영</div>
+  </div>
+  <div class="pg-card pg-cko">
+    <span class="pct">23%</span>
+    <div class="emoji">🔐</div>
+    <div class="title">CKO (Checkout)</div>
+    <div class="desc">970건 · OTP 로그인<br>소명 답변 4종 필수</div>
+  </div>
+  <div class="pg-card pg-airwallex">
+    <span class="pct">4.1%</span>
+    <div class="emoji">🌏</div>
+    <div class="title">Airwallex</div>
+    <div class="desc">174건 · 개인계정 OTP<br>Challenge/Accept 분기</div>
+  </div>
+  <div class="pg-card pg-pwl">
+    <span class="pct">2.6%</span>
+    <div class="emoji">🧱</div>
+    <div class="title">Paymentwall</div>
+    <div class="desc">110건 · 공용계정<br>답변 없음, 자료만 제출</div>
+  </div>
+  <div class="pg-card pg-mycard">
+    <span class="pct">1.4%</span>
+    <div class="emoji">🇹🇼</div>
+    <div class="title">MyCard</div>
+    <div class="desc">57건 · TW 전용<br>포인트/e-Wallet</div>
+  </div>
+  <div class="pg-card pg-worldpay">
+    <span class="pct">0.6%</span>
+    <div class="emoji">🇬🇧</div>
+    <div class="title">WorldPay</div>
+    <div class="desc">25건 · UK 본사<br>Eximbay 프로세싱</div>
+  </div>
+  <div class="pg-card pg-payletter">
+    <span class="pct">0.4%</span>
+    <div class="emoji">📧</div>
+    <div class="title">Payletter</div>
+    <div class="desc">15건<br>기본 프로세스 동일</div>
+  </div>
+  <div class="pg-card pg-opn">
+    <span class="pct">0.3%</span>
+    <div class="emoji">🇹🇭</div>
+    <div class="title">OPN (Omise)</div>
+    <div class="desc">14건 · TH 전용<br>신용카드 Only</div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 2: 분기 ==================== -->
+<div class="section-label"><span>STEP 2 · 사용 내역 확인 분기</span></div>
+
+<div class="flow-row">
+  <div class="node node-process">
+    <span class="step-num">2</span>
+    <span class="emoji">🔍</span>
+    <div class="title">거래번호 복사 → 관리자 검색</div>
+    <div class="desc">PG사에서 Transaction Number 복사<br>투믹스 관리자 > Payments > 결제 내역 발송 관리</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div class="flow-row">
+  <div class="node node-decision">
+    <span class="emoji">⚖️</span>
+    <div class="title">사용 내역이 있는가?</div>
+    <div class="desc">콘텐츠 열람, 코인 사용, VIP 이용 여부 확인</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- YES / NO -->
+<div class="branch-row">
+  <div class="branch">
+    <span class="branch-label branch-yes">✅ 사용 내역 있음</span>
+    <div class="node node-action" style="min-width:300px;">
+      <span class="emoji">⚔️</span>
+      <div class="title">소명 (Challenge)</div>
+      <div class="desc">소명 자료 작성 → PG사 제출<br>대부분의 케이스에 해당</div>
+    </div>
+  </div>
+  <div class="branch">
+    <span class="branch-label branch-no">❌ 사용 내역 없음</span>
+    <div class="node node-danger" style="min-width:300px;">
+      <span class="emoji">🏳️</span>
+      <div class="title">환불 수용 (Accept)</div>
+      <div class="desc">PG사 대시보드에서 Accept 처리<br>소명 자료 작성 불필요</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== 차지백 사유별 분포 ==================== -->
+<div class="section-label"><span>차지백 사유별 분포 (14개월 누적)</span></div>
+
+<div class="reason-grid">
+  <div class="reason-chip reason-unauth">
+    <span class="r-pct">31%</span>
+    <span class="r-name">Unauthorized</span>
+    <span class="r-count">1,294건</span>
+  </div>
+  <div class="reason-chip reason-fraud">
+    <span class="r-pct">13%</span>
+    <span class="r-name">Fraudulent</span>
+    <span class="r-count">544건</span>
+  </div>
+  <div class="reason-chip reason-cancel">
+    <span class="r-pct">7%</span>
+    <span class="r-name">Canceled</span>
+    <span class="r-count">309건</span>
+  </div>
+  <div class="reason-chip reason-notdesc">
+    <span class="r-pct">6%</span>
+    <span class="r-name">Not as Described</span>
+    <span class="r-count">234건</span>
+  </div>
+  <div class="reason-chip reason-other">
+    <span class="r-pct">7%</span>
+    <span class="r-name">Other</span>
+    <span class="r-count">307건</span>
+  </div>
+</div>
+
+<!-- ==================== SECTION 3: 소명 자료 작성 ==================== -->
+<div class="section-label"><span>STEP 3 · 소명 자료 작성 (전 PG사 공통)</span></div>
+
+<div class="flow-row">
+  <div class="node node-process">
+    <span class="step-num">3</span>
+    <span class="emoji">📥</span>
+    <div class="title">소명 자료 다운로드</div>
+    <div class="desc">관리자 > 회원 Info > "차지백 소명자료" 버튼<br>Chargeback Explanation 엑셀 다운로드</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+  <span class="arrow-label">+ 자동결제 해지 확인</span>
+</div>
+
+<!-- 엑셀 편집 5단계 -->
+<div class="template-grid">
+  <div class="tmpl-card tmpl-blue">
+    <div class="tmpl-title">STEP 1 · 데이터 붙여넣기</div>
+    <div class="tmpl-desc">소명자료 엑셀 전체를<br>템플릿 데이터 영역에 한 번에 붙여넣기<br>※ 타 PG사 결제건, Accessed URLs, 1:1 history 삭제</div>
+  </div>
+  <div class="tmpl-card tmpl-green">
+    <div class="tmpl-title">STEP 2 · Proof of Delivery</div>
+    <div class="tmpl-desc">Case A~D 중 해당 1개만 남기기<br><strong>A</strong> VIP 자동결제 · <strong>B</strong> VIP 첫 결제<br><strong>C</strong> 코인 결제 · <strong>D</strong> 타PG 해지 후 재구매</div>
+  </div>
+  <div class="tmpl-card tmpl-red">
+    <div class="tmpl-title">STEP 3~5 · Invoice + Receipt + PDF</div>
+    <div class="tmpl-desc">VIP/Coin 중 택1 → [대괄호] 입력<br>Receipt 스크린샷 삽입<br>PDF 변환 → PG사 사이트 업로드</div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 4: PG사 제출 ==================== -->
+<div class="section-label"><span>STEP 4 · PG사별 소명 제출</span></div>
+
+<div class="flow-row">
+  <div class="node node-action">
+    <span class="step-num">4</span>
+    <span class="emoji">📤</span>
+    <div class="title">소명 자료 PDF 업로드 + 답변 작성</div>
+    <div class="desc">각 PG사 대시보드에서 소명 자료 제출</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+  <span class="arrow-label">PG사별 제출 방식 상이</span>
+</div>
+
+<!-- PG사별 제출 방식 요약 -->
+<div class="parallel-wrapper">
+  <div class="parallel-lane">
+    <span class="lane-label">소명 답변 + 자료 제출</span>
+    <div class="tmpl-card" style="width:100%;border-color:rgba(0,214,50,0.3);background:rgba(0,214,50,0.05);">
+      <div class="tmpl-title" style="color:#4ade80;">CKO</div>
+      <div class="tmpl-desc">4종 카테고리별 답변 수동 입력<br>① Proof of delivery (4종)<br>② Invoice/Receipt (2종)<br>③ Recurring Agreement<br>④ Refund Policy</div>
+    </div>
+    <div class="tmpl-card" style="width:100%;border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.05);">
+      <div class="tmpl-title" style="color:#93c5fd;">PayPal</div>
+      <div class="tmpl-desc">PDF 업로드 + 소명 답변 입력<br>"We disagreed with the case..."</div>
+    </div>
+    <div class="tmpl-card" style="width:100%;border-color:rgba(168,85,247,0.3);background:rgba(168,85,247,0.05);">
+      <div class="tmpl-title" style="color:#c4b5fd;">Airwallex</div>
+      <div class="tmpl-desc">7단계 Challenge 등록 프로세스<br>PDF + 약관 + PLAN + Invoice 이미지</div>
+    </div>
+  </div>
+  <div class="parallel-lane">
+    <span class="lane-label">자료만 제출 (답변 없음)</span>
+    <div class="tmpl-card" style="width:100%;border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.05);">
+      <div class="tmpl-title" style="color:#fbbf24;">Paymentwall</div>
+      <div class="tmpl-desc">소명 자료 PDF만 업로드<br>답변 작성 없음</div>
+    </div>
+    <div class="tmpl-card" style="width:100%;">
+      <div class="tmpl-title">WorldPay · Payletter · MyCard · OPN</div>
+      <div class="tmpl-desc">기본 소명 자료 PDF + 공통 양식 제출<br>표준 엑셀 템플릿 사용</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== SECTION 5: 접수 기록 ==================== -->
+<div class="section-label"><span>STEP 5 · 차지백 접수 기록 (★ 필수)</span></div>
+
+<div class="flow-row">
+  <div class="node node-record">
+    <span class="step-num">5</span>
+    <span class="emoji">📊</span>
+    <div class="title">★차지백 접수 건수 시트 기록</div>
+    <div class="desc">구글시트에 당일 접수 건 즉시 기록<br>결제사별 · 통화별 · 상품별 · 사유별 30컬럼</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- ==================== SECTION 6: 회원 제재 ==================== -->
+<div class="section-label"><span>STEP 6 · 회원 제재</span></div>
+
+<div class="flow-row">
+  <div class="node node-decision">
+    <span class="emoji">🔒</span>
+    <div class="title">사유 판단</div>
+    <div class="desc">Fraudulent(사기) → 즉시 제재<br>기타 사유 → 의심 처리 후 판단</div>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<div style="max-width:400px;margin:0 auto;">
+  <div class="sanction-card sanction-admin">
+    <div class="sc-title">🛡️ 투믹스 관리자 제재 (전 PG 공통)</div>
+    <ul>
+      <li>관리자 > 회원 Info > Basic Info</li>
+      <li>+Restrict User (회원제재) 클릭</li>
+      <li>Fraudulent Payment(부정결제) → PG사 선택</li>
+      <li>Apply(적용) 완료</li>
+    </ul>
+  </div>
+</div>
+
+<div class="arrow-down">
+  <svg viewBox="0 0 24 32"><path d="M12 0 L12 24 M6 18 L12 24 L18 18" stroke="#64748b" stroke-width="2" fill="none"/></svg>
+</div>
+
+<!-- ==================== END ==================== -->
+<div class="flow-row">
+  <div class="node node-end">
+    <span class="emoji">✅</span>
+    <div class="title">처리 완료</div>
+    <div class="desc">소명 결과 대기 · 환불 시 CS 템플릿 발송<br>패소 시 2차 소명(Pre-Arbitration) 가능 여부 확인</div>
+  </div>
+</div>
+
+<!-- ==================== 주의사항 ==================== -->
+<div class="section-label"><span>주의사항 & 핵심 체크포인트</span></div>
+
+<div class="template-grid">
+  <div class="tmpl-card tmpl-red">
+    <div class="tmpl-title">⏰ 기일 엄수</div>
+    <div class="tmpl-desc">만료 전 미제출 시 건이 소멸<br>→ 자동 패소 처리</div>
+  </div>
+  <div class="tmpl-card tmpl-blue">
+    <div class="tmpl-title">🔢 User ID 표시</div>
+    <div class="tmpl-desc">숫자+ 표기 시 반드시<br>셀 서식을 '숫자'로 변경</div>
+  </div>
+  <div class="tmpl-card tmpl-green">
+    <div class="tmpl-title">🔄 자동결제 해지</div>
+    <div class="tmpl-desc">소명 자료 다운 전 반드시<br>관리자에서 자동결제 해지 확인</div>
+  </div>
+  <div class="tmpl-card">
+    <div class="tmpl-title">📸 FastStone Capture</div>
+    <div class="tmpl-desc">스크롤 캡처 시<br>사용 권장 (라이선스 보유)</div>
+  </div>
+  <div class="tmpl-card tmpl-blue">
+    <div class="tmpl-title">💰 PayPal 인출</div>
+    <div class="tmpl-desc">매일 각 계정에서<br>USD 20,000 수동 인출 (월~금)</div>
+  </div>
+</div>
+
+<!-- LINK BAR -->
+<div class="link-bar">
+  <a href="https://tg-bizops.github.io/BizOPS/chargeback_operation_manual_20260220.html" class="link-chip" target="_blank">📋 차지백 운영 매뉴얼</a>
+  <a href="https://tg-bizops.github.io/BizOPS/chargeback_sample_template.html" class="link-chip" target="_blank">📄 증빙 템플릿 미리보기</a>
+  <a href="https://tg-bizops.github.io/BizOPS/chargeback_template.xlsx" class="link-chip" target="_blank">📥 증빙 템플릿 다운로드</a>
+  <a href="https://docs.google.com/spreadsheets/d/1u2OgvNyKDCGCucGmRKxPHmJ5cA4-F5uLzYeZehKssEg" class="link-chip" target="_blank">📊 접수 건수 시트</a>
+  <a href="https://toomics.atlassian.net/wiki/spaces/Tlos64YMyGN2/pages/402260000" class="link-chip" target="_blank">📘 Confluence 매뉴얼</a>
+</div>
+
+</div><!-- flow-container -->
+
+<!-- FOOTER -->
+<div class="footer">
+  TOOMICS Global BizOps Team · Chargeback Flow Diagram v1.1 · Generated 2026-02-20<br>
+  <a href="https://tg-bizops.github.io/BizOPS/chargeback_operation_manual_20260220.html">운영 매뉴얼</a> ·
+  <a href="https://toomics.atlassian.net/wiki/spaces/Tlos64YMyGN2/pages/402260000">Confluence</a> ·
+  <a href="https://tg-bizops.github.io/BizOPS/cs_flow_diagram_20260219.html">CS 플로우</a>
+</div>
+
+</body>
+</html>
