@@ -1,0 +1,1165 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOOMICS CS AI 챗봇 운영 인포그래픽 | 2026-02-22</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @page { size: A3 portrait; margin: 10mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Malgun Gothic', 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    color: #e2e8f0;
+    background: #0f172a;
+    line-height: 1.6;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @media print {
+    body { background: #0f172a; color: #e2e8f0; }
+    .container { box-shadow: none; }
+    .card:hover { transform: none; }
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 30%, #1e3a5f 60%, #0ea5e9 100%);
+    color: white;
+    padding: 52px 56px 44px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 28px 28px;
+    margin-bottom: 36px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -80px;
+    width: 450px; height: 450px;
+    background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badges {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    backdrop-filter: blur(4px);
+  }
+  .hero-badge.active {
+    background: rgba(14,165,233,0.3);
+    border-color: rgba(14,165,233,0.5);
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    position: relative;
+    line-height: 1.3;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero .subtitle {
+    font-size: 17px;
+    opacity: 0.85;
+    font-weight: 400;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    position: relative;
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-meta-item .label {
+    font-size: 11px;
+    opacity: 0.55;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .hero-meta-item .value {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  /* ── Section ── */
+  .section {
+    margin-bottom: 36px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-left: 4px;
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-size: 22px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: linear-gradient(145deg, #1e293b, #1a2332);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  /* ── KPI Grid ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+  .kpi-card {
+    background: linear-gradient(145deg, #1e293b, #1a2332);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .kpi-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+  }
+  .kpi-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .kpi-card:nth-child(1)::before { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+  .kpi-card:nth-child(2)::before { background: linear-gradient(90deg, #10b981, #34d399); }
+  .kpi-card:nth-child(3)::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+  .kpi-card:nth-child(4)::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+  .kpi-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .kpi-number {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .kpi-card:nth-child(1) .kpi-number { color: #60a5fa; }
+  .kpi-card:nth-child(2) .kpi-number { color: #34d399; }
+  .kpi-card:nth-child(3) .kpi-number { color: #fbbf24; }
+  .kpi-card:nth-child(4) .kpi-number { color: #a78bfa; }
+  .kpi-unit {
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+  .kpi-label {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 6px;
+    font-weight: 500;
+  }
+  .kpi-sub {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+  }
+
+  /* ── Category Section ── */
+  .category-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+  }
+  .category-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  .category-table th {
+    text-align: left;
+    padding: 10px 12px;
+    border-bottom: 2px solid #334155;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .category-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .category-table tr:hover td {
+    background: rgba(255,255,255,0.02);
+  }
+  .cat-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .cat-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+  }
+  .cat-badge.auto { background: rgba(16,185,129,0.15); color: #34d399; }
+  .cat-badge.partial { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .cat-badge.manual { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  /* ── Escalation ── */
+  .escalation-chart-container {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  /* ── Pipeline Flow ── */
+  .pipeline {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    padding: 20px 0;
+  }
+  .pipe-node {
+    background: linear-gradient(145deg, #1e3a5f, #1e293b);
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 140px;
+    position: relative;
+  }
+  .pipe-node.start {
+    background: linear-gradient(145deg, #065f46, #064e3b);
+    border-color: rgba(16,185,129,0.4);
+  }
+  .pipe-node.parallel {
+    background: linear-gradient(145deg, #4c1d95, #3b0764);
+    border-color: rgba(139,92,246,0.4);
+  }
+  .pipe-node.routing {
+    background: linear-gradient(145deg, #92400e, #78350f);
+    border-color: rgba(245,158,11,0.4);
+  }
+  .pipe-node .pipe-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .pipe-node .pipe-sub {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+  .pipe-arrow {
+    font-size: 24px;
+    color: #475569;
+    margin: 0 8px;
+    flex-shrink: 0;
+  }
+  .pipe-parallel-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pipe-parallel-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #8b5cf6;
+    text-align: center;
+    font-weight: 700;
+  }
+  .pipe-results {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .pipe-result {
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+  .pipe-result.l1 { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .pipe-result.l2 { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .pipe-result.l3 { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+
+  /* ── Market Chart ── */
+  .market-chart-wrap {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ── Fraud Section ── */
+  .fraud-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .flag-list {
+    list-style: none;
+  }
+  .flag-list li {
+    padding: 8px 12px;
+    border-left: 3px solid;
+    margin-bottom: 8px;
+    border-radius: 0 8px 8px 0;
+    font-size: 13px;
+    background: rgba(255,255,255,0.02);
+  }
+  .flag-list li.critical { border-color: #ef4444; }
+  .flag-list li.supporting { border-color: #f59e0b; }
+  .flag-type {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+  }
+  .flag-type.critical { color: #f87171; }
+  .flag-type.supporting { color: #fbbf24; }
+  .gauge-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  .gauge-bar {
+    width: 100%;
+    max-width: 360px;
+    height: 36px;
+    border-radius: 18px;
+    background: linear-gradient(90deg, #22c55e 0%, #22c55e 29%, #eab308 29%, #eab308 49%, #ef4444 49%, #ef4444 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .gauge-labels {
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .gauge-labels span:nth-child(1) { color: #4ade80; }
+  .gauge-labels span:nth-child(2) { color: #facc15; }
+  .gauge-labels span:nth-child(3) { color: #f87171; }
+  .gauge-zones {
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    font-size: 11px;
+    color: #64748b;
+  }
+  .gauge-zones span:nth-child(1) { width: 29%; text-align: center; }
+  .gauge-zones span:nth-child(2) { width: 20%; text-align: center; }
+  .gauge-zones span:nth-child(3) { width: 51%; text-align: center; }
+  .scoring-rules {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #94a3b8;
+  }
+  .scoring-rules li {
+    list-style: none;
+    padding: 6px 0;
+  }
+  .scoring-rules li::before {
+    content: '';
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .scoring-rules li:nth-child(1)::before { background: #ef4444; }
+  .scoring-rules li:nth-child(2)::before { background: #f59e0b; }
+  .scoring-rules li:nth-child(3)::before { background: #3b82f6; }
+
+  /* ── Before/After ── */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .comparison-card {
+    background: linear-gradient(145deg, #1e293b, #1a2332);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .comparison-card.before {
+    border-top: 3px solid #ef4444;
+  }
+  .comparison-card.after {
+    border-top: 3px solid #10b981;
+  }
+  .comparison-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .comparison-card.before .comparison-title { color: #f87171; }
+  .comparison-card.after .comparison-title { color: #34d399; }
+  .comparison-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 14px;
+  }
+  .comparison-item:last-child { border-bottom: none; }
+  .comparison-item .c-label { color: #94a3b8; }
+  .comparison-item .c-value { font-weight: 700; }
+  .comparison-arrow {
+    font-size: 48px;
+    color: #3b82f6;
+    text-align: center;
+  }
+
+  /* ── Tech Stack ── */
+  .tech-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    justify-content: center;
+  }
+  .tech-badge {
+    background: linear-gradient(145deg, #1e293b, #1a2332);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 12px;
+    padding: 14px 24px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .tech-badge:hover {
+    transform: translateY(-2px);
+    border-color: rgba(59,130,246,0.4);
+  }
+  .tech-badge .tech-icon {
+    font-size: 22px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 48px;
+    padding: 28px 0;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+  }
+  .footer-line {
+    margin-bottom: 4px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1024px) {
+    .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+    .category-layout { grid-template-columns: 1fr; }
+    .fraud-layout { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .comparison-arrow { transform: rotate(90deg); }
+  }
+  @media (max-width: 640px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 26px; }
+    .pipeline { flex-direction: column; }
+    .pipe-arrow { transform: rotate(90deg); }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ══════════════ HERO HEADER ══════════════ -->
+  <header class="hero">
+    <div class="hero-badges">
+      <span class="hero-badge active">Phase 1</span>
+      <span class="hero-badge">5개 마켓</span>
+      <span class="hero-badge">10개 언어</span>
+    </div>
+    <h1>TOOMICS CS AI <span>챗봇 운영 인포그래픽</span></h1>
+    <p class="subtitle">11,621건 실데이터 기반 AI 챗봇 시스템 개요</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">데이터 기간</span>
+        <span class="value">2025.07 ~ 2026.01</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">분석 건수</span>
+        <span class="value">11,621건</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">마켓 수</span>
+        <span class="value">10개 글로벌 마켓</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">작성자</span>
+        <span class="value">유종선 (Chongsun Yu)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">작성일</span>
+        <span class="value">2026-02-22</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════ SECTION 1: KPI ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">1</span>
+      <h2 class="section-title">핵심 KPI</h2>
+    </div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <span class="kpi-icon">&#x1F4CA;</span>
+        <div class="kpi-number">1,662<span class="kpi-unit">건</span></div>
+        <div class="kpi-label">월평균 CS 티켓</div>
+        <div class="kpi-sub">7개월 평균 (11,621 / 7)</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">&#x26A1;</span>
+        <div class="kpi-number">630<span class="kpi-unit">건/월</span></div>
+        <div class="kpi-label">셀프서비스 자동화</div>
+        <div class="kpi-sub">전체 대비 38% 자동 처리</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">&#x1F465;</span>
+        <div class="kpi-number">1,032<span class="kpi-unit">건/월</span></div>
+        <div class="kpi-label">에스컬레이션</div>
+        <div class="kpi-sub">상담원 처리 62%</div>
+      </div>
+      <div class="kpi-card">
+        <span class="kpi-icon">&#x23F1;</span>
+        <div class="kpi-number">즉시</div>
+        <div class="kpi-label">응답시간 개선</div>
+        <div class="kpi-sub">기존 24~48시간 &rarr; 즉시 응답</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 2: CATEGORY ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">2</span>
+      <h2 class="section-title">카테고리 분포</h2>
+    </div>
+    <div class="category-layout">
+      <div class="card">
+        <div class="chart-container">
+          <canvas id="categoryDoughnut"></canvas>
+        </div>
+      </div>
+      <div class="card">
+        <table class="category-table">
+          <thead>
+            <tr>
+              <th>카테고리</th>
+              <th>비중</th>
+              <th>월평균</th>
+              <th>처리 방식</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="cat-dot" style="background:#3b82f6"></span>Subscription</td>
+              <td>48%</td>
+              <td>700건</td>
+              <td><span class="cat-badge auto">자동 + 에스컬</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#ef4444"></span>Refund</td>
+              <td>25%</td>
+              <td>367건</td>
+              <td><span class="cat-badge partial">부분 자동</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#10b981"></span>Account</td>
+              <td>13%</td>
+              <td>189건</td>
+              <td><span class="cat-badge partial">부분 자동</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#f59e0b"></span>Payment</td>
+              <td>5%</td>
+              <td>86건</td>
+              <td><span class="cat-badge partial">부분 자동</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#8b5cf6"></span>Content</td>
+              <td>4%</td>
+              <td>57건</td>
+              <td><span class="cat-badge manual">전체 에스컬</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#06b6d4"></span>Technical</td>
+              <td>3%</td>
+              <td>32건</td>
+              <td><span class="cat-badge partial">부분 자동</span></td>
+            </tr>
+            <tr>
+              <td><span class="cat-dot" style="background:#6b7280"></span>Other</td>
+              <td>2%</td>
+              <td>30건</td>
+              <td><span class="cat-badge manual">전체 에스컬</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 3: ESCALATION LEVELS ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">3</span>
+      <h2 class="section-title">에스컬레이션 레벨 분포</h2>
+    </div>
+    <div class="card">
+      <div class="escalation-chart-container">
+        <canvas id="escalationBar"></canvas>
+      </div>
+      <div style="display:flex; gap:24px; justify-content:center; margin-top:20px; flex-wrap:wrap; font-size:13px;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#ef4444;"></span>
+          <span><strong>L1</strong> &mdash; 즉시 에스컬레이션 (AI 응답 없음)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#f59e0b;"></span>
+          <span><strong>L2</strong> &mdash; AI 초안 + 상담원 검토</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#10b981;"></span>
+          <span><strong>L3</strong> &mdash; 셀프서비스 자동 처리</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 4: PIPELINE ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">4</span>
+      <h2 class="section-title">파이프라인 플로우</h2>
+    </div>
+    <div class="card">
+      <div class="pipeline">
+        <div class="pipe-node start">
+          <div class="pipe-label">Customer Message</div>
+          <div class="pipe-sub">고객 메시지 수신</div>
+        </div>
+        <div class="pipe-arrow">&#x27A1;</div>
+        <div class="pipe-node">
+          <div class="pipe-label">Language Detection</div>
+          <div class="pipe-sub">언어 감지 (10개)</div>
+        </div>
+        <div class="pipe-arrow">&#x27A1;</div>
+        <div class="pipe-parallel-group">
+          <div class="pipe-parallel-label">&#x2016; Parallel</div>
+          <div class="pipe-node parallel">
+            <div class="pipe-label">Fraud Detection</div>
+            <div class="pipe-sub">9 Red Flags</div>
+          </div>
+          <div class="pipe-node parallel">
+            <div class="pipe-label">Intent Classification</div>
+            <div class="pipe-sub">7 Cat / 23 Sub</div>
+          </div>
+        </div>
+        <div class="pipe-arrow">&#x27A1;</div>
+        <div class="pipe-node routing">
+          <div class="pipe-label">Routing Decision</div>
+          <div class="pipe-sub">레벨 결정</div>
+        </div>
+      </div>
+      <div class="pipe-results">
+        <div class="pipe-result l1">L1 즉시 에스컬레이션<br><small>~212건/월</small></div>
+        <div class="pipe-result l2">L2 AI 초안 + 검토<br><small>~820건/월</small></div>
+        <div class="pipe-result l3">L3 셀프서비스<br><small>~630건/월</small></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 5: MARKETS ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">5</span>
+      <h2 class="section-title">마켓별 분포</h2>
+    </div>
+    <div class="card">
+      <div class="market-chart-wrap">
+        <canvas id="marketBar"></canvas>
+      </div>
+      <div style="display:flex; gap:20px; justify-content:center; margin-top:16px; font-size:13px; flex-wrap:wrap;">
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#3b82f6;"></span>
+          <span>Phase 1 마켓 (EN, FR, ES, PT, DE)</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;">
+          <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:#475569;"></span>
+          <span>Phase 2 마켓 (TH, JP, CN, IT, KR)</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 6: FRAUD ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">6</span>
+      <h2 class="section-title">Fraud 탐지 스코어링</h2>
+    </div>
+    <div class="fraud-layout">
+      <div class="card">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:16px;color:#f1f5f9;">9 Red Flag 지표</h3>
+        <ul class="flag-list">
+          <li class="critical">
+            <div class="flag-type critical">Critical</div>
+            무단 결제 주장 (Unauthorized Charge Claim)
+          </li>
+          <li class="critical">
+            <div class="flag-type critical">Critical</div>
+            미성년자 결제 (Minor/Child Payment)
+          </li>
+          <li class="critical">
+            <div class="flag-type critical">Critical</div>
+            차지백/은행 분쟁 (Chargeback Mention)
+          </li>
+          <li class="critical">
+            <div class="flag-type critical">Critical</div>
+            계정 탈취 징후 (Account Takeover)
+          </li>
+          <li class="critical">
+            <div class="flag-type critical">Critical</div>
+            이중 과금 (Double Charge)
+          </li>
+          <li class="supporting">
+            <div class="flag-type supporting">Supporting</div>
+            IP/기기 불일치 (Device Mismatch)
+          </li>
+          <li class="supporting">
+            <div class="flag-type supporting">Supporting</div>
+            빠른 다중 결제 (Rapid Multiple Charges)
+          </li>
+          <li class="supporting">
+            <div class="flag-type supporting">Supporting</div>
+            법적 위협 (Legal Threat)
+          </li>
+          <li class="supporting">
+            <div class="flag-type supporting">Supporting</div>
+            정보 불일치 (Info Inconsistency)
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="font-size:16px;font-weight:700;margin-bottom:24px;color:#f1f5f9;">리스크 스코어링</h3>
+        <div class="gauge-container">
+          <div class="gauge-bar">
+            <div style="position:absolute;top:0;left:0;height:100%;width:29%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;">LOW</div>
+            <div style="position:absolute;top:0;left:29%;height:100%;width:20%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;">MED</div>
+            <div style="position:absolute;top:0;left:49%;height:100%;width:51%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:13px;">HIGH</div>
+          </div>
+          <div class="gauge-zones">
+            <span>0 ~ 29</span>
+            <span>30 ~ 49</span>
+            <span>50 ~ 100</span>
+          </div>
+        </div>
+        <ul class="scoring-rules">
+          <li><strong>Critical 지표 1개</strong>: +30점 (즉시 MEDIUM 이상)</li>
+          <li><strong>Supporting 지표 2개+</strong>: +15점/개</li>
+          <li><strong>HIGH 등급</strong>: 강제 L1 에스컬레이션 (AI 응답 없음)</li>
+        </ul>
+        <div style="margin-top:24px;">
+          <canvas id="fraudDoughnut" style="max-width:240px;max-height:240px;margin:0 auto;display:block;"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 7: BEFORE / AFTER ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">7</span>
+      <h2 class="section-title">자동화 효과 예상</h2>
+    </div>
+    <div class="comparison-grid">
+      <div class="comparison-card before">
+        <div class="comparison-title">&#x274C; Before AI</div>
+        <div class="comparison-item">
+          <span class="c-label">월간 처리량</span>
+          <span class="c-value">1,662건 전체 수동</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">상담원 수</span>
+          <span class="c-value">4명</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">평균 응답 시간</span>
+          <span class="c-value" style="color:#f87171;">24~48시간</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">상담원당 부담</span>
+          <span class="c-value">415건/월</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">자동 처리율</span>
+          <span class="c-value" style="color:#f87171;">0%</span>
+        </div>
+      </div>
+      <div class="comparison-arrow">&#x27A1;&#xFE0F;</div>
+      <div class="comparison-card after">
+        <div class="comparison-title">&#x2705; After AI</div>
+        <div class="comparison-item">
+          <span class="c-label">자동 처리</span>
+          <span class="c-value" style="color:#34d399;">630건/월 (38%)</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">상담원 처리</span>
+          <span class="c-value">1,032건/월 (62%)</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">L3 응답 시간</span>
+          <span class="c-value" style="color:#34d399;">즉시 응답</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">여력 확보</span>
+          <span class="c-value" style="color:#34d399;">상담원 1명 (105h/월)</span>
+        </div>
+        <div class="comparison-item">
+          <span class="c-label">자동 처리율</span>
+          <span class="c-value" style="color:#34d399;">38%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ SECTION 8: TECH STACK ══════════════ -->
+  <section class="section">
+    <div class="section-header">
+      <span class="section-number">8</span>
+      <h2 class="section-title">기술 스택</h2>
+    </div>
+    <div class="card">
+      <div class="tech-grid">
+        <div class="tech-badge"><span class="tech-icon">&#x1F40D;</span> Python 3.11+</div>
+        <div class="tech-badge"><span class="tech-icon">&#x26A1;</span> FastAPI</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F9E0;</span> Claude API</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F50D;</span> ChromaDB</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F433;</span> Docker</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F310;</span> Nginx</div>
+        <div class="tech-badge"><span class="tech-icon">&#x2705;</span> Pydantic v2</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F4DD;</span> Loguru</div>
+        <div class="tech-badge"><span class="tech-icon">&#x1F3AB;</span> Zendesk API</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════ FOOTER ══════════════ -->
+  <footer class="footer">
+    <div class="footer-line"><strong>작성자</strong>: 유종선 (Chongsun Yu)</div>
+    <div class="footer-line"><strong>데이터 기간</strong>: 2025.07 ~ 2026.01</div>
+    <div class="footer-line"><strong>분석 건수</strong>: 11,621건 &times; 10개 마켓</div>
+    <div class="footer-line" style="margin-top:8px;color:#475569;">&copy; 2026 Toomics Global CS AI Chatbot Project</div>
+  </footer>
+
+</div><!-- /.container -->
+
+<script>
+// ── Chart.js Global Defaults ──
+Chart.defaults.color = '#94a3b8';
+Chart.defaults.borderColor = 'rgba(255,255,255,0.06)';
+Chart.defaults.font.family = "'Malgun Gothic', 'Noto Sans KR', sans-serif";
+
+// ── 1. Category Doughnut Chart ──
+new Chart(document.getElementById('categoryDoughnut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Subscription', 'Refund', 'Account', 'Payment', 'Content', 'Technical', 'Other'],
+    datasets: [{
+      data: [48, 25, 13, 5, 4, 3, 2],
+      backgroundColor: ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6', '#06b6d4', '#6b7280'],
+      borderWidth: 2,
+      borderColor: '#0f172a',
+      hoverBorderColor: '#fff',
+      hoverBorderWidth: 3,
+      hoverOffset: 8
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '55%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          padding: 16,
+          usePointStyle: true,
+          pointStyleWidth: 10,
+          font: { size: 12 }
+        }
+      },
+      tooltip: {
+        backgroundColor: '#1e293b',
+        titleColor: '#f1f5f9',
+        bodyColor: '#e2e8f0',
+        borderColor: '#334155',
+        borderWidth: 1,
+        cornerRadius: 8,
+        padding: 12,
+        callbacks: {
+          label: function(ctx) {
+            var monthly = [700, 367, 189, 86, 57, 32, 30];
+            return ctx.label + ': ' + ctx.parsed + '% (' + monthly[ctx.dataIndex] + '건/월)';
+          }
+        }
+      }
+    }
+  }
+});
+
+// ── 2. Escalation Horizontal Bar Chart ──
+new Chart(document.getElementById('escalationBar'), {
+  type: 'bar',
+  data: {
+    labels: ['L1 즉시 에스컬레이션', 'L2 AI 초안 + 상담원 검토', 'L3 셀프서비스 자동 처리'],
+    datasets: [{
+      data: [212, 820, 630],
+      backgroundColor: ['#ef4444', '#f59e0b', '#10b981'],
+      borderRadius: 8,
+      borderSkipped: false,
+      barPercentage: 0.6
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#1e293b',
+        titleColor: '#f1f5f9',
+        bodyColor: '#e2e8f0',
+        borderColor: '#334155',
+        borderWidth: 1,
+        cornerRadius: 8,
+        padding: 12,
+        callbacks: {
+          label: function(ctx) {
+            var total = 1662;
+            var pct = ((ctx.parsed.x / total) * 100).toFixed(1);
+            return ctx.parsed.x + '건/월 (' + pct + '%)';
+          }
+        }
+      }
+    },
+    scales: {
+      x: {
+        grid: { color: 'rgba(255,255,255,0.04)' },
+        ticks: { font: { size: 12 } },
+        title: { display: true, text: '월평균 건수', font: { size: 12 } }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { font: { size: 13, weight: '600' } }
+      }
+    }
+  }
+});
+
+// ── 3. Market Bar Chart ──
+(function() {
+  var labels = ['EN', 'FR', 'ES', 'PT', 'DE', 'TH', 'JP', 'CN', 'IT', 'KR'];
+  var data = [4285, 1941, 1552, 982, 965, 647, 494, 373, 282, 100];
+  var phase1 = ['EN', 'FR', 'ES', 'PT', 'DE'];
+  var colors = labels.map(function(l) {
+    return phase1.indexOf(l) !== -1 ? '#3b82f6' : '#475569';
+  });
+
+  new Chart(document.getElementById('marketBar'), {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [{
+        data: data,
+        backgroundColor: colors,
+        borderRadius: 6,
+        borderSkipped: false,
+        barPercentage: 0.7
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1e293b',
+          titleColor: '#f1f5f9',
+          bodyColor: '#e2e8f0',
+          borderColor: '#334155',
+          borderWidth: 1,
+          cornerRadius: 8,
+          padding: 12,
+          callbacks: {
+            label: function(ctx) {
+              var pct = ((ctx.parsed.y / 11621) * 100).toFixed(1);
+              var phaseLabel = phase1.indexOf(ctx.label) !== -1 ? ' [Phase 1]' : ' [Phase 2]';
+              return ctx.parsed.y.toLocaleString() + '건 (' + pct + '%)' + phaseLabel;
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { font: { size: 13, weight: '700' } }
+        },
+        y: {
+          grid: { color: 'rgba(255,255,255,0.04)' },
+          ticks: { font: { size: 12 } },
+          title: { display: true, text: '총 건수 (7개월)', font: { size: 12 } }
+        }
+      }
+    }
+  });
+})();
+
+// ── 4. Fraud Risk Distribution Doughnut ──
+new Chart(document.getElementById('fraudDoughnut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['LOW (0-29)', 'MEDIUM (30-49)', 'HIGH (50-100)'],
+    datasets: [{
+      data: [5, 3, 1],
+      backgroundColor: ['#22c55e', '#eab308', '#ef4444'],
+      borderWidth: 2,
+      borderColor: '#1e293b',
+      hoverOffset: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '50%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          padding: 12,
+          usePointStyle: true,
+          pointStyleWidth: 10,
+          font: { size: 11 }
+        }
+      },
+      tooltip: {
+        backgroundColor: '#1e293b',
+        titleColor: '#f1f5f9',
+        bodyColor: '#e2e8f0',
+        borderColor: '#334155',
+        borderWidth: 1,
+        cornerRadius: 8,
+        padding: 12
+      },
+      title: {
+        display: true,
+        text: 'Red Flag 구성: 5 Critical + 4 Supporting',
+        color: '#94a3b8',
+        font: { size: 12, weight: '500' },
+        padding: { bottom: 8 }
+      }
+    }
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toomics CS AI Chatbot 운영 매뉴얼 v1.0 | 2026-02-22</title>
+<style>
+  @page { size: A4; margin: 15mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg-primary: #0f172a;
+    --bg-secondary: #1e293b;
+    --bg-card: #1e293b;
+    --bg-card-hover: #243247;
+    --text-primary: #e2e8f0;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --accent-blue: #0ea5e9;
+    --accent-cyan: #22d3ee;
+    --accent-green: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-red: #ef4444;
+    --accent-purple: #a78bfa;
+    --accent-pink: #ec4899;
+    --border-color: #334155;
+    --border-light: rgba(255,255,255,0.06);
+    --shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--text-primary);
+    background: var(--bg-primary);
+    line-height: 1.7;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @media print {
+    body { background: #fff; color: #1a1a2e; }
+    .container { box-shadow: none; }
+    .no-print { display: none !important; }
+    .hero { background: #1e3a5f !important; }
+    .card, .toc, table { border: 1px solid #ccc; }
+    a { color: #1e3a5f; }
+    .back-to-top { display: none !important; }
+    details { break-inside: avoid; }
+    section { break-inside: avoid; }
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+  }
+
+  section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    color: white;
+    padding: 52px 56px 44px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 40px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    backdrop-filter: blur(4px);
+  }
+  .hero h1 {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    opacity: 0.85;
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 24px;
+    font-size: 13px;
+    opacity: 0.7;
+    flex-wrap: wrap;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── Section Headers ── */
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--border-color);
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 28px;
+    margin-bottom: 20px;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent-blue); }
+  .card h3 {
+    font-size: 17px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent-cyan);
+  }
+  .card h4 {
+    font-size: 15px;
+    font-weight: 600;
+    margin: 16px 0 10px;
+    color: var(--text-primary);
+  }
+  .card p {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-bottom: 12px;
+    line-height: 1.7;
+  }
+
+  /* ── Table of Contents ── */
+  .toc {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 14px;
+    padding: 28px 36px;
+    margin: 0 40px 40px;
+  }
+  .toc h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--accent-cyan);
+  }
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 8px 32px;
+  }
+  .toc a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .toc a:hover {
+    background: rgba(14,165,233,0.08);
+    color: var(--accent-blue);
+  }
+  .toc-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 26px; height: 26px;
+    background: rgba(14,165,233,0.12);
+    border-radius: 7px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent-blue);
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-bottom: 16px;
+  }
+  thead th {
+    background: rgba(14,165,233,0.1);
+    color: var(--accent-cyan);
+    font-weight: 700;
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 2px solid var(--border-color);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    vertical-align: top;
+  }
+  tbody tr:hover { background: rgba(14,165,233,0.04); }
+  tbody tr:last-child td { border-bottom: none; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+  }
+  .badge-l1 { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-l2 { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .badge-l3 { background: rgba(16,185,129,0.15); color: #34d399; border: 1px solid rgba(16,185,129,0.3); }
+  .badge-critical { background: rgba(239,68,68,0.15); color: #f87171; border: 1px solid rgba(239,68,68,0.3); }
+  .badge-supporting { background: rgba(245,158,11,0.15); color: #fbbf24; border: 1px solid rgba(245,158,11,0.3); }
+  .badge-phase1 { background: rgba(14,165,233,0.15); color: #38bdf8; border: 1px solid rgba(14,165,233,0.3); }
+  .badge-phase2 { background: rgba(100,116,139,0.2); color: #94a3b8; border: 1px solid rgba(100,116,139,0.3); }
+  .badge-tech {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    margin: 2px;
+  }
+  .badge-tech-blue { background: rgba(14,165,233,0.15); color: #38bdf8; }
+  .badge-tech-green { background: rgba(16,185,129,0.15); color: #34d399; }
+  .badge-tech-purple { background: rgba(167,139,250,0.15); color: #a78bfa; }
+  .badge-tech-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+
+  /* ── Pipeline Flow ── */
+  .pipeline-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 20px 0;
+    overflow-x: auto;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .pipeline-step {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 16px 20px;
+    text-align: center;
+    min-width: 140px;
+    flex-shrink: 0;
+    transition: all 0.2s;
+  }
+  .pipeline-step:hover { border-color: var(--accent-blue); transform: translateY(-2px); }
+  .pipeline-step .step-icon { font-size: 24px; margin-bottom: 6px; }
+  .pipeline-step .step-title { font-size: 12px; font-weight: 700; color: var(--accent-cyan); }
+  .pipeline-step .step-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+  .pipeline-arrow {
+    font-size: 20px;
+    color: var(--text-muted);
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .pipeline-parallel {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+  }
+  .pipeline-parallel::before {
+    content: 'PARALLEL';
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    letter-spacing: 1px;
+  }
+
+  /* ── Routing Grid ── */
+  .routing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+  @media (max-width: 768px) {
+    .routing-grid { grid-template-columns: 1fr; }
+  }
+  .routing-card {
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border-color);
+  }
+  .routing-card-l1 {
+    background: rgba(239,68,68,0.06);
+    border-color: rgba(239,68,68,0.2);
+  }
+  .routing-card-l2 {
+    background: rgba(245,158,11,0.06);
+    border-color: rgba(245,158,11,0.2);
+  }
+  .routing-card-l3 {
+    background: rgba(16,185,129,0.06);
+    border-color: rgba(16,185,129,0.2);
+  }
+  .routing-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .routing-card-l1 h4 { color: #f87171; }
+  .routing-card-l2 h4 { color: #fbbf24; }
+  .routing-card-l3 h4 { color: #34d399; }
+  .routing-card ul {
+    list-style: none;
+    font-size: 12.5px;
+    color: var(--text-secondary);
+  }
+  .routing-card li {
+    padding: 3px 0;
+    padding-left: 16px;
+    position: relative;
+  }
+  .routing-card li::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+  }
+  .routing-card-l1 li::before { background: #f87171; }
+  .routing-card-l2 li::before { background: #fbbf24; }
+  .routing-card-l3 li::before { background: #34d399; }
+
+  /* ── Collapsible Sections ── */
+  details {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  details:hover { border-color: var(--accent-blue); }
+  details[open] { border-color: var(--accent-blue); }
+  summary {
+    padding: 16px 24px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+    list-style: none;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before {
+    content: '\25B6';
+    font-size: 10px;
+    color: var(--accent-blue);
+    transition: transform 0.2s;
+  }
+  details[open] summary::before { transform: rotate(90deg); }
+  .details-content {
+    padding: 0 24px 20px;
+  }
+
+  /* ── Fraud Score Bar ── */
+  .score-bar {
+    display: flex;
+    height: 32px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 16px 0;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .score-bar-low {
+    background: rgba(16,185,129,0.25);
+    color: #34d399;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .score-bar-med {
+    background: rgba(245,158,11,0.25);
+    color: #fbbf24;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .score-bar-high {
+    background: rgba(239,68,68,0.25);
+    color: #f87171;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Code Block ── */
+  .code-block {
+    background: #0c1222;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 16px 20px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    color: #38bdf8;
+    overflow-x: auto;
+    margin: 12px 0;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    word-break: break-all;
+  }
+  .code-block .comment { color: #64748b; }
+  .code-block .cmd { color: #34d399; }
+  .code-block .flag { color: #fbbf24; }
+  .code-block .url { color: #a78bfa; }
+
+  /* ── Info/Warning Boxes ── */
+  .info-box {
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 13.5px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .info-box-blue {
+    background: rgba(14,165,233,0.08);
+    border: 1px solid rgba(14,165,233,0.2);
+    color: #7dd3fc;
+  }
+  .info-box-amber {
+    background: rgba(245,158,11,0.08);
+    border: 1px solid rgba(245,158,11,0.2);
+    color: #fde68a;
+  }
+  .info-box-red {
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.2);
+    color: #fca5a5;
+  }
+  .info-box-green {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.2);
+    color: #6ee7b7;
+  }
+  .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+
+  /* ── Market Flags ── */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 16px;
+  }
+  .market-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .market-card:hover { border-color: var(--accent-blue); }
+  .market-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .market-flag {
+    font-size: 28px;
+    line-height: 1;
+  }
+  .market-card-header h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+  .market-card-header .market-pct {
+    margin-left: auto;
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent-blue);
+  }
+  .market-detail {
+    font-size: 12.5px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+  .market-detail strong { color: var(--text-primary); }
+
+  /* ── Stat Grid ── */
+  .stat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 20px;
+  }
+  .stat-item {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--accent-blue);
+    line-height: 1.2;
+  }
+  .stat-label {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── Exclusion List ── */
+  .exclusion-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .exclusion-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-light);
+    font-size: 13.5px;
+    color: var(--text-secondary);
+  }
+  .exclusion-list li:last-child { border-bottom: none; }
+  .exclusion-icon {
+    color: var(--accent-red);
+    font-size: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* ── Back to Top ── */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 44px;
+    height: 44px;
+    background: var(--accent-blue);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 20px;
+    cursor: pointer;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 16px rgba(14,165,233,0.4);
+    transition: all 0.2s;
+    z-index: 999;
+  }
+  .back-to-top:hover { transform: translateY(-2px); background: #0284c7; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 24px; }
+    section { padding: 0 20px; }
+    .toc { margin: 0 20px 30px; padding: 20px; }
+    .toc-grid { grid-template-columns: 1fr; }
+    .pipeline-flow { flex-direction: column; }
+    .pipeline-arrow { transform: rotate(90deg); }
+    .market-grid { grid-template-columns: 1fr; }
+    .stat-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* ── Keyword Tags ── */
+  .keyword-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    background: rgba(100,116,139,0.15);
+    border: 1px solid rgba(100,116,139,0.2);
+    border-radius: 6px;
+    font-size: 11px;
+    font-family: 'Consolas', monospace;
+    color: var(--text-muted);
+    margin: 2px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 32px 40px;
+    color: var(--text-muted);
+    font-size: 12px;
+    border-top: 1px solid var(--border-color);
+    margin-top: 40px;
+  }
+
+  /* ── Horizontal Divider ── */
+  .divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 32px 40px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================== HERO ============================== -->
+<div class="container">
+  <header class="hero" id="top">
+    <div class="hero-badge">OPERATIONS MANUAL v1.0</div>
+    <h1>Toomics CS AI Chatbot 운영 매뉴얼</h1>
+    <p class="subtitle">투믹스 글로벌 CS AI 챗봇 시스템 운영 가이드 -- CS 운영팀 / QA팀 전용</p>
+    <div class="hero-meta">
+      <span>&#128100; 작성자: 유종선 (Chongsun Yu)</span>
+      <span>&#128197; 작성일: 2026-02-22</span>
+      <span>&#128202; 데이터: 11,621건 (7개월 x 10개 마켓)</span>
+      <span>&#127760; Phase 1: EN, FR, ES, PT, DE</span>
+    </div>
+  </header>
+
+  <!-- ============================== TOC ============================== -->
+  <nav class="toc" id="toc">
+    <h3>&#128203; 목차 (Table of Contents)</h3>
+    <div class="toc-grid">
+      <a href="#sec-1"><span class="toc-num">1</span> 문서 개요</a>
+      <a href="#sec-2"><span class="toc-num">2</span> 시스템 아키텍처</a>
+      <a href="#sec-3"><span class="toc-num">3</span> 파이프라인 처리 흐름</a>
+      <a href="#sec-4"><span class="toc-num">4</span> 7대 카테고리 운영 가이드</a>
+      <a href="#sec-5"><span class="toc-num">5</span> 23개 Sub-Intent 상세</a>
+      <a href="#sec-6"><span class="toc-num">6</span> Fraud 탐지 운영</a>
+      <a href="#sec-7"><span class="toc-num">7</span> 다국어 운영 가이드</a>
+      <a href="#sec-8"><span class="toc-num">8</span> 자동화 영구 배제 영역</a>
+      <a href="#sec-9"><span class="toc-num">9</span> 서버 운영 가이드</a>
+      <a href="#sec-10"><span class="toc-num">10</span> 품질 규칙</a>
+    </div>
+  </nav>
+
+  <!-- ============================== 1. 문서 개요 ============================== -->
+  <section id="sec-1">
+    <div class="section-header">
+      <span class="section-number">1</span>
+      <h2>문서 개요</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128214; 목적</h3>
+      <p>본 문서는 <strong style="color:var(--accent-cyan)">투믹스(Toomics) 글로벌 CS AI 챗봇</strong> 시스템의 운영 매뉴얼입니다.
+        고객이 웹사이트/앱에서 AI와 직접 대화하여 CS 문의를 해결하는 서비스의 전체 운영 절차, 기술 구조, 에스컬레이션 규칙,
+        Fraud 탐지 방침, 다국어 처리 가이드를 포괄합니다.</p>
+
+      <div class="stat-grid">
+        <div class="stat-item">
+          <div class="stat-value">11,621</div>
+          <div class="stat-label">분석 기반 CS 데이터 (건)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">~630</div>
+          <div class="stat-label">월 셀프서비스 자동 처리 (건)</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">38%</div>
+          <div class="stat-label">자동 처리율 목표</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-value">5</div>
+          <div class="stat-label">Phase 1 지원 마켓</div>
+        </div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>항목</th><th>내용</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>문서명</strong></td><td>Toomics CS AI Chatbot 운영 매뉴얼</td></tr>
+          <tr><td><strong>버전</strong></td><td>v1.0</td></tr>
+          <tr><td><strong>작성일</strong></td><td>2026-02-22</td></tr>
+          <tr><td><strong>작성자</strong></td><td>유종선 (Chongsun Yu)</td></tr>
+          <tr><td><strong>대상 독자</strong></td><td>CS 운영팀, QA팀</td></tr>
+          <tr><td><strong>데이터 기반</strong></td><td>11,621건 x 7개월 x 10개 마켓 실제 CS 데이터</td></tr>
+          <tr><td><strong>목표</strong></td><td>월 ~630건(38%) 셀프서비스 자동 처리 + 나머지 상담원 에스컬레이션 (총 월 ~1,660건)</td></tr>
+          <tr><td><strong>Phase 1 마켓</strong></td><td>EN(37%), FR(17%), ES(13%), PT(9%), DE(8%) -- 상위 5개 (84%)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================== 2. 시스템 아키텍처 ============================== -->
+  <section id="sec-2">
+    <div class="section-header">
+      <span class="section-number">2</span>
+      <h2>시스템 아키텍처</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#9881;&#65039; 기술 스택</h3>
+      <p style="margin-bottom:16px;">
+        <span class="badge-tech badge-tech-green">Python 3.11+</span>
+        <span class="badge-tech badge-tech-green">FastAPI</span>
+        <span class="badge-tech badge-tech-purple">Claude API (Anthropic)</span>
+        <span class="badge-tech badge-tech-blue">ChromaDB (RAG)</span>
+        <span class="badge-tech badge-tech-amber">Pydantic v2</span>
+        <span class="badge-tech badge-tech-green">Uvicorn</span>
+        <span class="badge-tech badge-tech-blue">Loguru</span>
+        <span class="badge-tech badge-tech-amber">Zendesk API</span>
+      </p>
+
+      <h4>&#128421;&#65039; 서버 정보</h4>
+      <table>
+        <thead>
+          <tr><th>항목</th><th>값</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>서버 IP</td><td><code style="color:var(--accent-cyan)">94.125.160.235</code></td></tr>
+          <tr><td>서비스명</td><td><code style="color:var(--accent-cyan)">chatbot.service</code> (systemd)</td></tr>
+          <tr><td>애플리케이션 경로</td><td><code style="color:var(--accent-cyan)">/opt/Ai-Chat-bot-project</code></td></tr>
+          <tr><td>포트</td><td><code style="color:var(--accent-cyan)">8000</code> (기본)</td></tr>
+          <tr><td>프레임워크</td><td>FastAPI + Uvicorn (ASGI)</td></tr>
+          <tr><td>AI 모델</td><td>Anthropic Claude API</td></tr>
+          <tr><td>벡터 DB</td><td>ChromaDB (RAG 파이프라인)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128193; 프로젝트 구조 요약</h3>
+      <div class="code-block"><span class="comment"># 핵심 디렉토리 구조</span>
+Ai-Chat-bot-project/
+  <span class="cmd">app/</span>                   <span class="comment"># FastAPI 애플리케이션</span>
+    main.py              <span class="comment"># 엔트리포인트 + lifespan</span>
+    config.py            <span class="comment"># pydantic-settings 환경 설정</span>
+    <span class="cmd">models/</span>              <span class="comment"># Pydantic v2 데이터 모델</span>
+    <span class="cmd">services/</span>            <span class="comment"># 비즈니스 로직 (파이프라인 핵심)</span>
+      pipeline.py        <span class="comment"># 메인 오케스트레이터</span>
+      claude_service.py  <span class="comment"># Claude API 클라이언트</span>
+      rag_service.py     <span class="comment"># ChromaDB 벡터 검색</span>
+      intent_classifier.py  <span class="comment"># 7 카테고리 x 23 Sub-Intent</span>
+      fraud_detector.py  <span class="comment"># 9 Red Flag 탐지</span>
+      multilingual.py    <span class="comment"># 언어 감지 + 라우팅</span>
+      self_service.py    <span class="comment"># L3 셀프서비스 응답</span>
+      escalation_handler.py <span class="comment"># L1/L2 에스컬레이션</span>
+    <span class="cmd">routers/</span>             <span class="comment"># API 엔드포인트</span>
+    <span class="cmd">utils/</span>               <span class="comment"># 로깅, 프롬프트 로더</span>
+  <span class="cmd">prompts/</span>               <span class="comment"># 기능별 프롬프트 모듈 (5개)</span>
+  <span class="cmd">knowledge/</span>             <span class="comment"># 지식 베이스 JSON (6개 + templates)</span>
+  <span class="cmd">config/</span>                <span class="comment"># 설정 파일 (3개)</span>
+  <span class="cmd">tests/</span>                 <span class="comment"># 단위/통합 테스트</span></div>
+    </div>
+  </section>
+
+  <!-- ============================== 3. 파이프라인 처리 흐름 ============================== -->
+  <section id="sec-3">
+    <div class="section-header">
+      <span class="section-number">3</span>
+      <h2>파이프라인 처리 흐름</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128260; 전체 처리 흐름</h3>
+      <div class="pipeline-flow">
+        <div class="pipeline-step">
+          <div class="step-icon">&#128172;</div>
+          <div class="step-title">Customer Message</div>
+          <div class="step-desc">고객 메시지 수신</div>
+        </div>
+        <div class="pipeline-arrow">&#10132;</div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#127760;</div>
+          <div class="step-title">Language Detection</div>
+          <div class="step-desc">multilingual.py</div>
+        </div>
+        <div class="pipeline-arrow">&#10132;</div>
+        <div class="pipeline-parallel">
+          <div class="pipeline-step" style="border-color:rgba(239,68,68,0.3);">
+            <div class="step-icon">&#128681;</div>
+            <div class="step-title">Fraud Detection</div>
+            <div class="step-desc">fraud_detector.py</div>
+          </div>
+          <div class="pipeline-step" style="border-color:rgba(14,165,233,0.3);">
+            <div class="step-icon">&#128300;</div>
+            <div class="step-title">Intent Classification</div>
+            <div class="step-desc">intent_classifier.py</div>
+          </div>
+        </div>
+        <div class="pipeline-arrow">&#10132;</div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128268;</div>
+          <div class="step-title">Routing Decision</div>
+          <div class="step-desc">escalation_handler.py</div>
+        </div>
+        <div class="pipeline-arrow">&#10132;</div>
+        <div class="pipeline-step">
+          <div class="step-icon">&#128172;</div>
+          <div class="step-title">Response</div>
+          <div class="step-desc">ChatResponse</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#128268; 라우팅 결정 (L1 / L2 / L3)</h3>
+      <div class="routing-grid">
+        <div class="routing-card routing-card-l1">
+          <h4>&#128308; L1 -- Immediate Escalation</h4>
+          <p style="font-size:11px; color:#fca5a5; margin-bottom:10px;">AI 응답 없음. 즉시 티켓 제출.</p>
+          <ul>
+            <li>Fraud HIGH (50점 이상)</li>
+            <li>Content 카테고리 전체</li>
+            <li>Other 카테고리 전체</li>
+            <li>법적 키워드 감지 (변호사, GDPR 등)</li>
+            <li>차지백/은행 분쟁 키워드</li>
+            <li>버그 리포트 (기기명+OS 버전)</li>
+            <li>무단결제, 이중결제, 미성년자</li>
+            <li>계정 잠금/제한</li>
+            <li>욕설, 극단적 감정 표현</li>
+          </ul>
+        </div>
+        <div class="routing-card routing-card-l2">
+          <h4>&#128992; L2 -- AI Draft + Agent Review</h4>
+          <p style="font-size:11px; color:#fde68a; margin-bottom:10px;">AI 초안 생성, 상담원 검토 후 발송.</p>
+          <ul>
+            <li>환불 적격성 판단 필요</li>
+            <li>해지 + 환불 동시 요청</li>
+            <li>자동갱신 미인지 불만</li>
+            <li>소셜 로그인 복구</li>
+            <li>이메일 변경</li>
+            <li>결제 후 미적용</li>
+            <li>코인 이슈</li>
+            <li>동일 이슈 2회+ 반복 접수</li>
+          </ul>
+        </div>
+        <div class="routing-card routing-card-l3">
+          <h4>&#128994; L3 -- Self-Service Auto Response</h4>
+          <p style="font-size:11px; color:#6ee7b7; margin-bottom:10px;">검증된 안내 자동 발송. 티켓 옵션 포함.</p>
+          <ul>
+            <li>구독 해지 안내</li>
+            <li>갱신일/잔여기간 문의</li>
+            <li>VIP 접근 불가 안내</li>
+            <li>도메인 혼동 안내</li>
+            <li>iOS 환불 리디렉트</li>
+            <li>환불 상태 안내</li>
+            <li>비밀번호 리셋</li>
+            <li>계정 삭제 체크리스트</li>
+            <li>결제 수단/실패 안내</li>
+            <li>일반 기술 지원 / 앱 이슈</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="info-box info-box-amber">
+        <span class="info-icon">&#9888;&#65039;</span>
+        <div><strong>우선순위 규칙:</strong> L1 > L2 > L3. L1 트리거가 하나라도 있으면 다른 레벨 무시. Fraud HIGH는 무조건 L1. 복합 의도 3개 이상 또는 의도 분류 불가(confidence &lt; 0.50)도 L1.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 4. 7대 카테고리 ============================== -->
+  <section id="sec-4">
+    <div class="section-header">
+      <span class="section-number">4</span>
+      <h2>7대 카테고리 운영 가이드</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128202; 카테고리별 처리 현황 (11,621건 분석 기반)</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>카테고리</th>
+            <th>월평균</th>
+            <th>비중</th>
+            <th>셀프서비스율</th>
+            <th>에스컬레이션 레벨</th>
+            <th>Sub-Intent 수</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:var(--accent-blue)">Subscription</strong> (구독)</td>
+            <td>700건</td>
+            <td><strong>48%</strong></td>
+            <td style="color:#34d399;">95%</td>
+            <td><span class="badge badge-l3">L3 주도</span></td>
+            <td>6개</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-blue)">Refund</strong> (환불)</td>
+            <td>367건</td>
+            <td><strong>25%</strong></td>
+            <td style="color:#fbbf24;">50%</td>
+            <td><span class="badge badge-l2">L2</span> / <span class="badge badge-l3">L3</span> 혼합</td>
+            <td>7개</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-blue)">Account</strong> (계정)</td>
+            <td>189건</td>
+            <td><strong>13%</strong></td>
+            <td style="color:#fbbf24;">50%</td>
+            <td><span class="badge badge-l2">L2</span> / <span class="badge badge-l3">L3</span> 혼합</td>
+            <td>5개</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-blue)">Payment</strong> (결제)</td>
+            <td>86건</td>
+            <td><strong>5%</strong></td>
+            <td style="color:#fbbf24;">50%</td>
+            <td><span class="badge badge-l2">L2</span> / <span class="badge badge-l3">L3</span> 혼합</td>
+            <td>5개</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.04);">
+            <td><strong style="color:#f87171;">Content</strong> (콘텐츠)</td>
+            <td>57건</td>
+            <td><strong>4%</strong></td>
+            <td style="color:#f87171;">0%</td>
+            <td><span class="badge badge-l1">전체 L1</span> <span style="font-size:11px; color:#f87171;">(자동화 배제)</span></td>
+            <td>4개</td>
+          </tr>
+          <tr>
+            <td><strong style="color:var(--accent-blue)">Technical</strong> (기술)</td>
+            <td>32건</td>
+            <td><strong>3%</strong></td>
+            <td style="color:#fbbf24;">50%</td>
+            <td><span class="badge badge-l2">L2</span> / <span class="badge badge-l3">L3</span> 혼합</td>
+            <td>3개</td>
+          </tr>
+          <tr style="background:rgba(239,68,68,0.04);">
+            <td><strong style="color:#f87171;">Other</strong> (기타)</td>
+            <td>30건</td>
+            <td><strong>2%</strong></td>
+            <td style="color:#f87171;">0%</td>
+            <td><span class="badge badge-l1">전체 L1</span> <span style="font-size:11px; color:#f87171;">(자동화 배제)</span></td>
+            <td>3개</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info-box-red">
+        <span class="info-icon">&#128683;</span>
+        <div><strong>Content / Other 카테고리</strong>는 어떤 Phase에서도 자동 응답을 하지 않습니다. 전체 L1 에스컬레이션 (자동화 영구 배제).</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 5. 23개 Sub-Intent ============================== -->
+  <section id="sec-5">
+    <div class="section-header">
+      <span class="section-number">5</span>
+      <h2>23개 Sub-Intent 상세</h2>
+    </div>
+
+    <!-- Subscription -->
+    <details>
+      <summary><span class="badge badge-l3" style="margin-right:4px">L3 주도</span> Subscription (구독) -- 6개 Sub-Intent | 월 700건 | 48%</summary>
+      <div class="details-content">
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>cancel_subscription</code></td>
+              <td>구독 해지 요청</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>구독 해지 방법 안내 (웹/iOS/Android/PayPal)</td>
+              <td><span class="keyword-tag">cancel</span><span class="keyword-tag">unsubscribe</span><span class="keyword-tag">stop billing</span><span class="keyword-tag">stop charging</span></td>
+            </tr>
+            <tr>
+              <td><code>cancel_and_refund</code></td>
+              <td>해지 + 환불 동시 요청</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>구독 해지와 환불을 동시에 요청하는 건. 환불 적격성 검토 필요.</td>
+              <td><span class="keyword-tag">cancel and refund</span><span class="keyword-tag">stop and refund</span><span class="keyword-tag">money back</span></td>
+            </tr>
+            <tr>
+              <td><code>auto_renewal_complaint</code></td>
+              <td>자동갱신 미인지 불만</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>자동갱신 사실을 몰랐다는 불만. 상담원 확인 필요.</td>
+              <td><span class="keyword-tag">didn't know</span><span class="keyword-tag">automatic</span><span class="keyword-tag">renewed without</span><span class="keyword-tag">charged again</span></td>
+            </tr>
+            <tr>
+              <td><code>renewal_date_inquiry</code></td>
+              <td>갱신일/잔여기간 문의</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>다음 결제일, 구독 만료일, 잔여 기간 확인 안내.</td>
+              <td><span class="keyword-tag">when</span><span class="keyword-tag">next billing</span><span class="keyword-tag">renewal date</span><span class="keyword-tag">expire</span></td>
+            </tr>
+            <tr>
+              <td><code>vip_not_working</code></td>
+              <td>VIP 접근 불가</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>VIP 결제 후 접근 불가. 도메인 확인, 기기 제한 안내.</td>
+              <td><span class="keyword-tag">VIP not working</span><span class="keyword-tag">can't access</span><span class="keyword-tag">paid but</span><span class="keyword-tag">premium not active</span></td>
+            </tr>
+            <tr>
+              <td><code>domain_confusion</code></td>
+              <td>도메인 혼동</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>다른 언어 도메인에서 구매 후 올바른 도메인에서 접근 시도. 도메인 독립 구조 설명.</td>
+              <td><span class="keyword-tag">different site</span><span class="keyword-tag">other language</span><span class="keyword-tag">bought on EN but</span><span class="keyword-tag">wrong domain</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- Refund -->
+    <details>
+      <summary><span class="badge badge-l2" style="margin-right:4px">L2/L3 혼합</span> Refund (환불) -- 7개 Sub-Intent | 월 367건 | 25%</summary>
+      <div class="details-content">
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>simple_refund</code></td>
+              <td>단순 환불 요청</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>3-boolean 판정 필요 (14일 이내 + VIP 콘텐츠 미열람 + 코인 미사용)</td>
+              <td><span class="keyword-tag">refund</span><span class="keyword-tag">money back</span><span class="keyword-tag">get my money</span></td>
+            </tr>
+            <tr>
+              <td><code>ios_refund</code></td>
+              <td>iOS/Apple 환불</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>Apple 결제는 직접 환불 불가. reportaproblem.apple.com 리디렉트.</td>
+              <td><span class="keyword-tag">Apple</span><span class="keyword-tag">App Store</span><span class="keyword-tag">iTunes</span><span class="keyword-tag">iOS refund</span></td>
+            </tr>
+            <tr>
+              <td><code>refund_status</code></td>
+              <td>환불 진행 상황</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>환불 처리 기간 안내 (PG사별 상이)</td>
+              <td><span class="keyword-tag">when will I get</span><span class="keyword-tag">refund status</span><span class="keyword-tag">how long</span></td>
+            </tr>
+            <tr>
+              <td><code>partial_refund</code></td>
+              <td>부분 환불</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>잔여 일수 기준 비례 환불 요청. 상담원 검토 필요.</td>
+              <td><span class="keyword-tag">partial</span><span class="keyword-tag">remaining days</span><span class="keyword-tag">pro-rate</span></td>
+            </tr>
+            <tr>
+              <td><code>coin_refund</code></td>
+              <td>코인 환불</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>코인 환불: 7일 이내 + 전량 미사용 조건. 상담원 확인 필요.</td>
+              <td><span class="keyword-tag">coin refund</span><span class="keyword-tag">refund coins</span></td>
+            </tr>
+            <tr>
+              <td><code>unauthorized_charge</code></td>
+              <td>무단결제 주장</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>무단/사기 결제 주장. 계정 활동 이력 검증 필요. Fraud 탐지 연동.</td>
+              <td><span class="keyword-tag">unauthorized</span><span class="keyword-tag">fraud</span><span class="keyword-tag">not me</span><span class="keyword-tag">stolen card</span></td>
+            </tr>
+            <tr>
+              <td><code>child_purchase</code></td>
+              <td>미성년자 결제</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>미성년자가 결제한 건. 콘텐츠 이미 열람 시 환불 거절 대상.</td>
+              <td><span class="keyword-tag">my child</span><span class="keyword-tag">my kid</span><span class="keyword-tag">minor</span><span class="keyword-tag">underage</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="info-box info-box-amber">
+          <span class="info-icon">&#9888;&#65039;</span>
+          <div>
+            <strong>환불 핵심 규칙:</strong><br>
+            &bull; VIP 환불: 14일 이내 + VIP 콘텐츠 미열람 + 코인 미사용 (3개 ALL 충족)<br>
+            &bull; 코인 환불: <strong>7일</strong> 이내 + 코인 전량 미사용<br>
+            &bull; 복수 구매: <strong>가장 최근 1건만</strong> 환불 가능 (이전 건 불가)<br>
+            &bull; 미성년자(child_purchase): 콘텐츠 이미 열람됨 시 환불 거절
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Account -->
+    <details>
+      <summary><span class="badge badge-l2" style="margin-right:4px">L2/L3 혼합</span> Account (계정) -- 5개 Sub-Intent | 월 189건 | 13%</summary>
+      <div class="details-content">
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>password_reset</code></td>
+              <td>비밀번호 재설정</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>비밀번호 분실 시 리셋 링크 안내 (Self-Service / Manual Reset)</td>
+              <td><span class="keyword-tag">password</span><span class="keyword-tag">forgot</span><span class="keyword-tag">reset</span><span class="keyword-tag">can't login</span></td>
+            </tr>
+            <tr>
+              <td><code>account_deletion</code></td>
+              <td>계정 삭제 요청</td>
+              <td><span class="badge badge-l3">L3</span><span style="font-size:11px;color:var(--text-muted);"> &#8594; L2</span></td>
+              <td>5항목 체크리스트 제시(L3) &#8594; 고객 확인 후 상담원 최종 처리(L2). 하이브리드 플로우.</td>
+              <td><span class="keyword-tag">delete account</span><span class="keyword-tag">GDPR</span><span class="keyword-tag">erase data</span><span class="keyword-tag">close account</span></td>
+            </tr>
+            <tr>
+              <td><code>social_login_issue</code></td>
+              <td>소셜 로그인 문제</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>Facebook/Google/Apple 소셜 로그인 복구. 계정 식별 확인 필요.</td>
+              <td><span class="keyword-tag">Facebook login</span><span class="keyword-tag">Google login</span><span class="keyword-tag">Apple login</span></td>
+            </tr>
+            <tr>
+              <td><code>email_change</code></td>
+              <td>이메일 변경</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>계정 이메일 변경 요청. 본인 확인 후 상담원 처리.</td>
+              <td><span class="keyword-tag">change email</span><span class="keyword-tag">update email</span><span class="keyword-tag">new email</span></td>
+            </tr>
+            <tr>
+              <td><code>account_locked</code></td>
+              <td>계정 잠금/제한</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>계정 잠금, 정지, 제한 상태. 즉시 상담원 확인 필요.</td>
+              <td><span class="keyword-tag">locked</span><span class="keyword-tag">restricted</span><span class="keyword-tag">suspended</span><span class="keyword-tag">blocked</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- Payment -->
+    <details>
+      <summary><span class="badge badge-l2" style="margin-right:4px">L2/L3 혼합</span> Payment (결제) -- 5개 Sub-Intent | 월 86건 | 5%</summary>
+      <div class="details-content">
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>payment_method</code></td>
+              <td>결제 수단 문의</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>이용 가능 결제 수단 안내 (마켓별 상이)</td>
+              <td><span class="keyword-tag">how to pay</span><span class="keyword-tag">payment method</span><span class="keyword-tag">PayPal</span><span class="keyword-tag">credit card</span></td>
+            </tr>
+            <tr>
+              <td><code>payment_failed</code></td>
+              <td>결제 실패</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>결제 실패 트러블슈팅 안내 (카드 확인, 캐시 삭제, VPN 해제 등)</td>
+              <td><span class="keyword-tag">failed</span><span class="keyword-tag">declined</span><span class="keyword-tag">error</span><span class="keyword-tag">payment failed</span></td>
+            </tr>
+            <tr>
+              <td><code>double_charge</code></td>
+              <td>이중결제</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>동일 결제 2회 발생 주장. 결제 내역 대조 필요. 즉시 에스컬레이션.</td>
+              <td><span class="keyword-tag">charged twice</span><span class="keyword-tag">double charge</span><span class="keyword-tag">duplicate</span></td>
+            </tr>
+            <tr>
+              <td><code>payment_not_applied</code></td>
+              <td>결제 후 미적용</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>결제 완료되었으나 서비스(VIP/코인) 미적용. 결제 내역 확인 필요.</td>
+              <td><span class="keyword-tag">paid but</span><span class="keyword-tag">no access</span><span class="keyword-tag">not applied</span><span class="keyword-tag">not activated</span></td>
+            </tr>
+            <tr>
+              <td><code>coin_issue</code></td>
+              <td>코인 관련</td>
+              <td><span class="badge badge-l2">L2</span></td>
+              <td>코인 미지급, 잔액 오류, 기프트 코인 문의. 상담원 확인 필요.</td>
+              <td><span class="keyword-tag">coin</span><span class="keyword-tag">gift coin</span><span class="keyword-tag">not credited</span><span class="keyword-tag">coins missing</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- Content -->
+    <details>
+      <summary><span class="badge badge-l1" style="margin-right:4px">전체 L1</span> Content (콘텐츠) -- 4개 Sub-Intent | 월 57건 | 4% | &#128683; 자동화 배제</summary>
+      <div class="details-content">
+        <div class="info-box info-box-red">
+          <span class="info-icon">&#128683;</span>
+          <div><strong>자동화 영구 배제:</strong> Content 카테고리 전체는 인간 판단이 필수입니다. 작품 에러, 번역 품질, 콘텐츠 투고 등 자동 응답 불가.</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>content_error</code></td>
+              <td>작품 에러</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>챕터 누락, 빈 페이지, 이미지 깨짐 등 작품 표시 오류</td>
+              <td><span class="keyword-tag">missing chapter</span><span class="keyword-tag">blank page</span><span class="keyword-tag">broken image</span></td>
+            </tr>
+            <tr>
+              <td><code>translation_error</code></td>
+              <td>번역/맞춤법 에러</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>잘못된 번역, 오타, 문법 오류 신고</td>
+              <td><span class="keyword-tag">wrong translation</span><span class="keyword-tag">typo</span><span class="keyword-tag">spelling</span><span class="keyword-tag">grammar</span></td>
+            </tr>
+            <tr>
+              <td><code>content_request</code></td>
+              <td>작품 요청/제안</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>작품 추가 요청, 업데이트 일정 문의, 신작 요청</td>
+              <td><span class="keyword-tag">add this manga</span><span class="keyword-tag">when new chapter</span><span class="keyword-tag">update schedule</span></td>
+            </tr>
+            <tr>
+              <td><code>content_feedback</code></td>
+              <td>작품 피드백/평점</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>작품에 대한 의견, 평가, 리뷰</td>
+              <td><span class="keyword-tag">great story</span><span class="keyword-tag">terrible</span><span class="keyword-tag">rating</span><span class="keyword-tag">review</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- Technical -->
+    <details>
+      <summary><span class="badge badge-l2" style="margin-right:4px">L2/L3 혼합</span> Technical (기술) -- 3개 Sub-Intent | 월 32건 | 3%</summary>
+      <div class="details-content">
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>general_tech</code></td>
+              <td>일반 기술 문의</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>느림, 로딩, 크래시 등 일반 기술 문의. 캐시 삭제, 앱 업데이트 안내.</td>
+              <td><span class="keyword-tag">slow</span><span class="keyword-tag">loading</span><span class="keyword-tag">crash</span><span class="keyword-tag">not working</span></td>
+            </tr>
+            <tr>
+              <td><code>bug_report</code></td>
+              <td>버그 리포트 (기기+OS)</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>기기명+OS 버전이 포함된 상세 버그 리포트. 개발팀 전달 필요.</td>
+              <td><span class="keyword-tag">bug</span><span class="keyword-tag">Android</span><span class="keyword-tag">iOS</span><span class="keyword-tag">device</span><span class="keyword-tag">version</span></td>
+            </tr>
+            <tr>
+              <td><code>app_issue</code></td>
+              <td>앱 관련</td>
+              <td><span class="badge badge-l3">L3</span></td>
+              <td>앱 업데이트, 다운로드, 설치 관련 안내</td>
+              <td><span class="keyword-tag">app</span><span class="keyword-tag">update app</span><span class="keyword-tag">download</span><span class="keyword-tag">install</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <!-- Other -->
+    <details>
+      <summary><span class="badge badge-l1" style="margin-right:4px">전체 L1</span> Other (기타) -- 3개 Sub-Intent | 월 30건 | 2% | &#128683; 자동화 배제</summary>
+      <div class="details-content">
+        <div class="info-box info-box-red">
+          <span class="info-icon">&#128683;</span>
+          <div><strong>자동화 영구 배제:</strong> Other 카테고리 전체는 CS 대상이 아닌 문의로 적절한 부서 배정이 필요합니다.</div>
+        </div>
+        <table>
+          <thead>
+            <tr><th>Sub-Intent</th><th>한국어명</th><th>Level</th><th>설명</th><th>Keywords (EN)</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>job_inquiry</code></td>
+              <td>구직 문의</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>채용, 경력, 지원 관련 문의</td>
+              <td><span class="keyword-tag">job</span><span class="keyword-tag">hiring</span><span class="keyword-tag">apply</span><span class="keyword-tag">career</span><span class="keyword-tag">portfolio</span></td>
+            </tr>
+            <tr>
+              <td><code>partnership</code></td>
+              <td>파트너십/비즈니스</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>제휴, 비즈니스 협력, 번역 라이선스 등</td>
+              <td><span class="keyword-tag">partnership</span><span class="keyword-tag">business</span><span class="keyword-tag">collaboration</span><span class="keyword-tag">B2B</span></td>
+            </tr>
+            <tr>
+              <td><code>non_cs</code></td>
+              <td>CS 대상 아닌 문의</td>
+              <td><span class="badge badge-l1">L1</span></td>
+              <td>서비스 합법성, 검열, 일반 문의 등 CS 범위 외</td>
+              <td><span class="keyword-tag">uncensored</span><span class="keyword-tag">legal in</span><span class="keyword-tag">available in</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============================== 6. Fraud 탐지 ============================== -->
+  <section id="sec-6">
+    <div class="section-header">
+      <span class="section-number">6</span>
+      <h2>Fraud 탐지 운영</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128681; Fraud 점수 체계</h3>
+      <p>모든 고객 메시지에 대해 실시간으로 Fraud 탐지를 수행합니다. <strong>9개 Red Flag</strong> 지표(Critical 5 + Supporting 4)로 구성됩니다.</p>
+
+      <div class="score-bar">
+        <div class="score-bar-low" style="width:20%;">LOW (0~19)</div>
+        <div class="score-bar-med" style="width:30%;">MEDIUM (20~49)</div>
+        <div class="score-bar-high" style="width:50%;">HIGH (50~100) &#8594; 강제 L1</div>
+      </div>
+
+      <table>
+        <thead>
+          <tr><th>점수 범위</th><th>위험 등급</th><th>동작</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>0 ~ 19</strong></td>
+            <td><span style="color:#34d399;">&#9899; LOW</span></td>
+            <td>정상 진행. 스킬 2(셀프서비스) 또는 3(에스컬레이션)으로 라우팅.</td>
+          </tr>
+          <tr>
+            <td><strong>20 ~ 49</strong></td>
+            <td><span style="color:#fbbf24;">&#9899; MEDIUM</span></td>
+            <td>주의 플래그 기록. 정상 처리하되 메타데이터에 플래그 기록.</td>
+          </tr>
+          <tr>
+            <td><strong>50 ~ 100</strong></td>
+            <td><span style="color:#f87171;">&#9899; HIGH</span></td>
+            <td><strong>강제 L1 에스컬레이션.</strong> Fraud 플래그 + 맥락 요약 상담원 전달.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128308; Critical 지표 (5개) -- 1개라도 감지 시 주의</h3>
+      <p style="margin-bottom:16px; color:var(--accent-red);">Critical 지표 1개 단독 감지 시 해당 점수 반영. 점수 합계 50+ 시 L1 에스컬레이션.</p>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Red Flag</th><th>한국어명</th><th>점수</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-critical">C1</span></td>
+            <td><code>content_viewed_unauthorized</code></td>
+            <td>콘텐츠 열람 후 무단거래 주장</td>
+            <td><strong>+40</strong></td>
+            <td>"unauthorized" 주장 + 계정에 결제 후 VIP 열람 이력 존재. 백엔드 검증 필요.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-critical">C2</span></td>
+            <td><code>ai_legal_document</code></td>
+            <td>AI 생성 법률 문서 패턴</td>
+            <td><strong>+35</strong></td>
+            <td>과도한 법률 용어, EU 지침 번호 인용, 7일 데드라인, 포맷화된 클레임 레터 패턴.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-critical">C3</span></td>
+            <td><code>fake_legal_rep</code></td>
+            <td>가짜 법률 대리인 사칭</td>
+            <td><strong>+35</strong></td>
+            <td>"on behalf of my client" + 검증 불가 법무법인명 + Gmail 등 무료 이메일 도메인.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-critical">C4</span></td>
+            <td><code>contradictory_claims</code></td>
+            <td>주장 간 모순</td>
+            <td><strong>+30</strong></td>
+            <td>대화 중 날짜, 금액, 상품, 상황 설명이 메시지마다 변경되는 패턴.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-critical">C5</span></td>
+            <td><code>strategic_escalation</code></td>
+            <td>전략적 에스컬레이션 패턴</td>
+            <td><strong>+30</strong></td>
+            <td>정중한 요청 &#8594; 권리 주장 &#8594; 법적 위협 &#8594; 대리인 동원으로 단계적 위협 수위 상승.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128992; Supporting 지표 (4개) -- 2개 이상 조합 시 주의</h3>
+      <p style="margin-bottom:16px; color:var(--accent-amber);">Supporting 지표 단독으로는 에스컬레이션하지 않음. 2개+ 조합 시 합산 점수 반영.</p>
+      <table>
+        <thead>
+          <tr><th>#</th><th>Red Flag</th><th>한국어명</th><th>점수</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-supporting">S6</span></td>
+            <td><code>fake_name</code></td>
+            <td>가짜/밈 이름 사용</td>
+            <td><strong>+15</strong></td>
+            <td>명백히 허구인 이름 (만화 캐릭터, 밈, 숫자 포함 이름 등). 문화권별 차이 고려.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-supporting">S7</span></td>
+            <td><code>unverifiable_info</code></td>
+            <td>검증 불가 정보</td>
+            <td><strong>+15</strong></td>
+            <td>존재하지 않는 기관명, 잘못된 법률 조항 인용, 허위 참조 번호.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-supporting">S8</span></td>
+            <td><code>exchange_rate_claim</code></td>
+            <td>환율 손해 주장</td>
+            <td><strong>+15</strong></td>
+            <td>PG사/카드사 환전 수수료를 투믹스 책임으로 전가하여 추가 보상 요구.</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-supporting">S9</span></td>
+            <td><code>chargeback_threat_repeat</code></td>
+            <td>차지백 위협 반복</td>
+            <td><strong>+15</strong></td>
+            <td>대화 중 차지백/은행 분쟁을 2회 이상 반복 언급. 참고 수준, 고객 응대 우선.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128220; Fraud 탐지 핵심 원칙</h3>
+      <table>
+        <thead>
+          <tr><th>원칙</th><th>설명</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>탐지만 수행</strong></td><td>어떤 경우에도 자동 차단/거부하지 않음. 플래그 기록 + 상담원 전달만.</td></tr>
+          <tr><td><strong>고객 비노출</strong></td><td>Fraud 점수, Red Flag 정보를 고객에게 절대 보여주지 않음.</td></tr>
+          <tr><td><strong>의심 &#8800; 확정</strong></td><td>"의심된다"로 표현. "사기다"라고 단정하지 않음.</td></tr>
+          <tr><td><strong>대화 맥락 누적</strong></td><td>단일 메시지가 아닌 대화 전체에서 패턴 감지.</td></tr>
+          <tr><td><strong>선의 추정</strong></td><td>동일 증거에 합리적 해석이 가능하면 고객에게 유리하게 판단.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================== 7. 다국어 운영 가이드 ============================== -->
+  <section id="sec-7">
+    <div class="section-header">
+      <span class="section-number">7</span>
+      <h2>다국어 운영 가이드</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#127760; Phase 1 마켓 (5개 -- 전체 84%)</h3>
+      <div class="market-grid">
+        <!-- EN -->
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="market-flag">&#127482;&#127480;</span>
+            <div>
+              <h4>EN -- English</h4>
+              <div style="font-size:12px; color:var(--text-muted);">toomics.com/en</div>
+            </div>
+            <span class="market-pct">37%</span>
+          </div>
+          <div class="market-detail">
+            <strong>월평균:</strong> 612건 (총 4,285건)<br>
+            <strong>톤:</strong> Casual professional. 직접적, 친근한 미국식 영어.<br>
+            <strong>경칭:</strong> Standard (you/your)<br>
+            <strong>결제:</strong> PayPal dominant, Checkout(card), Google Play, Apple IAP<br>
+            <strong>특이사항:</strong> 가장 큰 마켓. PayPal unauthorized 분쟁 최다. 도메인 혼동 사례 다수.<br>
+            <strong>법적 규정:</strong> 없음 (일반 소비자법 적용)
+          </div>
+        </div>
+        <!-- FR -->
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="market-flag">&#127467;&#127479;</span>
+            <div>
+              <h4>FR -- Fran&#231;ais</h4>
+              <div style="font-size:12px; color:var(--text-muted);">toomics.com/fr</div>
+            </div>
+            <span class="market-pct">17%</span>
+          </div>
+          <div class="market-detail">
+            <strong>월평균:</strong> 277건 (총 1,941건)<br>
+            <strong>톤:</strong> Formal, polite. 반드시 vouvoiement (vous) 사용.<br>
+            <strong>경칭:</strong> Vouvoiement (vous) -- tu 절대 사용 금지<br>
+            <strong>결제:</strong> PayPal, Checkout(card)<br>
+            <strong>특이사항:</strong> Content 비중 높음(5%). 번역 에러 문의 다수. 비밀번호 평문 발송 보안 이슈 발견.<br>
+            <strong>법적 규정:</strong> EU 14일 철회권(Droit de r&#233;tractation), RGPD(GDPR)
+          </div>
+        </div>
+        <!-- ES -->
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="market-flag">&#127466;&#127480;</span>
+            <div>
+              <h4>ES -- Espa&#241;ol</h4>
+              <div style="font-size:12px; color:var(--text-muted);">toomics.com/es</div>
+            </div>
+            <span class="market-pct">13%</span>
+          </div>
+          <div class="market-detail">
+            <strong>월평균:</strong> 222건 (총 1,552건)<br>
+            <strong>톤:</strong> Formal, respectful. Usted 형태 사용. 라틴아메리카 스페인어.<br>
+            <strong>경칭:</strong> Usted (경칭)<br>
+            <strong>결제:</strong> PayPal, Checkout(card)<br>
+            <strong>특이사항:</strong> 라틴아메리카 유저 중심. Account(15%), Payment(7%) 비중 상대적 높음.<br>
+            <strong>법적 규정:</strong> 없음 (지역별 소비자법 적용)
+          </div>
+        </div>
+        <!-- PT -->
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="market-flag">&#127463;&#127479;</span>
+            <div>
+              <h4>PT -- Portugu&#234;s</h4>
+              <div style="font-size:12px; color:var(--text-muted);">toomics.com/pt</div>
+            </div>
+            <span class="market-pct">9%</span>
+          </div>
+          <div class="market-detail">
+            <strong>월평균:</strong> 140건 (총 982건)<br>
+            <strong>톤:</strong> Formal, warm. 브라질 포르투갈어. Senhor/Senhora 사용.<br>
+            <strong>경칭:</strong> Senhor/Senhora (경칭)<br>
+            <strong>결제:</strong> PayPal, PIX (대기 2~10일), Checkout(card)<br>
+            <strong>특이사항:</strong> <strong style="color:var(--accent-amber);">7개월간 2배 성장 (103건&#8594;253건) -- 가장 빠른 성장 마켓.</strong> Refund > Subscription 유일한 마켓. PIX 결제 대기 혼란 집중.<br>
+            <strong>법적 규정:</strong> <strong>CDC (C&#243;digo de Defesa do Consumidor)</strong> -- 온라인 구매 7일 내 무조건 철회 (콘텐츠 유형 무관)
+          </div>
+        </div>
+        <!-- DE -->
+        <div class="market-card">
+          <div class="market-card-header">
+            <span class="market-flag">&#127465;&#127466;</span>
+            <div>
+              <h4>DE -- Deutsch</h4>
+              <div style="font-size:12px; color:var(--text-muted);">toomics.com/de</div>
+            </div>
+            <span class="market-pct">8%</span>
+          </div>
+          <div class="market-detail">
+            <strong>월평균:</strong> 137건 (총 957건)<br>
+            <strong>톤:</strong> Formal, precise. 반드시 Sie 사용. 법적 용어 정확성 중요.<br>
+            <strong>경칭:</strong> Sie (경칭) -- du 절대 사용 금지<br>
+            <strong>결제:</strong> PayPal, Checkout(card)<br>
+            <strong>특이사항:</strong> Subscription 50%로 전체 마켓 중 최고. Account 16% (GDPR 삭제 요청 집중). <strong style="color:var(--accent-amber);">법적 에스컬레이션 최다 마켓.</strong><br>
+            <strong>법적 규정:</strong> <strong>Widerrufsrecht</strong> (EU 14일 철회권), <strong>DSGVO</strong> (GDPR) -- 계정 삭제 30일 내 처리 의무
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>&#128338; Phase 2 마켓 (5개 -- 현재 미지원)</h3>
+      <p style="margin-bottom:16px;">Phase 2 마켓에서 메시지 수신 시: <strong>인사말 + L1 에스컬레이션</strong> (언어 메타데이터 포함 티켓 생성)</p>
+      <table>
+        <thead>
+          <tr><th>마켓</th><th>언어</th><th>도메인</th><th>비중</th><th>월평균</th><th>특이사항</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge badge-phase2">TH</span></td>
+            <td>태국어</td>
+            <td>toomics.com/th</td>
+            <td>5%</td>
+            <td>80건</td>
+            <td>앱/웹 도메인 혼동 집중, EN VIP &#8594; TH 미적용 빈번</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-phase2">JP</span></td>
+            <td>일본어</td>
+            <td>toomics.jp/ja</td>
+            <td>5%</td>
+            <td>79건</td>
+            <td>Account 비중 높음(22%), 경어(&#25964;&#35486;) 필수, 특정상거래법</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-phase2">CN</span></td>
+            <td>중국어</td>
+            <td>toomics.com/cn</td>
+            <td>4%</td>
+            <td>68건</td>
+            <td>대만 마켓, MyCard 현지 결제수단 (3영업일 기한)</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-phase2">IT</span></td>
+            <td>이탈리아어</td>
+            <td>toomics.com/it</td>
+            <td>3%</td>
+            <td>45건</td>
+            <td>Lei(경칭) 사용, EU 14일 철회권 적용</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-phase2">KR</span></td>
+            <td>한국어</td>
+            <td>toomics.com/kr</td>
+            <td>&lt;1%</td>
+            <td>&lt;1건</td>
+            <td>글로벌 CS 대상 아님 (국내 별도 운영)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128231; 마켓별 지원 이메일</h3>
+      <table>
+        <thead>
+          <tr><th>마켓</th><th>지원 이메일</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>EN</td><td><code>en.help@toomicsglobal.com</code></td></tr>
+          <tr><td>FR</td><td><code>fr.help@toomicsglobal.com</code></td></tr>
+          <tr><td>ES</td><td><code>es.help@toomicsglobal.com</code></td></tr>
+          <tr><td>DE</td><td><code>de.help@toomicsglobal.com</code></td></tr>
+          <tr><td>IT</td><td><code>it.help@toomicsglobal.com</code></td></tr>
+          <tr><td>JP</td><td><code>jp.help@toomicsglobal.com</code></td></tr>
+        </tbody>
+      </table>
+      <div class="info-box info-box-blue">
+        <span class="info-icon">&#128233;</span>
+        <div>결제 알림 발신 주소: <code>no-reply@toomics.com</code> (제목: "[Payment Statement] TOOMICS Purchase Information")</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 8. 자동화 영구 배제 ============================== -->
+  <section id="sec-8">
+    <div class="section-header">
+      <span class="section-number">8</span>
+      <h2>자동화 영구 배제 영역</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128683; 어떤 Phase에서도 자동 응답을 하지 않는 영역</h3>
+      <p>아래 항목은 시스템 고도화와 무관하게 <strong>영구적으로</strong> 자동 처리에서 배제됩니다.</p>
+
+      <ul class="exclusion-list">
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">Content 카테고리 전체</strong><br>
+            작품 업데이트 일정, 번역/맞춤법 에러, 챕터 누락, 이미지 깨짐, 작품 투고/제안, 작품 피드백/평점. 인간 판단 필수.
+          </div>
+        </li>
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">Other 카테고리 전체</strong><br>
+            구직, 파트너십, 비즈니스 문의, CS 대상 아닌 문의. 적절한 부서 배정 필요.
+          </div>
+        </li>
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">기술 버그 리포트 (기기+OS)</strong><br>
+            기기명 + OS 버전이 포함된 상세 버그 리포트. 개발팀 전달 필요. (예: "iPhone 15 Pro, iOS 17.2에서 크래시 발생")
+          </div>
+        </li>
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">법적/컴플라이언스 문의</strong><br>
+            EU 철회권(Widerrufsrecht, Droit de r&#233;tractation), GDPR(DSGVO, RGPD), CDC 등 법적 규정 인용. 법적 판단 불가.
+          </div>
+        </li>
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">Fraud HIGH (50점 이상)</strong><br>
+            Red Flag Critical 1개 이상 또는 Supporting 2개 이상 조합으로 fraud_score 50+ 달성. 인간 검토 필수.
+          </div>
+        </li>
+        <li>
+          <span class="exclusion-icon">&#10006;</span>
+          <div>
+            <strong style="color:var(--text-primary);">제3자 해지 요청 (Minna Technologies / Ethoca)</strong><br>
+            <code>@cancel.us.minnatechnologies.com</code> 도메인 발신 자동 요청. <strong style="color:var(--accent-red);">절대 응답 금지 (DO NOT RESPOND).</strong>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============================== 9. 서버 운영 가이드 ============================== -->
+  <section id="sec-9">
+    <div class="section-header">
+      <span class="section-number">9</span>
+      <h2>서버 운영 가이드</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128421;&#65039; 서비스 관리 명령어</h3>
+      <h4>서버 시작 / 중지 / 재시작</h4>
+      <div class="code-block"><span class="comment"># 서비스 시작</span>
+<span class="cmd">sudo systemctl start</span> <span class="flag">chatbot.service</span>
+
+<span class="comment"># 서비스 중지</span>
+<span class="cmd">sudo systemctl stop</span> <span class="flag">chatbot.service</span>
+
+<span class="comment"># 서비스 재시작</span>
+<span class="cmd">sudo systemctl restart</span> <span class="flag">chatbot.service</span>
+
+<span class="comment"># 서비스 상태 확인</span>
+<span class="cmd">sudo systemctl status</span> <span class="flag">chatbot.service</span>
+
+<span class="comment"># 부팅 시 자동 시작 설정</span>
+<span class="cmd">sudo systemctl enable</span> <span class="flag">chatbot.service</span></div>
+
+      <h4>로그 확인</h4>
+      <div class="code-block"><span class="comment"># 실시간 로그 추적</span>
+<span class="cmd">journalctl -u chatbot.service -f</span>
+
+<span class="comment"># 최근 100줄 로그</span>
+<span class="cmd">journalctl -u chatbot.service -n 100</span>
+
+<span class="comment"># 오늘 로그만 보기</span>
+<span class="cmd">journalctl -u chatbot.service --since today</span></div>
+    </div>
+
+    <div class="card">
+      <h3>&#128268; API 엔드포인트</h3>
+      <table>
+        <thead>
+          <tr><th>Method</th><th>Endpoint</th><th>설명</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="badge-tech badge-tech-green">GET</span></td>
+            <td><code>/health</code></td>
+            <td>기본 헬스체크</td>
+            <td>서버 상태 확인 (200 OK)</td>
+          </tr>
+          <tr>
+            <td><span class="badge-tech badge-tech-green">GET</span></td>
+            <td><code>/health/detailed</code></td>
+            <td>상세 헬스체크</td>
+            <td>Claude API, ChromaDB, 메모리 등 상세 상태</td>
+          </tr>
+          <tr>
+            <td><span class="badge-tech badge-tech-blue">POST</span></td>
+            <td><code>/api/chat</code></td>
+            <td>메인 채팅 API</td>
+            <td>고객 메시지 처리 (파이프라인 전체 실행)</td>
+          </tr>
+          <tr>
+            <td><span class="badge-tech badge-tech-blue">POST</span></td>
+            <td><code>/api/chat/feedback</code></td>
+            <td>피드백 수집</td>
+            <td>고객 만족도 / 응답 품질 피드백</td>
+          </tr>
+          <tr>
+            <td><span class="badge-tech badge-tech-amber">POST</span></td>
+            <td><code>/api/webhook/zendesk</code></td>
+            <td>Zendesk 웹훅</td>
+            <td>Zendesk 티켓 상태 변경 알림 수신</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h4>API 테스트 예시</h4>
+      <div class="code-block"><span class="comment"># 헬스체크</span>
+<span class="cmd">curl</span> <span class="url">http://94.125.160.235:8000/health</span>
+
+<span class="comment"># 상세 헬스체크</span>
+<span class="cmd">curl</span> <span class="url">http://94.125.160.235:8000/health/detailed</span>
+
+<span class="comment"># 채팅 API 테스트</span>
+<span class="cmd">curl</span> -X POST <span class="url">http://94.125.160.235:8000/api/chat</span> \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "I want to cancel my subscription",
+    "session_id": "test-001"
+  }'</div>
+    </div>
+
+    <div class="card">
+      <h3>&#128640; 배포 절차</h3>
+      <div class="code-block"><span class="comment"># 1. 로컬에서 서버로 파일 전송</span>
+<span class="cmd">scp</span> -r ./Ai-Chat-bot-project/ user@<span class="url">94.125.160.235</span>:<span class="flag">/opt/Ai-Chat-bot-project</span>
+
+<span class="comment"># 2. 서버 접속</span>
+<span class="cmd">ssh</span> user@<span class="url">94.125.160.235</span>
+
+<span class="comment"># 3. 의존성 업데이트 (필요 시)</span>
+<span class="cmd">cd</span> <span class="flag">/opt/Ai-Chat-bot-project</span>
+<span class="cmd">pip install</span> -r requirements.txt
+
+<span class="comment"># 4. Knowledge 인제스트 (지식 베이스 변경 시)</span>
+<span class="cmd">python</span> scripts/ingest.py
+
+<span class="comment"># 5. 서비스 재시작</span>
+<span class="cmd">sudo systemctl restart</span> <span class="flag">chatbot.service</span>
+
+<span class="comment"># 6. 상태 확인</span>
+<span class="cmd">sudo systemctl status</span> <span class="flag">chatbot.service</span>
+<span class="cmd">curl</span> <span class="url">http://localhost:8000/health/detailed</span></div>
+
+      <div class="info-box info-box-amber">
+        <span class="info-icon">&#9888;&#65039;</span>
+        <div><strong>배포 주의사항:</strong> Knowledge 파일(knowledge/*.json) 변경 시 반드시 <code>python scripts/ingest.py</code>를 실행하여 ChromaDB를 업데이트해야 합니다. 인제스트 없이 재시작하면 이전 지식 베이스가 사용됩니다.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 10. 품질 규칙 ============================== -->
+  <section id="sec-10">
+    <div class="section-header">
+      <span class="section-number">10</span>
+      <h2>품질 규칙</h2>
+    </div>
+
+    <div class="card">
+      <h3>&#128208; 응대 품질 필수 규칙</h3>
+      <table>
+        <thead>
+          <tr><th>항목</th><th>규칙</th><th>상세</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>도메인 URL 형식</strong></td>
+            <td><code>toomics.com/en</code>, <code>toomics.com/fr</code> 형태 사용</td>
+            <td><span style="color:var(--accent-red);">en.toomics.com 형식은 사용하지 않음</span> -- 실제 상담원 데이터와 불일치. 일본: <code>toomics.jp/ja/</code>, Family Safe: <code>toomics.site</code></td>
+          </tr>
+          <tr>
+            <td><strong>날짜/시간 표기</strong></td>
+            <td>모든 날짜/시간은 <strong>KST (한국 표준시)</strong></td>
+            <td>예: "2026-02-22 KST". 실제 상담원 응답의 100%가 KST 사용.</td>
+          </tr>
+          <tr>
+            <td><strong>차지백 관련 방침</strong></td>
+            <td>고객 응대를 최우선으로 처리</td>
+            <td>차지백 단독으로 L1 강제 에스컬레이션하지 않음 (Fraud 점수에만 반영). 고객 문제 해결에 집중.</td>
+          </tr>
+          <tr>
+            <td><strong>티켓 제출 옵션</strong></td>
+            <td>모든 자동 응답에 <strong>필수 포함</strong></td>
+            <td>"If you need further assistance, you can submit a support ticket." (또는 해당 언어 번역)</td>
+          </tr>
+          <tr>
+            <td><strong>응답 길이</strong></td>
+            <td>최대 300단어 이내</td>
+            <td>벽 텍스트(wall of text) 방지. 7단계 이상 시 분할.</td>
+          </tr>
+          <tr>
+            <td><strong>공감 표현</strong></td>
+            <td>응답 첫 줄에 공감 한 문장 필수</td>
+            <td>"I understand..." / "Je comprends..." 등으로 시작</td>
+          </tr>
+          <tr>
+            <td><strong>언어 일관성</strong></td>
+            <td>감지된 언어로 전체 응답 작성</td>
+            <td>언어 혼용 금지. 최초 감지 언어로 대화 전체 유지.</td>
+          </tr>
+          <tr>
+            <td><strong>대화 턴 제한</strong></td>
+            <td>최대 5턴</td>
+            <td>5턴 초과 시 에스컬레이션 제안.</td>
+          </tr>
+          <tr>
+            <td><strong>확정 약속 금지</strong></td>
+            <td>"확인 후 안내" 표현만 사용</td>
+            <td>환불 승인, 처리 완료 등 확정적 약속 표현 절대 금지.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128203; 분류 신뢰도 기준</h3>
+      <table>
+        <thead>
+          <tr><th>신뢰도</th><th>판정</th><th>다음 단계</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color:#34d399;">&#8805; 90%</strong></td>
+            <td>확정 분류</td>
+            <td>해당 스킬로 즉시 라우팅</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#fbbf24;">70 ~ 89%</strong></td>
+            <td>추정 분류</td>
+            <td>확인 질문 1회 후 진행</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#f87171;">&lt; 70%</strong></td>
+            <td>분류 불가</td>
+            <td>선택지 제시 또는 에스컬레이션</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128295; 복합 의도 처리 규칙</h3>
+      <p>하나의 메시지에 2개 이상의 의도가 포함된 경우:</p>
+      <table>
+        <thead>
+          <tr><th>상황</th><th>처리 방법</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>우선순위 다른 의도 조합</td>
+            <td><strong>L1 > L2 > L3</strong> (가장 높은 에스컬레이션 레벨 우선)</td>
+          </tr>
+          <tr>
+            <td>동일 레벨 의도 조합</td>
+            <td>첫 번째 언급된 의도 우선 처리 후 두 번째 안내</td>
+          </tr>
+          <tr>
+            <td>분리 불가</td>
+            <td>상담원 에스컬레이션</td>
+          </tr>
+          <tr>
+            <td>3개 이상 의도</td>
+            <td>L1 에스컬레이션 (복잡도 초과)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="card">
+      <h3>&#128202; 환불 소요 기간 참조표</h3>
+      <table>
+        <thead>
+          <tr><th>PG사</th><th>소요 기간</th><th>비고</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>PayPal</td><td>3~5 영업일</td><td></td></tr>
+          <tr><td>Credit/Debit Card</td><td><strong>2주~1개월</strong></td><td>카드 발급 은행에 따라 상이. "typically 2 weeks to 1 month" 표현 사용.</td></tr>
+          <tr><td>Google Play</td><td>3~5 영업일</td><td></td></tr>
+          <tr><td>Apple</td><td>2~5 영업일</td><td>직접 환불 불가 &#8594; reportaproblem.apple.com 리디렉트</td></tr>
+          <tr><td>PIX (PT 마켓)</td><td><strong>최대 10 영업일</strong></td><td>브라질 전용 결제수단</td></tr>
+          <tr><td>MyCard (CN 마켓)</td><td>3 영업일</td><td>대만 전용 결제수단</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ============================== Footer ============================== -->
+  <div class="footer">
+    <p><strong>Toomics CS AI Chatbot Operations Manual v1.0</strong></p>
+    <p>&#169; 2026 Toomics Global. 작성자: 유종선 (Chongsun Yu) | 작성일: 2026-02-22</p>
+    <p style="margin-top:8px;">본 문서는 CS 운영팀/QA팀 내부 전용입니다. 외부 배포를 금합니다.</p>
+  </div>
+</div>
+
+<!-- ============================== Back to Top Button ============================== -->
+<button class="back-to-top no-print" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로 이동">&#8593;</button>
+
+<script>
+  // Back to top button visibility
+  window.addEventListener('scroll', function() {
+    var btn = document.getElementById('backToTop');
+    if (window.scrollY > 400) {
+      btn.style.display = 'flex';
+    } else {
+      btn.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOOMICS CS AI 챗봇 프로젝트 로드맵 | 2026-02-22</title>
+<style>
+  @page { size: A3 portrait; margin: 12mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    color: #e2e8f0;
+    background: #0f172a;
+    line-height: 1.6;
+    font-size: 14px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @media print {
+    body { background: #0f172a; }
+    .container { box-shadow: none; }
+    .no-print { display: none !important; }
+    .phase-card { page-break-inside: avoid; }
+    .animate-on-scroll { opacity: 1 !important; transform: none !important; }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 0 60px;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    color: white;
+    padding: 56px 64px 48px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 40px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -120px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(14,165,233,0.18) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; left: 20%;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(56,189,248,0.1) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 5px 18px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    backdrop-filter: blur(4px);
+  }
+  .hero h1 {
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: 17px;
+    opacity: 0.85;
+    font-weight: 400;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    position: relative;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  /* ── Overall Progress Bar ── */
+  .progress-section {
+    padding: 0 40px;
+    margin-bottom: 40px;
+  }
+  .progress-container {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 28px 32px;
+    border: 1px solid #334155;
+  }
+  .progress-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .progress-header h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #f1f5f9;
+  }
+  .progress-percentage {
+    font-size: 28px;
+    font-weight: 800;
+    color: #0ea5e9;
+  }
+  .progress-bar-track {
+    width: 100%;
+    height: 12px;
+    background: #0f172a;
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    background: linear-gradient(90deg, #22c55e 0%, #22c55e 50%, #0ea5e9 50%, #0ea5e9 50%, #475569 50%);
+    transition: width 1.5s ease-out;
+  }
+  .progress-phases {
+    display: flex;
+    gap: 0;
+  }
+  .progress-phase {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .progress-phase .phase-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: #94a3b8;
+    margin-bottom: 4px;
+  }
+  .progress-phase .phase-pct {
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .progress-phase.completed .phase-pct { color: #22c55e; }
+  .progress-phase.in-progress .phase-pct { color: #0ea5e9; }
+  .progress-phase.planned .phase-pct { color: #475569; }
+
+  /* ── Horizontal Overview Timeline ── */
+  .overview-section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+  .section-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #f1f5f9;
+    margin-bottom: 24px;
+    padding-left: 14px;
+    border-left: 4px solid #0ea5e9;
+  }
+  .h-timeline {
+    display: flex;
+    align-items: stretch;
+    position: relative;
+    padding: 20px 0;
+  }
+  .h-timeline::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #334155;
+    transform: translateY(-50%);
+    border-radius: 2px;
+    z-index: 0;
+  }
+  .h-timeline-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+  .h-timeline-dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin: 0 auto 12px;
+    position: relative;
+    border: 3px solid #0f172a;
+  }
+  .h-timeline-dot.completed {
+    background: #22c55e;
+    box-shadow: 0 0 0 4px rgba(34,197,94,0.25);
+  }
+  .h-timeline-dot.in-progress {
+    background: #0ea5e9;
+    box-shadow: 0 0 0 4px rgba(14,165,233,0.25);
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .h-timeline-dot.planned {
+    background: #475569;
+    box-shadow: 0 0 0 4px rgba(71,85,105,0.2);
+  }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 4px rgba(14,165,233,0.25); }
+    50% { box-shadow: 0 0 0 8px rgba(14,165,233,0.1); }
+  }
+  .h-timeline-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #334155;
+    margin: 0 6px;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .h-timeline-card:hover {
+    transform: translateY(-4px);
+    border-color: #0ea5e9;
+  }
+  .h-timeline-card .phase-name {
+    font-size: 13px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .h-timeline-card .phase-date {
+    font-size: 11px;
+    color: #64748b;
+    margin-bottom: 6px;
+  }
+  .h-timeline-card .phase-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+  .h-timeline-card .status-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-top: 8px;
+  }
+  .status-badge.completed { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .status-badge.in-progress { background: rgba(14,165,233,0.15); color: #0ea5e9; }
+  .status-badge.planned { background: rgba(71,85,105,0.2); color: #94a3b8; }
+
+  /* ── Vertical Phase Timeline ── */
+  .timeline-section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+  .v-timeline {
+    position: relative;
+    padding-left: 48px;
+  }
+  .v-timeline::before {
+    content: '';
+    position: absolute;
+    left: 18px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #22c55e 0%, #22c55e 40%, #0ea5e9 50%, #334155 65%);
+    border-radius: 2px;
+  }
+
+  .phase-card {
+    position: relative;
+    margin-bottom: 36px;
+    opacity: 1;
+  }
+  .phase-card .timeline-dot {
+    position: absolute;
+    left: -38px;
+    top: 24px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 3px solid #0f172a;
+    z-index: 2;
+  }
+  .phase-card .timeline-dot.completed { background: #22c55e; }
+  .phase-card .timeline-dot.in-progress {
+    background: #0ea5e9;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+  .phase-card .timeline-dot.planned { background: #475569; }
+
+  .phase-card .card-inner {
+    background: #1e293b;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    overflow: hidden;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  .phase-card .card-inner:hover {
+    border-color: rgba(14,165,233,0.4);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+  .phase-card .card-header {
+    padding: 24px 28px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .phase-card .card-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .phase-card .phase-tag {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+  .phase-tag.green { color: #22c55e; }
+  .phase-tag.blue { color: #0ea5e9; }
+  .phase-tag.gray { color: #94a3b8; }
+
+  .phase-card .card-title {
+    font-size: 20px;
+    font-weight: 800;
+    color: #f1f5f9;
+    line-height: 1.3;
+  }
+  .phase-card .card-date {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 2px;
+  }
+  .phase-card .card-header-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+  .phase-card .status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+  }
+  .status-pill.completed { background: rgba(34,197,94,0.12); color: #22c55e; border: 1px solid rgba(34,197,94,0.3); }
+  .status-pill.in-progress { background: rgba(14,165,233,0.12); color: #0ea5e9; border: 1px solid rgba(14,165,233,0.3); }
+  .status-pill.planned { background: rgba(71,85,105,0.15); color: #94a3b8; border: 1px solid rgba(71,85,105,0.3); }
+
+  .completion-ring {
+    width: 48px;
+    height: 48px;
+    position: relative;
+  }
+  .completion-ring svg {
+    transform: rotate(-90deg);
+  }
+  .completion-ring .ring-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    font-weight: 800;
+  }
+
+  .phase-card .card-body {
+    padding: 0 28px 24px;
+  }
+  .checklist {
+    list-style: none;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px 20px;
+  }
+  .checklist li {
+    font-size: 13px;
+    line-height: 1.5;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 4px 0;
+  }
+  .checklist li .check-icon {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    margin-top: 1px;
+  }
+  .check-icon.done { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .check-icon.pending { background: rgba(71,85,105,0.2); color: #475569; border: 1px solid #475569; }
+
+  .checklist li .item-text { color: #cbd5e1; }
+  .checklist li.done .item-text { color: #94a3b8; }
+
+  .phase-card .deliverables {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: rgba(14,165,233,0.06);
+    border-radius: 10px;
+    border-left: 3px solid #0ea5e9;
+  }
+  .deliverables .deliverables-label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0ea5e9;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .deliverables .deliverables-text {
+    font-size: 13px;
+    color: #94a3b8;
+  }
+
+  /* ── Goals Cards ── */
+  .goals-section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+  .goals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .goal-card {
+    background: #1e293b;
+    border-radius: 14px;
+    padding: 24px;
+    border: 1px solid #334155;
+    text-align: center;
+    transition: transform 0.2s, border-color 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .goal-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(14,165,233,0.4);
+  }
+  .goal-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .goal-card.phase1::before { background: linear-gradient(90deg, #22c55e, #16a34a); }
+  .goal-card.phase3::before { background: linear-gradient(90deg, #0ea5e9, #0284c7); }
+  .goal-card.phase4::before { background: linear-gradient(90deg, #8b5cf6, #7c3aed); }
+  .goal-card.savings::before { background: linear-gradient(90deg, #f59e0b, #d97706); }
+
+  .goal-card .goal-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+  .goal-card .goal-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .goal-card .goal-value {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 4px;
+  }
+  .goal-card.phase1 .goal-value { color: #22c55e; }
+  .goal-card.phase3 .goal-value { color: #0ea5e9; }
+  .goal-card.phase4 .goal-value { color: #8b5cf6; }
+  .goal-card.savings .goal-value { color: #f59e0b; }
+  .goal-card .goal-desc {
+    font-size: 12px;
+    color: #94a3b8;
+    line-height: 1.4;
+  }
+  .goal-card .goal-detail {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 8px;
+  }
+
+  /* ── Tech Stack Diagram ── */
+  .tech-section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+  .tech-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .tech-card {
+    background: #1e293b;
+    border-radius: 14px;
+    padding: 20px;
+    border: 1px solid #334155;
+    transition: border-color 0.2s;
+  }
+  .tech-card:hover { border-color: rgba(14,165,233,0.4); }
+  .tech-card .tech-phase {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .tech-card.p1 .tech-phase { color: #22c55e; }
+  .tech-card.p2 .tech-phase { color: #22c55e; }
+  .tech-card.p3 .tech-phase { color: #0ea5e9; }
+  .tech-card.p4 .tech-phase { color: #94a3b8; }
+
+  .tech-card .tech-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+  }
+  .tech-list {
+    list-style: none;
+  }
+  .tech-list li {
+    font-size: 12px;
+    color: #94a3b8;
+    padding: 4px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .tech-list li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .tech-card.p1 .tech-list li::before { background: #22c55e; }
+  .tech-card.p2 .tech-list li::before { background: #22c55e; }
+  .tech-card.p3 .tech-list li::before { background: #0ea5e9; }
+  .tech-card.p4 .tech-list li::before { background: #475569; }
+
+  /* ── Pipeline Diagram ── */
+  .pipeline-section {
+    padding: 0 40px;
+    margin-bottom: 48px;
+  }
+  .pipeline-container {
+    background: #1e293b;
+    border-radius: 16px;
+    padding: 28px 32px;
+    border: 1px solid #334155;
+  }
+  .pipeline-flow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding: 8px 0;
+  }
+  .pipeline-node {
+    background: #0f172a;
+    border-radius: 10px;
+    padding: 14px 18px;
+    text-align: center;
+    min-width: 130px;
+    border: 1px solid #334155;
+    transition: border-color 0.2s;
+    flex-shrink: 0;
+  }
+  .pipeline-node:hover { border-color: #0ea5e9; }
+  .pipeline-node .node-step {
+    font-size: 10px;
+    font-weight: 700;
+    color: #0ea5e9;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .pipeline-node .node-name {
+    font-size: 12px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 2px;
+  }
+  .pipeline-node .node-file {
+    font-size: 10px;
+    color: #64748b;
+    font-family: 'Consolas', 'Courier New', monospace;
+  }
+  .pipeline-arrow {
+    color: #475569;
+    font-size: 18px;
+    padding: 0 6px;
+    flex-shrink: 0;
+  }
+  .pipeline-branch {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    padding-left: 12px;
+  }
+  .pipeline-branch-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    background: #0f172a;
+    border: 1px solid #334155;
+  }
+  .pipeline-branch-item .branch-level {
+    font-weight: 700;
+    padding: 1px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+  }
+  .branch-level.l1 { background: rgba(239,68,68,0.15); color: #ef4444; }
+  .branch-level.l2 { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .branch-level.l3 { background: rgba(34,197,94,0.15); color: #22c55e; }
+  .pipeline-branch-item .branch-desc {
+    color: #94a3b8;
+    font-size: 11px;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    padding: 32px 40px;
+    text-align: center;
+    border-top: 1px solid #1e293b;
+  }
+  .footer p {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.6;
+  }
+  .footer .footer-highlight {
+    color: #0ea5e9;
+    font-weight: 600;
+  }
+
+  /* ── Animations ── */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .delay-1 { transition-delay: 0.1s; }
+  .delay-2 { transition-delay: 0.2s; }
+  .delay-3 { transition-delay: 0.3s; }
+  .delay-4 { transition-delay: 0.4s; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .hero { padding: 36px 28px 32px; }
+    .hero h1 { font-size: 28px; }
+    .hero-meta { flex-wrap: wrap; gap: 16px; }
+    .progress-section, .overview-section, .timeline-section,
+    .goals-section, .tech-section, .pipeline-section { padding: 0 20px; }
+    .h-timeline { flex-direction: column; gap: 12px; padding-left: 28px; }
+    .h-timeline::before { left: 8px; top: 0; bottom: 0; width: 3px; height: auto; transform: none; }
+    .h-timeline-item { text-align: left; display: flex; align-items: center; gap: 12px; }
+    .h-timeline-dot { margin: 0; position: absolute; left: -24px; }
+    .checklist { grid-template-columns: 1fr; }
+    .goals-grid { grid-template-columns: 1fr 1fr; }
+    .tech-grid { grid-template-columns: 1fr 1fr; }
+    .pipeline-flow { flex-direction: column; align-items: stretch; }
+    .pipeline-arrow { transform: rotate(90deg); text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .goals-grid { grid-template-columns: 1fr; }
+    .tech-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ══════════ HERO HEADER ══════════ -->
+  <header class="hero">
+    <div class="hero-badge">2025.07 DATA COLLECTION &mdash; 2026 H2 PRODUCTION</div>
+    <h1>TOOMICS CS AI 챗봇 프로젝트 로드맵</h1>
+    <p class="subtitle">Phase 1~4 단계별 개발 및 운영 계획</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">작성자</span>
+        <span class="value">유종선 (Chongsun Yu)</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">작성일</span>
+        <span class="value">2026-02-22</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">데이터 기반</span>
+        <span class="value">11,621건 &times; 7개월 &times; 10개 마켓</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">현재 단계</span>
+        <span class="value">Phase 3 진행 예정</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════ OVERALL PROGRESS BAR ══════════ -->
+  <div class="progress-section animate-on-scroll">
+    <div class="progress-container">
+      <div class="progress-header">
+        <h3>전체 프로젝트 진행률</h3>
+        <div class="progress-percentage" id="overall-pct">50%</div>
+      </div>
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="progress-fill" style="width: 0%;"></div>
+      </div>
+      <div class="progress-phases">
+        <div class="progress-phase completed">
+          <div class="phase-label">Phase 1</div>
+          <div class="phase-pct">100%</div>
+        </div>
+        <div class="progress-phase completed">
+          <div class="phase-label">Phase 2</div>
+          <div class="phase-pct">100%</div>
+        </div>
+        <div class="progress-phase in-progress">
+          <div class="phase-label">Phase 3</div>
+          <div class="phase-pct">0%</div>
+        </div>
+        <div class="progress-phase planned">
+          <div class="phase-label">Phase 4</div>
+          <div class="phase-pct">0%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ HORIZONTAL OVERVIEW TIMELINE ══════════ -->
+  <div class="overview-section animate-on-scroll">
+    <h2 class="section-title">프로젝트 타임라인 개요</h2>
+    <div class="h-timeline">
+      <div class="h-timeline-item">
+        <div class="h-timeline-dot completed"></div>
+        <div class="h-timeline-card">
+          <div class="phase-name">Phase 1</div>
+          <div class="phase-date">2026.02</div>
+          <div class="phase-desc">핵심 프레임워크<br>프롬프트 &middot; 지식 베이스 &middot; 설정</div>
+          <span class="status-badge completed">완료</span>
+        </div>
+      </div>
+      <div class="h-timeline-item">
+        <div class="h-timeline-dot completed"></div>
+        <div class="h-timeline-card">
+          <div class="phase-name">Phase 2</div>
+          <div class="phase-date">2026.02</div>
+          <div class="phase-desc">프로토타입 서버<br>FastAPI &middot; Claude API &middot; RAG</div>
+          <span class="status-badge completed">완료</span>
+        </div>
+      </div>
+      <div class="h-timeline-item">
+        <div class="h-timeline-dot in-progress"></div>
+        <div class="h-timeline-card">
+          <div class="phase-name">Phase 3</div>
+          <div class="phase-date">2026 Q1~Q2</div>
+          <div class="phase-desc">고도화<br>마켓 확장 &middot; 품질 평가 &middot; 피드백</div>
+          <span class="status-badge in-progress">진행 예정</span>
+        </div>
+      </div>
+      <div class="h-timeline-item">
+        <div class="h-timeline-dot planned"></div>
+        <div class="h-timeline-card">
+          <div class="phase-name">Phase 4</div>
+          <div class="phase-date">2026 H2</div>
+          <div class="phase-desc">프로덕션 운영<br>CI/CD &middot; 모니터링 &middot; 전체 마켓</div>
+          <span class="status-badge planned">계획</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ VERTICAL PHASE TIMELINE ══════════ -->
+  <div class="timeline-section">
+    <h2 class="section-title">Phase 상세 계획</h2>
+
+    <div class="v-timeline">
+
+      <!-- ── Phase 1 ── -->
+      <div class="phase-card animate-on-scroll">
+        <div class="timeline-dot completed"></div>
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="phase-tag green">PHASE 1</span>
+              <div class="card-title">핵심 프레임워크</div>
+              <div class="card-date">2026.02 완료</div>
+            </div>
+            <div class="card-header-right">
+              <span class="status-pill completed">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                완료
+              </span>
+              <div class="completion-ring">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="4" stroke-dasharray="125.66" stroke-dashoffset="0" stroke-linecap="round"/>
+                </svg>
+                <span class="ring-text" style="color:#22c55e;">100%</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">프로젝트 폴더 구조 설계 + 레퍼런스 데이터 배치</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">CLAUDE.md &mdash; 프로젝트 설정 파일 작성</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">.agent/AGENT.md &mdash; 챗봇 페르소나, 톤, 행동 규칙, Fraud 탐지 정의</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">.agent/SKILLS.md &mdash; 5가지 핵심 기능 정의</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">README.md &mdash; 프로젝트 소개, 아키텍처, 실행 방법</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">prompts/ 5개 모듈 작성 (intent, self-service, escalation, fraud, multilingual)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">knowledge/ 6개 JSON + templates 작성</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">config/ 3개 설정 작성 (languages, targets, settings)</span></li>
+            </ul>
+            <div class="deliverables">
+              <div class="deliverables-label">Deliverables</div>
+              <div class="deliverables-text">프롬프트 체계, 지식 베이스, 설정 파일 완성</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Phase 2 ── -->
+      <div class="phase-card animate-on-scroll">
+        <div class="timeline-dot completed"></div>
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="phase-tag green">PHASE 2</span>
+              <div class="card-title">프로토타입 서버</div>
+              <div class="card-date">2026.02 완료</div>
+            </div>
+            <div class="card-header-right">
+              <span class="status-pill completed">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                완료
+              </span>
+              <div class="completion-ring">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#22c55e" stroke-width="4" stroke-dasharray="125.66" stroke-dashoffset="0" stroke-linecap="round"/>
+                </svg>
+                <span class="ring-text" style="color:#22c55e;">100%</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">FastAPI 서버 + Claude API 연동 (app/main.py, app/config.py)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">Pydantic v2 데이터 모델 &mdash; Chat, Intent, Fraud, Escalation, Session</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">Claude API 클라이언트 (claude_service.py)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">RAG 파이프라인 &mdash; ChromaDB 벡터 검색 + 지능형 청크 분할</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">의도 분류기 &mdash; 7 카테고리 &times; 23 Sub-Intent</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">Fraud 탐지기 &mdash; 9 Red Flag (Critical 5 + Supporting 4)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">다국어 감지 + Phase 1/2 마켓 라우팅</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">셀프서비스 응답 생성 &mdash; 12 플로우</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">에스컬레이션 핸들러 + Zendesk 티켓</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">메인 파이프라인 오케스트레이터 (pipeline.py)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">API 라우터 &mdash; Chat, Health, Webhook</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">유틸리티 &mdash; Loguru 로깅, 프롬프트 로더</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">RAG 인제스트 스크립트 (scripts/ingest.py)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">단위/통합 테스트 (tests/)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">시뮬레이션 진단 100% 달성 (48% &rarr; 100%)</span></li>
+              <li class="done"><span class="check-icon done">&#10003;</span><span class="item-text">Production 서버 배포 (94.125.160.235)</span></li>
+            </ul>
+            <div class="deliverables">
+              <div class="deliverables-label">Deliverables</div>
+              <div class="deliverables-text">완전 동작하는 프로토타입 서버 + Production 배포 완료</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Phase 3 ── -->
+      <div class="phase-card animate-on-scroll">
+        <div class="timeline-dot in-progress"></div>
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="phase-tag blue">PHASE 3</span>
+              <div class="card-title">고도화</div>
+              <div class="card-date">2026 Q1~Q2 진행 예정</div>
+            </div>
+            <div class="card-header-right">
+              <span class="status-pill in-progress">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                진행 예정
+              </span>
+              <div class="completion-ring">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#0ea5e9" stroke-width="4" stroke-dasharray="125.66" stroke-dashoffset="125.66" stroke-linecap="round"/>
+                </svg>
+                <span class="ring-text" style="color:#0ea5e9;">0%</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li><span class="check-icon pending"></span><span class="item-text">v3 90/10 하이브리드 응답 아키텍처 (90% 매뉴얼 + 10% AI 자연어)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">Fraud 탐지 모듈 실시간 적용 최적화</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">Phase 2 마켓 추가 (TH, JP, CN, IT, KR)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">응답 품질 평가 시스템 (자동 평가 + 인간 평가 루프)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">상담원 피드백 루프 (AI 응답 수정 사항 학습)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">세션 관리 고도화 (Redis 기반 대화 상태 유지)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">Zendesk 실제 연동 (API 키 설정 + 티켓 생성)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">A/B 테스트 프레임워크 (AI vs 상담원 응답 비교)</span></li>
+            </ul>
+            <div class="deliverables">
+              <div class="deliverables-label">Target Deliverables</div>
+              <div class="deliverables-text">10개 마켓 확장, 실시간 Fraud 탐지, 품질 평가 체계, Zendesk 실연동</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Phase 4 ── -->
+      <div class="phase-card animate-on-scroll">
+        <div class="timeline-dot planned"></div>
+        <div class="card-inner">
+          <div class="card-header">
+            <div class="card-header-left">
+              <span class="phase-tag gray">PHASE 4</span>
+              <div class="card-title">프로덕션 운영</div>
+              <div class="card-date">2026 H2 계획</div>
+            </div>
+            <div class="card-header-right">
+              <span class="status-pill planned">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>
+                계획
+              </span>
+              <div class="completion-ring">
+                <svg width="48" height="48" viewBox="0 0 48 48">
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#1e293b" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#475569" stroke-width="4" stroke-dasharray="125.66" stroke-dashoffset="125.66" stroke-linecap="round"/>
+                </svg>
+                <span class="ring-text" style="color:#475569;">0%</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li><span class="check-icon pending"></span><span class="item-text">Docker + CI/CD 파이프라인 (GitHub Actions)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">모니터링 대시보드 (Grafana / Prometheus)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">자동 스케일링 + 로드 밸런싱</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">고객 피드백 분석 대시보드</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">월간 KPI 자동 리포팅</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">SLA 기반 에스컬레이션 타이머</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">상담원 UI 통합 (Zendesk Sidebar App)</span></li>
+              <li><span class="check-icon pending"></span><span class="item-text">전체 10개 마켓 커버</span></li>
+            </ul>
+            <div class="deliverables">
+              <div class="deliverables-label">Target Deliverables</div>
+              <div class="deliverables-text">프로덕션 배포 자동화, 모니터링 체계, 전체 마켓 운영</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /v-timeline -->
+  </div>
+
+  <!-- ══════════ DATA-DRIVEN GOALS ══════════ -->
+  <div class="goals-section animate-on-scroll">
+    <h2 class="section-title">데이터 기반 목표</h2>
+    <div class="goals-grid">
+      <div class="goal-card phase1">
+        <div class="goal-icon">&#127919;</div>
+        <div class="goal-label">Phase 1~2 목표</div>
+        <div class="goal-value">38%</div>
+        <div class="goal-desc">셀프서비스 자동화</div>
+        <div class="goal-detail">~630건/월 자동 처리</div>
+      </div>
+      <div class="goal-card phase3">
+        <div class="goal-icon">&#127919;</div>
+        <div class="goal-label">Phase 3 목표</div>
+        <div class="goal-value">50%</div>
+        <div class="goal-desc">셀프서비스 자동화</div>
+        <div class="goal-detail">~830건/월 자동 처리</div>
+      </div>
+      <div class="goal-card phase4">
+        <div class="goal-icon">&#127919;</div>
+        <div class="goal-label">Phase 4 목표</div>
+        <div class="goal-value">60%+</div>
+        <div class="goal-desc">셀프서비스 자동화</div>
+        <div class="goal-detail">~1,000건+/월 자동 처리</div>
+      </div>
+      <div class="goal-card savings">
+        <div class="goal-icon">&#128176;</div>
+        <div class="goal-label">예상 절감</div>
+        <div class="goal-value">1~2명</div>
+        <div class="goal-desc">상담원 여력 확보</div>
+        <div class="goal-detail">105~210시간/월 절감</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ PIPELINE DIAGRAM ══════════ -->
+  <div class="pipeline-section animate-on-scroll">
+    <h2 class="section-title">파이프라인 실행 흐름</h2>
+    <div class="pipeline-container">
+      <div class="pipeline-flow">
+        <div class="pipeline-node">
+          <div class="node-step">STEP 1</div>
+          <div class="node-name">고객 메시지</div>
+          <div class="node-file">Customer Input</div>
+        </div>
+        <div class="pipeline-arrow">&#10142;</div>
+        <div class="pipeline-node">
+          <div class="node-step">STEP 2</div>
+          <div class="node-name">언어 감지</div>
+          <div class="node-file">multilingual.py</div>
+        </div>
+        <div class="pipeline-arrow">&#10142;</div>
+        <div class="pipeline-node">
+          <div class="node-step">STEP 3</div>
+          <div class="node-name">Fraud + 의도 분류</div>
+          <div class="node-file">병렬 처리</div>
+        </div>
+        <div class="pipeline-arrow">&#10142;</div>
+        <div class="pipeline-node">
+          <div class="node-step">STEP 4</div>
+          <div class="node-name">에스컬레이션 판단</div>
+          <div class="node-file">escalation.py</div>
+        </div>
+        <div class="pipeline-arrow">&#10142;</div>
+        <div class="pipeline-branch">
+          <div class="pipeline-branch-item">
+            <span class="branch-level l1">L1</span>
+            <span class="branch-desc">즉시 에스컬레이션 (AI 응답 없음)</span>
+          </div>
+          <div class="pipeline-branch-item">
+            <span class="branch-level l2">L2</span>
+            <span class="branch-desc">AI Draft + 상담원 검토</span>
+          </div>
+          <div class="pipeline-branch-item">
+            <span class="branch-level l3">L3</span>
+            <span class="branch-desc">셀프서비스 자동 응답</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ TECH STACK DIAGRAM ══════════ -->
+  <div class="tech-section animate-on-scroll">
+    <h2 class="section-title">기술 의존성 다이어그램</h2>
+    <div class="tech-grid">
+      <div class="tech-card p1">
+        <div class="tech-phase">Phase 1 &mdash; 프레임워크</div>
+        <div class="tech-title">지식 기반 &amp; 설정</div>
+        <ul class="tech-list">
+          <li>Markdown 프롬프트 시스템</li>
+          <li>JSON 지식 베이스</li>
+          <li>카테고리 분류 체계 (7 &times; 23)</li>
+          <li>마켓별 템플릿</li>
+          <li>Fraud Red Flag 지표</li>
+        </ul>
+      </div>
+      <div class="tech-card p2">
+        <div class="tech-phase">Phase 2 &mdash; 서버</div>
+        <div class="tech-title">API &amp; AI 파이프라인</div>
+        <ul class="tech-list">
+          <li>Python 3.11+ / FastAPI</li>
+          <li>Claude 3.5 Sonnet API</li>
+          <li>ChromaDB (벡터 RAG)</li>
+          <li>Pydantic v2 모델</li>
+          <li>Loguru 로깅</li>
+          <li>Uvicorn ASGI</li>
+        </ul>
+      </div>
+      <div class="tech-card p3">
+        <div class="tech-phase">Phase 3 &mdash; 고도화</div>
+        <div class="tech-title">확장 &amp; 품질</div>
+        <ul class="tech-list">
+          <li>Redis (세션 관리)</li>
+          <li>Zendesk API 연동</li>
+          <li>A/B 테스트 프레임워크</li>
+          <li>품질 평가 모듈</li>
+          <li>하이브리드 90/10 아키텍처</li>
+        </ul>
+      </div>
+      <div class="tech-card p4">
+        <div class="tech-phase">Phase 4 &mdash; 운영</div>
+        <div class="tech-title">인프라 &amp; 모니터링</div>
+        <ul class="tech-list">
+          <li>Docker / Docker Compose</li>
+          <li>GitHub Actions CI/CD</li>
+          <li>Grafana / Prometheus</li>
+          <li>Auto-scaling / Load Balancer</li>
+          <li>Zendesk Sidebar App</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <footer class="footer">
+    <p>
+      <span class="footer-highlight">TOOMICS CS AI 챗봇 프로젝트 로드맵</span><br>
+      작성자: 유종선 (Chongsun Yu) &nbsp;|&nbsp; 작성일: 2026-02-22 &nbsp;|&nbsp; 데이터 기반: 11,621건 &times; 7개월 &times; 10개 마켓<br>
+      Phase 1~2 완료 &rarr; Phase 3 고도화 진행 예정 &rarr; Phase 4 프로덕션 운영 목표
+    </p>
+  </footer>
+
+</div><!-- /container -->
+
+<!-- ══════════ SCRIPTS ══════════ -->
+<script>
+(function() {
+  // ── Progress bar animation ──
+  function animateProgressBar() {
+    var fill = document.getElementById('progress-fill');
+    if (fill) {
+      setTimeout(function() { fill.style.width = '50%'; }, 300);
+    }
+  }
+
+  // ── Gradient for progress bar ──
+  var style = document.createElement('style');
+  style.textContent = '#progress-fill { background: linear-gradient(90deg, #22c55e 0%, #22c55e 50%, transparent 50%); }';
+  document.head.appendChild(style);
+
+  // ── Scroll-triggered animations ──
+  function handleScrollAnimations() {
+    var elements = document.querySelectorAll('.animate-on-scroll');
+    var windowHeight = window.innerHeight;
+    elements.forEach(function(el) {
+      var rect = el.getBoundingClientRect();
+      if (rect.top < windowHeight - 60) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  // ── Init ──
+  document.addEventListener('DOMContentLoaded', function() {
+    animateProgressBar();
+    handleScrollAnimations();
+    window.addEventListener('scroll', handleScrollAnimations, { passive: true });
+  });
+
+  // Fallback for immediate visibility (no scroll needed for top elements)
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(function() {
+      animateProgressBar();
+      handleScrollAnimations();
+      window.addEventListener('scroll', handleScrollAnimations, { passive: true });
+    }, 100);
+  }
+})();
+</script>
+
+</body>
+</html>

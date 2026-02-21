@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Chatbot 프로젝트 주간 현황 보고 | 2026-02-22</title>
+<style>
+  @page { size: A4 landscape; margin: 10mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f172a;
+    --bg2: #1e293b;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --muted: #64748b;
+    --blue: #0ea5e9;
+    --cyan: #22d3ee;
+    --green: #10b981;
+    --amber: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --border: #334155;
+  }
+
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    font-size: 13px;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @media print {
+    body { background: var(--bg); }
+    .page { box-shadow: none; page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  /* ── Page Layout ── */
+  .page {
+    max-width: 1280px;
+    margin: 0 auto 32px;
+    padding: 0;
+    min-height: auto;
+  }
+
+  /* ── Header Bar ── */
+  .header-bar {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 50%, #0ea5e9 100%);
+    padding: 28px 40px 24px;
+    border-radius: 0 0 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-wrap: wrap;
+    gap: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-bar::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .header-left { position: relative; }
+  .header-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 16px;
+    padding: 3px 14px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .header-left h1 { font-size: 26px; font-weight: 800; letter-spacing: -0.3px; }
+  .header-left p { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+  .header-right {
+    display: flex; gap: 20px; font-size: 12px; opacity: 0.75;
+    position: relative; flex-wrap: wrap;
+  }
+  .header-right span { display: flex; align-items: center; gap: 4px; }
+
+  /* ── Section ── */
+  .section { padding: 24px 40px 0; }
+  .section-title {
+    font-size: 16px; font-weight: 800; margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+    color: var(--cyan);
+  }
+  .section-title .dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+
+  /* ── KPI Cards ── */
+  .kpi-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 12px;
+    margin-bottom: 0;
+  }
+  .kpi {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    border-radius: 14px 14px 0 0;
+  }
+  .kpi.kpi-blue::after { background: var(--blue); }
+  .kpi.kpi-green::after { background: var(--green); }
+  .kpi.kpi-amber::after { background: var(--amber); }
+  .kpi.kpi-purple::after { background: var(--purple); }
+  .kpi.kpi-cyan::after { background: var(--cyan); }
+  .kpi .kpi-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi .kpi-value { font-size: 28px; font-weight: 800; margin: 6px 0 2px; }
+  .kpi.kpi-blue .kpi-value { color: var(--blue); }
+  .kpi.kpi-green .kpi-value { color: var(--green); }
+  .kpi.kpi-amber .kpi-value { color: var(--amber); }
+  .kpi.kpi-purple .kpi-value { color: var(--purple); }
+  .kpi.kpi-cyan .kpi-value { color: var(--cyan); }
+  .kpi .kpi-sub { font-size: 11px; color: var(--text2); }
+
+  /* ── Progress ── */
+  .progress-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .progress-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+  }
+  .progress-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 14px; color: var(--text); }
+
+  /* ── Phase Timeline ── */
+  .timeline {
+    display: flex;
+    gap: 0;
+    margin-top: 8px;
+  }
+  .timeline-item {
+    flex: 1;
+    position: relative;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-align: center;
+  }
+  .timeline-item.done {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+  }
+  .timeline-item.current {
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.4);
+    box-shadow: 0 0 12px rgba(14,165,233,0.15);
+  }
+  .timeline-item.future {
+    background: rgba(100,116,139,0.08);
+    border: 1px solid rgba(100,116,139,0.2);
+  }
+  .timeline-item .tl-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+  .timeline-item.done .tl-label { color: var(--green); }
+  .timeline-item.current .tl-label { color: var(--blue); }
+  .timeline-item.future .tl-label { color: var(--muted); }
+  .timeline-item .tl-title { font-size: 13px; font-weight: 700; margin-top: 4px; }
+  .timeline-item .tl-period { font-size: 11px; color: var(--text2); margin-top: 2px; }
+  .timeline-arrow {
+    display: flex; align-items: center; padding: 0 6px;
+    font-size: 16px; color: var(--muted);
+  }
+
+  /* ── Checklist ── */
+  .check-list { list-style: none; padding: 0; }
+  .check-list li {
+    padding: 5px 0 5px 24px; position: relative;
+    font-size: 13px; color: var(--text2);
+  }
+  .check-list li::before {
+    position: absolute; left: 0; top: 5px;
+    font-size: 14px; font-weight: 700;
+  }
+  .check-list li.done::before { content: '✓'; color: var(--green); }
+  .check-list li.current::before { content: '►'; color: var(--blue); }
+  .check-list li.todo::before { content: '○'; color: var(--muted); }
+  .check-list li.done { text-decoration: line-through; color: var(--muted); }
+  .check-list li.current { color: var(--blue); font-weight: 600; }
+
+  /* ── Cost Table ── */
+  table { width: 100%; border-collapse: collapse; }
+  thead th {
+    background: rgba(14,165,233,0.08);
+    color: var(--cyan); font-weight: 700; font-size: 11px;
+    text-transform: uppercase; letter-spacing: 0.5px;
+    padding: 8px 12px; text-align: left;
+    border-bottom: 2px solid var(--border);
+  }
+  tbody td {
+    padding: 8px 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    color: var(--text2); font-size: 13px;
+  }
+  tbody tr:hover { background: rgba(14,165,233,0.03); }
+
+  /* ── Risk / Action ── */
+  .ra-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .ra-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px 22px;
+  }
+  .ra-card h3 {
+    font-size: 13px; font-weight: 700; margin-bottom: 10px;
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  /* ── Category Bar ── */
+  .cat-bar-row {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 6px; font-size: 12px;
+  }
+  .cat-bar-label { width: 90px; text-align: right; color: var(--text2); flex-shrink: 0; }
+  .cat-bar-track {
+    flex: 1; height: 18px; background: rgba(255,255,255,0.04);
+    border-radius: 4px; overflow: hidden; position: relative;
+  }
+  .cat-bar-fill {
+    height: 100%; border-radius: 4px;
+    display: flex; align-items: center; padding-left: 6px;
+    font-size: 10px; font-weight: 700; color: #fff;
+    min-width: 30px;
+  }
+  .cat-bar-pct { width: 40px; text-align: right; color: var(--muted); font-size: 11px; flex-shrink: 0; }
+
+  /* ── Badges ── */
+  .badge {
+    display: inline-block; padding: 2px 8px; border-radius: 10px;
+    font-size: 10px; font-weight: 700;
+  }
+  .b-green { background: rgba(16,185,129,0.15); color: #34d399; }
+  .b-blue { background: rgba(14,165,233,0.15); color: #38bdf8; }
+  .b-amber { background: rgba(245,158,11,0.15); color: #fbbf24; }
+  .b-red { background: rgba(239,68,68,0.15); color: #f87171; }
+
+  .divider { height: 1px; background: var(--border); margin: 20px 40px; }
+
+  .footer {
+    text-align: center; padding: 16px 40px 32px;
+    font-size: 11px; color: var(--muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== PAGE 1 ===================== -->
+<div class="page">
+
+  <!-- Header -->
+  <div class="header-bar">
+    <div class="header-left">
+      <div class="header-tag">WEEKLY REPORT</div>
+      <h1>CS AI Chatbot 프로젝트 현황</h1>
+      <p>Toomics Global CS 자동화 — 주간 보고</p>
+    </div>
+    <div class="header-right">
+      <span>보고일: 2026-02-22</span>
+      <span>|</span>
+      <span>보고자: 유종선</span>
+      <span>|</span>
+      <span>프로젝트 시작: 2026-02-10</span>
+    </div>
+  </div>
+
+  <!-- KPI -->
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--green);"></span>핵심 지표 (Key Metrics)</div>
+    <div class="kpi-row">
+      <div class="kpi kpi-blue">
+        <div class="kpi-label">월 총 문의</div>
+        <div class="kpi-value">1,660</div>
+        <div class="kpi-sub">건/월 (11,621건 분석)</div>
+      </div>
+      <div class="kpi kpi-green">
+        <div class="kpi-label">자동 처리 목표</div>
+        <div class="kpi-value">38%</div>
+        <div class="kpi-sub">~630건/월 셀프서비스</div>
+      </div>
+      <div class="kpi kpi-amber">
+        <div class="kpi-label">월 비용 절감</div>
+        <div class="kpi-value">6.2M</div>
+        <div class="kpi-sub">원/월 (29% 절감)</div>
+      </div>
+      <div class="kpi kpi-purple">
+        <div class="kpi-label">BEP</div>
+        <div class="kpi-value">2.4</div>
+        <div class="kpi-sub">개월 (투자 회수)</div>
+      </div>
+      <div class="kpi kpi-cyan">
+        <div class="kpi-label">12개월 ROI</div>
+        <div class="kpi-value">396%</div>
+        <div class="kpi-sub">연간 투자 대비 수익률</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Phase Timeline + Progress -->
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--blue);"></span>프로젝트 진행 현황</div>
+    <div class="progress-row">
+
+      <!-- Left: Timeline -->
+      <div class="progress-card">
+        <h3>Phase 로드맵</h3>
+        <div class="timeline">
+          <div class="timeline-item done">
+            <div class="tl-label">Phase 1</div>
+            <div class="tl-title">프레임워크</div>
+            <div class="tl-period">2/10~2/14 완료</div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-item done">
+            <div class="tl-label">Phase 2</div>
+            <div class="tl-title">프로토타입 서버</div>
+            <div class="tl-period">2/14~2/20 완료</div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-item current">
+            <div class="tl-label">Phase 2.5</div>
+            <div class="tl-title">90/10 하이브리드</div>
+            <div class="tl-period">2/20~ 진행중</div>
+          </div>
+          <div class="timeline-arrow">→</div>
+          <div class="timeline-item future">
+            <div class="tl-label">Phase 3</div>
+            <div class="tl-title">고도화/배포</div>
+            <div class="tl-period">예정</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Completed Items -->
+      <div class="progress-card">
+        <h3>주요 완료 항목</h3>
+        <ul class="check-list">
+          <li class="done">CS 데이터 분석 (11,621건 × 7개월 × 10마켓)</li>
+          <li class="done">7대 카테고리 × 23 Sub-Intent 분류 체계</li>
+          <li class="done">FastAPI 서버 + Claude API 연동</li>
+          <li class="done">의도 분류 + Fraud 탐지 + 다국어 감지</li>
+          <li class="done">L1/L2/L3 에스컬레이션 파이프라인</li>
+          <li class="done">89개 테스트 전체 통과</li>
+          <li class="current">v3 90/10 하이브리드 응답 아키텍처 구현</li>
+          <li class="todo">Phase 2 마켓 확장 (TH, JP, CN, IT, KR)</li>
+          <li class="todo">프로덕션 배포 (Docker + CI/CD)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Category Distribution -->
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--amber);"></span>카테고리별 문의 분포 (11,621건 분석)</div>
+    <div class="progress-row">
+      <div class="progress-card">
+        <h3>월별 문의 분포</h3>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Subscription</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:48%; background:var(--blue);">700건</div></div>
+          <div class="cat-bar-pct">48%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Refund</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:25%; background:var(--amber);">367건</div></div>
+          <div class="cat-bar-pct">25%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Account</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:13%; background:var(--green);">189건</div></div>
+          <div class="cat-bar-pct">13%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Payment</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:5.8%; background:var(--purple);">86건</div></div>
+          <div class="cat-bar-pct">5%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Content</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:3.8%; background:var(--red);">57건</div></div>
+          <div class="cat-bar-pct">4%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Technical</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:2.2%; background:var(--cyan);">32건</div></div>
+          <div class="cat-bar-pct">3%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Other</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:2%; background:var(--muted);">30건</div></div>
+          <div class="cat-bar-pct">2%</div>
+        </div>
+      </div>
+
+      <!-- Right: Channel / Routing -->
+      <div class="progress-card">
+        <h3>처리 채널 & 라우팅</h3>
+
+        <h3 style="font-size:12px; color:var(--text2); margin-bottom:8px; font-weight:600;">접수 채널</h3>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Web/App</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:47%; background:var(--blue);">47%</div></div>
+          <div class="cat-bar-pct">789건</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">Email</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:42%; background:var(--amber);">42%</div></div>
+          <div class="cat-bar-pct">699건</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label">API/기타</div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:11%; background:var(--muted);">11%</div></div>
+          <div class="cat-bar-pct">174건</div>
+        </div>
+
+        <h3 style="font-size:12px; color:var(--text2); margin: 16px 0 8px; font-weight:600;">AI 라우팅 (비이메일 963건 기준)</h3>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label"><span class="badge b-green">L3 자동</span></div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:38%; background:var(--green);">366건</div></div>
+          <div class="cat-bar-pct">38%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label"><span class="badge b-amber">L2 검토</span></div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:49%; background:var(--amber);">472건</div></div>
+          <div class="cat-bar-pct">49%</div>
+        </div>
+        <div class="cat-bar-row">
+          <div class="cat-bar-label"><span class="badge b-red">L1 긴급</span></div>
+          <div class="cat-bar-track"><div class="cat-bar-fill" style="width:13%; background:var(--red);">125건</div></div>
+          <div class="cat-bar-pct">13%</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Cost & ROI -->
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--purple);"></span>비용 효과 분석</div>
+    <div class="progress-row">
+      <div class="progress-card">
+        <h3>Before vs After (월간)</h3>
+        <table>
+          <thead><tr><th>항목</th><th style="text-align:right;">AS-IS</th><th style="text-align:right;">TO-BE</th><th style="text-align:right;">절감</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>상담원 인건비</td>
+              <td style="text-align:right;">21,000,000원</td>
+              <td style="text-align:right;">14,610,000원</td>
+              <td style="text-align:right; color:var(--green);">-6,390,000</td>
+            </tr>
+            <tr>
+              <td>AI 운영비</td>
+              <td style="text-align:right;">—</td>
+              <td style="text-align:right;">260,000원</td>
+              <td style="text-align:right; color:var(--red);">+260,000</td>
+            </tr>
+            <tr style="font-weight:700;">
+              <td>합계</td>
+              <td style="text-align:right;">21,000,000원</td>
+              <td style="text-align:right;">14,870,000원</td>
+              <td style="text-align:right; color:var(--green);">-6,130,000</td>
+            </tr>
+          </tbody>
+        </table>
+        <div style="margin-top:12px; font-size:12px; color:var(--text2);">
+          <span style="margin-right:16px;">AI 운영비 내역: Pro Max ₩140K + API ₩70K + Server ₩50K</span>
+        </div>
+      </div>
+
+      <div class="progress-card">
+        <h3>투자 수익 분석</h3>
+        <table>
+          <thead><tr><th>지표</th><th style="text-align:right;">값</th></tr></thead>
+          <tbody>
+            <tr><td>초기 투자 (개발비)</td><td style="text-align:right;">15,000,000원</td></tr>
+            <tr><td>월 운영비</td><td style="text-align:right;">260,000원</td></tr>
+            <tr><td>월 절감액</td><td style="text-align:right; color:var(--green); font-weight:700;">6,130,000원</td></tr>
+            <tr><td>인력 절감 효과</td><td style="text-align:right;">~2인분</td></tr>
+            <tr><td>손익분기점 (BEP)</td><td style="text-align:right; color:var(--amber); font-weight:700;">2.4개월</td></tr>
+            <tr><td>12개월 ROI</td><td style="text-align:right; color:var(--green); font-weight:700;">396%</td></tr>
+            <tr><td>12개월 순이익</td><td style="text-align:right; color:var(--green);">~59,000,000원</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Risk & Next Actions -->
+  <div class="section" style="padding-bottom:8px;">
+    <div class="section-title"><span class="dot" style="background:var(--red);"></span>리스크 & 다음 주 계획</div>
+    <div class="ra-grid">
+      <div class="ra-card">
+        <h3><span class="dot" style="background:var(--red); display:inline-block; width:8px; height:8px; border-radius:50%;"></span> 리스크 / 이슈</h3>
+        <table>
+          <thead><tr><th>항목</th><th>상태</th><th>대응</th></tr></thead>
+          <tbody>
+            <tr>
+              <td>복합 의도 분류 정확도</td>
+              <td><span class="badge b-amber">모니터링</span></td>
+              <td>해지+환불 동시 요청 시 오분류 가능 → 테스트 보강</td>
+            </tr>
+            <tr>
+              <td>Phase 2 마켓 미지원</td>
+              <td><span class="badge b-blue">계획됨</span></td>
+              <td>TH/JP/CN/IT/KR → Phase 3에서 순차 추가</td>
+            </tr>
+            <tr>
+              <td>이메일 채널 AI 미적용</td>
+              <td><span class="badge b-blue">설계중</span></td>
+              <td>42% 이메일 접수 건 → 추후 이메일 파싱 연동 검토</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="ra-card">
+        <h3><span class="dot" style="background:var(--green); display:inline-block; width:8px; height:8px; border-radius:50%;"></span> 다음 주 계획</h3>
+        <ul class="check-list">
+          <li class="current">v3 90/10 하이브리드 응답 아키텍처 구현 완료</li>
+          <li class="todo">STEP A(분류) + STEP B(자연어 글루) 2단계 API 분리</li>
+          <li class="todo">자연어 글루 금지 패턴 필터 구현</li>
+          <li class="todo">비대칭 장애 대응 (STEP B 실패 → 템플릿만 발송)</li>
+          <li class="todo">전체 테스트 재검증 + 파이프라인 시뮬레이션</li>
+          <li class="todo">운영 서버 배포 테스트</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    Toomics CS AI Chatbot Project — Weekly Status Report | 2026-02-22 | Prepared by 유종선
+  </div>
+
+</div>
+
+</body>
+</html>
