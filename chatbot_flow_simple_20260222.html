@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toomics CS AI 챗봇 — 처리 흐름도</title>
+<style>
+  @page { size: A3 portrait; margin: 10mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    background: #0a0e1a;
+    color: #e2e8f0;
+    min-height: 100vh;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  @media print {
+    body { background: #0a0e1a; }
+    section { break-inside: avoid; }
+  }
+
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px 60px; }
+
+  /* ══════ HERO ══════ */
+  .hero {
+    text-align: center;
+    padding: 56px 40px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(14,165,233,0.08) 0%, transparent 60%);
+    border-radius: 50%;
+  }
+  .hero-chip {
+    display: inline-block;
+    background: rgba(14,165,233,0.1);
+    border: 1px solid rgba(14,165,233,0.25);
+    border-radius: 20px;
+    padding: 5px 18px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: #38bdf8;
+    margin-bottom: 16px;
+  }
+  .hero h1 {
+    font-size: 34px; font-weight: 800;
+    background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .hero p { font-size: 15px; color: #94a3b8; position: relative; }
+  .hero-stats {
+    display: flex; justify-content: center; gap: 32px;
+    margin-top: 24px; position: relative;
+  }
+  .hero-stat {
+    text-align: center;
+  }
+  .hero-stat .num { font-size: 26px; font-weight: 800; color: #38bdf8; }
+  .hero-stat .label { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+  /* ══════ VERTICAL FLOW ══════ */
+  .flow { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+  /* Arrow connector */
+  .arrow-down {
+    width: 2px; height: 32px;
+    background: linear-gradient(to bottom, rgba(56,189,248,0.4), rgba(56,189,248,0.15));
+    position: relative;
+  }
+  .arrow-down::after {
+    content: '';
+    position: absolute; bottom: -5px; left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 7px solid rgba(56,189,248,0.4);
+  }
+  .arrow-down.short { height: 20px; }
+  .arrow-down.long { height: 44px; }
+
+  /* ══════ FLOW NODE ══════ */
+  .node {
+    width: 100%;
+    max-width: 680px;
+    border-radius: 20px;
+    padding: 28px 32px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+  }
+  .node::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  .node-step {
+    display: inline-block;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 3px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .node h2 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+  .node p { font-size: 14px; color: #94a3b8; line-height: 1.7; }
+
+  /* Node colors */
+  .node-input {
+    background: linear-gradient(135deg, rgba(99,102,241,0.12), rgba(139,92,246,0.06));
+    border: 1px solid rgba(99,102,241,0.2);
+  }
+  .node-input .node-step { background: rgba(99,102,241,0.2); color: #a5b4fc; }
+  .node-input h2 { color: #c7d2fe; }
+
+  .node-analyze {
+    background: linear-gradient(135deg, rgba(14,165,233,0.1), rgba(6,182,212,0.05));
+    border: 1px solid rgba(14,165,233,0.2);
+  }
+  .node-analyze .node-step { background: rgba(14,165,233,0.2); color: #7dd3fc; }
+  .node-analyze h2 { color: #bae6fd; }
+
+  .node-fraud {
+    background: linear-gradient(135deg, rgba(168,85,247,0.1), rgba(192,132,252,0.05));
+    border: 1px solid rgba(168,85,247,0.2);
+  }
+  .node-fraud .node-step { background: rgba(168,85,247,0.2); color: #d8b4fe; }
+  .node-fraud h2 { color: #e9d5ff; }
+
+  .node-decide {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(251,191,36,0.05));
+    border: 1px solid rgba(245,158,11,0.2);
+  }
+  .node-decide .node-step { background: rgba(245,158,11,0.2); color: #fcd34d; }
+  .node-decide h2 { color: #fef3c7; }
+
+  .node-output {
+    background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(52,211,153,0.05));
+    border: 1px solid rgba(16,185,129,0.2);
+  }
+  .node-output .node-step { background: rgba(16,185,129,0.2); color: #6ee7b7; }
+  .node-output h2 { color: #d1fae5; }
+
+  /* ══════ 3-COLUMN SPLIT ══════ */
+  .split-container {
+    width: 100%;
+    max-width: 960px;
+    position: relative;
+  }
+
+  .split-arrows {
+    display: flex; justify-content: center; align-items: flex-end;
+    height: 48px; position: relative;
+    margin-bottom: 0;
+  }
+  .split-arrows::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 50%;
+    width: 2px; height: 20px;
+    background: rgba(245,158,11,0.3);
+    transform: translateX(-50%);
+  }
+  .split-arrows::after {
+    content: '';
+    position: absolute;
+    top: 20px; left: calc(50% - 350px);
+    width: 700px; height: 2px;
+    background: linear-gradient(to right, rgba(239,68,68,0.3), rgba(245,158,11,0.3), rgba(16,185,129,0.3));
+  }
+  .split-line-l, .split-line-c, .split-line-r {
+    width: 2px; height: 26px;
+    position: absolute; top: 22px;
+  }
+  .split-line-l { left: calc(50% - 350px); background: rgba(239,68,68,0.3); }
+  .split-line-c { left: 50%; transform: translateX(-50%); background: rgba(245,158,11,0.3); }
+  .split-line-r { right: calc(50% - 350px); background: rgba(16,185,129,0.3); }
+
+  .split-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .route-card {
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .route-card::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: 20px;
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  /* L1 */
+  .route-l1 {
+    background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.04));
+    border: 1px solid rgba(239,68,68,0.25);
+  }
+  .route-l1 .route-icon { background: rgba(239,68,68,0.15); color: #fca5a5; border-color: rgba(239,68,68,0.3); }
+  .route-l1 .route-badge { background: rgba(239,68,68,0.15); color: #fca5a5; border: 1px solid rgba(239,68,68,0.3); }
+  .route-l1 h3 { color: #fecaca; }
+
+  /* L2 */
+  .route-l2 {
+    background: linear-gradient(135deg, rgba(245,158,11,0.12), rgba(245,158,11,0.04));
+    border: 1px solid rgba(245,158,11,0.25);
+  }
+  .route-l2 .route-icon { background: rgba(245,158,11,0.15); color: #fcd34d; border-color: rgba(245,158,11,0.3); }
+  .route-l2 .route-badge { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .route-l2 h3 { color: #fef3c7; }
+
+  /* L3 */
+  .route-l3 {
+    background: linear-gradient(135deg, rgba(16,185,129,0.12), rgba(16,185,129,0.04));
+    border: 1px solid rgba(16,185,129,0.25);
+  }
+  .route-l3 .route-icon { background: rgba(16,185,129,0.15); color: #6ee7b7; border-color: rgba(16,185,129,0.3); }
+  .route-l3 .route-badge { background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+  .route-l3 h3 { color: #d1fae5; }
+
+  .route-icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    margin: 0 auto 12px;
+    border: 1px solid;
+  }
+  .route-badge {
+    display: inline-block;
+    padding: 3px 12px; border-radius: 12px;
+    font-size: 11px; font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .route-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+  .route-card .route-desc { font-size: 12.5px; color: #94a3b8; line-height: 1.6; margin-bottom: 12px; }
+  .route-card .route-pct {
+    font-size: 32px; font-weight: 800;
+    margin-bottom: 2px;
+  }
+  .route-l1 .route-pct { color: #f87171; }
+  .route-l2 .route-pct { color: #fbbf24; }
+  .route-l3 .route-pct { color: #34d399; }
+  .route-card .route-vol { font-size: 12px; color: #64748b; }
+
+  /* ══════ MINI DETAIL ROWS (inside nodes) ══════ */
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+  .detail-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-align: center;
+  }
+  .detail-item .di-icon { font-size: 20px; margin-bottom: 4px; }
+  .detail-item .di-title { font-size: 12px; font-weight: 700; color: var(--text, #e2e8f0); }
+  .detail-item .di-desc { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+  /* Parallel indicator */
+  .parallel-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(168,85,247,0.1);
+    border: 1px solid rgba(168,85,247,0.2);
+    border-radius: 10px;
+    padding: 5px 14px;
+    font-size: 11px; font-weight: 700;
+    color: #c084fc;
+    margin-bottom: 12px;
+  }
+  .parallel-badge::before {
+    content: '⚡';
+    font-size: 12px;
+  }
+
+  /* ══════ CATEGORY STRIP ══════ */
+  .cat-strip {
+    display: flex; gap: 6px; flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .cat-chip {
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 11px; font-weight: 700;
+  }
+  .cat-chip-sub { background: rgba(14,165,233,0.12); color: #7dd3fc; border: 1px solid rgba(14,165,233,0.2); }
+  .cat-chip-ref { background: rgba(245,158,11,0.12); color: #fcd34d; border: 1px solid rgba(245,158,11,0.2); }
+  .cat-chip-acc { background: rgba(16,185,129,0.12); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.2); }
+  .cat-chip-pay { background: rgba(168,85,247,0.12); color: #d8b4fe; border: 1px solid rgba(168,85,247,0.2); }
+  .cat-chip-con { background: rgba(239,68,68,0.12); color: #fca5a5; border: 1px solid rgba(239,68,68,0.2); }
+  .cat-chip-tec { background: rgba(6,182,212,0.12); color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
+  .cat-chip-oth { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+
+  /* ══════ EXCLUSION BOX ══════ */
+  .exclusion-box {
+    max-width: 960px;
+    margin: 40px auto 0;
+    background: rgba(239,68,68,0.05);
+    border: 1px solid rgba(239,68,68,0.15);
+    border-radius: 16px;
+    padding: 22px 28px;
+  }
+  .exclusion-box h3 {
+    font-size: 15px; font-weight: 800; color: #fca5a5;
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .exclusion-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .exclusion-item {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.1);
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 12px;
+    color: #cbd5e1;
+  }
+  .exclusion-item strong { color: #fca5a5; font-size: 11px; display: block; margin-bottom: 2px; }
+
+  /* ══════ FOOTER ══════ */
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    padding: 24px 40px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 12px;
+    color: #475569;
+  }
+
+  /* ══════ RESULT SECTION ══════ */
+  .result-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .result-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 16px 20px;
+    text-align: center;
+  }
+  .result-card .rc-label { font-size: 11px; color: #64748b; margin-bottom: 4px; }
+  .result-card .rc-value { font-size: 22px; font-weight: 800; }
+  .result-card .rc-desc { font-size: 11px; color: #475569; margin-top: 2px; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- ══════════ HERO ══════════ -->
+  <div class="hero">
+    <div class="hero-chip">FLOW DIAGRAM</div>
+    <h1>고객 문의, AI가 이렇게 처리합니다</h1>
+    <p>고객 메시지 입력부터 응답까지 — 전체 처리 흐름을 한눈에</p>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="num">1,660</div>
+        <div class="label">월 평균 문의</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">7</div>
+        <div class="label">카테고리</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">5</div>
+        <div class="label">지원 언어</div>
+      </div>
+      <div class="hero-stat">
+        <div class="num">&lt;3초</div>
+        <div class="label">평균 응답</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════ MAIN FLOW ══════════ -->
+  <div class="flow">
+
+    <!-- ── STEP 1: 고객 입력 ── -->
+    <div class="node node-input">
+      <span class="node-step">STEP 1</span>
+      <h2>고객이 챗봇에 메시지를 보냅니다</h2>
+      <p>웹사이트 또는 앱에서 고객이 궁금한 점을 입력합니다.<br>
+      예: "I want to cancel my subscription" / "환불 받고 싶어요"</p>
+    </div>
+
+    <div class="arrow-down"></div>
+
+    <!-- ── STEP 2: AI 분석 ── -->
+    <div class="node node-analyze">
+      <span class="node-step">STEP 2</span>
+      <h2>AI가 메시지를 분석합니다</h2>
+      <p>고객이 무엇을 원하는지, 어떤 언어인지, 어떤 카테고리인지 자동으로 파악합니다.</p>
+
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="di-icon">🌐</div>
+          <div class="di-title">언어 감지</div>
+          <div class="di-desc">EN · FR · ES · PT · DE<br>자동 감지</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-icon">🏷️</div>
+          <div class="di-title">카테고리 분류</div>
+          <div class="di-desc">7대 카테고리<br>23개 세부 의도</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-icon">💬</div>
+          <div class="di-title">감정 분석</div>
+          <div class="di-desc">화남 · 불만 · 중립<br>정중 · 긴급</div>
+        </div>
+      </div>
+
+      <div class="cat-strip">
+        <span class="cat-chip cat-chip-sub">Subscription 48%</span>
+        <span class="cat-chip cat-chip-ref">Refund 25%</span>
+        <span class="cat-chip cat-chip-acc">Account 13%</span>
+        <span class="cat-chip cat-chip-pay">Payment 5%</span>
+        <span class="cat-chip cat-chip-con">Content 4%</span>
+        <span class="cat-chip cat-chip-tec">Technical 3%</span>
+        <span class="cat-chip cat-chip-oth">Other 2%</span>
+      </div>
+    </div>
+
+    <div class="arrow-down"></div>
+
+    <!-- ── STEP 3: Fraud 검사 ── -->
+    <div class="node node-fraud">
+      <span class="node-step">STEP 3</span>
+      <div class="parallel-badge">분석과 동시 처리 (병렬)</div>
+      <h2>사기 의심 신호를 자동 검사합니다</h2>
+      <p>9가지 위험 신호를 실시간으로 체크하여 0~100점으로 위험도를 산출합니다.</p>
+
+      <div class="detail-grid">
+        <div class="detail-item">
+          <div class="di-icon">🔴</div>
+          <div class="di-title">Critical 5개</div>
+          <div class="di-desc">타인 명의 접근<br>무단결제 환불 요구<br>미성년자 주장</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-icon">🟡</div>
+          <div class="di-title">Supporting 4개</div>
+          <div class="di-desc">시간 압박 · 정보 불일치<br>다중 환불 · 감정 호소</div>
+        </div>
+        <div class="detail-item">
+          <div class="di-icon">📊</div>
+          <div class="di-title">위험도 점수</div>
+          <div class="di-desc" style="display:flex;gap:4px;justify-content:center;margin-top:4px;">
+            <span style="background:rgba(16,185,129,0.2);color:#6ee7b7;padding:2px 8px;border-radius:6px;font-size:10px;">0~29 안전</span>
+            <span style="background:rgba(245,158,11,0.2);color:#fcd34d;padding:2px 8px;border-radius:6px;font-size:10px;">30~49 주의</span>
+            <span style="background:rgba(239,68,68,0.2);color:#fca5a5;padding:2px 8px;border-radius:6px;font-size:10px;">50+ 위험</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="arrow-down long"></div>
+
+    <!-- ── STEP 4: 라우팅 결정 ── -->
+    <div class="node node-decide" style="max-width:680px;">
+      <span class="node-step">STEP 4</span>
+      <h2>어떻게 처리할지 결정합니다</h2>
+      <p>분석 결과를 종합하여, 3가지 처리 경로 중 하나로 배정합니다.</p>
+    </div>
+
+    <!-- ── 3-way split ── -->
+    <div class="split-container">
+      <div class="split-arrows">
+        <div class="split-line-l"></div>
+        <div class="split-line-c"></div>
+        <div class="split-line-r"></div>
+      </div>
+      <div class="split-row">
+
+        <!-- L1 -->
+        <div class="route-card route-l1">
+          <div class="route-icon">🚨</div>
+          <span class="route-badge">L1 긴급</span>
+          <h3>상담원 직접 처리</h3>
+          <p class="route-desc">
+            Fraud 의심, 법적 이슈, Content/Other 문의 등<br>
+            <strong style="color:#fca5a5;">AI 응답 없음</strong> — 즉시 상담원에게 전달
+          </p>
+          <div class="route-pct">13%</div>
+          <div class="route-vol">월 ~220건</div>
+        </div>
+
+        <!-- L2 -->
+        <div class="route-card route-l2">
+          <div class="route-icon">📝</div>
+          <span class="route-badge">L2 검토</span>
+          <h3>AI 초안 + 상담원 검토</h3>
+          <p class="route-desc">
+            환불 적격성, 결제 분쟁, 복잡한 계정 문제 등<br>
+            <strong style="color:#fcd34d;">AI가 초안 작성</strong> → 상담원이 검토 후 발송
+          </p>
+          <div class="route-pct">49%</div>
+          <div class="route-vol">월 ~810건</div>
+        </div>
+
+        <!-- L3 -->
+        <div class="route-card route-l3">
+          <div class="route-icon">✅</div>
+          <span class="route-badge">L3 자동</span>
+          <h3>AI 즉시 응답</h3>
+          <p class="route-desc">
+            구독 해지 안내, FAQ, 비밀번호 리셋 등<br>
+            <strong style="color:#6ee7b7;">AI가 바로 응답</strong> — 상담원 개입 불필요
+          </p>
+          <div class="route-pct">38%</div>
+          <div class="route-vol">월 ~630건</div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- converge arrows -->
+    <div style="display:flex; justify-content:center; margin-top:24px;">
+      <div class="arrow-down long"></div>
+    </div>
+
+    <!-- ── STEP 5: 결과 ── -->
+    <div class="node node-output" style="text-align:center;">
+      <span class="node-step">STEP 5</span>
+      <h2>고객에게 응답이 전달됩니다</h2>
+      <p>L3는 즉시, L2는 상담원 검토 후, L1은 상담원이 직접 — 모든 응답에 "CS 티켓 제출" 옵션 포함</p>
+    </div>
+
+  </div><!-- /flow -->
+
+
+  <!-- ══════════ RESULT KPIs ══════════ -->
+  <div style="margin-top:36px;">
+    <div class="result-row">
+      <div class="result-card">
+        <div class="rc-label">자동 처리</div>
+        <div class="rc-value" style="color:#34d399;">630건/월</div>
+        <div class="rc-desc">상담원 개입 없이 해결</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">상담원 시간 절감</div>
+        <div class="rc-value" style="color:#38bdf8;">85시간+/월</div>
+        <div class="rc-desc">반복 업무에서 해방</div>
+      </div>
+      <div class="result-card">
+        <div class="rc-label">비용 절감</div>
+        <div class="rc-value" style="color:#fbbf24;">620만원/월</div>
+        <div class="rc-desc">인건비 29% 절감</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════ EXCLUSIONS ══════════ -->
+  <div class="exclusion-box">
+    <h3>🚫 AI가 절대 자동 응답하지 않는 영역</h3>
+    <div class="exclusion-grid">
+      <div class="exclusion-item">
+        <strong>Content 전체</strong>
+        작품 업데이트, 번역 오류, 챕터 누락, 이미지 깨짐
+      </div>
+      <div class="exclusion-item">
+        <strong>Other 전체</strong>
+        구직, 파트너십, 비즈니스 문의, 비CS 건
+      </div>
+      <div class="exclusion-item">
+        <strong>Fraud 의심 건</strong>
+        Critical 1개+ 또는 Supporting 2개+ 감지 시
+      </div>
+      <div class="exclusion-item">
+        <strong>법적 / 컴플라이언스</strong>
+        EU 철회권, GDPR, CDC 등 법적 규정 인용
+      </div>
+      <div class="exclusion-item">
+        <strong>상세 버그 리포트</strong>
+        기기명 + OS 버전 포함된 기술 이슈
+      </div>
+      <div class="exclusion-item">
+        <strong>Minna Tech / Ethoca</strong>
+        제3자 자동 해지 요청 — 절대 응답 금지
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════ FOOTER ══════════ -->
+  <div class="footer">
+    Toomics CS AI Chatbot — 처리 흐름도 v1.0 | 2026-02-22 | 작성: 유종선<br>
+    실데이터 11,621건 (7개월 × 10개 마켓) 분석 기반
+  </div>
+
+</div>
+
+</body>
+</html>
