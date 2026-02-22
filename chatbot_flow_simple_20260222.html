@@ -324,6 +324,116 @@
   .cat-chip-tec { background: rgba(6,182,212,0.12); color: #67e8f9; border: 1px solid rgba(6,182,212,0.2); }
   .cat-chip-oth { background: rgba(100,116,139,0.15); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
 
+  /* ══════ VALUE PROPOSITION ══════ */
+  .value-section {
+    max-width: 960px;
+    margin: 48px auto 0;
+  }
+  .value-title {
+    font-size: 22px; font-weight: 800;
+    text-align: center;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #34d399, #38bdf8);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .value-subtitle {
+    text-align: center;
+    font-size: 14px; color: #94a3b8;
+    margin-bottom: 28px;
+  }
+
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 60px 1fr;
+    gap: 0;
+    align-items: stretch;
+    margin-bottom: 28px;
+  }
+  .compare-card {
+    border-radius: 20px;
+    padding: 28px 24px;
+    position: relative;
+  }
+  .compare-old {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
+  }
+  .compare-new {
+    background: rgba(16,185,129,0.06);
+    border: 1px solid rgba(16,185,129,0.18);
+  }
+  .compare-arrow {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; color: #64748b;
+  }
+  .compare-card .cc-tag {
+    display: inline-block;
+    padding: 3px 12px; border-radius: 10px;
+    font-size: 10px; font-weight: 800;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .compare-old .cc-tag { background: rgba(239,68,68,0.12); color: #fca5a5; }
+  .compare-new .cc-tag { background: rgba(16,185,129,0.12); color: #6ee7b7; }
+  .compare-card h3 { font-size: 17px; font-weight: 800; margin-bottom: 14px; }
+  .compare-old h3 { color: #fca5a5; }
+  .compare-new h3 { color: #6ee7b7; }
+
+  .journey-step {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 8px 0;
+  }
+  .journey-num {
+    width: 24px; height: 24px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 800; flex-shrink: 0;
+  }
+  .compare-old .journey-num { background: rgba(239,68,68,0.12); color: #fca5a5; }
+  .compare-new .journey-num { background: rgba(16,185,129,0.12); color: #6ee7b7; }
+  .journey-step .js-text { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+  .journey-step .js-text strong { color: #e2e8f0; }
+
+  .cx-benefits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  .cx-card {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    padding: 20px 16px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cx-card::after {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+  }
+  .cx-card:nth-child(1)::after { background: var(--green, #10b981); }
+  .cx-card:nth-child(2)::after { background: #38bdf8; }
+  .cx-card:nth-child(3)::after { background: #a78bfa; }
+  .cx-card:nth-child(4)::after { background: #fbbf24; }
+  .cx-card .cx-icon { font-size: 28px; margin-bottom: 8px; }
+  .cx-card .cx-title { font-size: 13px; font-weight: 800; color: #e2e8f0; margin-bottom: 4px; }
+  .cx-card .cx-desc { font-size: 11.5px; color: #64748b; line-height: 1.5; }
+
+  .value-callout {
+    margin-top: 20px;
+    background: linear-gradient(135deg, rgba(16,185,129,0.06), rgba(14,165,233,0.04));
+    border: 1px solid rgba(16,185,129,0.15);
+    border-radius: 16px;
+    padding: 20px 28px;
+    text-align: center;
+  }
+  .value-callout p {
+    font-size: 15px; color: #cbd5e1; line-height: 1.8;
+  }
+  .value-callout strong { color: #6ee7b7; }
+  .value-callout em { color: #7dd3fc; font-style: normal; font-weight: 700; }
+
   /* ══════ EXCLUSION BOX ══════ */
   .exclusion-box {
     max-width: 960px;
@@ -574,7 +684,7 @@
       <div class="result-card">
         <div class="rc-label">자동 처리</div>
         <div class="rc-value" style="color:#34d399;">630건/월</div>
-        <div class="rc-desc">상담원 개입 없이 해결</div>
+        <div class="rc-desc">상담원 개입 없이 즉시 해결</div>
       </div>
       <div class="result-card">
         <div class="rc-label">상담원 시간 절감</div>
@@ -582,10 +692,104 @@
         <div class="rc-desc">반복 업무에서 해방</div>
       </div>
       <div class="result-card">
-        <div class="rc-label">비용 절감</div>
-        <div class="rc-value" style="color:#fbbf24;">620만원/월</div>
-        <div class="rc-desc">인건비 29% 절감</div>
+        <div class="rc-label">고객 대기 시간</div>
+        <div class="rc-value" style="color:#fbbf24;">즉시 응답</div>
+        <div class="rc-desc">기존 평균 7~29일 → 3초 이내</div>
       </div>
+    </div>
+  </div>
+
+
+  <!-- ══════════ VALUE PROPOSITION ══════════ -->
+  <div class="value-section">
+    <div class="value-title">기존 CS vs AI 챗봇 — 고객 경험이 이렇게 달라집니다</div>
+    <div class="value-subtitle">L 레이어 시스템이 티켓 접수 전에 먼저 해결 방향을 안내합니다</div>
+
+    <!-- Before / After 비교 -->
+    <div class="compare-box">
+      <div class="compare-card compare-old">
+        <span class="cc-tag">BEFORE — 기존 CS 티켓</span>
+        <h3>문의 = 무조건 티켓 접수</h3>
+        <div class="journey-step">
+          <span class="journey-num">1</span>
+          <div class="js-text">고객이 <strong>"구독 해지 어떻게 해요?"</strong> 궁금</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">2</span>
+          <div class="js-text">CS 티켓 작성 → 이메일 접수</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">3</span>
+          <div class="js-text">상담원 배정 대기 <strong style="color:#f87171;">(평균 7~29일)</strong></div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">4</span>
+          <div class="js-text">상담원이 동일한 안내 문구를 <strong>수동으로 복붙</strong></div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">5</span>
+          <div class="js-text" style="color:#fca5a5;">간단한 문의도 <strong style="color:#f87171;">전부 티켓화</strong> → 대기열 과부하</div>
+        </div>
+      </div>
+      <div class="compare-arrow">→</div>
+      <div class="compare-card compare-new">
+        <span class="cc-tag">AFTER — AI L 레이어 시스템</span>
+        <h3>티켓 전에 먼저 해결을 시도</h3>
+        <div class="journey-step">
+          <span class="journey-num">1</span>
+          <div class="js-text">고객이 <strong>"구독 해지 어떻게 해요?"</strong> 궁금</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">2</span>
+          <div class="js-text">AI 챗봇이 <strong style="color:#6ee7b7;">3초 이내</strong> 즉시 해지 방법 안내</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">3</span>
+          <div class="js-text"><strong style="color:#6ee7b7;">고객 스스로 해결</strong> → 티켓 접수 불필요</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">4</span>
+          <div class="js-text">해결 안 되면? → <strong>언제든 "티켓 접수" 옵션</strong> 제공</div>
+        </div>
+        <div class="journey-step">
+          <span class="journey-num">5</span>
+          <div class="js-text" style="color:#6ee7b7;">상담원은 <strong style="color:#34d399;">정말 필요한 건에만 집중</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CX 향상 포인트 4가지 -->
+    <div class="cx-benefits">
+      <div class="cx-card">
+        <div class="cx-icon">⚡</div>
+        <div class="cx-title">즉시 응답</div>
+        <div class="cx-desc">24/7 실시간 안내<br>대기 시간 제로</div>
+      </div>
+      <div class="cx-card">
+        <div class="cx-icon">🎯</div>
+        <div class="cx-title">티켓 자연 감소</div>
+        <div class="cx-desc">간단한 문의는 AI가 해결<br>월 630건 티켓 감소</div>
+      </div>
+      <div class="cx-card">
+        <div class="cx-icon">🛡️</div>
+        <div class="cx-title">상담 품질 향상</div>
+        <div class="cx-desc">상담원이 복잡한 건에 집중<br>응대 품질 상승</div>
+      </div>
+      <div class="cx-card">
+        <div class="cx-icon">🌐</div>
+        <div class="cx-title">다국어 즉시 지원</div>
+        <div class="cx-desc">5개 언어 자동 감지<br>해당 언어로 바로 안내</div>
+      </div>
+    </div>
+
+    <!-- 핵심 메시지 -->
+    <div class="value-callout">
+      <p>
+        AI 챗봇의 핵심 가치는 단순 자동화가 아닙니다.<br>
+        <strong>고객이 티켓을 접수하기 전에, L 레이어가 먼저 해결 방향을 안내</strong>합니다.<br>
+        해결되면 티켓 불필요 → <em>CS 티켓 자연 감소</em> + <em>고객 만족도(CX) 향상</em><br>
+        해결 안 되면 → 맥락이 요약된 티켓이 상담원에게 전달 → <em>상담 품질까지 향상</em>
+      </p>
     </div>
   </div>
 
