@@ -87,6 +87,12 @@ PREFIX_RULES = [
     ("ip_ops",                  "ip_ops",       "M",  "bg-green"),
     # 주간 리포트
     ("chatbot_weekly",          "weekly",       "W",  "bg-cyan"),
+    ("weekly_reports",          "weekly",       "A",  "bg-cyan"),
+    # 개인정보 / 컴플라이언스
+    ("personal_info",           "cs_manual",    "PI", "bg-green"),
+    # 차지백 (대문자 시작 엑셀)
+    ("Chargeback_Evidence",     "chargeback",   "T",  "bg-amber"),
+    ("Chargeback_Explanation",  "chargeback",   "E",  "bg-amber"),
     # 대시보드
     ("ticket_dashboard_manual", "dashboard",    "M",  "bg-blue"),
     ("ticket_dashboard",        "dashboard",    "V",  "bg-blue"),
