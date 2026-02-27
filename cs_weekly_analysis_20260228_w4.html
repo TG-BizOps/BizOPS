@@ -126,7 +126,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
   <div class="exec-summary">
     <h2>Executive Summary</h2>
     <ul>
-      <li><span class="tag tag-up">VOLUME</span> W4 총 <strong>479건</strong> — W3(394건) 대비 <strong>+21.6% 증가</strong>. 일 평균 68.4건. W2(433건) 대비로도 +10.6% 상승하며 2월 최고 볼륨.</li>
+      <li><span class="tag tag-up">VOLUME</span> W4 총 <strong>479건</strong> — W3(396건) 대비 <strong>+21.0% 증가</strong>. 일 평균 68.4건. W2(433건) 대비로도 +10.6% 상승하며 2월 최고 볼륨.</li>
       <li><span class="tag tag-down">IMPROVE</span> 평균 첫 응답 시간 <strong>22.1h</strong> (W3 27.0h 대비 <strong>-4.9h 개선</strong>). 해결 시간은 72.8h로 W3(70.1h) 대비 +2.7h 소폭 증가 — 모니터링 필요.</li>
       <li><span class="tag tag-up">ALERT</span> Refund <strong>+45%</strong>(83→120건) 급증. VIP/Premium <strong>+120%</strong>(15→33건) 급증. 자동갱신 미인지, VIP 미적용, 카드 부정사용이 동시 발생.</li>
       <li><span class="tag tag-info">GROWTH</span> ES <strong>+53%</strong>(47→72건) 최대 증가. JP <strong>+83%</strong>(12→22건), TH <strong>+33%</strong>(18→24건) 아시아 마켓 성장. PT <strong>+19%</strong> 안정 성장.</li>
@@ -142,7 +142,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
       <div class="kpi-icon" style="background:rgba(14,165,233,.15)">📨</div>
       <div class="kpi-number">479</div>
       <div class="kpi-label">총 해결 티켓</div>
-      <div class="kpi-sub">W3 대비 +21.6% (394→479)</div>
+      <div class="kpi-sub">W3 대비 +21.0% (396→479)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon" style="background:rgba(34,197,94,.15)">⏱</div>
@@ -218,7 +218,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
     <div class="chart-card"><div class="table-responsive"><table class="wow-table">
       <thead><tr><th>지표</th><th style="text-align:right">W3 (02.14~20)</th><th style="text-align:right">W4 (02.21~27)</th><th style="text-align:right">변화</th><th>판정</th></tr></thead>
       <tbody>
-        <tr><td><strong>총 해결 티켓</strong></td><td class="num">394건</td><td class="num">479건</td><td class="num">+85건</td><td><span class="trend-up">+21.6%</span></td></tr>
+        <tr><td><strong>총 해결 티켓</strong></td><td class="num">396건</td><td class="num">479건</td><td class="num">+83건</td><td><span class="trend-up">+21.0%</span></td></tr>
         <tr><td>Subscription</td><td class="num">148건 (37.6%)</td><td class="num">149건 (31.1%)</td><td class="num">+1건</td><td><span class="trend-flat">FLAT</span></td></tr>
         <tr><td>Refund</td><td class="num">83건 (21.1%)</td><td class="num">120건 (25.1%)</td><td class="num">+37건</td><td><span class="trend-up">+44.6% ⚠️</span></td></tr>
         <tr><td>Account</td><td class="num">52건 (13.2%)</td><td class="num">50건 (10.4%)</td><td class="num">-2건</td><td><span class="trend-flat">-3.8%</span></td></tr>
@@ -235,7 +235,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
     <div class="section-title"><span class="dot"></span>주별 티켓 트렌드 (최근 3주)</div>
     <div class="chart-card">
       <h3>주별 Solved 티켓 추이 (solved_at 기준)</h3>
-      <p class="chart-desc">W2(433건) → W3(394건, -9%) → W4(479건, +22%) | W4에서 2월 최고 볼륨</p>
+      <p class="chart-desc">W2(433건) → W3(396건, -9%) → W4(479건, +22%) | W4에서 2월 최고 볼륨</p>
       <div class="chart-wrap"><canvas id="chartWeeklyTrend"></canvas></div>
     </div>
   </div>
@@ -260,26 +260,26 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
   <!-- ════════ CHARGEBACK ════════ -->
   <div class="section">
     <div class="section-title"><span class="dot"></span>Chargeback Weekly Overview</div>
-    <div class="kpi-strip">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px">
       <div class="kpi-card">
         <div class="kpi-label">W4 차지백</div>
-        <div class="kpi-value" style="color:#EF4444">59건</div>
+        <div class="kpi-number" style="color:#EF4444">59<span class="small">건</span></div>
         <div class="kpi-sub"><span class="trend-down">▼ -7.8%</span> vs W3(64건)</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">PayPal</div>
-        <div class="kpi-value">39건</div>
+        <div class="kpi-number">39<span class="small">건</span></div>
         <div class="kpi-sub">66.1% 점유</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">무단거래</div>
-        <div class="kpi-value">27건</div>
+        <div class="kpi-number">27<span class="small">건</span></div>
         <div class="kpi-sub">45.8% 최다 사유</div>
       </div>
       <div class="kpi-card">
         <div class="kpi-label">6개월 구독</div>
-        <div class="kpi-value">16건</div>
-        <div class="kpi-sub">27.1% · W3 대비 <span class="trend-up">+45%</span></div>
+        <div class="kpi-number">16<span class="small">건</span></div>
+        <div class="kpi-sub">27.1% · <span class="trend-up">+45%</span></div>
       </div>
     </div>
     <div class="chart-grid-2" style="margin-top:16px">
@@ -392,8 +392,6 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
         <span class="voice-action">→ JP 자동갱신 고지·해지 가이드 현지화</span>
       </div>
     </div>
-
-    
   </div>
 
   <!-- ════════ KEY INSIGHTS ════════ -->
@@ -401,8 +399,8 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
     <div class="section-title"><span class="dot"></span>Key Insights</div>
     <div class="insight-grid">
       <div class="insight-card red">
-        <h4>📈 W4 479건 — 2월 최고 (+21.6%)</h4>
-        <p>W3(394건)→W4(479건). Refund <span class="highlight">+45%</span>, VIP/Premium <span class="highlight">+120%</span> 급증이 전체 볼륨 상승 주도.</p>
+        <h4>📈 W4 479건 — 2월 최고 (+21.0%)</h4>
+        <p>W3(396건)→W4(479건). Refund <span class="highlight">+45%</span>, VIP/Premium <span class="highlight">+120%</span> 급증이 전체 볼륨 상승 주도.</p>
       </div>
       <div class="insight-card green">
         <h4>✅ FRT -4.9h 개선 (22.1h)</h4>
@@ -468,7 +466,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
 const ff="'Malgun Gothic','Noto Sans KR',sans-serif";Chart.defaults.font.family=ff;Chart.defaults.font.size=12;
 new Chart(document.getElementById('chartCategory'),{type:'doughnut',data:{labels:['Subscription','Refund','Payment','Account','Other','VIP/Premium','Content'],datasets:[{data:[149,120,56,50,41,33,30],backgroundColor:['#0EA5E9','#6366f1','#22c55e','#f97316','#8b5cf6','#ec4899','#eab308'],borderWidth:0}]},options:{responsive:true,aspectRatio:1,cutout:'60%',plugins:{legend:{display:false}}}});
 new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:['EN','ES','FR','PT','DE','TH','JP','CN','IT'],datasets:[{data:[170,72,69,50,41,24,22,16,12],backgroundColor:['#0EA5E9','#f97316','#6366f1','#22c55e','#eab308','#ec4899','#8b5cf6','#a855f7','#64748b'],borderWidth:0}]},options:{responsive:true,aspectRatio:1,cutout:'60%',plugins:{legend:{display:false}}}});
-new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:['W2\n(02/07~13)','W3\n(02/14~20)','W4\n(02/21~27)'],datasets:[{label:'Solved 티켓',data:[433,394,479],backgroundColor:['#475569','#0EA5E9','#0EA5E9'],borderRadius:8,borderSkipped:false,barThickness:60}]},options:{responsive:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'건'}}},scales:{y:{beginAtZero:false,min:350,max:520,grid:{color:'#E2E8F0'}},x:{grid:{display:false}}}}});
+new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:['W2\n(02/07~13)','W3\n(02/14~20)','W4\n(02/21~27)'],datasets:[{label:'Solved 티켓',data:[433,396,479],backgroundColor:['#475569','#0EA5E9','#0EA5E9'],borderRadius:8,borderSkipped:false,barThickness:60}]},options:{responsive:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'건'}}},scales:{y:{beginAtZero:false,min:350,max:520,grid:{color:'#E2E8F0'}},x:{grid:{display:false}}}}});
 new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:['Web 47.2%','Email 35.1%','API 17.7%'],datasets:[{data:[226,168,85],backgroundColor:['#0EA5E9','#6366f1','#f97316'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
 new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:['Neutral 57.6%','Negative 38.4%','V.Negative 2.7%','Positive 0.6%'],datasets:[{data:[276,184,13,3],backgroundColor:['#475569','#f97316','#EF4444','#22c55e'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
 new Chart(document.getElementById('chartCBProvider'),{type:'doughnut',data:{labels:['PayPal 66.1%','AirWallex 11.9%','PaymentWall 11.9%','CKO 10.2%'],datasets:[{data:[39,7,7,6],backgroundColor:['#0EA5E9','#22c55e','#f97316','#6366f1'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
