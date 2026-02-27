@@ -54,8 +54,8 @@ PREFIX_RULES = [
     ("cs_repeat",               "cs_manual",    "R",  "bg-blue"),
     # CS 분석
     ("cs_l1_l2_l3",             "cs_analysis",  "L",  "bg-cyan"),
-    ("cs_weekly_analysis",      "cs_analysis",  "W",  "bg-cyan"),
-    ("cs_weekly",               "cs_analysis",  "W",  "bg-cyan"),
+    ("cs_weekly_analysis",      "weekly",       "W",  "bg-cyan"),
+    ("cs_weekly",               "weekly",       "W",  "bg-cyan"),
     ("cs_infographic",          "cs_analysis",  "I",  "bg-cyan"),
     ("cs_fraud",                "cs_analysis",  "F",  "bg-red"),
     # CS 프로세스
