@@ -34,7 +34,7 @@
   }
   .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px 64px; }
   .stats {
-    display: grid; grid-template-columns: repeat(2, 1fr);
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 16px; margin-bottom: 40px;
   }
   .stat-card {
@@ -46,7 +46,8 @@
   .stat-card .lbl { font-size: 12px; color: #475569; margin-top: 4px; }
   .stat-card:nth-child(2) { border-top-color: #0EA5E9; }
   .stat-card:nth-child(3) { border-top-color: #10B981; }
-  .stat-card:nth-child(4) { border-top-color: #7C3AED; }
+  .stat-card:nth-child(4) { border-top-color: #F59E0B; }
+  .stat-card:nth-child(5) { border-top-color: #7C3AED; }
   .section { margin-bottom: 36px; }
   .section-title {
     display: flex; align-items: center; gap: 10px;
@@ -68,13 +69,12 @@
     gap: 12px;
   }
   .link-card {
-    display: flex; align-items: flex-start; gap: 14px;
+    display: flex; align-items: center; gap: 14px;
     background: #fff; border: 1px solid #E2E8F0;
     border-radius: 12px; padding: 16px 18px;
     text-decoration: none; color: #1E293B;
     transition: border-color 0.15s, box-shadow 0.15s;
     border-left: 4px solid transparent;
-    height: 100%;
   }
   .link-card:hover {
     border-color: #2563EB; box-shadow: 0 4px 12px rgba(0,0,0,0.06);
@@ -83,33 +83,17 @@
   .link-card .lc-icon {
     width: 36px; height: 36px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0; margin-top: 2px;
+    font-size: 16px; flex-shrink: 0;
   }
-  .link-card .lc-body {
-    flex: 1; min-width: 0;
-    overflow: hidden; /* 박스 밖 텍스트 차단 */
-  }
+  .link-card .lc-body { flex: 1; min-width: 0; }
   .link-card .lc-title {
     font-size: 14px; font-weight: 700;
-    line-height: 1.4; margin-bottom: 4px;
-    /* 한 줄 말줄임표 처리 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .link-card .lc-desc {
-    font-size: 12px; color: #475569; line-height: 1.5;
-    /* 최대 2줄 말줄임표 처리 */
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+  .link-card .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
   .link-card .lc-badge {
     font-size: 10.5px; font-weight: 700; padding: 2px 8px;
-    border-radius: 6px; white-space: nowrap; margin-top: 2px;
-    align-self: flex-start;
+    border-radius: 6px; white-space: nowrap;
   }
   .bg-blue   { background: #EFF6FF; color: #2563EB; }
   .bg-cyan   { background: #ECFEFF; color: #0891B2; }
@@ -124,55 +108,6 @@
   .ic-amber  { background: #F59E0B; }
   .ic-red    { background: #EF4444; }
   .ic-purple { background: #7C3AED; }
-  /* ── Changelog ── */
-  .cl-wrap { display: flex; flex-direction: column; gap: 0; }
-  .cl-day { display: grid; grid-template-columns: 120px 1fr; gap: 0 16px; margin-bottom: 4px; }
-  .cl-date {
-    font-size: 11px; font-weight: 700; color: #64748b;
-    padding-top: 10px; text-align: right; letter-spacing: .5px;
-    white-space: nowrap;
-  }
-  .cl-entries { border-left: 2px solid #E2E8F0; padding-left: 16px; display: flex; flex-direction: column; gap: 0; }
-  .cl-item {
-    display: flex; align-items: flex-start; gap: 10px;
-    padding: 8px 0; border-bottom: 1px dashed #F1F5F9; font-size: 12.5px;
-  }
-  .cl-item:last-child { border-bottom: none; }
-  .cl-dot {
-    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 5px;
-    margin-left: -20px;
-  }
-  .cl-dot.docs  { background: #2563EB; }
-  .cl-dot.feat  { background: #10B981; }
-  .cl-dot.del   { background: #EF4444; }
-  .cl-tag {
-    display: inline-block; font-size: 10px; font-weight: 700;
-    padding: 1px 6px; border-radius: 4px; white-space: nowrap; flex-shrink: 0;
-  }
-  .cl-tag.docs  { background: #DBEAFE; color: #1D4ED8; }
-  .cl-tag.feat  { background: #D1FAE5; color: #065F46; }
-  .cl-tag.del   { background: #FEE2E2; color: #991B1B; }
-  /* details/summary toggle */
-  .cl-details summary {
-    cursor: pointer; list-style: none; display: flex; align-items: center;
-    gap: 8px; padding: 10px 0; font-size: 14px; font-weight: 700;
-    color: #334155; user-select: none;
-  }
-  .cl-details summary::-webkit-details-marker { display: none; }
-  .cl-details summary::before {
-    content: '▶'; font-size: 10px; color: #94A3B8;
-    transition: transform .2s; display: inline-block;
-  }
-  .cl-details[open] summary::before { transform: rotate(90deg); }
-  .cl-details summary .cl-summary-count {
-    font-size: 11px; color: #94A3B8; font-weight: 400; margin-left: 4px;
-  }
-  .cl-file {
-    font-family: 'Consolas','Menlo',monospace; font-size: 11px;
-    background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 4px;
-    padding: 0 5px; color: #475569; white-space: nowrap; flex-shrink: 0;
-  }
-  .cl-desc { color: #334155; line-height: 1.5; }
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
@@ -198,17 +133,18 @@
   <div class="subtitle">Toomics Global · 글로벌 플랫폼 운영팀</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>최종 업데이트: 2026-02-26 14:25 KST (Restored)</span>
-    <span>문서 29건</span>
+    <span>최종 업데이트: 2026-02-27</span>
+    <span>문서 41건</span>
   </div>
 </header>
 
 <div class="container">
   <div class="stats">
-    <div class="stat-card"><div class="num">10</div><div class="lbl">CS 운영</div></div>
+    <div class="stat-card"><div class="num">20</div><div class="lbl">CS 운영</div></div>
     <div class="stat-card"><div class="num">13</div><div class="lbl">AI 챗봇</div></div>
-    <div class="stat-card"><div class="num">3</div><div class="lbl">차지백</div></div>
-    <div class="stat-card"><div class="num">2</div><div class="lbl">대시보드</div></div>
+    <div class="stat-card"><div class="num">4</div><div class="lbl">차지백</div></div>
+    <div class="stat-card"><div class="num">1</div><div class="lbl">IP 보호</div></div>
+    <div class="stat-card"><div class="num">3</div><div class="lbl">대시보드</div></div>
   </div>
 
   <div class="section">
@@ -231,7 +167,6 @@
         </span>
         <span class="lc-badge bg-blue">1280px</span>
       </a>
-
       <a class="link-card" href="cs_repeat_complaint_manual_20260225.html">
         <span class="lc-icon bg-blue">R</span>
         <span class="lc-body">
@@ -245,7 +180,7 @@
   <div class="section">
     <h2 class="section-title">
       <span class="icon ic-cyan">A</span> CS 분석 · 시각화
-      <span class="count">3건</span>
+      <span class="count">6건</span>
     </h2>
     <div class="link-grid">
       <a class="link-card" href="cs_fraud_analysis_20260219_refund_dispute.html">
@@ -269,7 +204,30 @@
         </span>
         <span class="lc-badge bg-cyan">1280px</span>
       </a>
-
+      <a class="link-card" href="cs_weekly_analysis_20260223_w2w3.html">
+        <span class="lc-icon bg-cyan">W</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS BizOps팀 주간 보고서 | 2026년 2월 2~3주차 (02.07 ~ 02.20) v2</span>
+          <span class="lc-desc">투믹스 글로벌 BizOps팀 주간 보고서 2026년 2월 2~3주차 — CS 829건 + Chargeback 150건(시트) + AI Chatbot Phase 2 통합 분석</span>
+        </span>
+        <span class="lc-badge bg-cyan">1280px</span>
+      </a>
+      <a class="link-card" href="cs_weekly_analysis_20260223_w2w3_executive.html">
+        <span class="lc-icon bg-cyan">W</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS BizOps팀 주간 보고서 | 2026년 2월 2~3주차 (02.07 ~ 02.20)</span>
+          <span class="lc-desc">투믹스 글로벌 BizOps팀 주간 보고서 2026년 2월 2~3주차 — CS·결제·차지백·AI 프로젝트 통합</span>
+        </span>
+        <span class="lc-badge bg-cyan">1280px</span>
+      </a>
+      <a class="link-card" href="cs_weekly_analysis_20260228_w4.html">
+        <span class="lc-icon bg-cyan">W</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS BizOps팀 주간 보고서 | 2026년 2월 4주차 (02.21 ~ 02.27)</span>
+          <span class="lc-desc">투믹스 글로벌 BizOps팀 주간 보고서 2026년 2월 4주차 — CS 479건 (solved_at 기준) 통합 분석</span>
+        </span>
+        <span class="lc-badge bg-cyan">1280px</span>
+      </a>
     </div>
   </div>
 
@@ -307,32 +265,40 @@
   <div class="section">
     <h2 class="section-title">
       <span class="icon ic-amber">$</span> 차지백
-      <span class="count">3건</span>
+      <span class="count">4건</span>
     </h2>
     <div class="link-grid">
       <a class="link-card" href="chargeback_operation_manual_20260220.html">
         <span class="lc-icon bg-amber">M</span>
         <span class="lc-body">
           <span class="lc-title">TOOMICS 차지백 운영 매뉴얼 v1.3 | 유종선</span>
-          <span class="lc-desc">TOOMICS Global 차지백 운영 매뉴얼 v1.3 — 8개 PG사 소명 절차 통합 가이드 (Refund Policy v2.0 반영)</span>
+          <span class="lc-desc">TOOMICS Global 차지백 운영 매뉴얼 v1.3 — 8개 PG사 소명 절차 통합 가이드</span>
+        </span>
+        <span class="lc-badge bg-amber">1280px</span>
+      </a>
+      <a class="link-card" href="chargeback_sample_template.html">
+        <span class="lc-icon bg-amber">T</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Template | 유종선</span>
+          <span class="lc-desc">TOOMICS Global Chargeback Explanation Template — Proof of Delivery, Invoice, Recurring Agreement, Refund Policy</span>
         </span>
         <span class="lc-badge bg-amber">1280px</span>
       </a>
       <a class="link-card" href="chargeback_sample_template_v2.html">
-        <span class="lc-icon bg-amber">V2</span>
+        <span class="lc-icon bg-amber">T</span>
         <span class="lc-body">
           <span class="lc-title">Chargeback Explanation Template v2 | 유종선</span>
-          <span class="lc-desc">TOOMICS Global 차지백 소명 템플릿 v2 — Refund Policy v2.0 반영 (2026-02-26)</span>
+          <span class="lc-desc">TOOMICS Global Chargeback Explanation Template — Proof of Delivery, Invoice, Recurring Agreement, Refund Policy</span>
         </span>
         <span class="lc-badge bg-amber">1280px</span>
       </a>
-      <a class="link-card" href="Chargeback_Explanation_Form_v5.xlsx">
-        <span class="lc-icon bg-amber">X5</span>
+      <a class="link-card" href="chargeback_template.xlsx">
+        <span class="lc-icon bg-slate">X</span>
         <span class="lc-body">
-          <span class="lc-title">Chargeback Explanation Form v5 | 유종선</span>
-          <span class="lc-desc">TOOMICS Global 차지백 소명 양식 v5 — HTML 레이아웃 매칭 + Data Paste 섹션 포함</span>
+          <span class="lc-title">Chargeback Template</span>
+          <span class="lc-desc">Excel 다운로드</span>
         </span>
-        <span class="lc-badge bg-amber">XLSX</span>
+        <span class="lc-badge bg-slate">XLSX</span>
       </a>
     </div>
   </div>
@@ -473,16 +439,16 @@
 
   <div class="section">
     <h2 class="section-title">
-      <span class="icon ic-cyan">W</span> 주간 보고서
+      <span class="icon ic-cyan">R</span> 주간 리포트
+      <span class="count">1건</span>
     </h2>
     <div class="link-grid">
-      <a class="link-card" href="weekly_reports.html" style="border-color:#0EA5E9;">
-        <span class="lc-icon bg-cyan">📅</span>
+      <a class="link-card" href="chatbot_weekly_report_20260222.html">
+        <span class="lc-icon bg-cyan">W</span>
         <span class="lc-body">
-          <span class="lc-title">BizOps 주간 보고서 아카이브</span>
-          <span class="lc-desc">CS · 차지백 · AI 챗봇 통합 주간 보고서 — 3건 (2026년 2월)</span>
+          <span class="lc-title">AI Chatbot 프로젝트 주간 현황 보고 | 2026-02-22</span>
         </span>
-        <span class="lc-badge bg-cyan">→</span>
+        <span class="lc-badge bg-cyan">1280px</span>
       </a>
     </div>
   </div>
@@ -490,9 +456,16 @@
   <div class="section">
     <h2 class="section-title">
       <span class="icon ic-blue">D</span> 대시보드
-      <span class="count">2건</span>
+      <span class="count">3건</span>
     </h2>
     <div class="link-grid">
+      <a class="link-card" href="ticket_dashboard_20260222.html">
+        <span class="lc-icon bg-blue">V</span>
+        <span class="lc-body">
+          <span class="lc-title">Toomics CS — Ticket Dashboard</span>
+        </span>
+        <span class="lc-badge bg-blue">960px</span>
+      </a>
       <a class="link-card" href="ticket_dashboard_20260223.html">
         <span class="lc-icon bg-blue">V</span>
         <span class="lc-body">
@@ -511,129 +484,71 @@
     </div>
   </div>
 
-  <!-- ── CHANGELOG ── -->
   <div class="section">
     <h2 class="section-title">
-      <span class="icon" style="background:#475569;">📋</span>
-      변경 이력 (Changelog)
+      <span class="icon ic-blue">?</span> 기타
+      <span class="count">7건</span>
     </h2>
-  <details class="cl-details">
-    <summary>변경 이력 보기 <span class="cl-summary-count">— 2026-02-22 ~ 26 · 11건</span></summary>
-  <div class="cl-wrap">
-
-    <!-- 2026-02-26 -->
-    <div class="cl-day">
-      <div class="cl-date">2026-02-26</div>
-      <div class="cl-entries">
-
-        <div class="cl-item">
-          <span class="cl-dot del"></span>
-          <span class="cl-tag del">DELETE</span>
-          <span class="cl-file">cs_manual_enhanced_20260219.html</span>
-          <span class="cl-desc">EN 매뉴얼 v2.1 통합으로 인한 중복 파일 완전 삭제</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">DOCS</span>
-          <span class="cl-file">cs_manual_EN_20260219.html</span>
-          <span class="cl-desc">v2.0 → v2.1 — 운영 피드백 13개 반영 (KO 매뉴얼 동기화): 2.2.1 무료체험 문구 삭제 · 2.3.2 삭제 · 4.6.1 개인정보 요청 삭제 · 6.4.1 toomics.site 문구 삭제 외</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">DOCS</span>
-          <span class="cl-file">cs_manual_KO_20260219.html</span>
-          <span class="cl-desc">v2.0 → v2.1 — 운영 피드백 13개 반영: 2.2.1 · 2.3.2 · 2.4.1 · 4.4.3 · 4.5.1 · 4.5.2 · 4.6.1 · 5.1.1 · 5.6.1 · 6.1.1 · 6.3.1 · 6.4.1 · 6.5.1</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">FIX</span>
-          <span class="cl-file">index.html</span>
-          <span class="cl-desc">CS 운영 매뉴얼 중복 카드 제거 (cs_manual_enhanced) · 대시보드 중복 카드 제거 (ticket_dashboard_20260222) · 차지백 카운트 4→3 수정</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">FIX</span>
-          <span class="cl-file">cs_l1_l2_l3_analysis_20260225.html</span>
-          <span class="cl-desc">헤더 좌쏠림 수정 — hero-inner max-width 래퍼 추가 (1280px+ 화면 정렬 불일치 해결)</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">DOCS</span>
-          <span class="cl-file">chargeback_operation_manual_20260220.html</span>
-          <span class="cl-desc">v1.2 → v1.3 — 섹션 6-1 신설: Cancellation &amp; Refund Policy v2.0 원문 (VIP 3조건 · Coin 7일 · Limitations)</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">DOCS</span>
-          <span class="cl-file">chargeback_operation_manual_20260220.html</span>
-          <span class="cl-desc">v1.1 → v1.2 — 템플릿 링크 최신화: Explanation Form v5 · chargeback_sample_template_v2</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot docs"></span>
-          <span class="cl-tag docs">FIX</span>
-          <span class="cl-file">index.html</span>
-          <span class="cl-desc">카드 텍스트 오버플로우 수정 — 제목 nowrap ellipsis · 설명 2줄 clamp</span>
-        </div>
-
-      </div>
+    <div class="link-grid">
+      <a class="link-card" href="Chargeback_Evidence_Template_v2.xlsx">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Evidence Template V2</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+      <a class="link-card" href="Chargeback_Explanation_Form_v2.xlsx">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Form V2</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+      <a class="link-card" href="Chargeback_Explanation_Form_v3.xlsx">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Form V3</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+      <a class="link-card" href="Chargeback_Explanation_Form_v4.xlsx">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Form V4</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+      <a class="link-card" href="Chargeback_Explanation_Form_v5.xlsx">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Form V5</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+      <a class="link-card" href="personal_info_evidence_EA2_EA37_EA56_EA57.html">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">Supplementary Evidence — EA2, EA37, EA56, EA57 | Toomics Global</span>
+        </span>
+        <span class="lc-badge bg-slate">960px</span>
+      </a>
+      <a class="link-card" href="weekly_reports.html">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">BizOps 주간 보고서 | Toomics Global</span>
+          <span class="lc-desc">Toomics Global BizOps — 주간 보고서 아카이브</span>
+        </span>
+        <span class="lc-badge bg-slate">960px</span>
+      </a>
     </div>
-
-    <!-- 2026-02-24 -->
-    <div class="cl-day">
-      <div class="cl-date">2026-02-24</div>
-      <div class="cl-entries">
-
-        <div class="cl-item">
-          <span class="cl-dot feat"></span>
-          <span class="cl-tag feat">FEAT</span>
-          <span class="cl-file">chargeback_sample_template_v2.html</span>
-          <span class="cl-desc">환불 정책 v2.0 업데이트 — VIP 3조건 명시 · Coin 7일 조건 · Limitations 섹션 신설</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot feat"></span>
-          <span class="cl-tag feat">FEAT</span>
-          <span class="cl-file">Chargeback_Explanation_Form_v5.xlsx</span>
-          <span class="cl-desc">Data Paste 섹션 추가 · 가이드 텍스트 개선 · 서식 전면 정비</span>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- 2026-02-22 ~ 23 -->
-    <div class="cl-day">
-      <div class="cl-date">2026-02-22~23</div>
-      <div class="cl-entries">
-
-        <div class="cl-item">
-          <span class="cl-dot feat"></span>
-          <span class="cl-tag feat">FEAT</span>
-          <span class="cl-file">ticket_dashboard_20260223.html</span>
-          <span class="cl-desc">CS 티켓 대시보드 v2 — 라이브 필터링, KPI 카드, 마켓별 분석 (1,660건 기준)</span>
-        </div>
-
-        <div class="cl-item">
-          <span class="cl-dot feat"></span>
-          <span class="cl-tag feat">FEAT</span>
-          <span class="cl-file">chatbot_cost_analysis_20260222.html</span>
-          <span class="cl-desc">챗봇 도입 비용 분석 — Phase별 ROI, 자동화율 목표 대비 절감액 산출</span>
-        </div>
-
-      </div>
-    </div>
-
   </div>
-  </details>
-  </div><!-- /section changelog -->
 
-</div><!-- /container -->
+</div>
 
 <footer class="footer">
   Toomics Global · BizOps Team · 유종선 · 2026
