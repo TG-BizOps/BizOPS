@@ -466,6 +466,90 @@ def generate_html(sections_data, total_count, today_str):
 # ──────────────────────────────────────────────
 
 
+def generate_weekly_archive(directory, today_str):
+    """주간 리포트 아카이브 페이지 자동 생성."""
+    weekly_files = []
+    for f in sorted(os.listdir(directory), reverse=True):
+        if f == "weekly_reports.html" or f == "index.html":
+            continue
+        if not (f.endswith(".html")):
+            continue
+        name = os.path.splitext(f)[0]
+        if name.startswith("cs_weekly") or name.startswith("chatbot_weekly"):
+            title = extract_title(os.path.join(directory, f))
+            desc = extract_description(os.path.join(directory, f))
+            # Extract date from filename
+            dm = re.search(r'(\d{8})', name)
+            date_str = dm.group(1) if dm else ""
+            if date_str:
+                date_fmt = f"{date_str[:4]}.{date_str[4:6]}.{date_str[6:]}"
+            else:
+                date_fmt = ""
+            # Detect week label
+            wm = re.search(r'_(w\d\w*)', name, re.I)
+            week_label = wm.group(1).upper() if wm else ""
+            weekly_files.append({
+                "filename": f,
+                "title": title,
+                "desc": desc,
+                "date": date_fmt,
+                "week": week_label,
+            })
+
+    lines = []
+    lines.append('<!DOCTYPE html>')
+    lines.append('<html lang="ko">')
+    lines.append('<head>')
+    lines.append('<meta charset="UTF-8">')
+    lines.append('<meta name="viewport" content="width=device-width, initial-scale=1.0">')
+    lines.append('<meta name="author" content="유종선">')
+    lines.append('<meta name="description" content="Toomics Global BizOps — 주간 보고서 아카이브">')
+    lines.append('<title>BizOps 주간 보고서 아카이브 | Toomics Global</title>')
+    lines.append('<style>')
+    lines.append('*{margin:0;padding:0;box-sizing:border-box}')
+    lines.append("body{font-family:'Malgun Gothic','Noto Sans KR',sans-serif;background:#F8FAFC;color:#1E293B;font-size:14px;line-height:1.7}")
+    lines.append('.hero{background:linear-gradient(135deg,#0F4C81 0%,#0EA5E9 50%,#38BDF8 100%);color:#fff;padding:48px 24px;text-align:center}')
+    lines.append('.hero-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 14px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px}')
+    lines.append('.hero h1{font-size:28px;font-weight:800;margin-bottom:8px}.hero .subtitle{font-size:15px;opacity:.85}')
+    lines.append('.container{max-width:960px;margin:0 auto;padding:32px 24px 64px}')
+    lines.append('.back-link{display:inline-block;margin-bottom:24px;color:#2563EB;text-decoration:none;font-size:13px;font-weight:600}')
+    lines.append('.back-link:hover{text-decoration:underline}')
+    lines.append('.report-card{display:block;background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:20px 24px;margin-bottom:12px;text-decoration:none;color:#1E293B;transition:border-color .15s,box-shadow .15s;border-left:4px solid #0EA5E9}')
+    lines.append('.report-card:hover{border-color:#2563EB;box-shadow:0 4px 12px rgba(0,0,0,.06);border-left-color:#2563EB}')
+    lines.append('.report-card .rc-meta{display:flex;gap:12px;align-items:center;margin-bottom:6px}')
+    lines.append('.report-card .rc-week{background:#EFF6FF;color:#2563EB;padding:2px 10px;border-radius:6px;font-size:12px;font-weight:700}')
+    lines.append('.report-card .rc-date{font-size:12px;color:#94A3B8}')
+    lines.append('.report-card .rc-title{font-size:15px;font-weight:700}')
+    lines.append('.report-card .rc-desc{font-size:12px;color:#475569;margin-top:4px}')
+    lines.append('.footer{text-align:center;padding:24px;font-size:12px;color:#94A3B8;border-top:1px solid #E2E8F0;margin-top:40px}')
+    lines.append('</style>')
+    lines.append('</head>')
+    lines.append('<body>')
+    lines.append('<header class="hero">')
+    lines.append('  <div class="hero-badge">Weekly Report Archive</div>')
+    lines.append('  <h1>주간 보고서 아카이브</h1>')
+    lines.append(f'  <div class="subtitle">총 {len(weekly_files)}건 · 최종 업데이트 {today_str}</div>')
+    lines.append('</header>')
+    lines.append('<div class="container">')
+    lines.append('<a class="back-link" href="index.html">← 산출물 인덱스로</a>')
+    for entry in weekly_files:
+        lines.append(f'<a class="report-card" href="{escape(entry["filename"])}">')
+        lines.append(f'  <div class="rc-meta">')
+        if entry["week"]:
+            lines.append(f'    <span class="rc-week">{escape(entry["week"])}</span>')
+        lines.append(f'    <span class="rc-date">{escape(entry["date"])}</span>')
+        lines.append(f'  </div>')
+        lines.append(f'  <div class="rc-title">{escape(entry["title"])}</div>')
+        if entry["desc"]:
+            lines.append(f'  <div class="rc-desc">{escape(entry["desc"])}</div>')
+        lines.append(f'</a>')
+    lines.append('</div>')
+    lines.append(f'<footer class="footer">Toomics Global · BizOps Team · 유종선 · {today_str[:4]}</footer>')
+    lines.append('</body>')
+    lines.append('</html>')
+    return "\n".join(lines) + "\n"
+
+
 def main():
     dry_run = "--dry-run" in sys.argv
 
@@ -474,19 +558,32 @@ def main():
     repo_root = os.path.dirname(script_dir)
     os.chdir(repo_root)
 
-    # Scan files
+    # Today (KST)
+    kst = timezone(timedelta(hours=9))
+    today_str = datetime.now(kst).strftime("%Y-%m-%d")
+
+    # Generate weekly archive first
+    archive_html = generate_weekly_archive(".", today_str)
+    archive_path = os.path.join(repo_root, "weekly_reports.html")
+    if not dry_run:
+        with open(archive_path, "w", encoding="utf-8") as f:
+            f.write(archive_html)
+        print("weekly_reports.html updated.")
+
+    # Scan files — weekly files excluded from main index (they go through archive)
     files = scan_files(".")
     if not files:
         print("No deliverable files found.", file=sys.stderr)
         sys.exit(1)
 
+    # Remove individual weekly files from main index, keep only weekly_reports.html
+    files = [f for f in files if not (
+        (f.startswith("cs_weekly") or f.startswith("chatbot_weekly")) and f != "weekly_reports.html"
+    )]
+
     # Build entries
     sections_data = build_file_entries(".", files)
     total = len(files)
-
-    # Today (KST)
-    kst = timezone(timedelta(hours=9))
-    today_str = datetime.now(kst).strftime("%Y-%m-%d")
 
     # Generate
     html = generate_html(sections_data, total, today_str)
