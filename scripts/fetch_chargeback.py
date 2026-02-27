@@ -105,7 +105,32 @@ def fetch_all_rows(client):
     """시트에서 전체 데이터를 읽어 dict 리스트로 반환."""
     spreadsheet = client.open_by_key(SHEET_ID)
     worksheet = find_worksheet(spreadsheet, GID)
-    return worksheet.get_all_records()
+    # 빈 헤더/중복 헤더 대응: raw 값으로 읽어서 직접 dict 변환
+    all_values = worksheet.get_all_values()
+    if not all_values:
+        return []
+    raw_headers = all_values[0]
+    # 빈 헤더에 인덱스 부여, 중복 제거
+    headers = []
+    seen = {}
+    for i, h in enumerate(raw_headers):
+        h = h.strip()
+        if not h:
+            h = f"_col_{i}"
+        if h in seen:
+            seen[h] += 1
+            h = f"{h}_{seen[h]}"
+        else:
+            seen[h] = 0
+        headers.append(h)
+    rows = []
+    for row in all_values[1:]:
+        d = {}
+        for j, val in enumerate(row):
+            if j < len(headers):
+                d[headers[j]] = val
+        rows.append(d)
+    return rows
 
 
 # ──────────────────────────────────────────────
