@@ -290,23 +290,6 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
     </div>
   </div>
 
-  <!-- ════════ DAILY & ASSIGNEE ════════ -->
-  <div class="section">
-    <div class="section-title"><span class="dot"></span>일별 해결 추이 & 상담원 워크로드</div>
-    <div class="chart-grid-2">
-      <div class="chart-card">
-        <h3>W4 일별 Solved 추이</h3>
-        <p class="chart-desc">월(2/23) 141건 피크 | 토(2/22) 12건 최저</p>
-        <div class="chart-wrap"><canvas id="chartDaily"></canvas></div>
-      </div>
-      <div class="chart-card">
-        <h3>상담원 워크로드 (W4)</h3>
-        <p class="chart-desc">PSJ 119건(24.8%) · KJH 107건(22.3%) · dwon 71건(14.8%) · Eri 59건(12.3%)</p>
-        <div class="chart-wrap"><canvas id="chartAssignee"></canvas></div>
-      </div>
-    </div>
-  </div>
-
   <!-- ════════ CUSTOMER INSIGHTS ════════ -->
   <div class="section">
     <div class="section-title"><span class="dot"></span>Customer Insights — 고객 목소리 분석</div>
@@ -492,8 +475,7 @@ new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:[
 new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:['Web 47.2%','Email 35.1%','API 17.7%'],datasets:[{data:[226,168,85],backgroundColor:['#0EA5E9','#6366f1','#f97316'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
 new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:['Neutral 57.6%','Negative 38.4%','V.Negative 2.7%','Positive 0.6%'],datasets:[{data:[276,184,13,3],backgroundColor:['#475569','#f97316','#EF4444','#22c55e'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
 new Chart(document.getElementById('chartFRTMarket'),{type:'bar',data:{labels:['CN','TH','EN','JP','PT','IT','ES','FR','DE'],datasets:[{label:'FRT(h)',data:[14.3,16.0,19.7,21.4,22.7,23.4,23.8,26.4,27.9],backgroundColor:function(c){var v=c.raw;return v<=18?'#22c55e':v<=24?'#f59e0b':'#ef4444'},borderRadius:8,borderSkipped:false,barThickness:40}]},options:{indexAxis:'y',responsive:true,aspectRatio:1.8,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'h'}}},scales:{x:{beginAtZero:true,max:35,grid:{color:'#E2E8F0'}},y:{grid:{display:false}}}}});
-new Chart(document.getElementById('chartDaily'),{type:'bar',data:{labels:['02/22\n토','02/23\n월','02/24\n화','02/25\n수','02/26\n목','02/27\n금'],datasets:[{label:'Solved',data:[12,141,100,63,101,62],backgroundColor:['#94A3B8','#EF4444','#0EA5E9','#0EA5E9','#0EA5E9','#0EA5E9'],borderRadius:8,borderSkipped:false,barThickness:48}]},options:{responsive:true,aspectRatio:1.8,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'건'}}},scales:{y:{beginAtZero:true,grid:{color:'#E2E8F0'}},x:{grid:{display:false}}}}});
-new Chart(document.getElementById('chartAssignee'),{type:'bar',data:{labels:['PSJ','KJH','dwon','Eri'],datasets:[{label:'처리 건수',data:[119,107,71,59],backgroundColor:['#0EA5E9','#6366f1','#f97316','#ec4899'],borderRadius:8,borderSkipped:false,barThickness:60}]},options:{responsive:true,aspectRatio:1.8,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'건'}}},scales:{y:{beginAtZero:true,grid:{color:'#E2E8F0'}},x:{grid:{display:false}}}}});
+
 </script>
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
 <script>(function(){var b=document.querySelector('.back-to-top');if(!b)return;window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>300)})})();</script>
