@@ -88,8 +88,8 @@ PREFIX_RULES = [
     # 주간 리포트
     ("chatbot_weekly",          "weekly",       "W",  "bg-cyan"),
     ("weekly_reports",          "weekly",       "A",  "bg-cyan"),
-    # 개인정보 / 컴플라이언스
-    ("personal_info",           "cs_manual",    "PI", "bg-green"),
+    # 개인정보 / 컴플라이언스 — 인덱스 제외 (EXCLUDED 참조)
+    # ("personal_info",           "cs_manual",    "PI", "bg-green"),
     # 차지백 (대문자 시작 엑셀)
     ("Chargeback_Evidence",     "chargeback",   "T",  "bg-amber"),
     ("Chargeback_Explanation",  "chargeback",   "E",  "bg-amber"),
@@ -165,9 +165,12 @@ def classify_file(filename):
 
 def scan_files(directory):
     """디렉토리에서 index.html 제외한 모든 산출물 파일 목록 반환. 중복 버전은 최신만 유지."""
+    # 인덱스에서 완전히 제외할 파일
+    EXCLUDED = {"personal_info_evidence_EA2_EA37_EA56_EA57.html"}
+
     raw = []
     for f in sorted(os.listdir(directory)):
-        if f == "index.html":
+        if f == "index.html" or f in EXCLUDED:
             continue
         if f.endswith(".html") or f.endswith(".xlsx"):
             raw.append(f)
