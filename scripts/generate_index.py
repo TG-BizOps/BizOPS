@@ -164,14 +164,43 @@ def classify_file(filename):
 
 
 def scan_files(directory):
-    """디렉토리에서 index.html 제외한 모든 산출물 파일 목록 반환."""
-    result = []
+    """디렉토리에서 index.html 제외한 모든 산출물 파일 목록 반환. 중복 버전은 최신만 유지."""
+    raw = []
     for f in sorted(os.listdir(directory)):
         if f == "index.html":
             continue
         if f.endswith(".html") or f.endswith(".xlsx"):
-            result.append(f)
-    return result
+            raw.append(f)
+
+    # 버전/날짜 중복 제거: 같은 base name에서 최신 버전만 유지
+    groups = {}
+    for f in raw:
+        name = os.path.splitext(f)[0]
+        ext = os.path.splitext(f)[1]
+        # _v2, _v3 등 버전 제거하여 base 추출
+        base = re.sub(r'_v\d+$', '', name)
+        # _enhanced 등 접미사도 같은 base로
+        base_key = re.sub(r'_enhanced$', '', base) + ext
+        # 날짜 기반 중복: 동일 prefix + 다른 날짜 (예: ticket_dashboard_20260222 vs _20260223)
+        date_base = re.sub(r'_\d{8}$', '', name) + ext
+        # 주간보고는 w2w3, w4 등으로 다르므로 중복이 아님 — _wN 패턴은 유지
+        if re.search(r'_w\d', name, re.I):
+            key = f  # 각각 고유
+        elif re.search(r'_\d{8}$', name):
+            key = date_base  # 날짜 기반 그룹
+        elif re.search(r'_v\d+$', name):
+            key = base_key  # 버전 기반 그룹
+        else:
+            key = f
+
+        groups.setdefault(key, []).append(f)
+
+    # 각 그룹에서 최신(마지막 정렬) 파일만 유지
+    result = []
+    for key, flist in groups.items():
+        result.append(sorted(flist)[-1])  # 알파벳 순 마지막 = 최신 버전/날짜
+
+    return sorted(result)
 
 
 def build_file_entries(directory, files):
