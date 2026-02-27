@@ -280,16 +280,6 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
     </div>
   </div>
 
-  <!-- ════════ FRT BY MARKET ════════ -->
-  <div class="section">
-    <div class="section-title"><span class="dot"></span>마켓별 응답 시간 분석</div>
-    <div class="chart-card">
-      <h3>마켓별 평균 첫 응답 시간 (FRT)</h3>
-      <p class="chart-desc">CN 14.3h 최우수 | DE 27.9h 최장 | 전체 평균 22.1h</p>
-      <div class="chart-wrap"><canvas id="chartFRTMarket"></canvas></div>
-    </div>
-  </div>
-
   <!-- ════════ CUSTOMER INSIGHTS ════════ -->
   <div class="section">
     <div class="section-title"><span class="dot"></span>Customer Insights — 고객 목소리 분석</div>
@@ -474,7 +464,7 @@ new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:[
 new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:['W2\n(02/07~13)','W3\n(02/14~20)','W4\n(02/21~27)'],datasets:[{label:'Solved 티켓',data:[433,394,479],backgroundColor:['#475569','#0EA5E9','#0EA5E9'],borderRadius:8,borderSkipped:false,barThickness:60}]},options:{responsive:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'건'}}},scales:{y:{beginAtZero:false,min:350,max:520,grid:{color:'#E2E8F0'}},x:{grid:{display:false}}}}});
 new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:['Web 47.2%','Email 35.1%','API 17.7%'],datasets:[{data:[226,168,85],backgroundColor:['#0EA5E9','#6366f1','#f97316'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
 new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:['Neutral 57.6%','Negative 38.4%','V.Negative 2.7%','Positive 0.6%'],datasets:[{data:[276,184,13,3],backgroundColor:['#475569','#f97316','#EF4444','#22c55e'],borderWidth:0}]},options:{responsive:true,aspectRatio:1.2,cutout:'65%',plugins:{legend:{position:'bottom',labels:{padding:12,font:{size:13,weight:'600'},boxWidth:14,usePointStyle:true,pointStyle:'circle'}}}}});
-new Chart(document.getElementById('chartFRTMarket'),{type:'bar',data:{labels:['CN','TH','EN','JP','PT','IT','ES','FR','DE'],datasets:[{label:'FRT(h)',data:[14.3,16.0,19.7,21.4,22.7,23.4,23.8,26.4,27.9],backgroundColor:function(c){var v=c.raw;return v<=18?'#22c55e':v<=24?'#f59e0b':'#ef4444'},borderRadius:8,borderSkipped:false,barThickness:40}]},options:{indexAxis:'y',responsive:true,aspectRatio:1.8,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'h'}}},scales:{x:{beginAtZero:true,max:35,grid:{color:'#E2E8F0'}},y:{grid:{display:false}}}}});
+
 
 </script>
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
