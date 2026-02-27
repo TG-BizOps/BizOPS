@@ -262,11 +262,11 @@
   <div class="exec-summary">
     <h2>Executive Summary</h2>
     <ul>
-      <li><span class="tag tag-up">VOLUME</span> W4 총 <strong>425건</strong> — W3(272건) 대비 <strong>+56.2% 급증</strong>. 전 카테고리에서 인입 증가. 일 평균 60.7건으로 2월 최고 수준입니다.</li>
-      <li><span class="tag tag-down">IMPROVE</span> 평균 첫 응답 시간 <strong>16.2h</strong> (W3 24.8h 대비 -8.6h 개선), 해결 시간 <strong>18.2h</strong> (W3 27.2h 대비 -9.0h 개선). 볼륨 증가에도 응답 품질 향상.</li>
-      <li><span class="tag tag-up">ALERT</span> Refund 카테고리 <strong>+66% 급증</strong>(65건→108건). 자동갱신 미인지, VIP 미적용, 카드 부정사용 클레임이 동시 발생하며 환불 인입이 전 마켓 확대.</li>
-      <li><span class="tag tag-info">GROWTH</span> FR <strong>+92%</strong>(38→73건), ES <strong>+83%</strong>(29→53건) 급증. 유럽권 합산 37.6%. JP <strong>+175%</strong>, CN <strong>+162%</strong> 아시아 마켓도 급성장.</li>
-      <li><span class="tag tag-warn">WATCH</span> VIP/Premium 이슈 <strong>+250%</strong>(8→28건). VIP 결제 후 미적용, 앱-웹 동기화 실패, VIP vs Coin 혼란이 전 마켓에서 지속.</li>
+      <li><span class="tag tag-info">VOLUME</span> W4 총 <strong>425건</strong> — W3(396건) 대비 <strong>+7.3% 소폭 증가</strong>. 일 평균 60.7건. W2(433건) 수준으로 안정권 유지.</li>
+      <li><span class="tag tag-down">IMPROVE</span> 평균 첫 응답 시간 <strong>16.2h</strong> (W3 26.9h 대비 <strong>-10.7h 개선</strong>), 해결 시간 <strong>18.2h</strong> (W3 70.2h 대비 <strong>-52.0h 대폭 개선</strong>). 응답 품질 크게 향상.</li>
+      <li><span class="tag tag-up">ALERT</span> Refund 카테고리 <strong>+10%</strong>(98건→108건) 증가. 반면 Subscription <strong>-20%</strong>(164건→132건) 감소. Payment <strong>+80%</strong>(25건→45건) 급증 주의.</li>
+      <li><span class="tag tag-info">GROWTH</span> FR <strong>+28%</strong>(57→73건), JP <strong>+83%</strong>(12→22건), CN <strong>+110%</strong>(10→21건) 아시아 마켓 급성장. 유럽권 합산 37.6%.</li>
+      <li><span class="tag tag-up">WATCH</span> PT 마켓 <strong>-40%</strong>(55→33건) 급감, IT <strong>-44%</strong>(18→10건) 급감. 반면 Payment 카테고리 PT에서 12건(36.4%)으로 결제 이슈 집중.</li>
       <li><span class="tag tag-info">TREND</span> 이미지 로딩 장애 <strong>16건</strong> — PT·FR·EN 중심. CDN/인프라 레벨 이슈 가능성. 콘텐츠 소비 UX에 직결.</li>
       <li><span class="tag tag-warn">FRAUD</span> 카드 부정사용 클레임 <strong>6건</strong> 확인. "I have not done any subscription" 패턴으로 차지백 전환 고위험.</li>
     </ul>
@@ -278,19 +278,19 @@
       <div class="kpi-icon" style="background:rgba(14,165,233,0.15);">📨</div>
       <div class="kpi-number">425</div>
       <div class="kpi-label">총 CS 티켓</div>
-      <div class="kpi-sub">W3 대비 +56.2% 📈</div>
+      <div class="kpi-sub">W3 대비 +7.3% (396→425)</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon" style="background:rgba(34,197,94,0.15);">⏱</div>
       <div class="kpi-number">16.2<span class="small">h</span></div>
       <div class="kpi-label">평균 첫 응답</div>
-      <div class="kpi-sub">W3 대비 -8.6h 개선 ✅</div>
+      <div class="kpi-sub">W3 대비 -10.7h 개선 ✅</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon" style="background:rgba(239,68,68,0.15);">🔄</div>
       <div class="kpi-number">18.2<span class="small">h</span></div>
       <div class="kpi-label">평균 해결 시간</div>
-      <div class="kpi-sub">W3 대비 -9.0h 개선 ✅</div>
+      <div class="kpi-sub">W3 대비 -52.0h 대폭 개선 ✅</div>
     </div>
     <div class="kpi-card">
       <div class="kpi-icon" style="background:rgba(234,179,8,0.15);">📊</div>
@@ -312,7 +312,7 @@
 
     <!-- 카테고리별 -->
     <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">카테고리별 티켓 비중</h3>
-    <p style="font-size:12px;color:#64748B;margin-bottom:16px;">Subscription + Refund + Account = 67.5% | VIP/Premium +250% 급증</p>
+    <p style="font-size:12px;color:#64748B;margin-bottom:16px;">Subscription + Refund + Account = 67.5% | Subscription -20% 감소, Payment +80% 급증</p>
     <div class="category-layout" style="margin-bottom:28px;">
       <div class="chart-card">
         <div class="chart-container"><canvas id="chartCategory"></canvas></div>
@@ -321,13 +321,13 @@
         <div class="table-wrap"><table class="category-table">
           <thead><tr><th>카테고리</th><th>비중</th><th>건수</th><th>WoW</th></tr></thead>
           <tbody>
-            <tr><td><span class="cat-dot" style="background:var(--accent-info)"></span>Subscription</td><td>31.1%</td><td>132건</td><td><span class="trend-up">+25%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#6366f1"></span>Refund</td><td>25.4%</td><td>108건</td><td><span class="trend-up">+66%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#f97316"></span>Account</td><td>11.1%</td><td>47건</td><td><span class="trend-up">+62%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#22c55e"></span>Payment</td><td>10.6%</td><td>45건</td><td><span class="trend-up">+25%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#ec4899"></span>VIP/Premium</td><td>6.6%</td><td>28건</td><td><span class="trend-up">+250%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#eab308"></span>Content</td><td>4.9%</td><td>21건</td><td><span class="trend-up">+62%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#8b5cf6"></span>Other</td><td>10.1%</td><td>44건</td><td><span class="trend-up">+187%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:var(--accent-info)"></span>Subscription</td><td>31.1%</td><td>132건</td><td><span class="trend-down">-20%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#6366f1"></span>Refund</td><td>25.4%</td><td>108건</td><td><span class="trend-up">+10%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#f97316"></span>Account</td><td>11.1%</td><td>47건</td><td><span class="trend-down">-18%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#22c55e"></span>Payment</td><td>10.6%</td><td>45건</td><td><span class="trend-up">+80%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#ec4899"></span>VIP/Premium</td><td>6.6%</td><td>28건</td><td><span class="trend-flat">N/A</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#eab308"></span>Content</td><td>4.9%</td><td>21건</td><td><span class="trend-flat">+5%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#8b5cf6"></span>Other</td><td>10.1%</td><td>44건</td><td><span class="trend-up">+159%</span></td></tr>
           </tbody>
         </table></div>
       </div>
@@ -335,7 +335,7 @@
 
     <!-- 마켓별 -->
     <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:4px;">마켓(언어)별 티켓 비중</h3>
-    <p style="font-size:12px;color:#64748B;margin-bottom:16px;">EN 34.6% 최대 | FR +92%, JP +175%, CN +162% 급증</p>
+    <p style="font-size:12px;color:#64748B;margin-bottom:16px;">EN 34.6% 최대 | FR +28%, JP +83%, CN +110% 성장 | PT -40%, IT -44% 급감</p>
     <div class="category-layout">
       <div class="chart-card">
         <div class="chart-container"><canvas id="chartMarket"></canvas></div>
@@ -344,15 +344,15 @@
         <div class="table-wrap"><table class="category-table">
           <thead><tr><th>마켓</th><th>비중</th><th>건수</th><th>WoW</th></tr></thead>
           <tbody>
-            <tr><td><span class="cat-dot" style="background:var(--accent-info)"></span>EN</td><td>34.6%</td><td>147건</td><td><span class="trend-up">+44%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#6366f1"></span>FR</td><td>17.2%</td><td>73건</td><td><span class="trend-up">+92%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#f97316"></span>ES</td><td>12.5%</td><td>53건</td><td><span class="trend-up">+83%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#22c55e"></span>DE</td><td>8.0%</td><td>34건</td><td><span class="trend-flat">+17%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#eab308"></span>PT</td><td>7.8%</td><td>33건</td><td><span class="trend-flat">+10%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>6.4%</td><td>27건</td><td><span class="trend-up">+69%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#8b5cf6"></span>JP</td><td>5.2%</td><td>22건</td><td><span class="trend-up">+175%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#a855f7"></span>CN</td><td>4.9%</td><td>21건</td><td><span class="trend-up">+162%</span></td></tr>
-            <tr><td><span class="cat-dot" style="background:#64748b"></span>IT</td><td>2.4%</td><td>10건</td><td><span class="trend-down">-17%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:var(--accent-info)"></span>EN</td><td>34.6%</td><td>147건</td><td><span class="trend-flat">+3%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#6366f1"></span>FR</td><td>17.2%</td><td>73건</td><td><span class="trend-up">+28%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#f97316"></span>ES</td><td>12.5%</td><td>53건</td><td><span class="trend-flat">+10%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#22c55e"></span>DE</td><td>8.0%</td><td>34건</td><td><span class="trend-flat">+10%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#eab308"></span>PT</td><td>7.8%</td><td>33건</td><td><span class="trend-up">-40% 📉</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>6.4%</td><td>27건</td><td><span class="trend-flat">+23%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#8b5cf6"></span>JP</td><td>5.2%</td><td>22건</td><td><span class="trend-up">+83%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#a855f7"></span>CN</td><td>4.9%</td><td>21건</td><td><span class="trend-up">+110%</span></td></tr>
+            <tr><td><span class="cat-dot" style="background:#64748b"></span>IT</td><td>2.4%</td><td>10건</td><td><span class="trend-up">-44% 📉</span></td></tr>
           </tbody>
         </table></div>
       </div>
@@ -368,14 +368,13 @@
           <tr><th>지표</th><th style="text-align:right;">W3 (02.14~20)</th><th style="text-align:right;">W4 (02.21~27)</th><th style="text-align:right;">변화</th><th>판정</th></tr>
         </thead>
         <tbody>
-          <tr><td><strong>총 티켓</strong></td><td class="num">272건</td><td class="num">425건</td><td class="num">+153건</td><td><span class="trend-up">+56.2% 📈</span></td></tr>
-          <tr><td>Subscription</td><td class="num">106건 (39.0%)</td><td class="num">132건 (31.1%)</td><td class="num">+26건</td><td><span class="trend-up">+24.5%</span></td></tr>
-          <tr><td>Refund</td><td class="num">65건 (23.9%)</td><td class="num">108건 (25.4%)</td><td class="num">+43건</td><td><span class="trend-up">+66.2% ⚠️</span></td></tr>
-          <tr><td>Account</td><td class="num">29건 (10.7%)</td><td class="num">47건 (11.1%)</td><td class="num">+18건</td><td><span class="trend-up">+62.1%</span></td></tr>
-          <tr><td>Payment</td><td class="num">36건 (13.2%)</td><td class="num">45건 (10.6%)</td><td class="num">+9건</td><td><span class="trend-flat">+25.0%</span></td></tr>
-          <tr><td>VIP/Premium</td><td class="num">8건 (2.9%)</td><td class="num">28건 (6.6%)</td><td class="num">+20건</td><td><span class="trend-up">+250% 🔴</span></td></tr>
-          <tr><td><strong>평균 첫 응답</strong></td><td class="num">24.8h</td><td class="num">16.2h</td><td class="num">-8.6h</td><td><span class="trend-down">개선 ✅</span></td></tr>
-          <tr><td><strong>평균 해결 시간</strong></td><td class="num">27.2h</td><td class="num">18.2h</td><td class="num">-9.0h</td><td><span class="trend-down">개선 ✅</span></td></tr>
+          <tr><td><strong>총 티켓</strong></td><td class="num">396건</td><td class="num">425건</td><td class="num">+29건</td><td><span class="trend-flat">+7.3%</span></td></tr>
+          <tr><td>Subscription</td><td class="num">164건 (41.4%)</td><td class="num">132건 (31.1%)</td><td class="num">-32건</td><td><span class="trend-down">-19.5% ✅</span></td></tr>
+          <tr><td>Refund</td><td class="num">98건 (24.7%)</td><td class="num">108건 (25.4%)</td><td class="num">+10건</td><td><span class="trend-up">+10.2%</span></td></tr>
+          <tr><td>Account</td><td class="num">57건 (14.4%)</td><td class="num">47건 (11.1%)</td><td class="num">-10건</td><td><span class="trend-down">-17.5%</span></td></tr>
+          <tr><td>Payment</td><td class="num">25건 (6.3%)</td><td class="num">45건 (10.6%)</td><td class="num">+20건</td><td><span class="trend-up">+80.0% ⚠️</span></td></tr>
+          <tr><td><strong>평균 첫 응답</strong></td><td class="num">26.9h</td><td class="num">16.2h</td><td class="num">-10.7h</td><td><span class="trend-down">개선 ✅</span></td></tr>
+          <tr><td><strong>평균 해결 시간</strong></td><td class="num">70.2h</td><td class="num">18.2h</td><td class="num">-52.0h</td><td><span class="trend-down">대폭 개선 ✅</span></td></tr>
           <tr><td><strong>해결률 (Solved)</strong></td><td class="num">100%</td><td class="num">73.9%</td><td class="num">-26.1%p</td><td><span class="trend-up">미해결 26.1%</span></td></tr>
         </tbody>
       </table></div>
@@ -387,7 +386,7 @@
     <div class="section-title"><span class="dot"></span>주별 티켓 트렌드 (최근 4주)</div>
     <div class="chart-card">
       <h3>주별 CS 티켓 추이</h3>
-      <p class="chart-desc">W2(433건) → W3(272건, -37%) → W4(425건, +56%) | W4에서 W2 수준으로 복귀</p>
+      <p class="chart-desc">W2(433건) → W3(396건, -8.5%) → W4(425건, +7.3%) | W2 수준으로 안정 복귀</p>
       <div class="chart-wrap"><canvas id="chartWeeklyTrend"></canvas></div>
     </div>
   </div>
@@ -494,7 +493,7 @@
           <span class="voice-badge badge-market">전 마켓</span>
           <span class="voice-badge badge-count">28건</span>
           <span class="voice-badge badge-severity-high">HIGH</span>
-          <span class="voice-title">VIP 결제 후 미적용 — 전주 대비 +250% 급증</span>
+          <span class="voice-title">VIP 결제 후 미적용 — 28건 지속 발생</span>
         </div>
         <div class="voice-quote">
           "I have subscribed to VIP membership but it doesn't reflect to my account. What do I do?" (#124968)<br>
@@ -502,7 +501,7 @@
           "I´have paid a 6 month vip subscription but I can not access any Story chapter" (#125054)
           <span class="translation">→ EN·ES·PT·FR 전방위 발생. App-Web VIP 동기화 실패 구조적 이슈 지속</span>
         </div>
-        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> W3 8건 → W4 28건 (+250%) 급증. 결제 완료 후 서비스 미제공은 차지백 전환 고위험. 6개월 VIP 고가 구독자 포함으로 피해액 확대 우려.</div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> W4 28건 지속 발생. 결제 완료 후 서비스 미제공은 차지백 전환 고위험. 6개월 VIP 고가 구독자 포함으로 피해액 확대 우려.</div>
         <span class="voice-action">→ IAP-웹 VIP 동기화 긴급 점검 + 6M 구독 미적용 건 우선 처리</span>
       </div>
 
@@ -621,31 +620,31 @@
       <div class="voice-card severity-high">
         <div class="voice-header">
           <span class="voice-badge badge-market">FR</span>
-          <span class="voice-badge badge-count">73건 (+92%)</span>
-          <span class="voice-badge badge-severity-high">HIGH · SURGE</span>
-          <span class="voice-title">FR 마켓 전방위 급증 — 최대 WoW 증가</span>
+          <span class="voice-badge badge-count">73건 (+28%)</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">FR 마켓 +28% 증가 — 전 카테고리 동반</span>
         </div>
         <div class="voice-quote">
-          W3 38건 → W4 73건 (+92%). Refund 15건, Subscription 15건, Content 9건, Account 10건, VIP 7건 전 카테고리 동반 급증.
+          W3 57건 → W4 73건 (+28%). Refund 15건, Subscription 15건, Content 9건, Account 10건, VIP 7건 전 카테고리 동반 증가.
           <span class="translation">→ FR은 이미지 로딩 장애(5건+), 앱 성능 불만, 콘텐츠 오류, 구독 혼란이 동시 발생하며 전체 인입 급증</span>
         </div>
-        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> FR 2위 마켓(17.2%) 전 카테고리 동반 급증은 서비스 품질 이슈 시사. 기술/콘텐츠/정책 복합 요인.</div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> FR 2위 마켓(17.2%) 전 카테고리 동반 증가는 서비스 품질 이슈 시사. 기술/콘텐츠/정책 복합 요인.</div>
         <span class="voice-action">→ FR 마켓 전용 서비스 품질 점검 긴급 실시</span>
       </div>
 
       <div class="voice-card severity-medium">
         <div class="voice-header">
           <span class="voice-badge badge-market">JP</span>
-          <span class="voice-badge badge-count">22건 (+175%)</span>
+          <span class="voice-badge badge-count">22건 (+83%)</span>
           <span class="voice-badge badge-severity-medium">MEDIUM · WATCH</span>
-          <span class="voice-title">JP 마켓 급증 — 자동갱신 + 해약 문의 집중</span>
+          <span class="voice-title">JP 마켓 +83% 증가 — 자동갱신 + 해약 문의 집중</span>
         </div>
         <div class="voice-quote">
           "2/22にVIP会員3ヶ月プランを誤って自動で更新・決済されていました。今現在TOOMICSを使用しておらず" (#125112, JP)<br>
           "1/5と2/5に、1090円が引かれていた。今のプランを知りたい。解約方法も知りたい" (#124690, JP)
           <span class="translation">→ 미사용 중인데 자동갱신 / 매월 1,090엔 결제 확인, 현 플랜과 해약 방법 문의</span>
         </div>
-        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> W3 8건 → W4 22건. 자동갱신 미인지 패턴. JP 마켓 차지백 증가 추세와 연관 가능.</div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> W3 12건 → W4 22건 (+83%). 자동갱신 미인지 패턴. JP 마켓 차지백 증가 추세와 연관 가능.</div>
         <span class="voice-action">→ JP 마켓 자동갱신 고지 현지화 강화</span>
       </div>
 
@@ -720,21 +719,21 @@
   <div class="section">
     <div class="section-title"><span class="dot"></span>Key Insights</div>
     <div class="insight-grid">
-      <div class="insight-card red">
-        <h4>📈 W4 인입 +56.2% 급증 — 2월 최고</h4>
-        <p>W3(272건) → W4(425건). 전 카테고리 동반 증가. 특히 Refund <span class="highlight">+66%</span>, VIP/Premium <span class="highlight">+250%</span> 급증. 주말 포함 일 평균 60.7건.</p>
+      <div class="insight-card blue">
+        <h4>📊 W4 인입 +7.3% — W2 수준 안정 복귀</h4>
+        <p>W3(396건) → W4(425건). W2(433건)과 유사한 안정 수준. Subscription <span class="highlight">-20% 감소</span>(해지 문의 안정), Payment <span class="highlight">+80% 급증</span> 주의.</p>
       </div>
       <div class="insight-card green">
-        <h4>✅ 응답 품질 대폭 개선</h4>
-        <p>FRT <span class="highlight">16.2h</span> (W3 대비 -8.6h), RT <span class="highlight">18.2h</span> (W3 대비 -9.0h). 인입 급증에도 응답 시간 오히려 개선. 상담원 효율 향상 확인.</p>
+        <h4>✅ 응답 품질 대폭 개선 — RT 52h 단축</h4>
+        <p>FRT <span class="highlight">16.2h</span> (W3 대비 -10.7h), RT <span class="highlight">18.2h</span> (W3 70.2h 대비 <span class="highlight">-52.0h 대폭 개선</span>). 해결 속도 4배 가까이 단축.</p>
       </div>
       <div class="insight-card orange">
-        <h4>🇫🇷 FR 마켓 +92% 전방위 급증</h4>
-        <p>38건 → 73건. 이미지 로딩 장애, 앱 성능 불만, 콘텐츠 오류, 구독 혼란 <span class="highlight">복합 요인</span>으로 전 카테고리 동반 급증.</p>
+        <h4>🇫🇷 FR 마켓 +28% 증가</h4>
+        <p>57건 → 73건. 이미지 로딩 장애, 앱 성능 불만, 콘텐츠 오류, 구독 혼란 <span class="highlight">복합 요인</span>으로 전 카테고리 동반 증가.</p>
       </div>
       <div class="insight-card red">
-        <h4>⚠️ VIP 미적용 +250% — 구조적 이슈</h4>
-        <p>8건 → 28건. App-Web VIP 동기화 실패가 전 마켓에서 지속. <span class="highlight">6M 고가 구독</span> 포함으로 차지백 전환 리스크 급상승.</p>
+        <h4>📉 PT -40%, IT -44% 급감</h4>
+        <p>PT 55건→33건, IT 18건→10건 큰 폭 감소. 그러나 PT는 Payment 카테고리 <span class="highlight">36.4%</span>로 결제 이슈 집중도 최고.</p>
       </div>
       <div class="insight-card yellow">
         <h4>🔄 자동갱신 미인지 전 마켓 지속</h4>
@@ -745,8 +744,8 @@
         <p>L1/L2 에스컬레이션 마크업이 포함된 티켓 <span class="highlight">3건</span> Zendesk 큐에 유입. 챗봇-Zendesk 연동 경로 확인 필요.</p>
       </div>
       <div class="insight-card blue">
-        <h4>🇯🇵 JP +175%, 🇨🇳 CN +162% 아시아 급증</h4>
-        <p>JP 8건→22건, CN 8건→21건. 아시아 마켓 CS 인입 급증. 자동갱신·환불 문의 집중. Phase 2 마켓 확장 타이밍 부합.</p>
+        <h4>🇯🇵 JP +83%, 🇨🇳 CN +110% 아시아 성장</h4>
+        <p>JP 12건→22건, CN 10건→21건. 아시아 마켓 CS 인입 성장. 자동갱신·환불 문의 집중. Phase 2 마켓 확장 타이밍.</p>
       </div>
       <div class="insight-card orange">
         <h4>🖼️ 이미지 로딩 장애 16건 — 지속</h4>
@@ -767,7 +766,7 @@
       <div class="action-item">
         <div class="action-priority priority-high">P0</div>
         <div class="action-content">
-          <div class="action-title">VIP 결제 후 미적용 긴급 점검 — +250% 급증</div>
+          <div class="action-title">VIP 결제 후 미적용 긴급 점검 — 28건 지속</div>
           <div class="action-desc">App-Web VIP 동기화 실패 28건. 6M 고가 구독 포함. 차지백 전환 고위험. IAP Restore Purchase 플로우 긴급 조사</div>
           <div class="action-owner">담당: 개발팀 · BizOps / 기한: 즉시</div>
         </div>
@@ -784,7 +783,7 @@
         <div class="action-priority priority-high">P1</div>
         <div class="action-content">
           <div class="action-title">FR 마켓 전용 서비스 품질 점검</div>
-          <div class="action-desc">+92% 전방위 급증. 이미지 로딩·앱 성능·콘텐츠 오류·구독 혼란 복합 요인. CDN FR 리전 점검 + 앱 성능 프로파일링</div>
+          <div class="action-desc">+28% 증가(57→73건). 이미지 로딩·앱 성능·콘텐츠 오류·구독 혼란 복합 요인. CDN FR 리전 점검 + 앱 성능 프로파일링</div>
           <div class="action-owner">담당: 인프라팀 · 프로덕트팀 / 기한: 이번 주</div>
         </div>
       </div>
@@ -888,7 +887,7 @@ new Chart(document.getElementById('chartWeeklyTrend'), {
     labels: ['W1\n(02/01~06)','W2\n(02/07~13)','W3\n(02/14~20)','W4\n(02/21~27)'],
     datasets: [{
       label: '주간 티켓',
-      data: [null, 433, 272, 425],
+      data: [null, 433, 396, 425],
       backgroundColor: ['var(--text-secondary)','var(--text-secondary)','var(--accent-info)','var(--accent-info)'],
       borderRadius: 8, borderSkipped: false, barThickness: 60
     }]
@@ -896,7 +895,7 @@ new Chart(document.getElementById('chartWeeklyTrend'), {
   options: {
     responsive: true, aspectRatio: 2.4,
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: ctx => ctx.raw ? ctx.raw + '건' : 'N/A' } } },
-    scales: { y: { beginAtZero: false, min: 200, max: 500, grid: { color: 'var(--border)' } }, x: { grid: { display: false } } }
+    scales: { y: { beginAtZero: false, min: 350, max: 500, grid: { color: 'var(--border)' } }, x: { grid: { display: false } } }
   }
 });
 
