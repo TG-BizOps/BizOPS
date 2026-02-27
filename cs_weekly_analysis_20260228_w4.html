@@ -373,20 +373,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
       </div>
     </div>
 
-    <div class="voice-section">
-      <div class="voice-category">🆕 신규 · 이례적 이슈</div>
-      <div class="voice-card severity-medium">
-        <div class="voice-header">
-          <span class="voice-badge badge-market">EN</span>
-          <span class="voice-badge badge-count">3건 · NEW</span>
-          <span class="voice-badge badge-severity-medium">MEDIUM</span>
-          <span class="voice-title">AI Chatbot 에스컬레이션 티켓 Zendesk 유입</span>
-        </div>
-        <div class="voice-quote">"## Agent Context Summary — Escalation Level: L2 — Reason: Refund/simple_refund" (#125923)<br>"Agent Context Summary — Escalation Level: L1 — category could not be determined" (#125639)<span class="translation">→ AI 챗봇 에스컬레이션 마크업이 포함된 티켓이 실제 Zendesk 큐에 유입</span></div>
-        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 챗봇-Zendesk 연동 경로 확인 필요. 테스트/파일럿 건 여부 파악 시급.</div>
-        <span class="voice-action">→ AI Chatbot 에스컬레이션 라우팅 경로 점검</span>
-      </div>
-    </div>
+    
   </div>
 
   <!-- ════════ KEY INSIGHTS ════════ -->
@@ -402,8 +389,11 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
         <p>W3 27.0h→W4 22.1h. 볼륨 증가에도 첫 응답 시간 개선. 단, RT는 72.8h로 <span class="highlight">+2.7h</span> 소폭 증가 — 모니터링.</p>
       </div>
       <div class="insight-card orange">
-        <h4>🇪🇸 ES +53% 최대 급증</h4>
-        <p>47건→72건. 3위→<span class="highlight">2위 마켓</span>으로 부상. Subscription+Payment 75% 집중. 프로모션/결제 연관 확인 필요.</p>
+        <h4>🇪🇸 ES +53% 최대 급증 (47→72건) — 상세 분석</h4>
+        <p>3위→<span class="highlight">2위 마켓</span> 부상. 구독해지 <span class="highlight">22건(30.6%)</span> + Refund <span class="highlight">17건(23.6%)</span> + VIP 미적용 <span class="highlight">8건(11.1%)</span> 집중.<br>
+        <strong>Refund 17건 핵심 패턴:</strong> ① 실수/의도치 않은 구매 4건 ② 자동갱신 미인지 재결제 불만 3건 ③ 6M 구독 후 1개월만 사용 환불 요청 ④ 이전 티켓 미해결 follow-up 2건(#126031, #126015)<br>
+        <strong>VIP 미적용 8건:</strong> 결제 완료 후 VIP 활성화 안 됨 — 전 마켓 공통 이슈와 동일 패턴(#122161, #124180, #124926 등)<br>
+        <strong>구독해지 22건:</strong> "자동갱신 몰랐음" + "사용 안 하는데 계속 결제" 유형이 대다수. 해지 프로세스 인지도 부족 시사.</p>
       </div>
       <div class="insight-card red">
         <h4>⚠️ VIP 미적용 +120% (33건)</h4>
@@ -413,10 +403,7 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
         <h4>💳 Refund +45% (120건) 급증</h4>
         <p>83건→120건. 비중 21.1%→<span class="highlight">25.1%</span>. 자동갱신 미인지+부정사용+VIP 미적용 복합 요인.</p>
       </div>
-      <div class="insight-card purple">
-        <h4>🤖 AI Chatbot 에스컬레이션 유입</h4>
-        <p>L1/L2 마크업 티켓 <span class="highlight">3건</span> Zendesk 큐 유입. 챗봇-Zendesk 연동 경로 확인 필요.</p>
-      </div>
+
       <div class="insight-card blue">
         <h4>🇯🇵 JP +83% 아시아 성장</h4>
         <p>12건→22건. 자동갱신·환불 문의 집중. JP 차지백 증가 추세와 연관 가능. 현지화 강화 시급.</p>
@@ -439,11 +426,11 @@ body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-sys
       <h3>우선순위별 후속 조치</h3>
       <div class="action-item"><div class="action-priority priority-high">P0</div><div class="action-content"><div class="action-title">VIP 결제 후 미적용 긴급 점검 — 33건 (+120%)</div><div class="action-desc">App-Web VIP 동기화 실패. 6M 고가 구독 포함. 차지백 전환 고위험. IAP Restore Purchase 플로우 긴급 조사</div><div class="action-owner">담당: 개발팀 · BizOps / 기한: 즉시</div></div></div>
       <div class="action-item"><div class="action-priority priority-high">P0</div><div class="action-content"><div class="action-title">Fraud 의심 건 6건 L1 에스컬레이션 확인</div><div class="action-desc">"unauthorized" "fraud" 키워드 6건. 법적 조치 언급 포함. 이용이력 교차확인 + 선제적 환불 판단</div><div class="action-owner">담당: BizOps / 기한: 즉시</div></div></div>
-      <div class="action-item"><div class="action-priority priority-high">P1</div><div class="action-content"><div class="action-title">ES 마켓 +53% 급증 원인 분석</div><div class="action-desc">47→72건. 결제·구독 75% 집중. 최근 프로모션/결제 시스템 변경 이력 확인</div><div class="action-owner">담당: 프로덕트팀 · BizOps / 기한: 이번 주</div></div></div>
+      <div class="action-item"><div class="action-priority priority-high">P1</div><div class="action-content"><div class="action-title">ES 마켓 +53% 급증 원인 분석 — 해지 22건 + 환불 17건 집중</div><div class="action-desc">47→72건. 해지(30.6%)+환불(23.6%)+VIP미적용(11.1%) 합산 65%. 자동갱신 미인지·실수 구매·이전 티켓 미해결 follow-up 다수. 해지 프로세스 가시성 개선 + 자동갱신 사전 알림 ES 마켓 우선 적용 검토</div><div class="action-owner">담당: 프로덕트팀 · BizOps / 기한: 이번 주</div></div></div>
       <div class="action-item"><div class="action-priority priority-high">P1</div><div class="action-content"><div class="action-title">이미지 로딩 인프라/CDN 점검 — 다수 마켓 지속</div><div class="action-desc">PT·FR·EN. FR 앱 전반 성능 불만 확산. 인프라 레벨 이슈 시사</div><div class="action-owner">담당: 인프라팀 / 기한: 이번 주</div></div></div>
       <div class="action-item"><div class="action-priority priority-mid">P2</div><div class="action-content"><div class="action-title">자동갱신 사전 알림 도입 (D-3, D-1)</div><div class="action-desc">전 마켓 15건 지속. JP·CN 신규 유입. 차지백 전환 주요 경로</div><div class="action-owner">담당: 프로덕트팀 · 결제팀 / 기한: 2주 내</div></div></div>
       <div class="action-item"><div class="action-priority priority-mid">P2</div><div class="action-content"><div class="action-title">RT 72.8h 증가 원인 분석</div><div class="action-desc">FRT는 개선됐으나 RT가 W3 대비 +2.7h 증가. 복잡도 높은 건(VIP·Refund) 증가 영향 분석</div><div class="action-owner">담당: BizOps / 기한: 이번 주</div></div></div>
-      <div class="action-item"><div class="action-priority priority-mid">P2</div><div class="action-content"><div class="action-title">AI Chatbot 에스컬레이션 라우팅 점검</div><div class="action-desc">L1/L2 마크업 티켓 3건 Zendesk 유입. 테스트/파일럿 건인지 확인 필요</div><div class="action-owner">담당: BizOps / 기한: 이번 주</div></div></div>
+
       <div class="action-item"><div class="action-priority priority-mid">P2</div><div class="action-content"><div class="action-title">PT PIX 결제 안정성 점검</div><div class="action-desc">Payment 34% 전 마켓 최고 집중도. PIX 동기화 불안정 의심</div><div class="action-owner">담당: 결제팀 / 기한: 다음 스프린트</div></div></div>
       <div class="action-item"><div class="action-priority priority-low">P3</div><div class="action-content"><div class="action-title">JP·TH 마켓 현지화 강화</div><div class="action-desc">JP +83%, TH +33%. 자동갱신 고지·해지 가이드 현지어 최적화</div><div class="action-owner">담당: CS 운영 / 기한: Q2</div></div></div>
     </div>
