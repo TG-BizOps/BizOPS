@@ -180,28 +180,30 @@ def scan_files(directory):
     for f in raw:
         name = os.path.splitext(f)[0]
         ext = os.path.splitext(f)[1]
-        # _v2, _v3 등 버전 제거하여 base 추출
-        base = re.sub(r'_v\d+$', '', name)
-        # _enhanced 등 접미사도 같은 base로
-        base_key = re.sub(r'_enhanced$', '', base) + ext
-        # 날짜 기반 중복: 동일 prefix + 다른 날짜 (예: ticket_dashboard_20260222 vs _20260223)
-        date_base = re.sub(r'_\d{8}$', '', name) + ext
-        # 주간보고는 w2w3, w4 등으로 다르므로 중복이 아님 — _wN 패턴은 유지
+
+        # 주간보고는 w2w3, w4 등으로 다르므로 중복이 아님
         if re.search(r'_w\d', name, re.I):
-            key = f  # 각각 고유
-        elif re.search(r'_\d{8}$', name):
-            key = date_base  # 날짜 기반 그룹
-        elif re.search(r'_v\d+$', name):
-            key = base_key  # 버전 기반 그룹
-        else:
             key = f
+        else:
+            # 1) _vN 버전 제거 (대소문자 모두)
+            base = re.sub(r'_[vV]\d+$', '', name)
+            # 2) _enhanced 접미사 제거
+            base = re.sub(r'_enhanced$', '', base)
+            # 3) 끝의 _YYYYMMDD 날짜 제거 (같은 문서의 날짜별 중복)
+            #    단, 날짜 뒤에 _detail 같은 접미사가 있으면 별개 문서
+            date_stripped = re.sub(r'_\d{8}$', '', base)
+            # 4) 날짜 제거 후 남은 게 있으면 날짜 기반 그룹, 아니면 원본 유지
+            if date_stripped != base:
+                key = date_stripped + ext
+            else:
+                key = base + ext
 
         groups.setdefault(key, []).append(f)
 
     # 각 그룹에서 최신(마지막 정렬) 파일만 유지
     result = []
     for key, flist in groups.items():
-        result.append(sorted(flist)[-1])  # 알파벳 순 마지막 = 최신 버전/날짜
+        result.append(sorted(flist)[-1])
 
     return sorted(result)
 
@@ -320,12 +322,12 @@ CSS = """\
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; flex-shrink: 0;
   }
-  .link-card .lc-body { flex: 1; min-width: 0; }
+  .link-card .lc-body { flex: 1; min-width: 0; overflow: hidden; }
   .link-card .lc-title {
     font-size: 14px; font-weight: 700;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .link-card .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
+  .link-card .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
   .link-card .lc-badge {
     font-size: 10.5px; font-weight: 700; padding: 2px 8px;
     border-radius: 6px; white-space: nowrap;
