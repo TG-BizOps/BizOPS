@@ -90,8 +90,9 @@
   .chart-card h3 { font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
   .chart-card .chart-desc { font-size:12px; color:#64748B; margin-bottom:16px; }
   .chart-wrap { position:relative; width:100%; }
-  .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-  .chart-container { position:relative; width:100%; max-width:360px; margin:0 auto; }
+  .category-layout { display:grid; grid-template-columns:45fr 55fr; gap:24px; align-items:stretch; }
+  .chart-container { position:relative; width:100%; height:100%; }
+  .category-layout > .chart-card:first-child { padding:10px; display:flex; align-items:center; justify-content:center; }
   .category-table { width:100%; border-collapse:collapse; font-size:14px; }
   .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid #CBD5E1; color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
   .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
@@ -438,7 +439,7 @@ new Chart(document.getElementById('chartCategory'), {
     labels: ["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Coin", "Other"],
     datasets: [{ data: [157, 130, 57, 32, 22, 18, 12, 3, 2], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartMarket'), {
@@ -447,7 +448,7 @@ new Chart(document.getElementById('chartMarket'), {
     labels: ["EN", "FR", "PT", "ES", "DE", "TH", "JP", "IT", "CN"],
     datasets: [{ data: [144, 72, 61, 60, 29, 25, 16, 16, 10], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartCBTrend'), {
