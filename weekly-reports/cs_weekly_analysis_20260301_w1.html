@@ -47,6 +47,7 @@
   .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10.5px; font-weight: 700; margin-right: 6px; }
   .tag-up { background: #fef2f2; color: #dc2626; } .tag-down { background: #f0fdf4; color: #16a34a; }
   .tag-warn { background: #fefce8; color: #854d0e; } .tag-info { background: #eff6ff; color: var(--accent-brand); }
+  .tag-ai { background: #f0e7fe; color: #7c3aed; }
   .kpi-strip { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; padding: 0 24px; margin-bottom: 32px; }
   .kpi-card { background: linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius: 16px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); transition: transform 0.2s; }
   .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
@@ -63,6 +64,18 @@
   .chart-card h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
   .chart-card .chart-desc { font-size: 11px; color: #64748B; margin-bottom: 16px; }
   .chart-wrap { position: relative; width: 100%; }
+  .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .chart-container { position:relative; width:100%; max-width:360px; margin:0 auto; }
+  .category-table { width:100%; border-collapse:collapse; font-size:14px; }
+  .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid var(--border-strong); color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
+  .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
+  .category-table tr:hover td { background:var(--bg-muted); }
+  .cat-dot { display:inline-block; width:10px; height:10px; border-radius:50%; margin-right:8px; vertical-align:middle; }
+  .cat-badge { display:inline-block; padding:2px 8px; border-radius:10px; font-size:12px; font-weight:600; }
+  .cat-badge.auto { background:rgba(5,150,105,0.12); color:#047857; }
+  .cat-badge.partial { background:rgba(180,83,9,0.10); color:#b45309; }
+  .cat-badge.manual { background:rgba(185,28,28,0.10); color:#b91c1c; }
+  .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .bar-legend { width: 100%; }
   .bar-legend-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
   .bar-legend-item:last-child { border-bottom: none; }
@@ -107,6 +120,21 @@
   .voice-quote .translation { display:block; font-style:normal; font-size:11px; color:var(--text-muted); margin-top:4px; }
   .voice-impact { font-size:12px; color:var(--text-secondary); margin-bottom:8px; line-height:1.6; }
   .voice-action { font-size:12px; color:var(--accent-brand); font-weight:600; }
+  .insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .insight-card { background:var(--bg-card); border-radius:16px; padding:24px; border-left:4px solid; box-shadow:0 2px 12px rgba(0,0,0,0.08); border-top:1px solid var(--border); border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .insight-card.blue { border-left-color:var(--accent-info); } .insight-card.green { border-left-color:var(--accent-success); }
+  .insight-card.orange { border-left-color:#f97316; } .insight-card.purple { border-left-color:var(--accent-purple); }
+  .insight-card.yellow { border-left-color:var(--accent-warn); } .insight-card.red { border-left-color:var(--accent-danger); }
+  .insight-card h4 { font-size:13px; font-weight:700; color:var(--text-primary); margin-bottom:6px; }
+  .insight-card p { font-size:12px; color:var(--text-secondary); line-height:1.7; }
+  .insight-card .highlight { font-weight:700; color:var(--accent-info); }
+  .rec-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .rec-table th { text-align:left; padding:10px 14px; border-bottom:2px solid var(--border-strong); color:#64748B; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  .rec-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .rec-table tr:hover td { background:var(--bg-muted); }
+  .priority-badge { display:inline-block; padding:2px 10px; border-radius:6px; font-size:11px; font-weight:800; color:white; }
+  .priority-badge.p0 { background:var(--accent-danger); } .priority-badge.p1 { background:#f97316; }
+  .priority-badge.p2 { background:var(--accent-warn); } .priority-badge.p3 { background:var(--accent-success); }
   .action-list { background: var(--bg-card); border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); }
   .action-list h3 { font-size: 15px; font-weight: 700; color: var(--text-primary); margin-bottom: 16px; }
   .action-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
@@ -146,11 +174,12 @@
   <div class="exec-summary">
     <h2>Executive Summary</h2>
     <ul>
-      <li><span class="tag tag-info">VOLUME</span> 1월 1주차 총 <strong>467건</strong> 처리. (전주 비교 데이터 없음).</li>
+      <li><span class="tag tag-info">VOLUME</span> 1월 1주차 총 <strong>467건</strong> 처리. (전주 비교 데이터 없음). 영업일 평균 <strong>93.4건</strong>.</li>
       <li><span class="tag tag-warn">IMPROVE</span> 평균 첫 응답 <strong>17.9h</strong>. 해결 시간 <strong>56.9h</strong>.</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 39.2% + Refund 28.7%</strong> → 전체의 <strong>67.9%</strong> 차지.</li>
       <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>124건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
       <li><span class="tag tag-up">CB</span> 차지백 <strong>85건</strong>(~$1,179) — 전주 대비 <strong>+19.7%</strong>. Paypal 64.7% 지배적.</li>
+      <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>40.9%</strong>(191건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
     </ul>
   </div>
 
@@ -163,12 +192,45 @@
     <div class="kpi-card"><div class="kpi-icon" style="background:rgba(139,92,246,0.15);">🌍</div><div class="kpi-number">10<span class="small"> 마켓</span></div><div class="kpi-label">활성 마켓</div><div class="kpi-sub">EN 36.4%</div></div>
   </div>
 
-  <!-- CATEGORY & MARKET DOUGHNUT -->
+  <!-- CATEGORY & MARKET (도넛+테이블 표준 레이아웃) -->
   <div class="section">
     <div class="section-title"><span class="dot"></span>카테고리 & 마켓 분포</div>
-    <div class="chart-grid-2">
-      <div class="chart-card"><h3>카테고리별 티켓 비중</h3><p class="chart-desc">Subscription 39.2% + Refund 28.7%</p><div class="chart-wrap"><canvas id="chartCategory"></canvas></div></div>
-      <div class="chart-card"><h3>마켓(언어)별 티켓 비중</h3><p class="chart-desc">EN 36.4% 최대</p><div class="chart-wrap"><canvas id="chartMarket"></canvas></div></div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">카테고리별 티켓 비중</h3>
+    <div class="category-layout" style="margin-bottom:28px;">
+      <div class="chart-card"><div class="chart-container"><canvas id="chartCategory"></canvas></div></div>
+      <div class="chart-card"><div class="table-wrap"><table class="category-table">
+        <thead><tr><th>카테고리</th><th>비중</th><th>건수</th><th>핵심 설명</th></tr></thead>
+        <tbody><tr><td><span class="cat-dot" style="background:#0EA5E9"></span>Subscription</td><td>39.2%</td><td>183건</td><td>구독 해지·갱신·자동결제 변경</td></tr>
+<tr><td><span class="cat-dot" style="background:#6366f1"></span>Refund</td><td>28.7%</td><td>134건</td><td>결제 환불 요청·분쟁 처리</td></tr>
+<tr><td><span class="cat-dot" style="background:#f97316"></span>Account</td><td>13.1%</td><td>61건</td><td>로그인·탈퇴·개인정보 변경</td></tr>
+<tr><td><span class="cat-dot" style="background:#22c55e"></span>Payment</td><td>6.4%</td><td>30건</td><td>결제 실패·이중결제·수단 변경</td></tr>
+<tr><td><span class="cat-dot" style="background:#eab308"></span>Content</td><td>5.8%</td><td>27건</td><td>작품 열람 오류·번역·노출 문의</td></tr>
+<tr><td><span class="cat-dot" style="background:#ec4899"></span>Technical</td><td>3.4%</td><td>16건</td><td>앱 오류·접속 장애·기기 호환</td></tr>
+<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>IP</td><td>1.7%</td><td>8건</td><td>저작권 신고·DMCA</td></tr>
+<tr><td><span class="cat-dot" style="background:#64748b"></span>Other</td><td>1.5%</td><td>7건</td><td>분류 불가 기타</td></tr>
+<tr><td><span class="cat-dot" style="background:#14b8a6"></span>Coin</td><td>0.2%</td><td>1건</td><td>코인 충전·사용 문의</td></tr>
+</tbody>
+      </table></div></div>
+    </div>
+
+    <h3 style="font-size:14px;font-weight:700;color:var(--text-primary);margin-bottom:12px;">마켓(언어)별 티켓 비중</h3>
+    <div class="category-layout">
+      <div class="chart-card"><div class="chart-container"><canvas id="chartMarket"></canvas></div></div>
+      <div class="chart-card"><div class="table-wrap"><table class="category-table">
+        <thead><tr><th>마켓</th><th>비중</th><th>건수</th><th>권역</th></tr></thead>
+        <tbody><tr><td><span class="cat-dot" style="background:#0EA5E9"></span>EN</td><td>36.4%</td><td>170건</td><td><span class="cat-badge manual">최다 마켓</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#6366f1"></span>FR</td><td>14.3%</td><td>67건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#f97316"></span>ES</td><td>13.5%</td><td>63건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#22c55e"></span>PT</td><td>12.2%</td><td>57건</td><td><span class="cat-badge auto">남미권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#eab308"></span>TH</td><td>7.1%</td><td>33건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#ec4899"></span>DE</td><td>6.2%</td><td>29건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>JP</td><td>4.1%</td><td>19건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#64748b"></span>CN</td><td>3.6%</td><td>17건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#14b8a6"></span>IT</td><td>2.4%</td><td>11건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#f43e5e"></span>Unknown</td><td>0.2%</td><td>1건</td><td><span class="cat-badge auto">미분류</span></td></tr>
+</tbody>
+      </table></div></div>
     </div>
   </div>
 
@@ -356,6 +418,37 @@
 
   </div>
 
+  <!-- KEY INSIGHTS -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>Key Insights</div>
+    <div class="insight-grid">
+      <div class="insight-card blue"><h4>📈 Volume Trend</h4><p>전주 대비 <span class="highlight">+0.0%</span> 감소(0→467건). 영업일 평균 93.4건. <strong>액션:</strong> 안정적 수준 유지.</p></div>
+      <div class="insight-card green"><h4>⏱ Response Efficiency</h4><p>FRT <span class="highlight">17.9h</span>. 해결시간 56.9h. <strong>액션:</strong> 자동 첫응답 템플릿 확대.</p></div>
+      <div class="insight-card orange"><h4>📊 Category Deep Dive</h4><p>Subscription이 <span class="highlight">39.2%</span> 차지. Top2 합산 67.9%. <strong>액션:</strong> 상위 카테고리 자동화/셀프서비스 도입 시 CS 부담 감소 기대.</p></div>
+      <div class="insight-card purple"><h4>🌍 Market Intelligence</h4><p>EN 마켓 <span class="highlight">36.4%</span> 최대 비중 유지. 10개 마켓 활성. <strong>액션:</strong> 성장 마켓 CS 템플릿 품질 점검.</p></div>
+      <div class="insight-card yellow"><h4>💬 Sentiment Pulse</h4><p>부정 감성 <span class="highlight">40.9%</span>(191건). . <strong>액션:</strong> Very Negative 건 48시간 내 에스컬레이션 SLA.</p></div>
+      <div class="insight-card red"><h4>🚨 Risk Assessment</h4><p>차지백 85건 중 <span class="highlight">Paypal 64.7%</span> 집중. 주요 사유: unauthorized. <strong>액션:</strong> 결제-서비스 연동 모니터링 강화.</p></div>
+    </div>
+  </div>
+
+  
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Strategic Recommendations</div>
+    <div class="chart-card">
+      <table class="rec-table">
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -73건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>셀프 구독 해지 UX</strong><br><span style="font-size:11px;color:var(--text-muted);">설정 > 구독관리 > 원클릭 해지 + 해지 사유 수집</span></td><td>Product</td><td>4주</td><td>해지 CS -30%, CSAT 개선</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p2">P2</span></td><td><strong>FR/ES 마켓 CS 템플릿 확충</strong><br><span style="font-size:11px;color:var(--text-muted);">영문 템플릿 현지화 번역 + FAQ 확대</span></td><td>CS Ops</td><td>3주</td><td>유럽 마켓 FRT -20%, CSAT +5%</td><td><span class="cat-badge auto">계획</span></td></tr>
+          <tr><td><span class="priority-badge p3">P3</span></td><td><strong>CS 자동응답 파일럿 (EN)</strong><br><span style="font-size:11px;color:var(--text-muted);">FAQ 기반 자동응답 + 에이전트 에스컬레이션</span></td><td>AI Team</td><td>6주</td><td>EN 마켓 CS 처리량 +40%, FRT -70%</td><td><span class="cat-badge auto">파일럿</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <!-- FOOTER -->
   <div class="footer">
     <p><strong>CS WEEKLY REPORT</strong> — TOOMICS Global CS 주간 분석 보고서 | 작성자: 유종선 | 작성일: 2026-03-01</p>
@@ -371,12 +464,13 @@ const fontFamily = "'Malgun Gothic','Noto Sans KR',sans-serif";
 Chart.defaults.font.family = fontFamily;
 Chart.defaults.font.size = 12;
 var chartColors = ['#0ea5e9','#6366f1','#f97316','#22c55e','#eab308','#ec4899','#8b5cf6','#64748b','#14b8a6','#f43e5e'];
-const dOpt = { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, plugins:{ legend:{ position:'bottom', labels:{ color:'#475569', font:{size:13,weight:'600'}, usePointStyle:true, padding:14 } }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } }, cutout:'60%' };
+const dOpt = { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
+const dOptLegend = { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'65%', plugins:{ legend:{ position:'bottom', labels:{ color:'#475569', font:{size:13,weight:'600'}, usePointStyle:true, padding:14 } }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
 new Chart(document.getElementById('chartCategory'),{type:'doughnut',data:{labels:["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Other", "Coin"],datasets:[{data:[183, 134, 61, 30, 27, 16, 8, 7, 1],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
 new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:["EN", "FR", "ES", "PT", "TH", "DE", "JP", "CN", "IT", "Unknown"],datasets:[{data:[170, 67, 63, 57, 33, 29, 19, 17, 11, 1],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
 new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'Solved',data:[467, 433, 394, 476],backgroundColor:['#0ea5e9','#6366f1','#f97316','#22c55e'],borderRadius:8,barPercentage:0.6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:13,weight:'600'}}},y:{grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
-new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:["Web", "Email", "API"],datasets:[{data:[217, 190, 60],backgroundColor:['#0ea5e9','#6366f1','#f97316'],borderWidth:0}]},options:{...dOpt,cutout:'65%',plugins:{...dOpt.plugins,tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.raw+'건'}}}}});
-new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:["Neutral", "Negative", "Very Negative", "Positive"],datasets:[{data:[273, 171, 20, 2],backgroundColor:['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'],borderWidth:0}]},options:{...dOpt,cutout:'65%',plugins:{...dOpt.plugins,tooltip:{callbacks:{label:ctx=>ctx.label+': '+ctx.raw+'건'}}}}});
+new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:["Web", "Email", "API"],datasets:[{data:[217, 190, 60],backgroundColor:['#0ea5e9','#6366f1','#f97316'],borderWidth:0}]},options:dOptLegend});
+new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:["Neutral", "Negative", "Very Negative", "Positive"],datasets:[{data:[273, 171, 20, 2],backgroundColor:['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'],borderWidth:0}]},options:dOptLegend});
 new Chart(document.getElementById('chartCBTrend'),{type:'bar',data:{labels:["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'CB',data:[71, 85, 86, 64, 59],backgroundColor:['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],borderRadius:8,borderSkipped:false,barThickness:52}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}})],options:{responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:12,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
 </script>
 

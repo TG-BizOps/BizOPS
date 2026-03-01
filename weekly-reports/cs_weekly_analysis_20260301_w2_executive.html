@@ -71,6 +71,7 @@
   .tag-down { background: #f0fdf4; color: #16a34a; }
   .tag-warn { background: #fefce8; color: #854d0e; }
   .tag-info { background: #eff6ff; color: var(--accent-brand); }
+  .tag-ai { background: #f0e7fe; color: #7c3aed; }
 
   .kpi-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; padding:0 24px; margin-bottom:32px; }
   .kpi-card { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:24px 20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; transition:transform 0.2s; }
@@ -156,6 +157,13 @@
   .sev { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
   .sev-high { background:#fef2f2; color:#b91c1c; }
   .sev-medium { background:#fefce8; color:#b45309; }
+  .rec-table { width:100%; border-collapse:collapse; font-size:13px; }
+  .rec-table th { text-align:left; padding:10px 14px; border-bottom:2px solid var(--border-strong); color:#64748B; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  .rec-table td { padding:10px 14px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .rec-table tr:hover td { background:var(--bg-muted); }
+  .priority-badge { display:inline-block; padding:2px 10px; border-radius:6px; font-size:11px; font-weight:800; color:white; }
+  .priority-badge.p0 { background:var(--accent-danger); } .priority-badge.p1 { background:#f97316; }
+  .priority-badge.p2 { background:var(--accent-warn); } .priority-badge.p3 { background:var(--accent-success); }
   ::selection { background:#3b82f6; color:#fff; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml">
@@ -193,12 +201,13 @@
   <div class="exec-summary">
     <h2>BizOps팀 Executive Summary</h2>
     <ul>
-      <li><span class="tag tag-down">VOLUME</span> 2월 2주차 총 <strong>433건</strong> 처리. 전주(467건) 대비 <strong>-7.3%</strong>.</li>
+      <li><span class="tag tag-down">VOLUME</span> 2월 2주차 총 <strong>433건</strong> 처리. 전주(467건) 대비 <strong>-7.3%</strong>. 영업일 평균 <strong>86.6건</strong>.</li>
       <li><span class="tag tag-down">IMPROVE</span> 평균 첫 응답 <strong>17.8h</strong> (전주 대비 <strong>-0.1h</strong>). 해결 시간 <strong>55.5h</strong> (-1.4h).</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 36.3% + Refund 30.0%</strong> → 전체의 <strong>66.3%</strong> 차지.</li>
       <li><span class="tag tag-info">GROWTH</span> FR 마켓 점유율 <strong>14.3% → 16.6%</strong> (+2.3%p 상승).</li>
       <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>109건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
       <li><span class="tag tag-up">CB</span> 차지백 <strong>86건</strong>(~$1,060) — 전주 대비 <strong>+1.2%</strong>. Paypal 51.2% 지배적.</li>
+      <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>37.2%</strong>(161건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
     </ul>
   </div>
 
@@ -392,6 +401,21 @@
     </div>
   </div>
 
+
+  
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Top 3 Action Items</div>
+    <div class="chart-card">
+      <table class="rec-table">
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -62건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 
   <!-- FOOTER -->
   <div class="footer">
