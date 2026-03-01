@@ -78,6 +78,15 @@
   .voice-card.severity-high { border-left-color: #ef4444; }
   .voice-card.severity-medium { border-left-color: #f59e0b; }
   .voice-card.severity-low { border-left-color: #22c55e; }
+  .voc-group { font-size:14px; font-weight:800; color:#f1f5f9; margin:20px 0 8px; padding:8px 14px; background:linear-gradient(90deg,#1e3a5f 0%,#1e293b 100%); border-radius:8px; border-left:4px solid #0ea5e9; }
+  .voc-group:first-of-type { margin-top:0; }
+  .voc-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; table-layout:fixed; }
+  .voc-table th { text-align:left; padding:8px 10px; border-bottom:2px solid #334155; color:#94a3b8; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  .voc-table td { padding:8px 10px; border-bottom:1px solid #2d3a4e; vertical-align:top; color:#e2e8f0; }
+  .voc-table tr:hover td { background:#162032; }
+  .sev { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .sev-high { background:#3b1c1c; color:#fca5a5; }
+  .sev-medium { background:#3b2e1c; color:#fcd34d; }
   .action-list { background: #1e293b; border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.3); border: 1px solid #334155; }
   .action-list h3 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 16px; }
   .action-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #2d3a4e; }
@@ -207,14 +216,41 @@
     <div class="chart-card"><h3>차지백 주간 트렌드 (5주)</h3><div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div></div>
   </div>
 
-  <!-- CUSTOMER INSIGHTS placeholder -->
-  <div class="section">
-    <div class="section-title"><span class="dot" style="background:#8b5cf6;"></span>Customer Insights (Voice of Customer)</div>
-    <div class="voice-section">
-      <div class="voice-category">데이터 기반 자동 생성 — 에이전트 보강 필요</div>
-      <div class="voice-card severity-medium" style="border-left-color:#f59e0b;">
-        <p style="color:#94a3b8; font-size:12px;">이 섹션은 에이전트가 customer_inquiry 필드 분석 후 보강합니다. <code>--enrich</code> 옵션 또는 수동 편집으로 Voice of Customer 카드를 추가하세요.</p>
-      </div>
+  
+  <div class="section voice-section">
+    <div class="section-title"><span class="dot" style="background:#8b5cf6;"></span>Customer Voice — 주요 이슈 요약</div>
+    <div class="chart-card">
+      <div class="voc-group">🔧 기술/시스템 이슈</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>EN·FR·PT</td><td>20</td><td>IAP/결제 동기화 모니터링 강화</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>EN·PT·FR</td><td>21</td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>ES·EN·FR</td><td>8</td><td>CDN/이미지 서버 성능 모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·TH</td><td>9</td><td>OAuth 안정성 모니터링</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·FR·ES</td><td>109</td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·FR</td><td>79</td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>ES·EN·FR</td><td>16</td><td>결제 재시도 로직 점검</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">📚 콘텐츠 & 계정</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·PT·FR</td><td>18</td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>ES·EN·FR</td><td>15</td><td>작품별 이미지 에셋 점검</td></tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 
