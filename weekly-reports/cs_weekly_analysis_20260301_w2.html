@@ -63,9 +63,9 @@
   .chart-card { background: var(--bg-card); border-radius: 16px; padding:22px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); }
   .chart-card h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
   .chart-card .chart-desc { font-size:12px; color: #64748B; margin-bottom:10px; }
-  .chart-wrap { position: relative; width: 100%; }
-  .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-  .chart-container { position:relative; width:100%; max-width:280px; margin:0 auto; }
+  .chart-wrap { position: relative; width: 100%; height: 250px; }
+  .category-layout { display:grid; grid-template-columns:45fr 55fr; gap:24px; align-items:start; }
+  .chart-container { position:relative; width:100%; height:300px; margin:0 auto; }
   .category-table { width:100%; border-collapse:collapse; font-size:14px; }
   .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid var(--border-strong); color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
   .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
@@ -469,7 +469,7 @@ new Chart(document.getElementById('chartCategory'), {
     labels: ["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Coin", "Other"],
     datasets: [{ data: [157, 130, 57, 32, 22, 18, 12, 3, 2], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.5, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartMarket'), {
@@ -478,7 +478,7 @@ new Chart(document.getElementById('chartMarket'), {
     labels: ["EN", "FR", "PT", "ES", "DE", "TH", "JP", "IT", "CN"],
     datasets: [{ data: [144, 72, 61, 60, 29, 25, 16, 16, 10], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.5, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartCBTrend'), {
@@ -509,7 +509,7 @@ new Chart(document.getElementById('chartCBTrend'), {
     }
   }],
   options: {
-    responsive: true, maintainAspectRatio: true, aspectRatio: 2.5,
+    responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false } },
     scales: {
       y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
@@ -520,7 +520,7 @@ new Chart(document.getElementById('chartCBTrend'), {
 
 // --- Detailed-only charts ---
 var dOptLegend = {
-  responsive: true, maintainAspectRatio: true, aspectRatio:1.8, cutout: '65%',
+  responsive: true, maintainAspectRatio: false, cutout: '65%',
   plugins: {
     legend: { position: 'bottom', labels: { color: '#475569', font: { size: 13, weight: '600' }, usePointStyle: true, padding: 14 } },
     tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '건 (' + (ctx.raw / ctx.dataset.data.reduce(function(a,b){return a+b},0) * 100).toFixed(1) + '%)'; } } }
@@ -534,7 +534,7 @@ new Chart(document.getElementById('chartWeeklyTrend'), {
     datasets: [{ label: 'Solved', data: [467, 433, 394, 476], backgroundColor: ['#0ea5e9','#6366f1','#f97316','#22c55e'], borderRadius: 8, barPercentage: 0.6 }]
   },
   options: {
-    responsive: true, maintainAspectRatio: true, aspectRatio: 2.8,
+    responsive: true, maintainAspectRatio: false,
     plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return ctx.raw + '건'; } } } },
     scales: {
       x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 13, weight: '600' } } },
