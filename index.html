@@ -196,9 +196,9 @@
     <div class="stat-card" data-target="sec-cb">
       <div class="num">4</div><div class="lbl">차지백</div>
     </div>
-    <div class="stat-card" data-target="sec-weekly">
+    <a class="stat-card" href="weekly-reports/" style="text-decoration:none;">
       <div class="num">12</div><div class="lbl">주간 리포트</div>
-    </div>
+    </a>
     <div class="stat-card" data-target="sec-ip">
       <div class="num">1</div><div class="lbl">IP 보호</div>
     </div>
@@ -276,28 +276,15 @@
   </div>
 
   <!-- 주간 리포트 -->
-  <div class="accordion" id="sec-weekly">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-cyan">W</span> 주간 리포트
-      <span class="count">12건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w4.html"><span class="lc-icon bg-cyan">W4</span><span class="lc-body"><span class="lc-title">W4 상세 분석</span><span class="lc-desc">02-21(토) ~ 02-27(금) | CS 476 + CB 59</span></span><span class="lc-badge bg-cyan">Latest</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w4_executive.html"><span class="lc-icon bg-blue">E4</span><span class="lc-body"><span class="lc-title">W4 Executive Summary</span><span class="lc-desc">경영진용 라이트 테마</span></span><span class="lc-badge bg-blue">Exec</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w3.html"><span class="lc-icon bg-cyan">W3</span><span class="lc-body"><span class="lc-title">W3 상세 분석</span><span class="lc-desc">02-14(토) ~ 02-20(금) | CS 394 + CB 64</span></span><span class="lc-badge bg-cyan">Report</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w3_executive.html"><span class="lc-icon bg-blue">E3</span><span class="lc-body"><span class="lc-title">W3 Executive Summary</span><span class="lc-desc">경영진용 라이트 테마</span></span><span class="lc-badge bg-blue">Exec</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w2.html"><span class="lc-icon bg-cyan">W2</span><span class="lc-body"><span class="lc-title">W2 상세 분석</span><span class="lc-desc">02-07(토) ~ 02-13(금) | CS 433 + CB 86</span></span><span class="lc-badge bg-cyan">Report</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w2_executive.html"><span class="lc-icon bg-blue">E2</span><span class="lc-body"><span class="lc-title">W2 Executive Summary</span><span class="lc-desc">경영진용 라이트 테마</span></span><span class="lc-badge bg-blue">Exec</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w1.html"><span class="lc-icon bg-cyan">W1</span><span class="lc-body"><span class="lc-title">W1 상세 분석</span><span class="lc-desc">01-31(토) ~ 02-06(금) | CS 467 + CB 85</span></span><span class="lc-badge bg-cyan">Report</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w1_executive.html"><span class="lc-icon bg-blue">E1</span><span class="lc-body"><span class="lc-title">W1 Executive Summary</span><span class="lc-desc">경영진용 라이트 테마</span></span><span class="lc-badge bg-blue">Exec</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3_executive.html"><span class="lc-icon bg-slate">E</span><span class="lc-body"><span class="lc-title">2/3주차 Executive (합본)</span><span class="lc-desc">02.07~02.20 | 아카이브</span></span><span class="lc-badge bg-slate">Archive</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3.html"><span class="lc-icon bg-slate">W2W3</span><span class="lc-body"><span class="lc-title">2/3주차 주간분석 (합본)</span><span class="lc-desc">02.07~02.20 | 아카이브</span></span><span class="lc-badge bg-slate">Archive</span></a>
-        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260222_w1.html"><span class="lc-icon bg-slate">W1</span><span class="lc-body"><span class="lc-title">1주차 주간분석 (초기)</span><span class="lc-desc">01.31~02.06 | 아카이브</span></span><span class="lc-badge bg-slate">Archive</span></a>
-        <a class="link-card" href="weekly-reports/"><span class="lc-icon bg-slate">A</span><span class="lc-body"><span class="lc-title">전체 아카이브 보기</span><span class="lc-desc">주차별 그룹핑 뷰</span></span><span class="lc-badge bg-slate">Index</span></a>
-      </div>
-    </div></div>
+  <div id="sec-weekly" style="margin-bottom:16px;">
+    <a class="link-card" href="weekly-reports/" style="border:1px solid #E2E8F0; border-radius:12px; padding:16px 20px; border-left:4px solid #0EA5E9;">
+      <span class="lc-icon bg-cyan" style="width:40px; height:40px; font-size:15px;">W</span>
+      <span class="lc-body">
+        <span class="lc-title" style="font-size:15px;">주간 리포트 아카이브</span>
+        <span class="lc-desc">2026년 2월 W1~W4 상세 + 요약본 · 12건</span>
+      </span>
+      <span class="lc-badge bg-cyan">12건 →</span>
+    </a>
   </div>
 
   <!-- IP 보호 -->
