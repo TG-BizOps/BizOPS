@@ -33,6 +33,8 @@
     margin-top: 20px; font-size: 12px; opacity: 0.75;
   }
   .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px 64px; }
+
+  /* Stat Cards */
   .stats {
     display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 16px; margin-bottom: 40px;
@@ -43,6 +45,7 @@
     border-top: 3px solid #2563EB;
     text-decoration: none; color: #1E293B;
     transition: box-shadow 0.15s, transform 0.15s;
+    cursor: pointer;
   }
   .stat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
   .stat-card .num { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
@@ -53,30 +56,51 @@
   .stat-card:nth-child(5) { border-top-color: #10B981; }
   .stat-card:nth-child(6) { border-top-color: #EF4444; }
   .stat-card:nth-child(7) { border-top-color: #475569; }
-  .section { margin-bottom: 36px; }
-  .section-title {
+
+  /* Accordion */
+  .accordion { margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
+  .accordion-header {
     display: flex; align-items: center; gap: 10px;
-    font-size: 18px; font-weight: 800; margin-bottom: 16px;
-    padding-bottom: 10px; border-bottom: 2px solid #E2E8F0;
+    padding: 16px 20px; background: #fff; cursor: pointer;
+    font-size: 16px; font-weight: 800; user-select: none;
+    transition: background 0.15s;
+    border: none; width: 100%; text-align: left; color: #1E293B;
+    font-family: inherit; line-height: 1.7;
   }
-  .section-title .icon {
+  .accordion-header:hover { background: #F8FAFC; }
+  .accordion-header .icon {
     width: 28px; height: 28px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 14px; color: #fff; flex-shrink: 0;
+    font-size: 13px; color: #fff; flex-shrink: 0;
   }
-  .section-title .count {
+  .accordion-header .count {
     margin-left: auto; font-size: 12px; font-weight: 600;
     color: #94A3B8; background: #F1F5F9;
     padding: 2px 10px; border-radius: 12px;
   }
+  .accordion-header .chevron {
+    width: 20px; height: 20px; flex-shrink: 0;
+    transition: transform 0.25s ease;
+    color: #94A3B8;
+  }
+  .accordion.open .accordion-header .chevron { transform: rotate(180deg); }
+  .accordion-body {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease;
+    background: #F8FAFC;
+  }
+  .accordion.open .accordion-body { max-height: 2000px; }
+  .accordion-body-inner { padding: 8px 20px 20px; }
+
+  /* Link Grid */
   .link-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 12px;
+    gap: 10px;
   }
   .link-card {
     display: flex; align-items: center; gap: 14px;
     background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 12px; padding: 16px 18px;
+    border-radius: 10px; padding: 14px 16px;
     text-decoration: none; color: #1E293B;
     transition: border-color 0.15s, box-shadow 0.15s;
     border-left: 4px solid transparent;
@@ -86,20 +110,22 @@
     border-left-color: #2563EB;
   }
   .link-card .lc-icon {
-    width: 36px; height: 36px; border-radius: 8px;
+    width: 34px; height: 34px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
+    font-size: 13px; font-weight: 700; flex-shrink: 0;
   }
   .link-card .lc-body { flex: 1; min-width: 0; overflow: hidden; }
   .link-card .lc-title {
-    font-size: 14px; font-weight: 700;
+    font-size: 13px; font-weight: 700;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .link-card .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .link-card .lc-desc { font-size: 11px; color: #475569; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
   .link-card .lc-badge {
-    font-size: 10.5px; font-weight: 700; padding: 2px 8px;
+    font-size: 10px; font-weight: 700; padding: 2px 8px;
     border-radius: 6px; white-space: nowrap;
   }
+
+  /* Color Tokens */
   .bg-blue   { background: #EFF6FF; color: #2563EB; }
   .bg-cyan   { background: #ECFEFF; color: #0891B2; }
   .bg-green  { background: #ECFDF5; color: #059669; }
@@ -114,43 +140,31 @@
   .ic-red    { background: #EF4444; }
   .ic-purple { background: #7C3AED; }
   .ic-slate  { background: #475569; }
-  .folder-card {
-    display: flex; align-items: center; gap: 16px;
-    background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 16px; padding: 24px; text-decoration: none; color: #1E293B;
-    transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
-    border-left: 5px solid transparent;
+
+  /* History */
+  .history-list { list-style: none; }
+  .history-item {
+    display: flex; gap: 12px; padding: 10px 0;
+    border-bottom: 1px solid #E2E8F0; font-size: 13px;
   }
-  .folder-card:hover {
-    border-color: #2563EB; box-shadow: 0 6px 20px rgba(0,0,0,0.08);
-    border-left-color: #2563EB; transform: translateY(-2px);
+  .history-item:last-child { border-bottom: none; }
+  .history-date {
+    flex-shrink: 0; font-weight: 700; color: #64748B;
+    font-variant-numeric: tabular-nums; min-width: 90px;
   }
-  .folder-card .fc-icon {
-    width: 48px; height: 48px; border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 22px; color: #fff; flex-shrink: 0;
-  }
-  .folder-card .fc-body { flex: 1; }
-  .folder-card .fc-title { font-size: 16px; font-weight: 800; }
-  .folder-card .fc-desc { font-size: 13px; color: #475569; margin-top: 4px; }
-  .folder-card .fc-count {
-    font-size: 24px; font-weight: 800; color: #94A3B8;
-    font-variant-numeric: tabular-nums;
-  }
-  .folder-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 16px; margin-bottom: 40px;
-  }
+  .history-msg { color: #334155; }
+
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
   }
   @media print {
     .hero { padding: 24px; }
-    .link-card, .folder-card { break-inside: avoid; }
+    .accordion-body { max-height: none !important; }
+    .chevron { display: none; }
   }
   @media (max-width: 600px) {
-    .folder-grid, .link-grid { grid-template-columns: 1fr; }
+    .link-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2, 1fr); }
     .hero h1 { font-size: 24px; }
   }
@@ -173,401 +187,175 @@
 
   <!-- Stats -->
   <div class="stats">
-    <a class="stat-card" href="cs/">
+    <div class="stat-card" data-target="sec-cs">
       <div class="num">8</div><div class="lbl">CS 운영</div>
-    </a>
-    <a class="stat-card" href="chatbot/">
+    </div>
+    <div class="stat-card" data-target="sec-chatbot">
       <div class="num">14</div><div class="lbl">AI 챗봇</div>
-    </a>
-    <a class="stat-card" href="chargeback/">
+    </div>
+    <div class="stat-card" data-target="sec-cb">
       <div class="num">4</div><div class="lbl">차지백</div>
-    </a>
-    <a class="stat-card" href="weekly-reports/">
+    </div>
+    <div class="stat-card" data-target="sec-weekly">
       <div class="num">4</div><div class="lbl">주간 리포트</div>
-    </a>
-    <a class="stat-card" href="ip/">
+    </div>
+    <div class="stat-card" data-target="sec-ip">
       <div class="num">1</div><div class="lbl">IP 보호</div>
-    </a>
-    <a class="stat-card" href="ticket/">
+    </div>
+    <div class="stat-card" data-target="sec-ticket">
       <div class="num">2</div><div class="lbl">대시보드</div>
-    </a>
-    <a class="stat-card" href="templates/">
+    </div>
+    <div class="stat-card" data-target="sec-tpl">
       <div class="num">1</div><div class="lbl">템플릿</div>
-    </a>
+    </div>
   </div>
 
-  <!-- Category Folders -->
-  <div class="folder-grid">
-    <a class="folder-card" href="cs/">
-      <span class="fc-icon ic-blue">CS</span>
-      <span class="fc-body">
-        <span class="fc-title">CS 운영</span>
-        <span class="fc-desc">매뉴얼(EN/KO), 분석 리포트, 프로세스 플로우, 자동화 로드맵</span>
-      </span>
-      <span class="fc-count">8</span>
-    </a>
-    <a class="folder-card" href="chatbot/">
-      <span class="fc-icon ic-purple">AI</span>
-      <span class="fc-body">
-        <span class="fc-title">AI 챗봇</span>
-        <span class="fc-desc">기획, 운영 매뉴얼, 교육 자료, 플로우, 에스컬레이션</span>
-      </span>
-      <span class="fc-count">14</span>
-    </a>
-    <a class="folder-card" href="chargeback/">
-      <span class="fc-icon ic-amber">CB</span>
-      <span class="fc-body">
-        <span class="fc-title">차지백</span>
-        <span class="fc-desc">운영 매뉴얼, 플로우, 증빙 템플릿, 소명서 양식(XLSX)</span>
-      </span>
-      <span class="fc-count">4</span>
-    </a>
-    <a class="folder-card" href="weekly-reports/">
-      <span class="fc-icon ic-cyan">W</span>
-      <span class="fc-body">
-        <span class="fc-title">주간 리포트</span>
-        <span class="fc-desc">CS+차지백 주간 분석 HTML 리포트 아카이브</span>
-      </span>
-      <span class="fc-count">4</span>
-    </a>
-    <a class="folder-card" href="ip/">
-      <span class="fc-icon ic-green">IP</span>
-      <span class="fc-body">
-        <span class="fc-title">IP 보호</span>
-        <span class="fc-desc">IP 보호 업무 운영 매뉴얼</span>
-      </span>
-      <span class="fc-count">1</span>
-    </a>
-    <a class="folder-card" href="ticket/">
-      <span class="fc-icon ic-red">TK</span>
-      <span class="fc-body">
-        <span class="fc-title">티켓 대시보드</span>
-        <span class="fc-desc">CS 티켓 대시보드, 운영 매뉴얼</span>
-      </span>
-      <span class="fc-count">2</span>
-    </a>
-    <a class="folder-card" href="templates/">
-      <span class="fc-icon ic-slate">T</span>
-      <span class="fc-body">
-        <span class="fc-title">템플릿</span>
-        <span class="fc-desc">개인정보 증빙 등 기타 템플릿</span>
-      </span>
-      <span class="fc-count">1</span>
-    </a>
-  </div>
-
-  <!-- CS Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- CS 운영 -->
+  <div class="accordion" id="sec-cs">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-blue">CS</span> CS 운영
       <span class="count">8건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="cs/cs_manual_EN_20260219.html">
-        <span class="lc-icon bg-blue">EN</span>
-        <span class="lc-body">
-          <span class="lc-title">TOOMICS Global CS Operations Manual v2.1</span>
-        </span>
-        <span class="lc-badge bg-blue">Manual</span>
-      </a>
-      <a class="link-card" href="cs/cs_manual_KO_20260219.html">
-        <span class="lc-icon bg-blue">KO</span>
-        <span class="lc-body">
-          <span class="lc-title">TOOMICS Global CS 운영 매뉴얼 v2.1</span>
-        </span>
-        <span class="lc-badge bg-blue">Manual</span>
-      </a>
-      <a class="link-card" href="cs/cs_repeat_complaint_manual_20260225.html">
-        <span class="lc-icon bg-blue">R</span>
-        <span class="lc-body">
-          <span class="lc-title">반복 문의 고객 대응 매뉴얼</span>
-        </span>
-        <span class="lc-badge bg-blue">Manual</span>
-      </a>
-      <a class="link-card" href="cs/cs_fraud_analysis_20260219_refund_dispute.html">
-        <span class="lc-icon bg-red">F</span>
-        <span class="lc-body">
-          <span class="lc-title">악의성 환불 요청 분석 리포트</span>
-        </span>
-        <span class="lc-badge bg-red">Analysis</span>
-      </a>
-      <a class="link-card" href="cs/cs_infographic_20260220.html">
-        <span class="lc-icon bg-cyan">I</span>
-        <span class="lc-body">
-          <span class="lc-title">CS Infographic | 2025.07 ~ 2026.01</span>
-        </span>
-        <span class="lc-badge bg-cyan">Visual</span>
-      </a>
-      <a class="link-card" href="cs/cs_l1_l2_l3_analysis_20260225.html">
-        <span class="lc-icon bg-cyan">L</span>
-        <span class="lc-body">
-          <span class="lc-title">CS 티켓 레벨 분석 (L1/L2/L3)</span>
-        </span>
-        <span class="lc-badge bg-cyan">Analysis</span>
-      </a>
-      <a class="link-card" href="cs/cs_flow_diagram_20260219.html">
-        <span class="lc-icon bg-green">F</span>
-        <span class="lc-body">
-          <span class="lc-title">CS Flow Diagram</span>
-        </span>
-        <span class="lc-badge bg-green">Process</span>
-      </a>
-      <a class="link-card" href="cs/cs_automation_roadmap_20260219.html">
-        <span class="lc-icon bg-green">R</span>
-        <span class="lc-body">
-          <span class="lc-title">CS 자동화 시스템 고도화 로드맵</span>
-        </span>
-        <span class="lc-badge bg-green">Roadmap</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="cs/cs_manual_EN_20260219.html"><span class="lc-icon bg-blue">EN</span><span class="lc-body"><span class="lc-title">TOOMICS Global CS Operations Manual v2.1</span></span><span class="lc-badge bg-blue">Manual</span></a>
+        <a class="link-card" href="cs/cs_manual_KO_20260219.html"><span class="lc-icon bg-blue">KO</span><span class="lc-body"><span class="lc-title">TOOMICS Global CS 운영 매뉴얼 v2.1</span></span><span class="lc-badge bg-blue">Manual</span></a>
+        <a class="link-card" href="cs/cs_repeat_complaint_manual_20260225.html"><span class="lc-icon bg-blue">R</span><span class="lc-body"><span class="lc-title">반복 문의 고객 대응 매뉴얼</span></span><span class="lc-badge bg-blue">Manual</span></a>
+        <a class="link-card" href="cs/cs_fraud_analysis_20260219_refund_dispute.html"><span class="lc-icon bg-red">F</span><span class="lc-body"><span class="lc-title">악의성 환불 요청 분석 리포트</span></span><span class="lc-badge bg-red">Analysis</span></a>
+        <a class="link-card" href="cs/cs_infographic_20260220.html"><span class="lc-icon bg-cyan">I</span><span class="lc-body"><span class="lc-title">CS Infographic | 2025.07 ~ 2026.01</span></span><span class="lc-badge bg-cyan">Visual</span></a>
+        <a class="link-card" href="cs/cs_l1_l2_l3_analysis_20260225.html"><span class="lc-icon bg-cyan">L</span><span class="lc-body"><span class="lc-title">CS 티켓 레벨 분석 (L1/L2/L3)</span></span><span class="lc-badge bg-cyan">Analysis</span></a>
+        <a class="link-card" href="cs/cs_flow_diagram_20260219.html"><span class="lc-icon bg-green">F</span><span class="lc-body"><span class="lc-title">CS Flow Diagram</span></span><span class="lc-badge bg-green">Process</span></a>
+        <a class="link-card" href="cs/cs_automation_roadmap_20260219.html"><span class="lc-icon bg-green">R</span><span class="lc-body"><span class="lc-title">CS 자동화 시스템 고도화 로드맵</span></span><span class="lc-badge bg-green">Roadmap</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- Chatbot Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- AI 챗봇 -->
+  <div class="accordion" id="sec-chatbot">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-purple">AI</span> AI 챗봇
       <span class="count">14건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="chatbot/chatbot_one_pager_20260223.html">
-        <span class="lc-icon bg-purple">1P</span>
-        <span class="lc-body">
-          <span class="lc-title">CS AI Chatbot — One Pager</span>
-        </span>
-        <span class="lc-badge bg-purple">Overview</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_system_overview_20260223.html">
-        <span class="lc-icon bg-purple">S</span>
-        <span class="lc-body">
-          <span class="lc-title">시스템 아키텍처 설명서 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Architecture</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_cost_analysis_20260222.html">
-        <span class="lc-icon bg-purple">$</span>
-        <span class="lc-body">
-          <span class="lc-title">CS AI 챗봇 비용 분석</span>
-        </span>
-        <span class="lc-badge bg-purple">Analysis</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_roadmap_20260222.html">
-        <span class="lc-icon bg-purple">R</span>
-        <span class="lc-body">
-          <span class="lc-title">프로젝트 로드맵</span>
-        </span>
-        <span class="lc-badge bg-purple">Roadmap</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_infographic_20260222.html">
-        <span class="lc-icon bg-purple">I</span>
-        <span class="lc-body">
-          <span class="lc-title">AI 챗봇 운영 인포그래픽</span>
-        </span>
-        <span class="lc-badge bg-purple">Visual</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_operations_manual_20260222.html">
-        <span class="lc-icon bg-purple">M</span>
-        <span class="lc-body">
-          <span class="lc-title">AI Chatbot 운영 매뉴얼 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Manual</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_cs_operator_guide_20260222.html">
-        <span class="lc-icon bg-purple">G</span>
-        <span class="lc-body">
-          <span class="lc-title">CS 운영자 가이드 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Guide</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_training_guide_20260223.html">
-        <span class="lc-icon bg-purple">T</span>
-        <span class="lc-body">
-          <span class="lc-title">운영자/리더 교육 자료 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Training</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_training_test_scenarios_20260223.html">
-        <span class="lc-icon bg-purple">Q</span>
-        <span class="lc-body">
-          <span class="lc-title">교육용 테스트 시나리오 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Training</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_demo_script_20260223.html">
-        <span class="lc-icon bg-purple">D</span>
-        <span class="lc-body">
-          <span class="lc-title">시연 시나리오 스크립트 v1.0</span>
-        </span>
-        <span class="lc-badge bg-purple">Demo</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_escalation_scenarios_20260223.html">
-        <span class="lc-icon bg-purple">E</span>
-        <span class="lc-body">
-          <span class="lc-title">Escalation Scenarios (L1/L2/L3)</span>
-        </span>
-        <span class="lc-badge bg-purple">Process</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_flow_diagram_20260222_detail.html">
-        <span class="lc-icon bg-purple">D</span>
-        <span class="lc-body">
-          <span class="lc-title">파이프라인 플로우 다이어그램 (상세)</span>
-        </span>
-        <span class="lc-badge bg-purple">Flow</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_flow_simple_20260222.html">
-        <span class="lc-icon bg-purple">S</span>
-        <span class="lc-body">
-          <span class="lc-title">처리 흐름도 (간략)</span>
-        </span>
-        <span class="lc-badge bg-purple">Flow</span>
-      </a>
-      <a class="link-card" href="chatbot/chatbot_weekly_report_20260222.html">
-        <span class="lc-icon bg-purple">W</span>
-        <span class="lc-body">
-          <span class="lc-title">AI 챗봇 주간 리포트</span>
-        </span>
-        <span class="lc-badge bg-purple">Report</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="chatbot/chatbot_one_pager_20260223.html"><span class="lc-icon bg-purple">1P</span><span class="lc-body"><span class="lc-title">CS AI Chatbot — One Pager</span></span><span class="lc-badge bg-purple">Overview</span></a>
+        <a class="link-card" href="chatbot/chatbot_system_overview_20260223.html"><span class="lc-icon bg-purple">S</span><span class="lc-body"><span class="lc-title">시스템 아키텍처 설명서 v1.0</span></span><span class="lc-badge bg-purple">Architecture</span></a>
+        <a class="link-card" href="chatbot/chatbot_cost_analysis_20260222.html"><span class="lc-icon bg-purple">$</span><span class="lc-body"><span class="lc-title">CS AI 챗봇 비용 분석</span></span><span class="lc-badge bg-purple">Analysis</span></a>
+        <a class="link-card" href="chatbot/chatbot_roadmap_20260222.html"><span class="lc-icon bg-purple">R</span><span class="lc-body"><span class="lc-title">프로젝트 로드맵</span></span><span class="lc-badge bg-purple">Roadmap</span></a>
+        <a class="link-card" href="chatbot/chatbot_infographic_20260222.html"><span class="lc-icon bg-purple">I</span><span class="lc-body"><span class="lc-title">AI 챗봇 운영 인포그래픽</span></span><span class="lc-badge bg-purple">Visual</span></a>
+        <a class="link-card" href="chatbot/chatbot_operations_manual_20260222.html"><span class="lc-icon bg-purple">M</span><span class="lc-body"><span class="lc-title">AI Chatbot 운영 매뉴얼 v1.0</span></span><span class="lc-badge bg-purple">Manual</span></a>
+        <a class="link-card" href="chatbot/chatbot_cs_operator_guide_20260222.html"><span class="lc-icon bg-purple">G</span><span class="lc-body"><span class="lc-title">CS 운영자 가이드 v1.0</span></span><span class="lc-badge bg-purple">Guide</span></a>
+        <a class="link-card" href="chatbot/chatbot_training_guide_20260223.html"><span class="lc-icon bg-purple">T</span><span class="lc-body"><span class="lc-title">운영자/리더 교육 자료 v1.0</span></span><span class="lc-badge bg-purple">Training</span></a>
+        <a class="link-card" href="chatbot/chatbot_training_test_scenarios_20260223.html"><span class="lc-icon bg-purple">Q</span><span class="lc-body"><span class="lc-title">교육용 테스트 시나리오 v1.0</span></span><span class="lc-badge bg-purple">Training</span></a>
+        <a class="link-card" href="chatbot/chatbot_demo_script_20260223.html"><span class="lc-icon bg-purple">D</span><span class="lc-body"><span class="lc-title">시연 시나리오 스크립트 v1.0</span></span><span class="lc-badge bg-purple">Demo</span></a>
+        <a class="link-card" href="chatbot/chatbot_escalation_scenarios_20260223.html"><span class="lc-icon bg-purple">E</span><span class="lc-body"><span class="lc-title">Escalation Scenarios (L1/L2/L3)</span></span><span class="lc-badge bg-purple">Process</span></a>
+        <a class="link-card" href="chatbot/chatbot_flow_diagram_20260222_detail.html"><span class="lc-icon bg-purple">D</span><span class="lc-body"><span class="lc-title">파이프라인 플로우 다이어그램 (상세)</span></span><span class="lc-badge bg-purple">Flow</span></a>
+        <a class="link-card" href="chatbot/chatbot_flow_simple_20260222.html"><span class="lc-icon bg-purple">S</span><span class="lc-body"><span class="lc-title">처리 흐름도 (간략)</span></span><span class="lc-badge bg-purple">Flow</span></a>
+        <a class="link-card" href="chatbot/chatbot_weekly_report_20260222.html"><span class="lc-icon bg-purple">W</span><span class="lc-body"><span class="lc-title">AI 챗봇 주간 리포트</span></span><span class="lc-badge bg-purple">Report</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- Chargeback Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- 차지백 -->
+  <div class="accordion" id="sec-cb">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-amber">CB</span> 차지백
       <span class="count">4건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="chargeback/chargeback_operation_manual_20260220.html">
-        <span class="lc-icon bg-amber">M</span>
-        <span class="lc-body">
-          <span class="lc-title">차지백 운영 매뉴얼 v1.3</span>
-          <span class="lc-desc">8개 PG사 소명 절차 통합 가이드</span>
-        </span>
-        <span class="lc-badge bg-amber">Manual</span>
-      </a>
-      <a class="link-card" href="chargeback/chargeback_flow_diagram_20260220.html">
-        <span class="lc-icon bg-amber">F</span>
-        <span class="lc-body">
-          <span class="lc-title">차지백 프로세스 플로우 다이어그램</span>
-          <span class="lc-desc">접수 &rarr; 소명 &rarr; 제재 전 프로세스</span>
-        </span>
-        <span class="lc-badge bg-amber">Flow</span>
-      </a>
-      <a class="link-card" href="chargeback/chargeback_sample_template_v2.html">
-        <span class="lc-icon bg-amber">T</span>
-        <span class="lc-body">
-          <span class="lc-title">증빙 템플릿 미리보기</span>
-        </span>
-        <span class="lc-badge bg-amber">Template</span>
-      </a>
-      <a class="link-card" href="chargeback/Chargeback_Explanation_Form_v5.xlsx">
-        <span class="lc-icon bg-slate">v5</span>
-        <span class="lc-body">
-          <span class="lc-title">Explanation Form v5</span>
-          <span class="lc-desc">Excel 다운로드</span>
-        </span>
-        <span class="lc-badge bg-slate">XLSX</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="chargeback/chargeback_operation_manual_20260220.html"><span class="lc-icon bg-amber">M</span><span class="lc-body"><span class="lc-title">차지백 운영 매뉴얼 v1.3</span><span class="lc-desc">8개 PG사 소명 절차 통합 가이드</span></span><span class="lc-badge bg-amber">Manual</span></a>
+        <a class="link-card" href="chargeback/chargeback_flow_diagram_20260220.html"><span class="lc-icon bg-amber">F</span><span class="lc-body"><span class="lc-title">차지백 프로세스 플로우 다이어그램</span><span class="lc-desc">접수 &rarr; 소명 &rarr; 제재 전 프로세스</span></span><span class="lc-badge bg-amber">Flow</span></a>
+        <a class="link-card" href="chargeback/chargeback_sample_template_v2.html"><span class="lc-icon bg-amber">T</span><span class="lc-body"><span class="lc-title">증빙 템플릿 미리보기</span></span><span class="lc-badge bg-amber">Template</span></a>
+        <a class="link-card" href="chargeback/Chargeback_Explanation_Form_v5.xlsx"><span class="lc-icon bg-slate">v5</span><span class="lc-body"><span class="lc-title">Explanation Form v5</span><span class="lc-desc">Excel 다운로드</span></span><span class="lc-badge bg-slate">XLSX</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- Weekly Reports Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- 주간 리포트 -->
+  <div class="accordion" id="sec-weekly">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-cyan">W</span> 주간 리포트
       <span class="count">4건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w4.html">
-        <span class="lc-icon bg-cyan">W4</span>
-        <span class="lc-body">
-          <span class="lc-title">2월 4주차 CS+차지백 주간분석</span>
-          <span class="lc-desc">2026-02-21(토) ~ 02-27(금)</span>
-        </span>
-        <span class="lc-badge bg-cyan">Latest</span>
-      </a>
-      <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3_executive.html">
-        <span class="lc-icon bg-cyan">E</span>
-        <span class="lc-body">
-          <span class="lc-title">2/3주차 Executive Summary</span>
-        </span>
-        <span class="lc-badge bg-cyan">Report</span>
-      </a>
-      <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3.html">
-        <span class="lc-icon bg-cyan">W2W3</span>
-        <span class="lc-body">
-          <span class="lc-title">2/3주차 주간분석</span>
-          <span class="lc-desc">2026-02-07(토) ~ 02-20(금)</span>
-        </span>
-        <span class="lc-badge bg-cyan">Report</span>
-      </a>
-      <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260222_w1.html">
-        <span class="lc-icon bg-cyan">W1</span>
-        <span class="lc-body">
-          <span class="lc-title">1주차 주간분석</span>
-          <span class="lc-desc">2026-01-31(토) ~ 02-06(금)</span>
-        </span>
-        <span class="lc-badge bg-cyan">Report</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260301_w4.html"><span class="lc-icon bg-cyan">W4</span><span class="lc-body"><span class="lc-title">2월 4주차 CS+차지백 주간분석</span><span class="lc-desc">2026-02-21(토) ~ 02-27(금)</span></span><span class="lc-badge bg-cyan">Latest</span></a>
+        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3_executive.html"><span class="lc-icon bg-cyan">E</span><span class="lc-body"><span class="lc-title">2/3주차 Executive Summary</span></span><span class="lc-badge bg-cyan">Report</span></a>
+        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260223_w2w3.html"><span class="lc-icon bg-cyan">W2W3</span><span class="lc-body"><span class="lc-title">2/3주차 주간분석</span><span class="lc-desc">2026-02-07(토) ~ 02-20(금)</span></span><span class="lc-badge bg-cyan">Report</span></a>
+        <a class="link-card" href="weekly-reports/cs_weekly_analysis_20260222_w1.html"><span class="lc-icon bg-cyan">W1</span><span class="lc-body"><span class="lc-title">1주차 주간분석</span><span class="lc-desc">2026-01-31(토) ~ 02-06(금)</span></span><span class="lc-badge bg-cyan">Report</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- IP Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- IP 보호 -->
+  <div class="accordion" id="sec-ip">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-green">IP</span> IP 보호
       <span class="count">1건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="ip/ip_ops_manual.html">
-        <span class="lc-icon bg-green">M</span>
-        <span class="lc-body">
-          <span class="lc-title">TOOMICS Global IP 보호 업무 운영 매뉴얼</span>
-        </span>
-        <span class="lc-badge bg-green">Manual</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="ip/ip_ops_manual.html"><span class="lc-icon bg-green">M</span><span class="lc-body"><span class="lc-title">TOOMICS Global IP 보호 업무 운영 매뉴얼</span></span><span class="lc-badge bg-green">Manual</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- Ticket Dashboard Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- 티켓 대시보드 -->
+  <div class="accordion" id="sec-ticket">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-red">TK</span> 티켓 대시보드
       <span class="count">2건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="ticket/ticket_dashboard_20260223.html">
-        <span class="lc-icon bg-red">V</span>
-        <span class="lc-body">
-          <span class="lc-title">CS Ticket Dashboard</span>
-        </span>
-        <span class="lc-badge bg-red">Dashboard</span>
-      </a>
-      <a class="link-card" href="ticket/ticket_dashboard_manual_20260223.html">
-        <span class="lc-icon bg-red">M</span>
-        <span class="lc-body">
-          <span class="lc-title">Ticket Dashboard 운영 매뉴얼 v1.0</span>
-        </span>
-        <span class="lc-badge bg-red">Manual</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="ticket/ticket_dashboard_20260223.html"><span class="lc-icon bg-red">V</span><span class="lc-body"><span class="lc-title">CS Ticket Dashboard</span></span><span class="lc-badge bg-red">Dashboard</span></a>
+        <a class="link-card" href="ticket/ticket_dashboard_manual_20260223.html"><span class="lc-icon bg-red">M</span><span class="lc-body"><span class="lc-title">Ticket Dashboard 운영 매뉴얼 v1.0</span></span><span class="lc-badge bg-red">Manual</span></a>
+      </div>
+    </div></div>
   </div>
 
-  <!-- Templates Section -->
-  <div class="section">
-    <h2 class="section-title">
+  <!-- 템플릿 -->
+  <div class="accordion" id="sec-tpl">
+    <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-slate">T</span> 템플릿
       <span class="count">1건</span>
-    </h2>
-    <div class="link-grid">
-      <a class="link-card" href="templates/personal_info_evidence_EA2_EA37_EA56_EA57.html">
-        <span class="lc-icon bg-slate">P</span>
-        <span class="lc-body">
-          <span class="lc-title">개인정보 증빙 (EA2/EA37/EA56/EA57)</span>
-        </span>
-        <span class="lc-badge bg-slate">Evidence</span>
-      </a>
-    </div>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="templates/personal_info_evidence_EA2_EA37_EA56_EA57.html"><span class="lc-icon bg-slate">P</span><span class="lc-body"><span class="lc-title">개인정보 증빙 (EA2/EA37/EA56/EA57)</span></span><span class="lc-badge bg-slate">Evidence</span></a>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- 변경 히스토리 -->
+  <div class="accordion" id="sec-history" style="margin-top: 24px;">
+    <button class="accordion-header" aria-expanded="false">
+      <span class="icon ic-slate">H</span> 변경 히스토리
+      <span class="count">최근 10건</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <ul class="history-list">
+        <li class="history-item"><span class="history-date">2026-03-01</span><span class="history-msg">구버전 파일 정리 — 최신 버전만 유지 (v2~v4 XLSX, 중복 HTML 삭제)</span></li>
+        <li class="history-item"><span class="history-date">2026-03-01</span><span class="history-msg">카테고리별 폴더 구조 재배치 + index.html 전체 재구성 (7개 폴더)</span></li>
+        <li class="history-item"><span class="history-date">2026-03-01</span><span class="history-msg">toomics-ai-agent 리포트 자동 배포 파이프라인 연동</span></li>
+        <li class="history-item"><span class="history-date">2026-02-28</span><span class="history-msg">Chargeback Evidence Template/chargeback_template 중복 파일 삭제</span></li>
+        <li class="history-item"><span class="history-date">2026-02-28</span><span class="history-msg">카드 텍스트 오버플로우 수정 + 버전 중복 파일 정리</span></li>
+        <li class="history-item"><span class="history-date">2026-02-27</span><span class="history-msg">개인정보 증빙 파일 인덱스에서 분리</span></li>
+        <li class="history-item"><span class="history-date">2026-02-27</span><span class="history-msg">주간 리포트 아카이브 페이지 자동 생성 구조 적용</span></li>
+        <li class="history-item"><span class="history-date">2026-02-27</span><span class="history-msg">버전/날짜 중복 파일 정리 — 41건 &rarr; 36건 (최신만 유지)</span></li>
+        <li class="history-item"><span class="history-date">2026-02-27</span><span class="history-msg">차지백 XLSX, 개인정보, 주간리포트 섹션 정리</span></li>
+        <li class="history-item"><span class="history-date">2026-02-25</span><span class="history-msg">CS 반복 문의 매뉴얼, L1/L2/L3 분석 리포트 추가</span></li>
+      </ul>
+    </div></div>
   </div>
 
 </div>
@@ -575,6 +363,31 @@
 <footer class="footer">
   Toomics Global &middot; BizOps Team &middot; 유종선 &middot; 2026
 </footer>
+
+<script>
+// Accordion toggle
+document.querySelectorAll('.accordion-header').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const acc = btn.parentElement;
+    const isOpen = acc.classList.contains('open');
+    acc.classList.toggle('open');
+    btn.setAttribute('aria-expanded', !isOpen);
+  });
+});
+
+// Stat card → scroll to accordion & open it
+document.querySelectorAll('.stat-card[data-target]').forEach(card => {
+  card.addEventListener('click', () => {
+    const target = document.getElementById(card.dataset.target);
+    if (!target) return;
+    if (!target.classList.contains('open')) {
+      target.classList.add('open');
+      target.querySelector('.accordion-header').setAttribute('aria-expanded', 'true');
+    }
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+</script>
 
 </body>
 </html>
