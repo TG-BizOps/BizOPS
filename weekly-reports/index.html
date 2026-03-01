@@ -14,16 +14,21 @@
   .header h1 { font-size: 26px; font-weight: 800; }
   .header .sub { font-size: 14px; opacity: 0.8; margin-top: 4px; }
   .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
-  .link-list { display: flex; flex-direction: column; gap: 10px; }
-  .link-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 18px; text-decoration: none; color: #1E293B; transition: border-color 0.15s, box-shadow 0.15s; border-left: 4px solid transparent; }
+  .group-title { font-size: 15px; font-weight: 800; color: #0369A1; margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #E0F2FE; }
+  .group-title:first-child { margin-top: 0; }
+  .link-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+  .link-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 18px; text-decoration: none; color: #1E293B; transition: border-color 0.15s, box-shadow 0.15s; border-left: 4px solid transparent; }
   .link-card:hover { border-color: #0EA5E9; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-left-color: #0EA5E9; }
   .link-card.latest { border-left-color: #0EA5E9; background: #F0F9FF; }
   .lc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; background: #ECFEFF; color: #0891B2; }
+  .lc-icon.exec { background: #EFF6FF; color: #2563EB; }
   .lc-body { flex: 1; min-width: 0; }
   .lc-title { font-size: 14px; font-weight: 700; }
   .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
   .lc-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
-  .bg-cyan { background: #ECFEFF; color: #0891B2; } .bg-slate { background: #F1F5F9; color: #475569; }
+  .bg-cyan { background: #ECFEFF; color: #0891B2; }
+  .bg-blue { background: #EFF6FF; color: #2563EB; }
+  .bg-slate { background: #F1F5F9; color: #475569; }
   .footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px; }
 </style>
 </head>
@@ -31,31 +36,85 @@
 <div class="header">
   <a class="back" href="../">&larr; BizOps Portal</a>
   <h1>주간 리포트 아카이브</h1>
-  <div class="sub">CS + 차지백 주간 분석 HTML 리포트 &middot; 4건</div>
+  <div class="sub">2026년 2월 CS + 차지백 주간 분석 HTML 리포트 &middot; 12건</div>
 </div>
 <div class="container">
+
+  <div class="group-title">2월 4주차 (02.21 ~ 02.27)</div>
   <div class="link-list">
     <a class="link-card latest" href="cs_weekly_analysis_20260301_w4.html">
       <span class="lc-icon">W4</span>
-      <span class="lc-body"><span class="lc-title">2월 4주차 CS+차지백 주간분석</span><span class="lc-desc">2026-02-21(토) ~ 02-27(금) | CS 476건 + CB 59건</span></span>
+      <span class="lc-body"><span class="lc-title">W4 상세 분석</span><span class="lc-desc">CS 476건 + CB 59건 | 다크 테마</span></span>
       <span class="lc-badge bg-cyan">Latest</span>
     </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w4_executive.html">
+      <span class="lc-icon exec">E4</span>
+      <span class="lc-body"><span class="lc-title">W4 Executive Summary</span><span class="lc-desc">CS 476건 + CB 59건 | 경영진용 라이트 테마</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
+
+  <div class="group-title">2월 3주차 (02.14 ~ 02.20)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w3.html">
+      <span class="lc-icon">W3</span>
+      <span class="lc-body"><span class="lc-title">W3 상세 분석</span><span class="lc-desc">CS 394건 + CB 64건 | 다크 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w3_executive.html">
+      <span class="lc-icon exec">E3</span>
+      <span class="lc-body"><span class="lc-title">W3 Executive Summary</span><span class="lc-desc">CS 394건 + CB 64건 | 경영진용 라이트 테마</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
+
+  <div class="group-title">2월 2주차 (02.07 ~ 02.13)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w2.html">
+      <span class="lc-icon">W2</span>
+      <span class="lc-body"><span class="lc-title">W2 상세 분석</span><span class="lc-desc">CS 433건 + CB 86건 | 다크 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w2_executive.html">
+      <span class="lc-icon exec">E2</span>
+      <span class="lc-body"><span class="lc-title">W2 Executive Summary</span><span class="lc-desc">CS 433건 + CB 86건 | 경영진용 라이트 테마</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
+
+  <div class="group-title">2월 1주차 (01.31 ~ 02.06)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w1.html">
+      <span class="lc-icon">W1</span>
+      <span class="lc-body"><span class="lc-title">W1 상세 분석</span><span class="lc-desc">CS 467건 + CB 85건 | 다크 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w1_executive.html">
+      <span class="lc-icon exec">E1</span>
+      <span class="lc-body"><span class="lc-title">W1 Executive Summary</span><span class="lc-desc">CS 467건 + CB 85건 | 경영진용 라이트 테마</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
+
+  <div class="group-title">아카이브 (합본)</div>
+  <div class="link-list">
     <a class="link-card" href="cs_weekly_analysis_20260223_w2w3_executive.html">
-      <span class="lc-icon">E</span>
-      <span class="lc-body"><span class="lc-title">2/3주차 Executive Summary</span><span class="lc-desc">2026-02-07(토) ~ 02-20(금)</span></span>
-      <span class="lc-badge bg-cyan">Executive</span>
+      <span class="lc-icon exec">E</span>
+      <span class="lc-body"><span class="lc-title">2/3주차 Executive Summary (합본)</span><span class="lc-desc">02.07~02.20 | CS 829건 합산</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
     </a>
     <a class="link-card" href="cs_weekly_analysis_20260223_w2w3.html">
       <span class="lc-icon">W2W3</span>
-      <span class="lc-body"><span class="lc-title">2/3주차 주간분석</span><span class="lc-desc">2026-02-07(토) ~ 02-20(금)</span></span>
-      <span class="lc-badge bg-cyan">Report</span>
+      <span class="lc-body"><span class="lc-title">2/3주차 주간분석 (합본)</span><span class="lc-desc">02.07~02.20 | CS 829건 합산</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
     </a>
     <a class="link-card" href="cs_weekly_analysis_20260222_w1.html">
       <span class="lc-icon">W1</span>
-      <span class="lc-body"><span class="lc-title">1주차 주간분석</span><span class="lc-desc">2026-01-31(토) ~ 02-06(금)</span></span>
-      <span class="lc-badge bg-cyan">Report</span>
+      <span class="lc-body"><span class="lc-title">1주차 주간분석 (초기 버전)</span><span class="lc-desc">01.31~02.06 | Confluence 직접 작성 버전</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
     </a>
   </div>
+
 </div>
 <footer class="footer">Toomics Global &middot; BizOps &middot; 유종선</footer>
 </body>
