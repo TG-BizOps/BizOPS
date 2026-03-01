@@ -9,51 +9,18 @@
 <meta name="date" content="2026-02-20">
 <title>TOOMICS 차지백 프로세스 플로우 다이어그램 | 유종선</title>
 <style>
-:root {
-  --max-w: 960px;
-  --max-w-wide: 1280px;
-  --radius: 12px;
-  --gap: 16px;
-  --bg-base: #F8FAFC;
-  --bg-card: #FFFFFF;
-  --bg-muted: #F1F5F9;
-  --text-primary: #1E293B;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
-  --border: #E2E8F0;
-  --accent-brand: #2563EB;
-  --accent-info: #0EA5E9;
-  --accent-success: #10B981;
-  --accent-warn: #F59E0B;
-  --accent-danger: #EF4444;
-  --accent-purple: #7C3AED;
-  --font-base: 14px;
-  --font-sm: 12px;
-  --font-lg: 18px;
-  --font-xl: 28px;
-  --line-height: 1.7;
-  --font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;
-}
-
-  html { scroll-behavior: smooth; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
-    background: var(--bg-base);
-    color: var(--text-primary);
+    background: #0f172a;
+    color: #e2e8f0;
     min-height: 100vh;
     padding: 32px;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-  
-    font-size: 14px;
-  
-    line-height: 1.7;
-  
-    word-break: keep-all; overflow-wrap: break-word;
   }
   @media print {
-    body { background: var(--bg-base); padding: 16px; }
+    body { background: #0f172a; padding: 16px; }
     .no-print { display: none !important; }
   }
 
@@ -71,14 +38,14 @@
     margin-bottom: 8px;
   }
   .header .sub {
-    color: #64748B;
+    color: #94a3b8;
     font-size: 14px;
   }
   .header .badge {
     display: inline-block;
     background: rgba(248,113,113,0.15);
     border: 1px solid rgba(248,113,113,0.3);
-    color: #b91c1c;
+    color: #fca5a5;
     padding: 4px 14px;
     border-radius: 20px;
     font-size: 12px;
@@ -94,8 +61,8 @@
     flex-wrap: wrap;
   }
   .kpi-item {
-    background: var(--border);
-    border: 1px solid rgba(0,0,0,0.04);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
     border-radius: 12px;
     padding: 14px 24px;
     text-align: center;
@@ -104,16 +71,16 @@
   .kpi-item .num {
     font-size: 26px;
     font-weight: 800;
-    color: #b91c1c;
+    color: #f87171;
   }
   .kpi-item .num .unit {
     font-size: 14px;
     font-weight: 600;
-    color: #c2410c;
+    color: #fb923c;
   }
   .kpi-item .label {
-    font-size: 12px;
-    color: #64748B;
+    font-size: 11px;
+    color: #94a3b8;
     margin-top: 2px;
   }
 
@@ -145,8 +112,8 @@
     height: 32px;
   }
   .arrow-down .arrow-label {
-    font-size: 12px;
-    color: #64748B;
+    font-size: 11px;
+    color: #64748b;
     margin-left: 8px;
     align-self: center;
   }
@@ -162,7 +129,7 @@
   }
   .node:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
   }
   .node .title {
     font-weight: 700;
@@ -186,14 +153,14 @@
     width: 28px;
     height: 28px;
     background: #dc2626;
-    color: var(--text-primary);
+    color: #fff;
     border-radius: 50%;
     font-size: 13px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--bg-base);
+    border: 2px solid #0f172a;
     box-shadow: 0 2px 8px rgba(220,38,38,0.4);
   }
 
@@ -205,8 +172,8 @@
     box-shadow: 0 0 20px rgba(220,38,38,0.3);
   }
   .node-process {
-    background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
-    border: 1px solid #93C5FD;
+    background: linear-gradient(135deg, #1e3a5f, #1e4976);
+    border: 1px solid #3b82f6;
     min-width: 280px;
   }
   .node-decision {
@@ -227,7 +194,7 @@
     box-shadow: 0 0 15px rgba(234,88,12,0.2);
   }
   .node-end {
-    background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+    background: linear-gradient(135deg, #065f46, #059669);
     border: 2px solid #34d399;
     min-width: 260px;
     box-shadow: 0 0 15px rgba(52,211,153,0.2);
@@ -258,8 +225,8 @@
     border-radius: 12px;
     margin-bottom: 8px;
   }
-  .branch-yes { background: #dcfce7; color: #15803d; border: 1px solid #22c55e; }
-  .branch-no { background: #fef2f2; color: #b91c1c; border: 1px solid var(--accent-danger); }
+  .branch-yes { background: #166534; color: #4ade80; border: 1px solid #22c55e; }
+  .branch-no { background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }
 
   /* ===== PG GRID ===== */
   .pg-grid {
@@ -280,31 +247,31 @@
   }
   .pg-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
   }
   .pg-card .pct {
     position: absolute;
     top: 8px;
     right: 10px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     opacity: 0.9;
   }
   .pg-card .emoji { font-size: 22px; margin-bottom: 6px; }
   .pg-card .title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
-  .pg-card .desc { font-size: 12px; opacity: 0.75; line-height: 1.4; }
+  .pg-card .desc { font-size: 10px; opacity: 0.75; line-height: 1.4; }
 
   /* PG colors */
   .pg-paypal { background: linear-gradient(135deg, #003087, #0070ba); border: 1px solid #60a5fa; }
-  .pg-cko { background: linear-gradient(135deg, #0a0a0a, #F8FAFC); border: 1px solid #00d632; }
+  .pg-cko { background: linear-gradient(135deg, #0a0a0a, #1a1a2e); border: 1px solid #00d632; }
   .pg-cko .title { color: #00d632; }
   .pg-airwallex { background: linear-gradient(135deg, #4338ca, #6366f1); border: 1px solid #818cf8; }
-  .pg-pwl { background: linear-gradient(135deg, #FEF3C7, #FDE68A); border: 1px solid #fbbf24; color: var(--text-primary); }
+  .pg-pwl { background: linear-gradient(135deg, #92400e, #d97706); border: 1px solid #fbbf24; color: #1a1a2e; }
   .pg-pwl .desc { color: #292524; }
   .pg-worldpay { background: linear-gradient(135deg, #9f1239, #e11d48); border: 1px solid #fb7185; }
   .pg-payletter { background: linear-gradient(135deg, #115e59, #0d9488); border: 1px solid #2dd4bf; }
   .pg-mycard { background: linear-gradient(135deg, #3730a3, #4f46e5); border: 1px solid #818cf8; }
-  .pg-opn { background: linear-gradient(135deg, #64748b, #94a3b8); border: 1px solid var(--text-muted); }
+  .pg-opn { background: linear-gradient(135deg, #334155, #475569); border: 1px solid #94a3b8; }
 
   /* ===== MYCARD FLOW ===== */
   .mycard-flow-box {
@@ -321,11 +288,11 @@
     position: absolute;
     top: -12px;
     left: 24px;
-    background: var(--bg-base);
+    background: #0f172a;
     padding: 2px 12px;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
-    color: #b45309;
+    color: #fbbf24;
     border: 1px solid rgba(251,191,36,0.3);
     border-radius: 6px;
   }
@@ -336,12 +303,12 @@
   .mycard-header .mh-title {
     font-size: 16px;
     font-weight: 800;
-    color: #b45309;
+    color: #fbbf24;
     margin-bottom: 4px;
   }
   .mycard-header .mh-tags {
-    font-size: 12px;
-    color: #64748B;
+    font-size: 11px;
+    color: #94a3b8;
   }
   .mycard-header .mh-tags span {
     display: inline-block;
@@ -350,8 +317,8 @@
     padding: 2px 10px;
     border-radius: 10px;
     margin: 3px 3px;
-    font-size: 12px;
-    color: #b45309;
+    font-size: 10px;
+    color: #fcd34d;
   }
   .mycard-steps {
     display: grid;
@@ -373,18 +340,18 @@
     width: 22px;
     height: 22px;
     background: #d97706;
-    color: var(--text-primary);
+    color: #fff;
     border-radius: 50%;
-    font-size: 12px;
+    font-size: 11px;
     font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid var(--bg-base);
+    border: 2px solid #0f172a;
   }
   .mc-step .mc-icon { font-size: 20px; margin-bottom: 6px; display: block; }
-  .mc-step .mc-title { font-size: 12px; font-weight: 700; color: #b45309; margin-bottom: 4px; }
-  .mc-step .mc-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+  .mc-step .mc-title { font-size: 12px; font-weight: 700; color: #fcd34d; margin-bottom: 4px; }
+  .mc-step .mc-desc { font-size: 10px; color: #cbd5e1; line-height: 1.5; }
   .mc-arrow {
     position: absolute;
     right: -14px;
@@ -398,13 +365,13 @@
   .mycard-note {
     margin-top: 14px;
     text-align: center;
-    font-size: 12px;
-    color: #64748B;
+    font-size: 11px;
+    color: #94a3b8;
     background: rgba(251,191,36,0.06);
     border-radius: 8px;
     padding: 8px 12px;
   }
-  .mycard-note strong { color: #b45309; }
+  .mycard-note strong { color: #fcd34d; }
 
   /* ===== TEMPLATE GRID ===== */
   .template-grid {
@@ -415,8 +382,8 @@
     margin: 0 auto;
   }
   .tmpl-card {
-    background: var(--border);
-    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
     padding: 14px 16px;
     text-align: center;
@@ -428,8 +395,8 @@
     margin-bottom: 6px;
   }
   .tmpl-card .tmpl-desc {
-    color: #64748B;
-    font-size: 12px;
+    color: #94a3b8;
+    font-size: 11px;
     line-height: 1.5;
   }
   .tmpl-card.tmpl-red { border-color: rgba(248,113,113,0.3); background: rgba(248,113,113,0.05); }
@@ -443,12 +410,12 @@
   }
   .section-label span {
     display: inline-block;
-    background: rgba(0,0,0,0.03);
-    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
     padding: 6px 20px;
     border-radius: 8px;
     font-size: 12px;
-    color: #64748B;
+    color: #94a3b8;
     letter-spacing: 1px;
     text-transform: uppercase;
   }
@@ -462,8 +429,8 @@
     margin: 0 auto;
   }
   .sanction-card {
-    background: var(--border);
-    border: 1px solid rgba(0,0,0,0.06);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
     border-radius: 10px;
     padding: 14px 16px;
     font-size: 12px;
@@ -482,12 +449,12 @@
   }
   .sanction-card li {
     padding: 3px 0;
-    color: var(--text-secondary);
-    font-size: 12px;
+    color: #cbd5e1;
+    font-size: 11px;
   }
   .sanction-card li::before {
     content: "• ";
-    color: #64748B;
+    color: #94a3b8;
   }
   .sanction-admin {
     border-color: rgba(248,113,113,0.3);
@@ -506,27 +473,27 @@
     border-radius: 10px;
     padding: 12px 10px;
     text-align: center;
-    font-size: 12px;
+    font-size: 11px;
   }
   .reason-chip .r-pct { font-size: 20px; font-weight: 800; display: block; margin-bottom: 2px; }
   .reason-chip .r-name { font-weight: 600; }
-  .reason-chip .r-count { font-size: 12px; opacity: 0.7; }
-  .reason-unauth { background: linear-gradient(135deg, #FEE2E2, #FECACA); border: 1px solid #f87171; }
-  .reason-fraud { background: linear-gradient(135deg, #FEF3C7, #FDE68A); border: 1px solid #fbbf24; }
+  .reason-chip .r-count { font-size: 10px; opacity: 0.7; }
+  .reason-unauth { background: linear-gradient(135deg, #7f1d1d, #991b1b); border: 1px solid #f87171; }
+  .reason-fraud { background: linear-gradient(135deg, #92400e, #a16207); border: 1px solid #fbbf24; }
   .reason-cancel { background: linear-gradient(135deg, #1e40af, #2563eb); border: 1px solid #60a5fa; }
   .reason-notdesc { background: linear-gradient(135deg, #581c87, #7c3aed); border: 1px solid #c084fc; }
-  .reason-other { background: linear-gradient(135deg, #64748b, #94a3b8); border: 1px solid var(--text-muted); }
+  .reason-other { background: linear-gradient(135deg, #334155, #475569); border: 1px solid #94a3b8; }
 
   /* ===== FOOTER ===== */
   .footer {
     text-align: center;
     margin-top: 40px;
     padding: 20px;
-    color: #64748B;
-    font-size: 12px;
-    border-top: 1px solid var(--border);
+    color: #64748b;
+    font-size: 11px;
+    border-top: 1px solid rgba(255,255,255,0.06);
   }
-  .footer a { color: #1d4ed8; text-decoration: none; }
+  .footer a { color: #60a5fa; text-decoration: none; }
 
   /* ===== MERGE POINT ===== */
   .merge-dot {
@@ -540,7 +507,7 @@
     height: 10px;
     background: #64748b;
     border-radius: 50%;
-    border: 2px solid var(--text-muted);
+    border: 2px solid #94a3b8;
   }
 
   /* ===== PARALLEL ===== */
@@ -559,8 +526,8 @@
     max-width: 340px;
   }
   .lane-label {
-    font-size: 12px;
-    color: #64748B;
+    font-size: 11px;
+    color: #94a3b8;
     text-transform: uppercase;
     letter-spacing: 1px;
     margin-bottom: 4px;
@@ -578,77 +545,21 @@
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: var(--border);
-    border: 1px solid #CBD5E1;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 12px;
-    color: var(--text-secondary);
+    color: #cbd5e1;
     text-decoration: none;
     transition: all 0.2s;
   }
   .link-chip:hover {
-    background: rgba(0,0,0,0.06);
-    border-color: rgba(0,0,0,0.08);
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
     transform: translateY(-1px);
   }
-
-    /* ══ 가독성 패치 (2026-02-23) ══ */
-    .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1em; }
-    @media (max-width: 768px) {
-      body { font-size: 13px !important; }
-      .container, .body, [class*="content"] { padding-left: 12px !important; padding-right: 12px !important; }
-      h1 { font-size: 22px !important; }
-      h2 { font-size: 18px !important; }
-      h3 { font-size: 15px !important; }
-      table { font-size: 12px !important; }
-      .header, .hero, [class*="header"] { padding: 24px 16px !important; }
-      .toc-grid, .grid-2, .grid-3, .stat-grid, .card-grid, .level-grid { grid-template-columns: 1fr !important; }
-      .header-meta { flex-direction: column; gap: 8px !important; }
-    }
-  
-  /* ── Back to Top ── */
-  .back-to-top {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    width: 44px;
-    height: 44px;
-    background: var(--accent-brand);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .back-to-top.visible { opacity: 1; visibility: visible; }
-  .back-to-top:hover { background: #1d4ed8; transform: translateY(-2px); }
-  @media print { .back-to-top { display: none !important; } }
-
-  @media (max-width: 900px) {
-    .pg-grid { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-    .template-grid { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-    .reason-grid { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-    .mycard-flow-box { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-    .flow-container { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-  }
-
-  /* ══ UX Enhancement Patch (2026-02-23) ══ */
-  ::selection { background: #3b82f6; color: #fff; }
-  ::-moz-selection { background: #3b82f6; color: #fff; }
-  a:focus-visible, button:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; border-radius: 4px; }
-  tbody tr:nth-child(even) { background: rgba(248,250,252,0.5); }
-  thead th { font-weight: 700 !important; }
 </style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml">
 </head>
 <body>
 
@@ -662,11 +573,11 @@
 <!-- KPI -->
 <div class="kpi-bar">
   <div class="kpi-item">
-    <div class="num">4,246<span class="unit">건</span></div>
+    <div class="num">4,220<span class="unit">건</span></div>
     <div class="label">14개월 누적 (25.01~26.02)</div>
   </div>
   <div class="kpi-item">
-    <div class="num">~303<span class="unit">/월</span></div>
+    <div class="num">~310<span class="unit">/월</span></div>
     <div class="label">월평균 차지백</div>
   </div>
   <div class="kpi-item">
@@ -703,19 +614,19 @@
     <span class="pct">68%</span>
     <div class="emoji">💳</div>
     <div class="title">PayPal</div>
-    <div class="desc">2,874건 · Resolution Center<br>메인+부계정 분리 운영</div>
+    <div class="desc">2,857건 · Resolution Center<br>메인+부계정 분리 운영</div>
   </div>
   <div class="pg-card pg-cko">
     <span class="pct">23%</span>
     <div class="emoji">🔐</div>
     <div class="title">CKO (Checkout)</div>
-    <div class="desc">977건 · OTP 로그인<br>소명 답변 4종 필수</div>
+    <div class="desc">970건 · OTP 로그인<br>소명 답변 4종 필수</div>
   </div>
   <div class="pg-card pg-airwallex">
     <span class="pct">4.1%</span>
     <div class="emoji">🌏</div>
     <div class="title">Airwallex</div>
-    <div class="desc">176건 · 개인계정 OTP<br>Challenge/Accept 분기</div>
+    <div class="desc">174건 · 개인계정 OTP<br>Challenge/Accept 분기</div>
   </div>
   <div class="pg-card pg-pwl">
     <span class="pct">2.6%</span>
@@ -723,10 +634,10 @@
     <div class="title">Paymentwall</div>
     <div class="desc">110건 · 공용계정<br>답변 없음, 자료만 제출</div>
   </div>
-  <div class="pg-card pg-mycard" style="border-color:#b45309;box-shadow:0 0 12px rgba(251,191,36,0.15);">
-    <span class="pct" style="color:#b45309;">1.4%</span>
+  <div class="pg-card pg-mycard" style="border-color:#fbbf24;box-shadow:0 0 12px rgba(251,191,36,0.15);">
+    <span class="pct" style="color:#fbbf24;">1.4%</span>
     <div class="emoji">🇹🇼</div>
-    <div class="title" style="color:#b45309;">MyCard ⚠️</div>
+    <div class="title" style="color:#fbbf24;">MyCard ⚠️</div>
     <div class="desc">57건 · TW 전용<br>📧 이메일 기반 별도 프로세스</div>
   </div>
   <div class="pg-card pg-worldpay">
@@ -750,7 +661,7 @@
 </div>
 
 <!-- ==================== MyCard 별도 프로세스 ==================== -->
-<div class="section-label"><span style="background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.3);color:#b45309;">🎮 MyCard 별도 프로세스 (이메일 기반)</span></div>
+<div class="section-label"><span style="background:rgba(251,191,36,0.12);border-color:rgba(251,191,36,0.3);color:#fbbf24;">🎮 MyCard 별도 프로세스 (이메일 기반)</span></div>
 
 <div class="mycard-flow-box">
   <div class="mycard-header">
@@ -770,14 +681,14 @@
       <span class="mc-arrow">→</span>
       <span class="mc-icon">📩</span>
       <div class="mc-title">MyCard 이메일 접수</div>
-      <div class="mc-desc">MyCard가<br><code style="font-size: 12px;color:#b45309;">cs@toomicsglobal.com</code><br>(중국어 CS)로 발송<br>BizOps CC</div>
+      <div class="mc-desc">MyCard가<br><code style="font-size:9px;color:#fbbf24;">cs@toomicsglobal.com</code><br>(중국어 CS)로 발송<br>BizOps CC</div>
     </div>
     <div class="mc-step">
       <span class="mc-num">2</span>
       <span class="mc-arrow">→</span>
       <span class="mc-icon">📋</span>
       <div class="mc-title">환불 판단 + 양식 회신</div>
-      <div class="mc-desc">14일 기한 + 이용내역 확인<br>MyCard 지정 양식에 기입<br>⏰ <strong style="color:#b45309;">3 Working Day</strong></div>
+      <div class="mc-desc">14일 기한 + 이용내역 확인<br>MyCard 지정 양식에 기입<br>⏰ <strong style="color:#fbbf24;">3 Working Day</strong></div>
     </div>
     <div class="mc-step">
       <span class="mc-num">3</span>
@@ -790,7 +701,7 @@
       <span class="mc-num">4</span>
       <span class="mc-icon">✅</span>
       <div class="mc-title">MyCard 종결</div>
-      <div class="mc-desc">MyCard가 후속 처리<br><strong style="color:#15803d;">2차 차지백 없이 종결</strong></div>
+      <div class="mc-desc">MyCard가 후속 처리<br><strong style="color:#4ade80;">2차 차지백 없이 종결</strong></div>
     </div>
   </div>
 
@@ -854,27 +765,27 @@
   <div class="reason-chip reason-unauth">
     <span class="r-pct">31%</span>
     <span class="r-name">Unauthorized</span>
-    <span class="r-count">1,307건</span>
+    <span class="r-count">1,294건</span>
   </div>
   <div class="reason-chip reason-fraud">
     <span class="r-pct">13%</span>
     <span class="r-name">Fraudulent</span>
-    <span class="r-count">551건</span>
+    <span class="r-count">544건</span>
   </div>
   <div class="reason-chip reason-cancel">
     <span class="r-pct">7%</span>
     <span class="r-name">Canceled</span>
-    <span class="r-count">313건</span>
+    <span class="r-count">309건</span>
   </div>
   <div class="reason-chip reason-notdesc">
     <span class="r-pct">6%</span>
     <span class="r-name">Not as Described</span>
-    <span class="r-count">235건</span>
+    <span class="r-count">234건</span>
   </div>
   <div class="reason-chip reason-other">
     <span class="r-pct">7%</span>
     <span class="r-name">Other</span>
-    <span class="r-count">308건</span>
+    <span class="r-count">307건</span>
   </div>
 </div>
 
@@ -903,7 +814,7 @@
   </div>
   <div class="tmpl-card tmpl-green">
     <div class="tmpl-title">STEP 2 · Proof of Delivery</div>
-    <div class="tmpl-desc">Case A~E 중 해당 1개만 남기기<br><strong>A</strong> VIP 자동결제 · <strong>B</strong> 무료 이용 후 자동결제<br><strong>C</strong> VIP 첫 결제 · <strong>D</strong> 코인 결제 · <strong>E</strong> 타PG 해지 후 재구매</div>
+    <div class="tmpl-desc">Case A~D 중 해당 1개만 남기기<br><strong>A</strong> VIP 자동결제 · <strong>B</strong> VIP 첫 결제<br><strong>C</strong> 코인 결제 · <strong>D</strong> 타PG 해지 후 재구매</div>
   </div>
   <div class="tmpl-card tmpl-red">
     <div class="tmpl-title">STEP 3~5 · Invoice + Receipt + PDF</div>
@@ -933,22 +844,22 @@
   <div class="parallel-lane">
     <span class="lane-label">소명 답변 + 자료 제출</span>
     <div class="tmpl-card" style="width:100%;border-color:rgba(0,214,50,0.3);background:rgba(0,214,50,0.05);">
-      <div class="tmpl-title" style="color:#15803d;">CKO</div>
+      <div class="tmpl-title" style="color:#4ade80;">CKO</div>
       <div class="tmpl-desc">4종 카테고리별 답변 수동 입력<br>① Proof of delivery (4종)<br>② Invoice/Receipt (2종)<br>③ Recurring Agreement<br>④ Refund Policy</div>
     </div>
     <div class="tmpl-card" style="width:100%;border-color:rgba(96,165,250,0.3);background:rgba(96,165,250,0.05);">
-      <div class="tmpl-title" style="color:#1d4ed8;">PayPal</div>
+      <div class="tmpl-title" style="color:#93c5fd;">PayPal</div>
       <div class="tmpl-desc">PDF 업로드 + 소명 답변 입력<br>"We disagreed with the case..."</div>
     </div>
     <div class="tmpl-card" style="width:100%;border-color:rgba(168,85,247,0.3);background:rgba(168,85,247,0.05);">
-      <div class="tmpl-title" style="color:#6d28d9;">Airwallex</div>
+      <div class="tmpl-title" style="color:#c4b5fd;">Airwallex</div>
       <div class="tmpl-desc">7단계 Challenge 등록 프로세스<br>PDF + 약관 + PLAN + Invoice 이미지</div>
     </div>
   </div>
   <div class="parallel-lane">
     <span class="lane-label">자료만 제출 (답변 없음)</span>
     <div class="tmpl-card" style="width:100%;border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.05);">
-      <div class="tmpl-title" style="color:#b45309;">Paymentwall</div>
+      <div class="tmpl-title" style="color:#fbbf24;">Paymentwall</div>
       <div class="tmpl-desc">소명 자료 PDF만 업로드<br>답변 작성 없음</div>
     </div>
     <div class="tmpl-card" style="width:100%;">
@@ -1039,7 +950,7 @@
     <div class="tmpl-desc">매일 각 계정에서<br>USD 20,000 수동 인출 (월~금)</div>
   </div>
   <div class="tmpl-card" style="border-color:rgba(251,191,36,0.3);background:rgba(251,191,36,0.05);">
-    <div class="tmpl-title" style="color:#b45309;">🎮 MyCard 기한</div>
+    <div class="tmpl-title" style="color:#fbbf24;">🎮 MyCard 기한</div>
     <div class="tmpl-desc">확인 후 3 Working Day 이내 회신<br>14일 기한 초과 시 무조건 환불 거부</div>
   </div>
 </div>
@@ -1063,16 +974,5 @@
   <a href="https://tg-bizops.github.io/BizOPS/cs_flow_diagram_20260219.html">CS 플로우</a>
 </div>
 
-
-<button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
-<script>
-(function(){
-  var btn = document.querySelector('.back-to-top');
-  if(!btn) return;
-  window.addEventListener('scroll', function(){
-    btn.classList.toggle('visible', window.scrollY > 300);
-  });
-})();
-</script>
 </body>
 </html>

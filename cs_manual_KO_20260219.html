@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS 운영 매뉴얼 v2.1</title>
+    <title>TOOMICS Global CS 운영 매뉴얼 v2.0</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -24,29 +24,7 @@
             --white: #FFFFFF;
             --bg-light: #FAFAFE;
             --bg-card: #FFFFFF;
-        
-  --max-w: 960px;
-  --max-w-wide: 1280px;
-  --radius: 12px;
-  --gap: 16px;
-  --bg-base: #F8FAFC;
-  --bg-muted: #F1F5F9;
-  --text-primary: #1E293B;
-  --text-secondary: #475569;
-  --text-muted: #94A3B8;
-  --accent-brand: #2563EB;
-  --accent-info: #0EA5E9;
-  --accent-success: #10B981;
-  --accent-warn: #F59E0B;
-  --accent-danger: #EF4444;
-  --accent-purple: #7C3AED;
-  --font-base: 14px;
-  --font-sm: 12px;
-  --font-lg: 18px;
-  --font-xl: 28px;
-  --line-height: 1.7;
-  --font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;
-}
+        }
 
         * {
             box-sizing: border-box;
@@ -61,8 +39,6 @@
             color: var(--text);
             background: var(--bg-light);
             -webkit-font-smoothing: antialiased;
-            word-break: keep-all;
-            overflow-wrap: break-word;
         }
 
         /* ===== Page Container ===== */
@@ -374,7 +350,7 @@
             left: 16px;
             background: var(--brand-accent);
             color: var(--white);
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             letter-spacing: 1px;
             padding: 2px 10px;
@@ -420,7 +396,7 @@
         /* ===== Code Blocks (Flowcharts) ===== */
         pre {
             background: var(--navy);
-            color: var(--text-secondary);
+            color: #E0E0F0;
             border-radius: 8px;
             padding: 24px;
             margin: 16px 0 24px;
@@ -530,8 +506,8 @@
         }
 
         .version-table thead th {
-            background: #CBD5E1;
-            color: #334155;
+            background: rgba(255,255,255,0.1);
+            color: rgba(255,255,255,0.9);
             font-size: 12px;
         }
 
@@ -539,15 +515,15 @@
             color: rgba(255,255,255,0.75);
             font-size: 12px;
             background: transparent;
-            border-bottom-color: #CBD5E1;
+            border-bottom-color: rgba(255,255,255,0.1);
         }
 
         .version-table tbody tr:nth-child(even) {
-            background: var(--bg-muted);
+            background: rgba(255,255,255,0.03);
         }
 
         .version-table tbody tr:hover {
-            background: var(--border);
+            background: rgba(255,255,255,0.06);
         }
 
         /* ===== Print Styles ===== */
@@ -781,7 +757,7 @@
 </pre>
 
         <h2>1.5 공통 첫 응대 템플릿</h2>
-        <p>⚠️ <strong>사용 시점:</strong> 계정 확인이 불가능할 때</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 계정 확인이 불가능할 때</p>
         <h3 class="template-title">Template 1.5: 계정 정보 요청 (Account Credentials Request)</h3>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
@@ -805,7 +781,7 @@
         <h2>2.1 해지 방법 안내 &mdash; 셀프서비스</h2>
 
         <h3 class="template-title">Template 2.1.1: 웹사이트 해지</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 웹에서 구독한 고객이 해지를 요청할 때</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 웹에서 구독한 고객이 해지를 요청할 때</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>It looks like you wish to cancel your VIP Membership.</p>
@@ -819,13 +795,12 @@
                 <li>Confirm cancellation</li>
             </ol>
             <p>After cancellation, you will still have access to VIP content until the end of your current billing period.</p>
-            <p><strong>※ 해지 진행 시 [30일 무료 체험] 이 아닌 [구독 취소] 를 선택해 주세요.</strong> 무료 체험 선택 시 구독이 재개될 수 있습니다.</p>
             <p>If you need further assistance, please feel free to contact us.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h3 class="template-title">Template 2.1.2: Google Play 해지</h3>
-        <p>⚠️ <strong>사용 시점:</strong> Google Play 결제 고객</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> Google Play 결제 고객</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Since your subscription was purchased through the Google Play Store, it must be canceled through Google Play:</p>
@@ -844,7 +819,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 2.1.3: Apple App Store 해지</h3>
-        <p>⚠️ <strong>사용 시점:</strong> iOS 결제 고객</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> iOS 결제 고객</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Since your subscription was purchased through the Apple App Store, it must be canceled through Apple:</p>
@@ -862,7 +837,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 2.1.4: PayPal 해지</h3>
-        <p>⚠️ <strong>사용 시점:</strong> PayPal 결제 고객</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> PayPal 결제 고객</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>To cancel your PayPal recurring payment:</p>
@@ -881,7 +856,7 @@
         <h2>2.2 해지 완료 확인</h2>
 
         <h3 class="template-title">Template 2.2.1: 해지 완료 (표준)</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 상담원이 직접 해지 처리 후</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 상담원이 직접 해지 처리 후</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We are sorry to hear that you wish to cancel your VIP Membership. :(</p>
@@ -893,13 +868,12 @@
         </blockquote>
 
         <h3 class="template-title">Template 2.2.2: 이미 해지됨</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 확인 결과 이미 해지된 상태</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 확인 결과 이미 해지된 상태</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>After checking our records, we can confirm that your VIP subscription has already been canceled on <strong>_____ (date)</strong>.</p>
             <p>No further recurring payments will be charged to your account.</p>
             <p>Your VIP access remains active until <strong>_____ (expiry date)</strong>, so you can continue enjoying our content until then.</p>
-            <p><strong>※ 해지 진행 시 [30일 무료 체험] 이 아닌 [구독 취소] 를 선택해 주세요.</strong> 무료 체험 선택 시 구독이 재개될 수 있습니다.</p>
             <p>If you have any further questions, please feel free to contact us.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
@@ -915,7 +889,7 @@
         </ul>
 
         <h3 class="template-title">Template 2.3.1: 복수 계정 발견</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 다른 이메일/소셜로 중복 계정 존재</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 다른 이메일/소셜로 중복 계정 존재</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We sincerely apologize for any confusion or inconvenience you may have experienced.</p>
@@ -933,10 +907,21 @@
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
+        <h3 class="template-title">Template 2.3.2: 앱스토어 구독 여전히 활성</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 웹에서만 해지하고 앱 결제 유지 중</p>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>After reviewing your account, we found that while your Toomics account shows the subscription was canceled, <strong>the recurring billing through [Google Play / Apple App Store] is still active</strong>.</p>
+            <p>To fully stop all charges, you will need to cancel the subscription directly through:</p>
+            <p>[Include Google Play or Apple cancellation steps from Templates 2.1.2 or 2.1.3]</p>
+            <p>Once you have canceled through [Google Play / Apple], please let us know and we can assist with any refund eligibility.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
         <h2>2.4 결제 후 VIP 미작동</h2>
 
         <h3 class="template-title">Template 2.4.1: VIP 접근 이슈</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 결제했으나 VIP 콘텐츠 접근 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 결제했으나 VIP 콘텐츠 접근 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We apologize for the inconvenience.</p>
@@ -944,7 +929,6 @@
             <ol>
                 <li><strong>Log out</strong> and <strong>log back in</strong> to your Toomics account</li>
                 <li>Make sure you are logged into the <strong>correct account</strong> (the one used for the purchase)</li>
-                <li>Please confirm that you are accessing the <strong>correct language version</strong> of Toomics — VIP access applies only to the language/region you subscribed to</li>
                 <li>If you purchased via the app, make sure you are accessing content through the <strong>same platform</strong> (app, not web, or vice versa)</li>
                 <li>Clear your browser cache and cookies, then try again</li>
             </ol>
@@ -960,14 +944,14 @@
         <h2>2.5 비공식 제3자 해지 요청 (Minna Technologies / Ethoca)</h2>
 
         <div style="background: #fee; border-left: 4px solid #c00; padding: 12px 16px; border-radius: 4px; margin: 12px 0;">
-            <p style="margin: 0 0 8px 0;"><strong>🔴 운영 정책: 답변하지 않음</strong></p>
+            <p style="margin: 0 0 8px 0;"><strong>&#128308; 운영 정책: 답변하지 않음</strong></p>
             <p style="margin: 0 0 8px 0;">Minna Technologies, Ethoca 등 비공식 제3자를 통해 접수되는 자동화된 해지 요청에는 <strong>답변하지 않습니다</strong>.</p>
             <ul style="margin: 4px 0;">
                 <li>이 요청들은 고객이 직접 보낸 것이 아닌, 카드사를 통해 라우팅되는 자동화 시스템입니다.</li>
                 <li>발신 이메일 예시: <code>@cancel.us.minnatechnologies.com</code></li>
                 <li><strong>해당 티켓은 무시합니다</strong> &mdash; 어떠한 응답도 보내지 마세요.</li>
             </ul>
-            <p style="margin: 8px 0 0 0;">⚠️ 실제 고객이 직접 카드사 경유 해지를 문의하는 경우 &rarr; 섹션 2.1~2.2 절차로 정상 응대합니다.</p>
+            <p style="margin: 8px 0 0 0;">&#9888;&#65039; 실제 고객이 직접 카드사 경유 해지를 문의하는 경우 &rarr; 섹션 2.1~2.2 절차로 정상 응대합니다.</p>
         </div>
 
         <h2>2.6 잘못된 언어 버전 구독</h2>
@@ -975,7 +959,7 @@
         <p><strong>주요 발생 마켓: PT, TH, IT (티켓의 ~5-8%)</strong></p>
 
         <h3 class="template-title">Template 2.6.1: 교차언어 VIP 안내</h3>
-        <p>⚠️ <strong>사용 시점:</strong> PT/TH/IT 마켓에서 EN 버전 구독한 고객</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> PT/TH/IT 마켓에서 EN 버전 구독한 고객</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>After reviewing your account, we found that your VIP subscription was purchased on the <strong>_____ (language) version</strong> of Toomics.</p>
@@ -1029,7 +1013,7 @@
         <h2>3.2 환불 승인</h2>
 
         <h3 class="template-title">Template 3.2.1: 표준 환불 승인</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 3가지 조건 모두 충족</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 3가지 조건 모두 충족</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We are sorry to see you go. :(</p>
@@ -1048,12 +1032,12 @@
         </blockquote>
 
         <h3 class="template-title">Template 3.2.2: 복수 구매 환불</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 여러 건 결제 중 일부만 환불 가능</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 여러 건 결제 중 일부만 환불 가능</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>After reviewing your account and payment history, we have processed the following refund(s):</p>
             <p><strong>Refunded:</strong><br>
-            - _____ (date) / _____ (plan) / _____ (amount) / _____ (payment method) ✔</p>
+            - _____ (date) / _____ (plan) / _____ (amount) / _____ (payment method) &#10004;</p>
             <p><strong>Not eligible for refund:</strong><br>
             - _____ (date) / _____ (plan) / _____ (amount) &mdash; Reason: _____</p>
             <p>Please note that we can only refund the <strong>most recent payment</strong> if it meets all refund criteria. Previous payments that were already processed and used cannot be refunded.</p>
@@ -1065,7 +1049,7 @@
         <h2>3.3 환불 거절</h2>
 
         <h3 class="template-title">Template 3.3.1: 콘텐츠 접근으로 거절</h3>
-        <p>⚠️ <strong>사용 시점:</strong> VIP 콘텐츠 열람 이력 존재</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> VIP 콘텐츠 열람 이력 존재</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We are very sorry to hear that you are not satisfied with your purchase. However, in accordance with our Terms of Use, you may request a refund only if <strong>all three</strong> of the following conditions are met:</p>
@@ -1085,7 +1069,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 3.3.2: 14일 초과로 거절</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 구매일로부터 14일 경과</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 구매일로부터 14일 경과</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand your concern regarding the charge. However, after reviewing your payment history, we found that your most recent purchase was made on <strong>_____ (date)</strong>, which is beyond the <strong>14-day refund window</strong> specified in our Terms of Use.</p>
@@ -1097,7 +1081,7 @@
 
         <h3 class="template-title">Template 3.3.3: "아이가 결제했다" 거절</h3>
         <p><strong>흔한 시나리오: 환불 티켓의 ~5%</strong></p>
-        <p>⚠️ <strong>사용 시점:</strong> 미성년 자녀 결제 주장, ~5% 비율</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 미성년 자녀 결제 주장, ~5% 비율</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand your concern, and we sincerely apologize for the inconvenience.</p>
@@ -1116,7 +1100,7 @@
         <h2>3.4 코인 환불</h2>
 
         <h3 class="template-title">Template 3.4.1: 코인 환불 정책</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 코인 구매 환불 요청</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 코인 구매 환불 요청</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Regarding your coin refund request:</p>
@@ -1136,7 +1120,7 @@
         <h2>3.5 iOS(Apple) 환불</h2>
 
         <h3 class="template-title">Template 3.5.1: Apple 환불 불가</h3>
-        <p>⚠️ <strong>사용 시점:</strong> iOS 결제건은 Apple에서만 환불 가능</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> iOS 결제건은 Apple에서만 환불 가능</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Since your purchase was made through the Apple App Store, we are unable to process the refund on our end. Apple manages all App Store purchases and refunds directly.</p>
@@ -1156,7 +1140,7 @@
         <h2>3.6 환불 미수령</h2>
 
         <h3 class="template-title">Template 3.6.1: 환불 처리 기간 안내</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 환불 처리 후 입금 지연 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 환불 처리 후 입금 지연 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us again.</p>
             <p>We understand your concern about the pending refund. According to our records, the refund was processed on <strong>_____ (date)</strong>.</p>
@@ -1188,7 +1172,7 @@
         <h2>4.1 계정 정보 요청</h2>
 
         <h3 class="template-title">Template 4.1.1: 계정 미발견</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 제공된 정보로 계정 조회 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 제공된 정보로 계정 조회 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We were unable to find any account in our system associated with the information provided.</p>
@@ -1206,7 +1190,7 @@
         <h2>4.2 계정 삭제</h2>
 
         <h3 class="template-title">Template 4.2.1: 삭제 전 확인</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 계정 삭제 요청 접수 시</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 계정 삭제 요청 접수 시</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand you would like to delete your Toomics account.</p>
@@ -1227,7 +1211,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 4.2.2: 삭제 완료</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 고객 확인 후 삭제 처리 완료</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객 확인 후 삭제 처리 완료</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>As requested, your Toomics account associated with <strong>_____</strong> has been permanently deleted.</p>
@@ -1240,7 +1224,7 @@
         <h2>4.3 계정 비활성화 및 재활성화</h2>
 
         <h3 class="template-title">Template 4.3.1: 계정 재활성화</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 비활성화된 계정 복구 요청</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 비활성화된 계정 복구 요청</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us!</p>
             <p>It looks like you wish to reactivate your Toomics account.</p>
@@ -1256,7 +1240,7 @@
         <h2>4.4 비밀번호 관리</h2>
 
         <h3 class="template-title">Template 4.4.1: 비밀번호 리셋 완료</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 임시 비밀번호 발급</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 임시 비밀번호 발급</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us, and we apologize for the inconvenience.</p>
             <p>We have reset the password for your Toomics account:</p>
@@ -1275,7 +1259,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 4.4.2: 리셋 이메일 미수신</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 비밀번호 리셋 메일이 안 온다는 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 비밀번호 리셋 메일이 안 온다는 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>If you haven't received the password reset email, please try the following:</p>
@@ -1290,7 +1274,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 4.4.3: 소셜 미디어 계정</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 소셜 로그인 계정은 비밀번호 리셋 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 소셜 로그인 계정은 비밀번호 리셋 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We noticed that your Toomics account is registered through <strong>_____ (Google / Facebook / X / LINE)</strong> social login.</p>
@@ -1300,13 +1284,14 @@
                 <li>Click the <strong>_____ (social media)</strong> icon</li>
                 <li>Sign in with your _____ credentials</li>
             </ol>
+            <p>If you no longer have access to your _____ account, please let us know and we can help migrate your Toomics account to an email-based login.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h2>4.5 소셜 로그인 이슈</h2>
 
         <h3 class="template-title">Template 4.5.1: X(Twitter) 로그인 이슈</h3>
-        <p>⚠️ <strong>사용 시점:</strong> X 계정 삭제/정지로 로그인 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> X 계정 삭제/정지로 로그인 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us, and we apologize for the inconvenience.</p>
             <p>We understand you are having trouble logging in with your X (formerly Twitter) account.</p>
@@ -1324,14 +1309,14 @@
             <p>If you would like to migrate, please provide:</p>
             <ul>
                 <li>Your X username or the email associated with your X account</li>
-                <li>사용하실 비밀번호 (Your preferred password for the new Toomics login)</li>
+                <li>Your preferred new login email for Toomics</li>
             </ul>
             <p>All your VIP membership, coins, and reading history will be transferred.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h3 class="template-title">Template 4.5.2: Facebook 로그인 이슈</h3>
-        <p>⚠️ <strong>사용 시점:</strong> Facebook 접근 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> Facebook 접근 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand you're having trouble logging in with Facebook.</p>
@@ -1341,16 +1326,16 @@
                 <li>Try using a different browser</li>
                 <li>Make sure you're logging into the correct Facebook account</li>
             </ol>
-            <p>If you've lost access to your Facebook account, we can transfer your Toomics data to a regular email-based login. Please provide the following to proceed:</p>
+            <p>If you've lost access to your Facebook account, we can help transfer your Toomics data to a new account. Please provide:</p>
             <ul>
-                <li>Login email :</li>
-                <li>Password :</li>
+                <li>The email associated with your Facebook account</li>
+                <li>Any payment receipts or screenshots that can help us verify your account</li>
             </ul>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h3 class="template-title">Template 4.5.3: 소셜 로그인 이전 완료</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 소셜&rarr;이메일 계정 이전 처리 후</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 소셜&rarr;이메일 계정 이전 처리 후</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We have successfully migrated your Toomics account:</p>
@@ -1365,7 +1350,7 @@
         <h2>4.6 전화번호 인증</h2>
 
         <h3 class="template-title">Template 4.6.1: 인증번호 미수신</h3>
-        <p>⚠️ <strong>사용 시점:</strong> SMS 인증코드 미수신 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> SMS 인증코드 미수신 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>If you are not receiving the phone verification code, please try the following:</p>
@@ -1374,8 +1359,14 @@
                 <li>Check if your phone can receive SMS messages</li>
                 <li>Wait a few minutes and try again</li>
                 <li>Check if your carrier blocks automated SMS</li>
+                <li>Try using a different phone number if available</li>
             </ol>
-            <p>If the issue persists after trying the above steps, please contact us and our team will manually process the verification for you.</p>
+            <p>If the issue persists, please provide us with:</p>
+            <ul>
+                <li>Your registered email address</li>
+                <li>The phone number you are trying to verify</li>
+            </ul>
+            <p>We will investigate and assist you further.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
@@ -1390,7 +1381,7 @@
         <h2>5.1 예상치 못한 결제 / 왜 결제되었나?</h2>
 
         <h3 class="template-title">Template 5.1.1: 자동갱신 안내</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 결제 이유를 모르겠다는 고객</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 결제 이유를 모르겠다는 고객</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>After reviewing your payment history, the charge you are referring to is from the <strong>automatic renewal</strong> of your VIP Membership subscription.</p>
@@ -1402,14 +1393,14 @@
                 <li>Amount: _____</li>
                 <li>Payment Method: _____</li>
             </ul>
-            <p>If you would like to cancel your subscription to prevent future charges, please let us know and we will process the cancellation immediately.</p>
+            <p>If you would like to cancel your subscription to prevent future charges, we can do so immediately. Would you also like us to check your refund eligibility?</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h2>5.2 VIP 가격 정보</h2>
 
         <h3 class="template-title">Template 5.2.1: 가격 구조 안내</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 요금제 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 요금제 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Here are our current VIP Membership plans:</p>
@@ -1432,7 +1423,7 @@
         <h2>5.3 결제 실패</h2>
 
         <h3 class="template-title">Template 5.3.1: 결제 실패</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 결제가 안 된다는 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 결제가 안 된다는 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand you're experiencing issues with your payment. This can happen due to several reasons:</p>
@@ -1457,7 +1448,7 @@
         <h2>5.4 다른 금액 결제 / 추가 수수료</h2>
 
         <h3 class="template-title">Template 5.4.1: 해외 거래 수수료</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 표시 가격과 결제 금액 불일치</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 표시 가격과 결제 금액 불일치</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand your concern about the charged amount being different from the listed price.</p>
@@ -1473,7 +1464,7 @@
         <div class="note-box"><strong>참고:</strong> PIX = 브라질 즉시결제 시스템. PT 결제 티켓의 ~40%가 PIX 관련입니다.</div>
 
         <h3 class="template-title">Template 5.5.1: PIX 결제 처리 지연</h3>
-        <p>⚠️ <strong>사용 시점:</strong> PIX 결제 후 VIP 미활성화, 포르투갈어 응대</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> PIX 결제 후 VIP 미활성화, 포르투갈어 응대</p>
         <blockquote>
             <p>Ol&aacute;, aqui &eacute; a equipe de suporte Toomics.<br>Obrigado por entrar em contato conosco.</p>
             <p>Pedimos desculpas pelo inconveniente.</p>
@@ -1495,8 +1486,7 @@
         <h2>5.6 결제수단 변경</h2>
 
         <h3 class="template-title">Template 5.6.1: 결제수단 변경 방법</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 결제수단 교체 요청</p>
-        <div class="note-box">📌 <strong>운영 검토 필요:</strong> 현재 "결제수단 변경 불가 → 해지 후 재구독" 안내 방식을 유지할지, 또는 Toomics 설정 내 <em>Manage Payment Methods</em> 메뉴가 있는 경우 해당 경로를 안내하는 방식으로 변경할지 확인 후 업데이트 바랍니다.</div>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 결제수단 교체 요청</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Unfortunately, we are unable to change payment methods directly on an existing subscription. To switch to a different payment method:</p>
@@ -1520,7 +1510,7 @@
         <h2>6.1 콘텐츠 로딩 이슈</h2>
 
         <h3 class="template-title">Template 6.1.1: 일반 로딩 문제</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 콘텐츠 로딩/표시 오류</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 로딩/표시 오류</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us, and we apologize for the inconvenience.</p>
             <p>If you're experiencing loading issues, please try the following:</p>
@@ -1542,8 +1532,6 @@
             </ol>
             <p>If the issue persists, please provide:</p>
             <ul>
-                <li>Title of the content (작품명)</li>
-                <li>Episode number (회차)</li>
                 <li>Device type (phone, tablet, PC)</li>
                 <li>Browser/App version</li>
                 <li>Screenshot of the error</li>
@@ -1555,7 +1543,7 @@
         <h2>6.2 콘텐츠 가용성</h2>
 
         <h3 class="template-title">Template 6.2.1: 챕터 미제공/콘텐츠 삭제</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 특정 콘텐츠 열람 불가 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 특정 콘텐츠 열람 불가 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand your inquiry about <strong>_____ (content title)</strong>.</p>
@@ -1572,7 +1560,7 @@
         <h2>6.3 크로스 플랫폼 VIP 접근</h2>
 
         <h3 class="template-title">Template 6.3.1: 앱 vs 웹 VIP 이슈</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 앱&harr;웹 간 VIP 접근 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 앱&harr;웹 간 VIP 접근 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We understand you're having trouble accessing VIP content.</p>
@@ -1588,42 +1576,40 @@
                 <li>Check which one shows your VIP status as "Active"</li>
             </ol>
             <p>If you need to use your VIP on a different platform, you will need to cancel the current subscription and re-subscribe through the desired platform.</p>
-            <p>For more details, please refer to our Help Center article: <strong>"I subscribed but cannot access VIP membership"</strong> — available on the TOOMICS English Help Center.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h2>6.4 Family Safe Mode</h2>
 
         <h3 class="template-title">Template 6.4.1: Family Safe Mode 해제 불가</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 성인 콘텐츠 접근 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 성인 콘텐츠 접근 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Regarding the Family Safe Mode:</p>
             <p><strong>On the App:</strong> Due to Google Play Store and Apple App Store policies, mature content cannot be displayed in the app. Family Safe Mode cannot be disabled within the app.</p>
             <p><strong>On the Web:</strong> You can disable Family Safe Mode on our website:</p>
             <ol>
-                <li>Go to <strong>toomics.com</strong></li>
+                <li>Go to <strong>toomics.com</strong> (not toomics.site)</li>
                 <li>Log in to your account</li>
                 <li>Go to <strong>My Page</strong> &rarr; <strong>Settings</strong></li>
                 <li>Toggle off <strong>Family Safe Mode</strong></li>
             </ol>
-            <p><strong>For Korea and Singapore:</strong> If you are unable to disable Family Safe Mode in your region, please contact us and our team will manually process the verification for you.</p>
+            <p>Please note:</p>
+            <ul>
+                <li><code>toomics.site</code> is the family-safe version and does not offer mature content</li>
+                <li><code>toomics.com</code> is the full version where Family Safe Mode can be toggled</li>
+            </ul>
+            <p><strong>For Korea and Singapore:</strong> Due to local regulations, Family Safe Mode cannot be disabled for these regions.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
         <h2>6.5 디자인/번역/교정 이슈</h2>
 
         <h3 class="template-title">Template 6.5.1: 콘텐츠 품질 리포트</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 번역/디자인 오류 신고</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 번역/디자인 오류 신고</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us and for bringing this to our attention.</p>
-            <p>We apologize for the issue you encountered with <strong>_____ (title)</strong>.</p>
-            <p>To help us investigate and resolve this more accurately, could you please provide the following if available:</p>
-            <ul>
-                <li>Episode number (회차)</li>
-                <li>A screenshot of the issue</li>
-            </ul>
-            <p>We have forwarded your feedback to our content team for review and correction.</p>
+            <p>We apologize for the issue you encountered with <strong>_____ (title)</strong>. We have forwarded your feedback to our content team for review and correction.</p>
             <p>We strive to provide the best reading experience for our users, and your feedback helps us improve.</p>
             <p>Thank you for your patience and for being a valued Toomics reader!</p>
             <p>Best regards,<br>Toomics</p>
@@ -1632,7 +1618,7 @@
         <h2>6.6 다중 기기 제한</h2>
 
         <h3 class="template-title">Template 6.6.1: 기기 제한 안내</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 다중 기기 동시 접속 제한</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 다중 기기 동시 접속 제한</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>For security purposes, your VIP Membership can only be used on <strong>one device at a time</strong>. If you try to access VIP content on a second device while already logged in on another, you may experience restrictions.</p>
@@ -1661,7 +1647,7 @@
         </ul>
 
         <h3 class="template-title">Template 7.1.1: 언어 변경 가능</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 언어 변경 방법 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 언어 변경 방법 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>If you would like to change the language:</p>
@@ -1681,7 +1667,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 7.1.2: 언어 변경 불가 &mdash; 앱 또는 IT/PT</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 앱에서 언어 변경 불가</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 앱에서 언어 변경 불가</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We apologize for the inconvenience. The Toomics app version for the <strong>_____ (Italian/Portuguese)</strong> market is currently only available in that language.</p>
@@ -1882,7 +1868,7 @@
         <h2>9.2 제한 계정 템플릿</h2>
 
         <h3 class="template-title">Template 9.2.1: 제한 &mdash; 차지백</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 차지백으로 계정 제한</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 차지백으로 계정 제한</p>
         <blockquote>
             <p>Hello, this is Toomics.</p>
             <p>Your account has been restricted due to a <strong>chargeback</strong> filed against a payment made to Toomics.</p>
@@ -1898,7 +1884,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 9.2.2: 제한 &mdash; 사기 결제</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 의심 결제로 계정 제한</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 의심 결제로 계정 제한</p>
         <blockquote>
             <p>Hello, this is Toomics.</p>
             <p>Your account has been restricted due to suspicious payment activity detected on your account.</p>
@@ -1914,7 +1900,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 9.2.3: 제한 &mdash; 불법 콘텐츠 유통</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 콘텐츠 무단 배포 적발</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 무단 배포 적발</p>
         <blockquote>
             <p>Hello, this is Toomics.</p>
             <p>Your account has been permanently restricted due to violation of our Terms of Use regarding <strong>illegal content distribution</strong>.</p>
@@ -1927,7 +1913,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 9.2.4: 제한 &mdash; 비정상 열람 패턴</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 자동화 접근 의심</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 자동화 접근 의심</p>
         <blockquote>
             <p>Hello, this is Toomics.</p>
             <p>Your account has been temporarily restricted due to unusual reading patterns detected on your account.</p>
@@ -1942,7 +1928,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 9.2.5: 공유 계정 경고</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 다중 위치 동시 접속 탐지</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 다중 위치 동시 접속 탐지</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>Our system detected that your account has been accessed from multiple locations/devices simultaneously, which suggests account sharing.</p>
@@ -1978,7 +1964,7 @@
         <h2>10.2 템플릿</h2>
 
         <h3 class="template-title">Template 10.2.1: TOOMICS STORE란?</h3>
-        <p>⚠️ <strong>사용 시점:</strong> STORE 서비스 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> STORE 서비스 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p><strong>TOOMICS STORE</strong> is our exclusive content section where you can find special titles, including uncensored versions of selected webtoons.</p>
@@ -1994,7 +1980,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 10.2.2: STORE 앱 미지원</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 앱에서 STORE 접근 문의</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 앱에서 STORE 접근 문의</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We apologize for the inconvenience. Due to mobile platform policies (Google Play Store and Apple App Store), <strong>TOOMICS STORE content is only available on our website</strong>.</p>
@@ -2049,7 +2035,7 @@
 
         <h2>11.3 에스컬레이션 기준</h2>
 
-        <p><strong>🔴 아래 상황 발생 시, 팀 리드에게 에스컬레이션합니다:</strong></p>
+        <p><strong>&#128308; 아래 상황 발생 시, 팀 리드에게 에스컬레이션합니다:</strong></p>
         <ul>
             <li>고객이 법적 조치를 위협 (특히 DE 마켓)</li>
             <li>동일 계정에서 복수 차지백 발생</li>
@@ -2068,7 +2054,7 @@
 
         <table>
             <thead>
-                <tr><th>실수</th><th>✔ 올바른 대응</th></tr>
+                <tr><th>실수</th><th>&#10004; 올바른 대응</th></tr>
             </thead>
             <tbody>
                 <tr><td>비영어 고객에게 EN 템플릿 발송</td><td>응답 전 반드시 마켓/언어 확인</td></tr>
@@ -2089,7 +2075,7 @@
         <h2>12.1 일반 응대 템플릿</h2>
 
         <h3 class="template-title">Template 12.1.1: 계정 정보 필요</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 기본 계정 정보 요청</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 기본 계정 정보 요청</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>In order to assist you, could you please provide us with the following:</p>
@@ -2102,7 +2088,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 12.1.2: 고객이 직접 해결</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 문의 해결 후 감사 회신</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 문의 해결 후 감사 회신</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We're glad to hear that the issue has been resolved!</p>
@@ -2111,7 +2097,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 12.1.3: 요청 이해 불가</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 고객 문의 내용 불명확</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객 문의 내용 불명확</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>We apologize, but we were unable to fully understand your request. Could you please provide more details about the issue you are experiencing?</p>
@@ -2126,7 +2112,7 @@
         </blockquote>
 
         <h3 class="template-title">Template 12.1.4: 감사 응답</h3>
-        <p>⚠️ <strong>사용 시점:</strong> 고객이 감사 메시지 보냈을 때</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객이 감사 메시지 보냈을 때</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for your kind words! :)</p>
             <p>We're happy we could help. If you need anything else in the future, please feel free to contact us anytime.</p>
@@ -2198,7 +2184,6 @@
                 <tbody>
                     <tr><td>1.0</td><td>2026-02-12</td><td>CS 매뉴얼 원본 작성 (유종선)</td></tr>
                     <tr><td>2.0</td><td>2026-02-19</td><td>데이터 기반 인사이트, 다국어 템플릿, 마켓별 가이드라인, 사기 탐지, SLA 기준 추가 강화판 (유종선)</td></tr>
-                    <tr><td>2.1</td><td>2026-02-26</td><td>운영 피드백 반영 — 13개 템플릿 수정: 2.2.1 무료체험 문구 삭제, 2.3.2 삭제, 2.4.1 언어 확인 추가, 4.4.3·4.5.1·4.5.2·4.6.1 계정/인증 안내 수정, 5.1.1 환불 문구 제거, 5.6.1 검토 메모, 6.1.1 작품명·회차 추가, 6.3.1 도움말 링크, 6.4.1 toomics.site 삭제 및 수동처리 안내, 6.5.1 스크린샷 요청 추가 (유종선)</td></tr>
                 </tbody>
             </table>
         </div>

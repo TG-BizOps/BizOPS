@@ -5,47 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TOOMICS Global CS Flow Diagram</title>
     <style>
-  :root {
-    --max-w: 960px;
-    --max-w-wide: 1280px;
-    --radius: 12px;
-    --gap: 16px;
-    --bg-base: #F8FAFC;
-    --bg-card: #FFFFFF;
-    --bg-muted: #F1F5F9;
-    --text-primary: #1E293B;
-    --text-secondary: #475569;
-    --text-muted: #94A3B8;
-    --border: #E2E8F0;
-    --accent-brand: #2563EB;
-    --accent-info: #0EA5E9;
-    --accent-success: #10B981;
-    --accent-warn: #F59E0B;
-    --accent-danger: #EF4444;
-    --accent-purple: #7C3AED;
-    --font-base: 14px;
-    --font-sm: 12px;
-    --font-lg: 18px;
-    --font-xl: 28px;
-    --line-height: 1.7;
-    --font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;
-  }
-  html { scroll-behavior: smooth; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg-base);
-            color: var(--text-primary);
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
             min-height: 100vh;
             padding: 32px;
-        
-    word-break: keep-all; overflow-wrap: break-word;
-  
-    font-size: 14px;
-  
-    line-height: 1.7;
-  }
+        }
 
         .header {
             text-align: center;
@@ -60,14 +28,14 @@
             margin-bottom: 8px;
         }
         .header .sub {
-            color: #64748B;
+            color: #94a3b8;
             font-size: 14px;
         }
         .header .badge {
             display: inline-block;
             background: rgba(96,165,250,0.15);
             border: 1px solid rgba(96,165,250,0.3);
-            color: #1d4ed8;
+            color: #93c5fd;
             padding: 4px 14px;
             border-radius: 20px;
             font-size: 12px;
@@ -101,7 +69,7 @@
             height: 32px;
         }
         .arrow-down .arrow-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #64748b;
             margin-left: 8px;
             align-self: center;
@@ -118,7 +86,7 @@
         }
         .node:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
         }
         .node .title {
             font-weight: 700;
@@ -172,13 +140,13 @@
         }
         .node-category:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
         }
         .node-category .pct {
             position: absolute;
             top: 8px;
             right: 10px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 700;
             opacity: 0.9;
         }
@@ -186,15 +154,15 @@
             position: absolute;
             top: 8px;
             left: 10px;
-            font-size: 12px;
+            font-size: 10px;
             font-weight: 700;
             padding: 1px 6px;
             border-radius: 4px;
-            background: rgba(0,0,0,0.04);
+            background: rgba(0,0,0,0.3);
         }
         .node-category .emoji { font-size: 28px; margin-bottom: 8px; }
         .node-category .title { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-        .node-category .desc { font-size: 12px; opacity: 0.75; line-height: 1.4; }
+        .node-category .desc { font-size: 10px; opacity: 0.75; line-height: 1.4; }
 
         /* Category colors */
         .cat-subscription { background: linear-gradient(135deg, #dc2626, #ef4444); border: 1px solid #f87171; }
@@ -209,22 +177,22 @@
 
         /* Process node */
         .node-process {
-            background: linear-gradient(135deg, #EFF6FF, #DBEAFE);
-            border: 1px solid #93C5FD;
+            background: linear-gradient(135deg, #1e3a5f, #1e4976);
+            border: 1px solid #3b82f6;
             min-width: 280px;
         }
 
         /* Escalation */
         .node-escalation {
-            background: linear-gradient(135deg, #FEE2E2, #FECACA);
-            border: 2px solid var(--accent-danger);
+            background: linear-gradient(135deg, #7f1d1d, #991b1b);
+            border: 2px solid #ef4444;
             min-width: 300px;
             box-shadow: 0 0 15px rgba(239,68,68,0.2);
         }
 
         /* End node */
         .node-end {
-            background: linear-gradient(135deg, #D1FAE5, #A7F3D0);
+            background: linear-gradient(135deg, #065f46, #059669);
             border: 2px solid #34d399;
             min-width: 240px;
             box-shadow: 0 0 15px rgba(52,211,153,0.2);
@@ -249,8 +217,8 @@
             border-radius: 12px;
             margin-bottom: 8px;
         }
-        .branch-yes { background: #166534; color: #FFFFFF; border: 1px solid #22c55e; }
-        .branch-no { background: #7f1d1d; color: #FFFFFF; border: 1px solid var(--accent-danger); }
+        .branch-yes { background: #166534; color: #4ade80; border: 1px solid #22c55e; }
+        .branch-no { background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }
 
         /* ===== MARKET STRIP ===== */
         .market-strip {
@@ -264,15 +232,15 @@
             display: inline-flex;
             align-items: center;
             gap: 4px;
-            background: var(--border);
-            border: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 4px 10px;
             border-radius: 20px;
-            font-size: 12px;
-            color: var(--text-secondary);
+            font-size: 11px;
+            color: #cbd5e1;
         }
         .market-chip .flag { font-size: 14px; }
-        .market-chip .vol { color: #64748B; margin-left: 2px; }
+        .market-chip .vol { color: #94a3b8; margin-left: 2px; }
 
         /* ===== SECTION DIVIDER ===== */
         .section-label {
@@ -281,12 +249,12 @@
         }
         .section-label span {
             display: inline-block;
-            background: rgba(0,0,0,0.03);
-            border: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
             padding: 6px 20px;
             border-radius: 8px;
             font-size: 12px;
-            color: #64748B;
+            color: #94a3b8;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -300,8 +268,8 @@
             margin: 0 auto;
         }
         .esc-card {
-            background: var(--border);
-            border: 1px solid rgba(0,0,0,0.06);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
             border-radius: 10px;
             padding: 14px 16px;
             font-size: 12px;
@@ -320,22 +288,22 @@
         }
         .esc-card li {
             padding: 2px 0;
-            color: var(--text-secondary);
+            color: #cbd5e1;
         }
         .esc-card li::before {
             content: "⚠️ ";
-            font-size: 12px;
+            font-size: 11px;
         }
         .esc-resolve {
             border-color: rgba(52,211,153,0.3);
             background: rgba(52,211,153,0.05);
         }
-        .esc-resolve .esc-title { color: #15803d; }
+        .esc-resolve .esc-title { color: #4ade80; }
         .esc-escalate {
             border-color: rgba(239,68,68,0.3);
             background: rgba(239,68,68,0.05);
         }
-        .esc-escalate .esc-title { color: #b91c1c; }
+        .esc-escalate .esc-title { color: #fca5a5; }
 
         /* ===== STATS BAR ===== */
         .stats-bar {
@@ -356,7 +324,7 @@
             -webkit-text-fill-color: transparent;
         }
         .stat-label {
-            font-size: 12px;
+            font-size: 11px;
             color: #64748b;
             margin-top: 2px;
         }
@@ -383,8 +351,8 @@
             text-align: center;
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid var(--border);
-            color: var(--text-secondary);
+            border-top: 1px solid rgba(255,255,255,0.06);
+            color: #475569;
             font-size: 12px;
         }
 
@@ -395,61 +363,7 @@
             .node { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
             .node-category { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
         }
-    
-  /* ── Back to Top ── */
-  .back-to-top {
-    position: fixed;
-    bottom: 32px;
-    right: 32px;
-    width: 44px;
-    height: 44px;
-    background: var(--accent-brand);
-    color: #fff;
-    border: none;
-    border-radius: 50%;
-    font-size: 20px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .back-to-top.visible { opacity: 1; visibility: visible; }
-  .back-to-top:hover { background: #1d4ed8; transform: translateY(-2px); }
-  @media print { .back-to-top { display: none !important; } }
-
-  /* ── Mobile Responsive ── */
-  @media (max-width: 768px) {
-    body { padding: 8px; }
-    section, .container > * { padding-left: 16px !important; padding-right: 16px !important; }
-    h1 { font-size: 22px !important; }
-    h2 { font-size: 18px !important; }
-    table { font-size: 12px; }
-    .hero { padding: 24px 20px !important; border-radius: 0 !important; }
-  }
-
-  @media (max-width: 900px) {
-    .flow-container { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-    .category-grid { max-width: 100% !important; width: 100% !important; overflow-x: auto; }
-  }
-
-  /* ══ UX Enhancement Patch (2026-02-23) ══ */
-  ::selection { background: #3b82f6; color: #fff; }
-  ::-moz-selection { background: #3b82f6; color: #fff; }
-  a:focus-visible, button:focus-visible { outline: 2px solid #3b82f6; outline-offset: 2px; border-radius: 4px; }
-  tbody tr:nth-child(even) { background: rgba(248,250,252,0.5); }
-  thead th { font-weight: 700 !important; }
-
-  @media (max-width: 768px) {
-    [class*="grid"] { grid-template-columns: 1fr !important; }
-    body { padding: 16px !important; }
-  }
-</style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml">
+    </style>
 </head>
 <body>
 
@@ -520,7 +434,7 @@
                     <div class="title">템플릿 1.1 발송</div>
                     <div class="desc">계정 정보 요청<br>(이메일, 결제수단, 스크린샷)</div>
                 </div>
-                <div style="font-size: 12px; color:#64748b; margin-top:8px;">↩ 고객 회신 후 STEP 2 복귀</div>
+                <div style="font-size:11px; color:#64748b; margin-top:8px;">↩ 고객 회신 후 STEP 2 복귀</div>
             </div>
             <div class="branch">
                 <div class="branch-label branch-yes">✅ YES</div>
@@ -531,12 +445,12 @@
                 </div>
                 <div style="margin-top:10px; display:flex; gap:24px; justify-content:center;">
                     <div style="text-align:center;">
-                        <div class="branch-label branch-no" style="font-size: 12px;">NO</div>
-                        <div style="font-size: 12px; color: #b91c1c; margin-top:4px;">해당 마켓팀 라우팅</div>
+                        <div class="branch-label branch-no" style="font-size:10px;">NO</div>
+                        <div style="font-size:11px; color:#fca5a5; margin-top:4px;">해당 마켓팀 라우팅</div>
                     </div>
                     <div style="text-align:center;">
-                        <div class="branch-label branch-yes" style="font-size: 12px;">YES</div>
-                        <div style="font-size: 12px; color:#15803d; margin-top:4px;">▼ 카테고리 분류</div>
+                        <div class="branch-label branch-yes" style="font-size:10px;">YES</div>
+                        <div style="font-size:11px; color:#4ade80; margin-top:4px;">▼ 카테고리 분류</div>
                     </div>
                 </div>
             </div>
@@ -548,7 +462,7 @@
         <div class="section-label"><span>STEP 3 &mdash; 비공식 요청 필터</span></div>
 
         <div class="flow-row">
-            <div class="node node-decision" style="background: linear-gradient(135deg, #FEE2E2, #FECACA); border-color: var(--accent-danger);">
+            <div class="node node-decision" style="background: linear-gradient(135deg, #7f1d1d, #991b1b); border-color: #ef4444;">
                 <span class="emoji">🚫</span>
                 <div class="title">비공식 제3자 요청인가?</div>
                 <div class="desc">Minna Technologies / Ethoca 등 자동화 해지 요청</div>
@@ -559,16 +473,16 @@
 
         <div class="branch-row">
             <div class="branch">
-                <div class="branch-label branch-no" style="background:#7f1d1d; color: #FFFFFF;">🔴 YES &mdash; 비공식</div>
-                <div style="background:rgba(239,68,68,0.1); border:1px dashed var(--accent-danger); border-radius:10px; padding:12px 18px; text-align:center;">
+                <div class="branch-label branch-no" style="background:#7f1d1d;">🔴 YES &mdash; 비공식</div>
+                <div style="background:rgba(239,68,68,0.1); border:1px dashed #ef4444; border-radius:10px; padding:12px 18px; text-align:center;">
                     <div style="font-size:20px; margin-bottom:4px;">🗑️</div>
-                    <div style="font-size:13px; font-weight:700; color: #b91c1c;">답변하지 않음</div>
-                    <div style="font-size: 12px; color: #64748B;">티켓 무시 처리</div>
+                    <div style="font-size:13px; font-weight:700; color:#fca5a5;">답변하지 않음</div>
+                    <div style="font-size:11px; color:#94a3b8;">티켓 무시 처리</div>
                 </div>
             </div>
             <div class="branch">
                 <div class="branch-label branch-yes">✅ NO &mdash; 정상 고객</div>
-                <div style="font-size:12px; color:#15803d;">▼ 카테고리 분류 진행</div>
+                <div style="font-size:12px; color:#4ade80;">▼ 카테고리 분류 진행</div>
             </div>
         </div>
 
@@ -764,25 +678,25 @@
         <!-- SLA Target bar -->
         <div style="margin-top:20px;">
             <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-                <div style="background:rgba(185,28,28,0.10); border:1px solid rgba(239,68,68,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size: 12px; color: #b91c1c;">🔴 P1 구독/결제</div>
-                    <div style="font-size:18px; font-weight:800; color:var(--accent-danger);">2h</div>
+                <div style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:11px; color:#fca5a5;">🔴 P1 구독/결제</div>
+                    <div style="font-size:18px; font-weight:800; color:#ef4444;">2h</div>
                 </div>
                 <div style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size: 12px; color: #c2410c;">🟠 P2 환불</div>
+                    <div style="font-size:11px; color:#fdba74;">🟠 P2 환불</div>
                     <div style="font-size:18px; font-weight:800; color:#f97316;">4h</div>
                 </div>
                 <div style="background:rgba(234,179,8,0.15); border:1px solid rgba(234,179,8,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size: 12px; color: #854d0e;">🟡 P3 계정</div>
+                    <div style="font-size:11px; color:#fde047;">🟡 P3 계정</div>
                     <div style="font-size:18px; font-weight:800; color:#eab308;">8h</div>
                 </div>
                 <div style="background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size: 12px; color:#1d4ed8;">🔵 P4 결제</div>
+                    <div style="font-size:11px; color:#93c5fd;">🔵 P4 결제</div>
                     <div style="font-size:18px; font-weight:800; color:#3b82f6;">8h</div>
                 </div>
-                <div style="background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.06); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size: 12px; color: #64748B;">⚪ P5 콘텐츠/기술</div>
-                    <div style="font-size:18px; font-weight:800; color: var(--text-secondary);">12h</div>
+                <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:11px; color:#94a3b8;">⚪ P5 콘텐츠/기술</div>
+                    <div style="font-size:18px; font-weight:800; color:#cbd5e1;">12h</div>
                 </div>
             </div>
         </div>
@@ -794,16 +708,5 @@
         <p>TOOMICS Global CS Operations &middot; 작성: 유종선 &middot; 2026-02-19 &middot; 데이터: 2025.07 ~ 2026.01</p>
     </div>
 
-
-<button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
-<script>
-(function(){
-  var btn = document.querySelector('.back-to-top');
-  if(!btn) return;
-  window.addEventListener('scroll', function(){
-    btn.classList.toggle('visible', window.scrollY > 300);
-  });
-})();
-</script>
 </body>
 </html>
