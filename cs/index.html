@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<title>CS 운영 | BizOps Portal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif; background: #F8FAFC; color: #1E293B; font-size: 14px; line-height: 1.7; }
+  .header { background: linear-gradient(135deg, #1E3A5F 0%, #2563EB 100%); color: #fff; padding: 32px 24px; }
+  .header .back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 12px; }
+  .header .back:hover { color: #fff; }
+  .header h1 { font-size: 26px; font-weight: 800; }
+  .header .sub { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  .link-list { display: flex; flex-direction: column; gap: 12px; }
+  .link-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 16px 18px; text-decoration: none; color: #1E293B; transition: border-color 0.15s, box-shadow 0.15s; border-left: 4px solid transparent; }
+  .link-card:hover { border-color: #2563EB; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-left-color: #2563EB; }
+  .lc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; }
+  .lc-body { flex: 1; min-width: 0; }
+  .lc-title { font-size: 14px; font-weight: 700; }
+  .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
+  .lc-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .bg-blue { background: #EFF6FF; color: #2563EB; } .bg-cyan { background: #ECFEFF; color: #0891B2; } .bg-green { background: #ECFDF5; color: #059669; } .bg-red { background: #FEF2F2; color: #DC2626; }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="back" href="../">&larr; BizOps Portal</a>
+  <h1>CS 운영</h1>
+  <div class="sub">매뉴얼, 분석 리포트, 프로세스 플로우, 자동화 로드맵 &middot; 8건</div>
+</div>
+<div class="container">
+  <div class="link-list">
+    <a class="link-card" href="cs_manual_EN_20260219.html">
+      <span class="lc-icon bg-blue">EN</span>
+      <span class="lc-body"><span class="lc-title">TOOMICS Global CS Operations Manual v2.1</span><span class="lc-desc">영문 CS 운영 매뉴얼</span></span>
+      <span class="lc-badge bg-blue">Manual</span>
+    </a>
+    <a class="link-card" href="cs_manual_KO_20260219.html">
+      <span class="lc-icon bg-blue">KO</span>
+      <span class="lc-body"><span class="lc-title">TOOMICS Global CS 운영 매뉴얼 v2.1</span><span class="lc-desc">한국어 CS 운영 매뉴얼</span></span>
+      <span class="lc-badge bg-blue">Manual</span>
+    </a>
+    <a class="link-card" href="cs_repeat_complaint_manual_20260225.html">
+      <span class="lc-icon bg-blue">R</span>
+      <span class="lc-body"><span class="lc-title">반복 문의 고객 대응 매뉴얼</span><span class="lc-desc">BizOps CS 반복 문의 대응 전략</span></span>
+      <span class="lc-badge bg-blue">Manual</span>
+    </a>
+    <a class="link-card" href="cs_fraud_analysis_20260219_refund_dispute.html">
+      <span class="lc-icon bg-red">F</span>
+      <span class="lc-body"><span class="lc-title">악의성 환불 요청 CS 티켓 분석 리포트</span><span class="lc-desc">2026-02-19 | Fraud 패턴 분석</span></span>
+      <span class="lc-badge bg-red">Analysis</span>
+    </a>
+    <a class="link-card" href="cs_infographic_20260220.html">
+      <span class="lc-icon bg-cyan">I</span>
+      <span class="lc-body"><span class="lc-title">TOOMICS Global CS Infographic</span><span class="lc-desc">2025.07 ~ 2026.01 시각화</span></span>
+      <span class="lc-badge bg-cyan">Visual</span>
+    </a>
+    <a class="link-card" href="cs_l1_l2_l3_analysis_20260225.html">
+      <span class="lc-icon bg-cyan">L</span>
+      <span class="lc-body"><span class="lc-title">CS 티켓 레벨 분석 (L1/L2/L3)</span><span class="lc-desc">2025.07 ~ 2026.02 레벨별 분석</span></span>
+      <span class="lc-badge bg-cyan">Analysis</span>
+    </a>
+    <a class="link-card" href="cs_flow_diagram_20260219.html">
+      <span class="lc-icon bg-green">F</span>
+      <span class="lc-body"><span class="lc-title">TOOMICS Global CS Flow Diagram</span><span class="lc-desc">CS 프로세스 플로우 다이어그램</span></span>
+      <span class="lc-badge bg-green">Process</span>
+    </a>
+    <a class="link-card" href="cs_automation_roadmap_20260219.html">
+      <span class="lc-icon bg-green">R</span>
+      <span class="lc-body"><span class="lc-title">CS 자동화 시스템 고도화 로드맵</span><span class="lc-desc">2026-02-19 | Phase 1~3 로드맵</span></span>
+      <span class="lc-badge bg-green">Roadmap</span>
+    </a>
+  </div>
+</div>
+<footer class="footer">Toomics Global &middot; BizOps &middot; 유종선</footer>
+</body>
+</html>

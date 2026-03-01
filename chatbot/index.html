@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<title>AI 챗봇 | BizOps Portal</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif; background: #F8FAFC; color: #1E293B; font-size: 14px; line-height: 1.7; }
+  .header { background: linear-gradient(135deg, #4C1D95 0%, #7C3AED 100%); color: #fff; padding: 32px 24px; }
+  .header .back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 12px; }
+  .header .back:hover { color: #fff; }
+  .header h1 { font-size: 26px; font-weight: 800; }
+  .header .sub { font-size: 14px; opacity: 0.8; margin-top: 4px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
+  .group-title { font-size: 15px; font-weight: 800; color: #7C3AED; margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #EDE9FE; }
+  .group-title:first-child { margin-top: 0; }
+  .link-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+  .link-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 18px; text-decoration: none; color: #1E293B; transition: border-color 0.15s, box-shadow 0.15s; border-left: 4px solid transparent; }
+  .link-card:hover { border-color: #7C3AED; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-left-color: #7C3AED; }
+  .lc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; flex-shrink: 0; background: #F5F3FF; color: #7C3AED; }
+  .lc-body { flex: 1; min-width: 0; }
+  .lc-title { font-size: 14px; font-weight: 700; }
+  .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
+  .lc-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; background: #F5F3FF; color: #7C3AED; }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px; }
+</style>
+</head>
+<body>
+<div class="header">
+  <a class="back" href="../">&larr; BizOps Portal</a>
+  <h1>AI 챗봇</h1>
+  <div class="sub">기획, 운영 매뉴얼, 교육 자료, 플로우, 에스컬레이션 &middot; 14건</div>
+</div>
+<div class="container">
+  <div class="group-title">기획 &middot; 개요</div>
+  <div class="link-list">
+    <a class="link-card" href="chatbot_one_pager_20260223.html"><span class="lc-icon">1P</span><span class="lc-body"><span class="lc-title">CS AI Chatbot — One Pager</span></span><span class="lc-badge">Overview</span></a>
+    <a class="link-card" href="chatbot_system_overview_20260223.html"><span class="lc-icon">S</span><span class="lc-body"><span class="lc-title">시스템 아키텍처 설명서 v1.0</span></span><span class="lc-badge">Architecture</span></a>
+    <a class="link-card" href="chatbot_cost_analysis_20260222.html"><span class="lc-icon">$</span><span class="lc-body"><span class="lc-title">CS AI 챗봇 비용 분석</span></span><span class="lc-badge">Analysis</span></a>
+    <a class="link-card" href="chatbot_roadmap_20260222.html"><span class="lc-icon">R</span><span class="lc-body"><span class="lc-title">프로젝트 로드맵</span></span><span class="lc-badge">Roadmap</span></a>
+    <a class="link-card" href="chatbot_infographic_20260222.html"><span class="lc-icon">I</span><span class="lc-body"><span class="lc-title">AI 챗봇 운영 인포그래픽</span></span><span class="lc-badge">Visual</span></a>
+  </div>
+
+  <div class="group-title">운영 &middot; 교육</div>
+  <div class="link-list">
+    <a class="link-card" href="chatbot_operations_manual_20260222.html"><span class="lc-icon">M</span><span class="lc-body"><span class="lc-title">AI Chatbot 운영 매뉴얼 v1.0</span></span><span class="lc-badge">Manual</span></a>
+    <a class="link-card" href="chatbot_cs_operator_guide_20260222.html"><span class="lc-icon">G</span><span class="lc-body"><span class="lc-title">CS 운영자 가이드 v1.0</span></span><span class="lc-badge">Guide</span></a>
+    <a class="link-card" href="chatbot_training_guide_20260223.html"><span class="lc-icon">T</span><span class="lc-body"><span class="lc-title">운영자/리더 교육 자료 v1.0</span></span><span class="lc-badge">Training</span></a>
+    <a class="link-card" href="chatbot_training_test_scenarios_20260223.html"><span class="lc-icon">Q</span><span class="lc-body"><span class="lc-title">교육용 테스트 시나리오 v1.0</span></span><span class="lc-badge">Training</span></a>
+    <a class="link-card" href="chatbot_demo_script_20260223.html"><span class="lc-icon">D</span><span class="lc-body"><span class="lc-title">시연 시나리오 스크립트 v1.0</span></span><span class="lc-badge">Demo</span></a>
+    <a class="link-card" href="chatbot_weekly_report_20260222.html"><span class="lc-icon">W</span><span class="lc-body"><span class="lc-title">AI 챗봇 주간 리포트</span></span><span class="lc-badge">Report</span></a>
+  </div>
+
+  <div class="group-title">플로우 &middot; 에스컬레이션</div>
+  <div class="link-list">
+    <a class="link-card" href="chatbot_escalation_scenarios_20260223.html"><span class="lc-icon">E</span><span class="lc-body"><span class="lc-title">Escalation Scenarios (L1/L2/L3)</span></span><span class="lc-badge">Process</span></a>
+    <a class="link-card" href="chatbot_flow_diagram_20260222_detail.html"><span class="lc-icon">D</span><span class="lc-body"><span class="lc-title">파이프라인 플로우 다이어그램 (상세)</span></span><span class="lc-badge">Flow</span></a>
+    <a class="link-card" href="chatbot_flow_simple_20260222.html"><span class="lc-icon">S</span><span class="lc-body"><span class="lc-title">처리 흐름도 (간략)</span></span><span class="lc-badge">Flow</span></a>
+  </div>
+</div>
+<footer class="footer">Toomics Global &middot; BizOps &middot; 유종선</footer>
+</body>
+</html>
