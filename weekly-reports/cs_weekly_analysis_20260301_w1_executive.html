@@ -50,7 +50,7 @@
     padding: 0 0 40px;
   }
 
-  .hero { background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 50%,#0ea5e9 100%); color:white; padding:48px 56px 40px; position:relative; overflow:hidden; border-radius:0 0 24px 24px; margin-bottom:24px; }
+  .hero { background:linear-gradient(135deg,#1e3a5f 0%,#2563eb 50%,#0ea5e9 100%); color:white; padding:48px 56px 40px; position:relative; overflow:hidden; border-radius:0 0 24px 24px; margin-bottom:32px; }
   .hero::before { content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; background:radial-gradient(circle,rgba(14,165,233,0.15) 0%,transparent 70%); border-radius:50%; }
   .hero-badge { display:inline-block; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:20px; padding:4px 16px; font-size:12px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:14px; }
   .hero h1 { font-size:34px; font-weight:800; letter-spacing:-0.5px; margin-bottom:8px; position:relative; }
@@ -61,7 +61,7 @@
   .hero-meta-item .value { font-size:20px; font-weight:700; }
   .hero-meta-item .value .unit { font-size:13px; font-weight:400; opacity:0.7; }
 
-  .exec-summary { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:32px; margin:0 24px 24px; border:1px solid #CBD5E1; }
+  .exec-summary { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:32px; margin:0 24px 32px; border:1px solid #CBD5E1; }
   .exec-summary h2 { font-size:16px; font-weight:700; margin-bottom:16px; color:#0369a1; }
   .exec-summary ul { list-style: none; padding: 0; }
   .exec-summary li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.7; color: var(--text-primary); }
@@ -73,25 +73,25 @@
   .tag-info { background: #eff6ff; color: var(--accent-brand); }
   .tag-ai { background: #f0e7fe; color: #7c3aed; }
 
-  .kpi-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; padding:0 24px; margin-bottom:24px; }
-  .kpi-card { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:20px 16px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; transition:transform 0.2s; }
+  .kpi-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; padding:0 24px; margin-bottom:32px; }
+  .kpi-card { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:24px 20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; transition:transform 0.2s; }
   .kpi-card:hover { transform:translateY(-2px); box-shadow:0 6px 20px rgba(0,0,0,0.12); }
-  .kpi-icon { width:40px; height:40px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-size:22px; }
-  .kpi-number { font-size:28px; font-weight:800; color:var(--text-primary); line-height:1.1; }
+  .kpi-icon { width:48px; height:48px; border-radius:12px; display:flex; align-items:center; justify-content:center; margin:0 auto 12px; font-size:22px; }
+  .kpi-number { font-size:32px; font-weight:800; color:var(--text-primary); line-height:1.1; }
   .kpi-number .small { font-size:16px; font-weight:600; }
   .kpi-label { font-size:12px; color:#64748B; margin-top:4px; font-weight:500; }
-  .kpi-sub { font-size:11px; color:#64748B; margin-top:2px; }
+  .kpi-sub { font-size:12px; color:#64748B; margin-top:2px; }
 
-  .section { padding:0 24px; margin-bottom:24px; }
-  .section-title { font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+  .section { padding:0 24px; margin-bottom:32px; }
+  .section-title { font-size:18px; font-weight:700; color:var(--text-primary); margin-bottom:20px; display:flex; align-items:center; gap:10px; }
   .section-title .dot { width:8px; height:8px; border-radius:50%; background:var(--accent-info); display:inline-block; }
   .chart-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
-  .chart-card { background:#FFFFFF; border-radius:16px; padding:22px 20px; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; }
+  .chart-card { background:#FFFFFF; border-radius:16px; padding:28px 24px; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; }
   .chart-card h3 { font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
-  .chart-card .chart-desc { font-size:12px; color:#64748B; margin-bottom:10px; }
+  .chart-card .chart-desc { font-size:12px; color:#64748B; margin-bottom:16px; }
   .chart-wrap { position:relative; width:100%; }
   .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
-  .chart-container { position:relative; width:100%; max-width:280px; margin:0 auto; }
+  .chart-container { position:relative; width:100%; max-width:360px; margin:0 auto; }
   .category-table { width:100%; border-collapse:collapse; font-size:14px; }
   .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid #CBD5E1; color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
   .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
@@ -440,7 +440,7 @@ new Chart(document.getElementById('chartCategory'), {
     labels: ["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Other", "Coin"],
     datasets: [{ data: [183, 134, 61, 30, 27, 16, 8, 7, 1], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.5, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartMarket'), {
@@ -449,7 +449,7 @@ new Chart(document.getElementById('chartMarket'), {
     labels: ["EN", "FR", "ES", "PT", "TH", "DE", "JP", "CN", "IT", "Unknown"],
     datasets: [{ data: [170, 67, 63, 57, 33, 29, 19, 17, 11, 1], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.5, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartCBTrend'), {
