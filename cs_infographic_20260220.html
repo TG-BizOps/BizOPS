@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOOMICS Global CS Infographic | 2025.07 ~ 2026.01</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+  @page { size: A3 landscape; margin: 10mm; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
+    color: #1a1a2e;
+    background: #0f172a;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  @media print {
+    body { background: white; }
+    .container { box-shadow: none; }
+    .no-print { display: none !important; }
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 0 40px;
+  }
+
+  /* ── Hero Header ── */
+  .hero {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    color: white;
+    padding: 48px 56px 40px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 0 0 24px 24px;
+    margin-bottom: 32px;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(14,165,233,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: 25%;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(56,189,248,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 20px;
+    padding: 4px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    backdrop-filter: blur(4px);
+  }
+  .hero h1 {
+    font-size: 36px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+    position: relative;
+  }
+  .hero .subtitle {
+    font-size: 16px;
+    opacity: 0.85;
+    font-weight: 400;
+    position: relative;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 28px;
+    margin-top: 24px;
+    position: relative;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .hero-meta-item .label {
+    font-size: 11px;
+    opacity: 0.6;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .hero-meta-item .value {
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .hero-meta-item .value .unit {
+    font-size: 13px;
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  /* ── KPI Strip ── */
+  .kpi-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    padding: 0 24px;
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+    transition: transform 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+  .kpi-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 12px;
+    font-size: 22px;
+  }
+  .kpi-number {
+    font-size: 32px;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.1;
+  }
+  .kpi-number .small { font-size: 16px; font-weight: 600; }
+  .kpi-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 4px;
+    font-weight: 500;
+  }
+  .kpi-sub {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 2px;
+  }
+
+  /* ── Section ── */
+  .section {
+    padding: 0 24px;
+    margin-bottom: 32px;
+  }
+  .section-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #0ea5e9;
+    display: inline-block;
+  }
+
+  /* ── Chart Grid ── */
+  .chart-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .chart-grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  .chart-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 28px 24px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+  }
+  .chart-card h3 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .chart-card .chart-desc {
+    font-size: 11px;
+    color: #94a3b8;
+    margin-bottom: 16px;
+  }
+  .chart-wrap {
+    position: relative;
+    width: 100%;
+  }
+  .chart-wrap.pie { max-width: 320px; margin: 0 auto; }
+
+  /* ── Market Table ── */
+  .market-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 12.5px;
+  }
+  .market-table thead th {
+    background: #0f172a;
+    color: #e2e8f0;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .market-table thead th:first-child { border-radius: 10px 0 0 0; }
+  .market-table thead th:last-child { border-radius: 0 10px 0 0; }
+  .market-table tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid #f1f5f9;
+  }
+  .market-table tbody tr:hover { background: #f8fafc; }
+  .market-table tbody tr:last-child td { border-bottom: none; }
+  .market-table .bar-cell {
+    position: relative;
+    padding-right: 60px;
+  }
+  .bar-bg {
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+  .bar-pct {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-weight: 700;
+    font-size: 12px;
+    color: #0f172a;
+  }
+  .flag { margin-right: 6px; }
+  .trend-up { color: #ef4444; font-weight: 700; font-size: 11px; }
+  .trend-down { color: #22c55e; font-weight: 700; font-size: 11px; }
+  .trend-flat { color: #94a3b8; font-weight: 600; font-size: 11px; }
+  .top-cat-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 10.5px;
+    font-weight: 600;
+  }
+
+  /* ── Insight Cards ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .insight-card {
+    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    border-radius: 16px;
+    padding: 24px;
+    border-left: 4px solid;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+  .insight-card.red { border-left-color: #ef4444; }
+  .insight-card.blue { border-left-color: #0ea5e9; }
+  .insight-card.green { border-left-color: #22c55e; }
+  .insight-card .insight-icon { font-size: 28px; margin-bottom: 10px; }
+  .insight-card h4 { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .insight-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
+  .insight-card .highlight { font-weight: 700; color: #0f172a; }
+
+  /* ── Automation Roadmap ── */
+  .roadmap-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    background: #ffffff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #e2e8f0;
+  }
+  .roadmap-phase {
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    border-right: 1px solid #e2e8f0;
+  }
+  .roadmap-phase:last-child { border-right: none; }
+  .roadmap-phase .phase-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .roadmap-phase .phase-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 4px;
+  }
+  .roadmap-phase .phase-effect {
+    font-size: 22px;
+    font-weight: 800;
+    margin: 8px 0 4px;
+  }
+  .roadmap-phase .phase-desc {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1.5;
+  }
+  .roadmap-phase:nth-child(1) { background: #eff6ff; }
+  .roadmap-phase:nth-child(1) .phase-label { color: #3b82f6; }
+  .roadmap-phase:nth-child(1) .phase-effect { color: #2563eb; }
+  .roadmap-phase:nth-child(2) { background: #f0fdf4; }
+  .roadmap-phase:nth-child(2) .phase-label { color: #16a34a; }
+  .roadmap-phase:nth-child(2) .phase-effect { color: #16a34a; }
+  .roadmap-phase:nth-child(3) { background: #fefce8; }
+  .roadmap-phase:nth-child(3) .phase-label { color: #ca8a04; }
+  .roadmap-phase:nth-child(3) .phase-effect { color: #ca8a04; }
+  .roadmap-phase:nth-child(4) { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: white; }
+  .roadmap-phase:nth-child(4) .phase-label { color: #38bdf8; }
+  .roadmap-phase:nth-child(4) .phase-title { color: white; }
+  .roadmap-phase:nth-child(4) .phase-effect { color: #38bdf8; }
+  .roadmap-phase:nth-child(4) .phase-desc { color: #94a3b8; }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px 16px;
+    font-size: 11px;
+    color: #475569;
+  }
+  .footer a { color: #0ea5e9; text-decoration: none; }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .kpi-strip { grid-template-columns: repeat(3, 1fr); }
+    .chart-grid-2, .chart-grid-3 { grid-template-columns: 1fr; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .roadmap-strip { grid-template-columns: repeat(2, 1fr); }
+    .hero { padding: 32px 24px; }
+    .hero h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════ HERO ════════ -->
+<div class="container">
+  <div class="hero">
+    <div class="hero-badge">📊 CS DATA INFOGRAPHIC</div>
+    <h1>TOOMICS Global CS 현황 인포그래픽</h1>
+    <p class="subtitle">7개월간 11,621건 전수 텍스트 분석 기반 — 10개 마켓 × 6개 카테고리</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">분석 기간</span>
+        <span class="value">7<span class="unit"> 개월</span></span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">총 티켓</span>
+        <span class="value">11,621<span class="unit"> 건</span></span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">마켓</span>
+        <span class="value">10<span class="unit"> 개 언어</span></span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">데이터 소스</span>
+        <span class="value">Zendesk</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ KPI STRIP ════════ -->
+  <div class="kpi-strip">
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#eff6ff;">📨</div>
+      <div class="kpi-number">1,662</div>
+      <div class="kpi-label">월평균 티켓</div>
+      <div class="kpi-sub">인당 415건 / 상담원 4명</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#fef2f2;">📈</div>
+      <div class="kpi-number">+7.6<span class="small">%</span></div>
+      <div class="kpi-label">티켓 증가율</div>
+      <div class="kpi-sub">JUL 1,731 → JAN 1,863</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#f0fdf4;">🔄</div>
+      <div class="kpi-number">73<span class="small">%</span></div>
+      <div class="kpi-label">Top2 카테고리 비중</div>
+      <div class="kpi-sub">구독(48%) + 환불(25%)</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#fefce8;">📋</div>
+      <div class="kpi-number">45<span class="small">%</span></div>
+      <div class="kpi-label">동일 템플릿 답변율</div>
+      <div class="kpi-sub">"결제정보 요청" 단일 템플릿</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-icon" style="background:#faf5ff;">🤖</div>
+      <div class="kpi-number">680<span class="small">건/월</span></div>
+      <div class="kpi-label">자동화 가능 추정</div>
+      <div class="kpi-sub">전체의 41%</div>
+    </div>
+  </div>
+
+  <!-- ════════ CHARTS ROW 1: 파이 차트 ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>카테고리 & 마켓 분포</div>
+    <div class="chart-grid-2">
+      <div class="chart-card">
+        <h3>📁 카테고리별 티켓 비중</h3>
+        <p class="chart-desc">구독+환불이 전체의 73%를 차지하며, 자동화 우선 대상입니다</p>
+        <div class="chart-wrap pie">
+          <canvas id="chartCategory"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>🌍 마켓(언어)별 티켓 비중</h3>
+        <p class="chart-desc">EN이 37%로 최대, FR·ES·PT·DE가 뒤를 잇습니다</p>
+        <div class="chart-wrap pie">
+          <canvas id="chartMarket"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHARTS ROW 2: 트렌드 ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>월별 트렌드</div>
+    <div class="chart-grid-2">
+      <div class="chart-card">
+        <h3>📈 월별 전체 티켓 추이</h3>
+        <p class="chart-desc">2025년 7월~2026년 1월 — 전반적 증가 추세 (+7.6%)</p>
+        <div class="chart-wrap">
+          <canvas id="chartMonthly"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>🌐 마켓별 월간 티켓 추이</h3>
+        <p class="chart-desc">주요 5개 마켓(EN·FR·ES·PT·DE) 월별 변화</p>
+        <div class="chart-wrap">
+          <canvas id="chartMarketTrend"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ CHARTS ROW 3: 마켓별 카테고리 ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>마켓별 카테고리 구성</div>
+    <div class="chart-grid-2">
+      <div class="chart-card">
+        <h3>📊 마켓별 카테고리 Stacked Bar</h3>
+        <p class="chart-desc">각 마켓의 문의 유형 구성비 — 마켓별 특성이 뚜렷합니다</p>
+        <div class="chart-wrap">
+          <canvas id="chartStackedBar"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <h3>🔥 PT 마켓 급성장 추이</h3>
+        <p class="chart-desc">7개월간 약 2.6배 성장 — 가장 주목할 마켓</p>
+        <div class="chart-wrap">
+          <canvas id="chartPTGrowth"></canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ MARKET TABLE ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>마켓별 상세 현황</div>
+    <div class="chart-card">
+      <table class="market-table">
+        <thead>
+          <tr>
+            <th>마켓</th>
+            <th>총 건수</th>
+            <th>월평균</th>
+            <th style="width:200px;">점유율</th>
+            <th>Top 카테고리</th>
+            <th>7개월 추이</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="flag">🇺🇸</span><strong>EN</strong></td>
+            <td><strong>4,285</strong></td>
+            <td>612</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);"></div></div>
+              <span class="bar-pct">36.9%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#dbeafe;color:#1d4ed8;">Subscription 48%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇫🇷</span><strong>FR</strong></td>
+            <td><strong>1,941</strong></td>
+            <td>277</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:45.3%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);"></div></div>
+              <span class="bar-pct">16.7%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#ede9fe;color:#6d28d9;">Subscription 43%</span></td>
+            <td><span class="trend-down">↓ 소폭 감소</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇪🇸</span><strong>ES</strong></td>
+            <td><strong>1,552</strong></td>
+            <td>222</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:36.2%;background:linear-gradient(90deg,#f59e0b,#fbbf24);"></div></div>
+              <span class="bar-pct">13.4%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#fef3c7;color:#b45309;">Subscription 40%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇧🇷</span><strong>PT</strong></td>
+            <td><strong>982</strong></td>
+            <td>140</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:22.9%;background:linear-gradient(90deg,#ef4444,#f87171);"></div></div>
+              <span class="bar-pct">8.5%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#fee2e2;color:#dc2626;">Refund 25%</span></td>
+            <td><span class="trend-up">↑ 2.6배 급성장</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇩🇪</span><strong>DE</strong></td>
+            <td><strong>957</strong></td>
+            <td>137</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:22.3%;background:linear-gradient(90deg,#14b8a6,#5eead4);"></div></div>
+              <span class="bar-pct">8.2%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#ccfbf1;color:#0d9488;">Subscription 50%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇹🇭</span><strong>TH</strong></td>
+            <td><strong>559</strong></td>
+            <td>80</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:13.0%;background:linear-gradient(90deg,#ec4899,#f472b6);"></div></div>
+              <span class="bar-pct">4.8%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#fce7f3;color:#be185d;">Subscription 39%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇯🇵</span><strong>JP</strong></td>
+            <td><strong>550</strong></td>
+            <td>79</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:12.8%;background:linear-gradient(90deg,#6366f1,#818cf8);"></div></div>
+              <span class="bar-pct">4.7%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#e0e7ff;color:#4338ca;">Subscription 32%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇨🇳</span><strong>CN</strong></td>
+            <td><strong>478</strong></td>
+            <td>68</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:11.2%;background:linear-gradient(90deg,#f97316,#fb923c);"></div></div>
+              <span class="bar-pct">4.1%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#ffedd5;color:#c2410c;">Subscription 38%</span></td>
+            <td><span class="trend-flat">→ 안정</span></td>
+          </tr>
+          <tr>
+            <td><span class="flag">🇮🇹</span><strong>IT</strong></td>
+            <td><strong>316</strong></td>
+            <td>45</td>
+            <td class="bar-cell">
+              <div class="bar-bg"><div class="bar-fill" style="width:7.4%;background:linear-gradient(90deg,#84cc16,#a3e635);"></div></div>
+              <span class="bar-pct">2.7%</span>
+            </td>
+            <td><span class="top-cat-badge" style="background:#ecfccb;color:#4d7c0f;">Subscription 40%</span></td>
+            <td><span class="trend-up">↑ 2.7배 성장</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ════════ KEY INSIGHTS ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>핵심 인사이트</div>
+    <div class="insight-grid">
+      <div class="insight-card red">
+        <div class="insight-icon">🚨</div>
+        <h4>가장 시급한 개선</h4>
+        <p>"결제정보 요청" 템플릿이 전체 답변의 <span class="highlight">45%</span>를 차지합니다. 고객이 이미 제출한 정보도 재요청 → 불만 → 차지백 전환 리스크가 있습니다.</p>
+      </div>
+      <div class="insight-card blue">
+        <div class="insight-icon">🎯</div>
+        <h4>가장 큰 자동화 기회</h4>
+        <p>월 <span class="highlight">680건(41%)</span>이 셀프서비스 또는 자동화 전환 가능. 구독 해지·비번 리셋·계정 삭제만으로 <span class="highlight">월 630건(-38%)</span> 감소 가능합니다.</p>
+      </div>
+      <div class="insight-card green">
+        <div class="insight-icon">🌱</div>
+        <h4>가장 주목할 트렌드</h4>
+        <p>PT 마켓이 7개월간 <span class="highlight">103건 → 253건(2.6배)</span> 급성장. IT 마켓도 <span class="highlight">21건 → 56건(2.7배)</span> 성장 중입니다. 선제적 CS 인프라 구축이 필요합니다.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ AUTOMATION ROADMAP ════════ -->
+  <div class="section">
+    <div class="section-title"><span class="dot"></span>자동화 로드맵 요약</div>
+    <div class="roadmap-strip">
+      <div class="roadmap-phase">
+        <div class="phase-label">Phase 1 · 1~2개월</div>
+        <div class="phase-title">Quick Wins</div>
+        <div class="phase-effect">-38%</div>
+        <div class="phase-desc">셀프서비스 전환<br>구독해지 · 비번리셋 · 계정삭제<br>월 630건 감소</div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label">Phase 2 · 2~4개월</div>
+        <div class="phase-title">스마트 자동화</div>
+        <div class="phase-effect">+품질</div>
+        <div class="phase-desc">DB 자동조회 · 언어 라우팅<br>Fraud AI · PT 마켓 대응<br>템플릿 정확도 90%↑</div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label">Phase 3 · 4~6개월</div>
+        <div class="phase-title">AI 인텔리전스</div>
+        <div class="phase-effect">-70%</div>
+        <div class="phase-desc">예측 분석 · AI 응답 초안<br>DE 법적 경로 · 통합 대시보드<br>인당 125건으로 감소</div>
+      </div>
+      <div class="roadmap-phase">
+        <div class="phase-label">Target</div>
+        <div class="phase-title">최종 목표</div>
+        <div class="phase-effect">70%+</div>
+        <div class="phase-desc">CS 자동화율 70% 이상<br>월 500건 수준<br>고난도 문의에 집중</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════ FOOTER ════════ -->
+  <div class="footer">
+    TOOMICS Global · 유종선 · Generated 2026-02-20 · Data Period: 2025.07 ~ 2026.01<br>
+    <a href="https://tg-bizops.github.io/BizOPS/cs_manual_KO_20260219.html">CS 매뉴얼 KO</a> ·
+    <a href="https://tg-bizops.github.io/BizOPS/cs_manual_EN_20260219.html">CS 매뉴얼 EN</a> ·
+    <a href="https://tg-bizops.github.io/BizOPS/cs_flow_diagram_20260219.html">플로우 다이어그램</a>
+  </div>
+</div>
+
+<!-- ════════ CHART.JS SCRIPTS ════════ -->
+<script>
+  Chart.defaults.font.family = "'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',sans-serif";
+  Chart.defaults.font.size = 12;
+  Chart.defaults.plugins.legend.labels.usePointStyle = true;
+  Chart.defaults.plugins.legend.labels.pointStyle = 'circle';
+
+  const colors = {
+    blue:    '#3b82f6', purple: '#8b5cf6', amber:  '#f59e0b',
+    red:     '#ef4444', teal:   '#14b8a6', pink:   '#ec4899',
+    indigo:  '#6366f1', orange: '#f97316', lime:   '#84cc16',
+    sky:     '#0ea5e9', green:  '#22c55e', slate:  '#64748b'
+  };
+
+  // ── 카테고리 파이 차트 ──
+  new Chart(document.getElementById('chartCategory'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Subscription (48%)', 'Refund (25%)', 'Account (13%)', 'Payment (5%)', 'Content (4%)', 'Technical (3%)', 'Other (2%)'],
+      datasets: [{
+        data: [48, 25, 13, 5, 4, 3, 2],
+        backgroundColor: [colors.blue, colors.red, colors.purple, colors.amber, colors.teal, colors.pink, colors.slate],
+        borderWidth: 3,
+        borderColor: '#ffffff',
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '55%',
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } }
+      }
+    }
+  });
+
+  // ── 마켓 파이 차트 ──
+  new Chart(document.getElementById('chartMarket'), {
+    type: 'doughnut',
+    data: {
+      labels: ['EN (36.9%)', 'FR (16.7%)', 'ES (13.4%)', 'PT (8.5%)', 'DE (8.2%)', 'TH (4.8%)', 'JP (4.7%)', 'CN (4.1%)', 'IT (2.7%)'],
+      datasets: [{
+        data: [4285, 1941, 1552, 982, 957, 559, 550, 478, 316],
+        backgroundColor: [colors.blue, colors.purple, colors.amber, colors.red, colors.teal, colors.pink, colors.indigo, colors.orange, colors.lime],
+        borderWidth: 3,
+        borderColor: '#ffffff',
+        hoverOffset: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      cutout: '55%',
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 12, font: { size: 11 } } }
+      }
+    }
+  });
+
+  // ── 월별 전체 티켓 추이 ──
+  const months = ['JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC', 'JAN'];
+  const monthlyTotal = [1731, 1511, 1848, 1581, 1365, 1726, 1863];
+  new Chart(document.getElementById('chartMonthly'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [{
+        label: '월별 전체 티켓',
+        data: monthlyTotal,
+        borderColor: colors.sky,
+        backgroundColor: 'rgba(14,165,233,0.08)',
+        fill: true,
+        tension: 0.35,
+        borderWidth: 3,
+        pointRadius: 5,
+        pointBackgroundColor: '#ffffff',
+        pointBorderColor: colors.sky,
+        pointBorderWidth: 2.5,
+        pointHoverRadius: 8
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: false, min: 1200, grid: { color: '#f1f5f9' } },
+        x: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString() + '건' } }
+      }
+    }
+  });
+
+  // ── 마켓별 월간 추이 (Top 5) ──
+  const marketData = {
+    EN: [694, 584, 643, 588, 511, 628, 637],
+    FR: [324, 260, 330, 257, 230, 268, 272],
+    ES: [254, 190, 247, 211, 156, 250, 244],
+    PT: [103, 96, 119, 136, 113, 162, 253],
+    DE: [145, 124, 161, 132, 118, 123, 154]
+  };
+  const marketColors = { EN: colors.blue, FR: colors.purple, ES: colors.amber, PT: colors.red, DE: colors.teal };
+  new Chart(document.getElementById('chartMarketTrend'), {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: Object.entries(marketData).map(([k, v]) => ({
+        label: k,
+        data: v,
+        borderColor: marketColors[k],
+        backgroundColor: 'transparent',
+        tension: 0.35,
+        borderWidth: 2.5,
+        pointRadius: 4,
+        pointBackgroundColor: '#ffffff',
+        pointBorderColor: marketColors[k],
+        pointBorderWidth: 2
+      }))
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
+        x: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 14 } },
+        tooltip: { callbacks: { label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y + '건' } }
+      }
+    }
+  });
+
+  // ── 마켓별 카테고리 Stacked Bar ──
+  const markets = ['EN', 'FR', 'ES', 'PT', 'DE', 'TH', 'JP', 'CN', 'IT'];
+  const catData = {
+    Subscription: [2047, 825, 627, 223, 480, 216, 176, 181, 126],
+    Refund:       [1067, 617, 421, 248, 218, 186, 117, 147,  63],
+    Account:      [ 560, 199, 230, 139, 151,  35, 122,  44,  45],
+    Payment:      [ 197, 106, 108, 181,  30,  50,  33,  26,  30],
+    Other:        [ 414, 194, 166, 191,  78,  72, 102,  80,  52]
+  };
+  const catColors = {
+    Subscription: colors.blue, Refund: colors.red, Account: colors.purple,
+    Payment: colors.amber, Other: colors.slate
+  };
+  new Chart(document.getElementById('chartStackedBar'), {
+    type: 'bar',
+    data: {
+      labels: markets,
+      datasets: Object.entries(catData).map(([k, v]) => ({
+        label: k,
+        data: v,
+        backgroundColor: catColors[k],
+        borderRadius: 2
+      }))
+    },
+    options: {
+      responsive: true,
+      scales: {
+        x: { stacked: true, grid: { display: false } },
+        y: { stacked: true, grid: { color: '#f1f5f9' } }
+      },
+      plugins: {
+        legend: { position: 'bottom', labels: { padding: 14 } },
+        tooltip: {
+          callbacks: {
+            label: ctx => ctx.dataset.label + ': ' + ctx.parsed.y.toLocaleString() + '건'
+          }
+        }
+      }
+    }
+  });
+
+  // ── PT 마켓 성장 차트 ──
+  new Chart(document.getElementById('chartPTGrowth'), {
+    type: 'bar',
+    data: {
+      labels: months,
+      datasets: [{
+        label: 'PT 마켓 월별 티켓',
+        data: [103, 96, 119, 136, 113, 162, 253],
+        backgroundColor: months.map((_, i) => i === 6 ? colors.red : 'rgba(239,68,68,0.3)'),
+        borderRadius: 6,
+        borderSkipped: false
+      }]
+    },
+    options: {
+      responsive: true,
+      scales: {
+        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+        x: { grid: { display: false } }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: { callbacks: { label: ctx => ctx.parsed.y + '건' } }
+      }
+    }
+  });
+</script>
+
+</body>
+</html>
