@@ -304,7 +304,7 @@
   <!-- CB TREND -->
   <div class="section">
     <div class="section-title"><span class="dot" style="background:#ef4444;"></span>차지백 주간 트렌드</div>
-    <div class="chart-card"><h3>차지백 주간 트렌드 (5주)</h3><div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div></div>
+    <div class="chart-card"><h3>차지백 주간 트렌드 (FEB)</h3><div class="chart-wrap" style="height:auto;"><canvas id="chartCBTrend"></canvas></div></div>
   </div>
 
   
@@ -486,14 +486,14 @@ new Chart(document.getElementById('chartMarket'), {
 new Chart(document.getElementById('chartCBTrend'), {
   type: 'bar',
   data: {
-    labels: ["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],
+    labels: ["FEB W1", "FEB W2", "FEB W3", "FEB W4"],
     datasets: [{
       label: '주간 차지백',
-      data: [71, 85, 86, 64, 59],
-      backgroundColor: ['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],
+      data: [85, 86, 64, 59],
+      backgroundColor: ['#94a3b8','#64748b','#64748b','#2563EB'],
       borderRadius: 8,
       borderSkipped: false,
-      barThickness: 36
+      barPercentage: 0.5
     }]
   },
   plugins: [{
@@ -511,7 +511,7 @@ new Chart(document.getElementById('chartCBTrend'), {
     }
   }],
   options: {
-    responsive: true, maintainAspectRatio: false,
+    responsive: true, maintainAspectRatio: true, aspectRatio: 3,
     plugins: { legend: { display: false } },
     scales: {
       y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
