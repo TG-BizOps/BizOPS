@@ -460,18 +460,110 @@
 
 <!-- CHART.JS -->
 <script>
+
 const fontFamily = "'Malgun Gothic','Noto Sans KR',sans-serif";
 Chart.defaults.font.family = fontFamily;
 Chart.defaults.font.size = 12;
 var chartColors = ['#0ea5e9','#6366f1','#f97316','#22c55e','#eab308','#ec4899','#8b5cf6','#64748b','#14b8a6','#f43e5e'];
-const dOpt = { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
-const dOptLegend = { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'65%', plugins:{ legend:{ position:'bottom', labels:{ color:'#475569', font:{size:13,weight:'600'}, usePointStyle:true, padding:14 } }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
-new Chart(document.getElementById('chartCategory'),{type:'doughnut',data:{labels:["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Other", "Coin"],datasets:[{data:[183, 134, 61, 30, 27, 16, 8, 7, 1],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
-new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:["EN", "FR", "ES", "PT", "TH", "DE", "JP", "CN", "IT", "Unknown"],datasets:[{data:[170, 67, 63, 57, 33, 29, 19, 17, 11, 1],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
-new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'Solved',data:[467, 433, 394, 476],backgroundColor:['#0ea5e9','#6366f1','#f97316','#22c55e'],borderRadius:8,barPercentage:0.6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:13,weight:'600'}}},y:{grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
-new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:["Web", "Email", "API"],datasets:[{data:[217, 190, 60],backgroundColor:['#0ea5e9','#6366f1','#f97316'],borderWidth:0}]},options:dOptLegend});
-new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:["Neutral", "Negative", "Very Negative", "Positive"],datasets:[{data:[273, 171, 20, 2],backgroundColor:['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'],borderWidth:0}]},options:dOptLegend});
-new Chart(document.getElementById('chartCBTrend'),{type:'bar',data:{labels:["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'CB',data:[71, 85, 86, 64, 59],backgroundColor:['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],borderRadius:8,borderSkipped:false,barThickness:52}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}})],options:{responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:12,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
+
+new Chart(document.getElementById('chartCategory'), {
+  type: 'doughnut',
+  data: {
+    labels: ["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Other", "Coin"],
+    datasets: [{ data: [183, 134, 61, 30, 27, 16, 8, 7, 1], backgroundColor: chartColors, borderWidth: 0 }]
+  },
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
+});
+
+new Chart(document.getElementById('chartMarket'), {
+  type: 'doughnut',
+  data: {
+    labels: ["EN", "FR", "ES", "PT", "TH", "DE", "JP", "CN", "IT", "Unknown"],
+    datasets: [{ data: [170, 67, 63, 57, 33, 29, 19, 17, 11, 1], backgroundColor: chartColors, borderWidth: 0 }]
+  },
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
+});
+
+new Chart(document.getElementById('chartCBTrend'), {
+  type: 'bar',
+  data: {
+    labels: ["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],
+    datasets: [{
+      label: '주간 차지백',
+      data: [71, 85, 86, 64, 59],
+      backgroundColor: ['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],
+      borderRadius: 8,
+      borderSkipped: false,
+      barThickness: 52
+    }]
+  },
+  plugins: [{
+    afterDatasetsDraw: function(chart) {
+      var ctx = chart.ctx;
+      chart.data.datasets.forEach(function(ds, i) {
+        var meta = chart.getDatasetMeta(i);
+        meta.data.forEach(function(bar, idx) {
+          ctx.fillStyle = '#1e293b';
+          ctx.font = 'bold 12px sans-serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(ds.data[idx] + '건', bar.x, bar.y - 8);
+        });
+      });
+    }
+  }],
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false } },
+    scales: {
+      y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
+      x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 13, weight: '600' } } }
+    }
+  }
+});
+
+// --- Detailed-only charts ---
+var dOptLegend = {
+  responsive: true, maintainAspectRatio: true, aspectRatio: 1.2, cutout: '65%',
+  plugins: {
+    legend: { position: 'bottom', labels: { color: '#475569', font: { size: 13, weight: '600' }, usePointStyle: true, padding: 14 } },
+    tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '건 (' + (ctx.raw / ctx.dataset.data.reduce(function(a,b){return a+b},0) * 100).toFixed(1) + '%)'; } } }
+  }
+};
+
+new Chart(document.getElementById('chartWeeklyTrend'), {
+  type: 'bar',
+  data: {
+    labels: ['FEB W1', 'FEB W2', 'FEB W3', 'FEB W4'],
+    datasets: [{ label: 'Solved', data: [467, 433, 394, 476], backgroundColor: ['#0ea5e9','#6366f1','#f97316','#22c55e'], borderRadius: 8, barPercentage: 0.6 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: true, aspectRatio: 2.4,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return ctx.raw + '건'; } } } },
+    scales: {
+      x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 13, weight: '600' } } },
+      y: { grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
+    }
+  }
+});
+
+new Chart(document.getElementById('chartChannel'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Web', 'Email', 'API'],
+    datasets: [{ data: [217,190,60], backgroundColor: ['#0ea5e9','#6366f1','#f97316'], borderWidth: 0 }]
+  },
+  options: dOptLegend
+});
+
+new Chart(document.getElementById('chartSentiment'), {
+  type: 'doughnut',
+  data: {
+    labels: ["Neutral","Negative","Very Negative","Positive"],
+    datasets: [{ data: [273,171,20,2], backgroundColor: ['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'], borderWidth: 0 }]
+  },
+  options: dOptLegend
+});
+
 </script>
 
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
