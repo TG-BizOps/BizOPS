@@ -205,7 +205,7 @@
       <li><span class="tag tag-warn">IMPROVE</span> 평균 첫 응답 <strong>27.0h</strong> (전주 대비 <strong>+9.2h</strong>). 해결 시간 <strong>70.1h</strong> (+14.6h).</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 41.4% + Refund 24.9%</strong> → 전체의 <strong>66.2%</strong> 차지.</li>
       <li><span class="tag tag-info">GROWTH</span> EN 마켓 점유율 <strong>33.3% → 37.3%</strong> (+4.1%p 상승).</li>
-      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>113건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
+      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>113건</strong> — 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성.</li>
       <li><span class="tag tag-down">CB</span> 차지백 <strong>64건</strong>(~$736) — 전주 대비 <strong>-25.6%</strong>. Paypal 70.3% 지배적.</li>
       <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>41.9%</strong>(165건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
     </ul>
@@ -371,33 +371,33 @@
       <div class="voc-group">🔧 기술/시스템 이슈</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"ผมซื้อ อ่านหรึ่งเดือน ยังไม่ครบเดือนเลย ทำไม ผม เข้าอ่านไม้ได้ ต้องจ่าย เงินใหม่ด้วย" <span style="font-size:10px;color:var(--text-muted);">#122715</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>ES·EN·PT</td><td>8</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Why can't I aaccess my VIP?? I paid for a year!" <span style="font-size:10px;color:var(--text-muted);">#122543</span></td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·PT·IT</td><td>17</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Non riesco ad usare l abbonamento è sempre bloccato il filtro famiglia" <span style="font-size:10px;color:var(--text-muted);">#122474</span></td><td>CDN/이미지 서버 성능 모니터링</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>ES·PT·CN</td><td>12</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"帳號問題: 妳好～想請問～我明明到2/20會員才到期～為何目前都不能看～網頁的客服～也只有未登入能進入～登入後都會跳回主畫面？能說明一下嗎" <span style="font-size:10px;color:var(--text-muted);">#122073</span></td><td>OAuth 안정성 모니터링</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"ผมซื้อ อ่านหรึ่งเดือน ยังไม่ครบเดือนเลย ทำไม ผม เข้าอ่านไม้ได้ ต้องจ่าย เงินใหม่ด้วย" <span style="font-size:10px;color:var(--text-muted);">#122715</span></td><td>결제-VIP 동기화 실패 케이스 수집 후 패턴 분석</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>ES·EN·PT</td><td>8</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Why can't I aaccess my VIP?? I paid for a year!" <span style="font-size:10px;color:var(--text-muted);">#122543</span></td><td>미적용 티켓 즉시 수동 VIP 부여 + 재발 패턴 로그 수집</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·PT·IT</td><td>17</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Non riesco ad usare l abbonamento è sempre bloccato il filtro famiglia" <span style="font-size:10px;color:var(--text-muted);">#122474</span></td><td>재생 오류 마켓/디바이스별 패턴 분석 후 CS 매크로 업데이트</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>ES·PT·CN</td><td>12</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"帳號問題: 妳好～想請問～我明明到2/20會員才到期～為何目前都不能看～網頁的客服～也只有未登入能進入～登入後都會跳回主畫面？能說明一下嗎" <span style="font-size:10px;color:var(--text-muted);">#122073</span></td><td>로그인 실패 마켓별 빈도 추적 + 임시 해결 가이드 CS 매크로 추가</td></tr>
         </tbody>
       </table>
       <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·FR·ES</td><td>113</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Please cancel my subscription – no account access: Hello Toomics Support Team, I hope you are doing " <span style="font-size:10px;color:var(--text-muted);">#120439</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·PT·FR</td><td>58</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Prélèvement injustifiée: Bonjour J'avais un abonnement sur mon compte toomics associés l'e-mail suiv" <span style="font-size:10px;color:var(--text-muted);">#122470</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>FR·TH·DE</td><td>6</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"ไม่ได้ตั้งใจจะซื้อแพ็คเกจนี้ ตอนแรกเขียนไว้200กว่ายาทแต่หักจริง1,200" <span style="font-size:10px;color:var(--text-muted);">#122310</span></td><td>결제 재시도 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·FR·ES</td><td>113</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Please cancel my subscription – no account access: Hello Toomics Support Team, I hope you are doing " <span style="font-size:10px;color:var(--text-muted);">#120439</span></td><td>갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·PT·FR</td><td>58</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Prélèvement injustifiée: Bonjour J'avais un abonnement sur mon compte toomics associés l'e-mail suiv" <span style="font-size:10px;color:var(--text-muted);">#122470</span></td><td>환불 기준(7일/미사용) 자동 심사 규칙 정의 + FAQ 업데이트</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>FR·TH·DE</td><td>6</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"ไม่ได้ตั้งใจจะซื้อแพ็คเกจนี้ ตอนแรกเขียนไว้200กว่ายาทแต่หักจริง1,200" <span style="font-size:10px;color:var(--text-muted);">#122310</span></td><td>이중과금 케이스 증빙 수집 + 결제 재시도 패턴 데이터 분석</td></tr>
         </tbody>
       </table>
       <div class="voc-group">📚 콘텐츠 & 계정</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>계정 삭제/GDPR 요청</td><td>EN·DE·ES</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"How to deactivate account: Everytime I try to deactivate my account it says I have to cancel my vip " <span style="font-size:10px;color:var(--text-muted);">#122176</span></td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>계정 삭제/GDPR 요청</td><td>EN·DE·ES</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"How to deactivate account: Everytime I try to deactivate my account it says I have to cancel my vip " <span style="font-size:10px;color:var(--text-muted);">#122176</span></td><td>GDPR 삭제 요청 SLA 준수 모니터링 + 셀프 삭제 플로우 요건 정리</td></tr>
           <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>DE·EN·JP</td><td>8</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
 
-회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#121422</span></td><td>작품별 이미지 에셋 점검</td></tr>
+회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#121422</span></td><td>이미지 오류 작품/회차 리스트 취합 + QA 리포트 전달</td></tr>
         </tbody>
       </table>
 
@@ -410,11 +410,11 @@
     <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Top 3 Action Items</div>
     <div class="chart-card">
       <table class="rec-table">
-        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>예상 임팩트</th><th>상태</th></tr></thead>
         <tbody>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -65건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span></td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>해지 CS -65건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
         </tbody>
       </table>
     </div>

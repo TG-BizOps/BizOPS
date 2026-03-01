@@ -177,7 +177,7 @@
       <li><span class="tag tag-info">VOLUME</span> 1월 1주차 총 <strong>467건</strong> 처리. (전주 비교 데이터 없음). 영업일 평균 <strong>93.4건</strong>.</li>
       <li><span class="tag tag-warn">IMPROVE</span> 평균 첫 응답 <strong>17.9h</strong>. 해결 시간 <strong>56.9h</strong>.</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 39.2% + Refund 28.7%</strong> → 전체의 <strong>67.9%</strong> 차지.</li>
-      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>124건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
+      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>124건</strong> — 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성.</li>
       <li><span class="tag tag-up">CB</span> 차지백 <strong>85건</strong>(~$1,179) — 전주 대비 <strong>+19.7%</strong>. Paypal 64.7% 지배적.</li>
       <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>40.9%</strong>(191건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
     </ul>
@@ -321,7 +321,7 @@
         </div>
         <div class="voice-quote">"Efetuei o pagamento, mas não estou tento acesso aos episódios"<br><span class="translation">— #114569 (PT)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 22건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
-        <span class="voice-action">→ IAP/결제 동기화 모니터링 강화</span>
+        <span class="voice-action">→ 결제-VIP 동기화 실패 케이스 수집 후 패턴 분석</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -332,7 +332,7 @@
         </div>
         <div class="voice-quote">"I’ve paid for subscription and it’s not working it’s not letting me use it"<br><span class="translation">— #117067 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 79% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ VIP 상태 캐시 갱신 로직 점검</span>
+        <span class="voice-action">→ 미적용 티켓 즉시 수동 VIP 부여 + 재발 패턴 로그 수집</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -343,7 +343,7 @@
         </div>
         <div class="voice-quote">"สมัครไปแล้ว ดูไม่ได้"<br><span class="translation">— #117090 (TH)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 20건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
-        <span class="voice-action">→ CDN/이미지 서버 성능 모니터링</span>
+        <span class="voice-action">→ 재생 오류 마켓/디바이스별 패턴 분석 후 CS 매크로 업데이트</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -354,7 +354,7 @@
         </div>
         <div class="voice-quote">"Nao consigo acessar Ja sou vip"<br><span class="translation">— #114273 (PT)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 10건 발생 — 모니터링 유지, 추세 악화 시 즉시 대응 필요.</div>
-        <span class="voice-action">→ OAuth 안정성 모니터링</span>
+        <span class="voice-action">→ 로그인 실패 마켓별 빈도 추적 + 임시 해결 가이드 CS 매크로 추가</span>
       </div>
       <div class="voice-category">⚠️ 정책 오해 & UX 혼란</div>
       <div class="voice-card severity-high">
@@ -366,7 +366,7 @@
         </div>
         <div class="voice-quote">"Please cancel my subscription: Hi, I'd like to cancel Toomics, effective immediately and no longer wish to be billed. i’ve emailed multiple times before saying i wish to not be billed anymore and im s"<br><span class="translation">— #117215 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 124건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
-        <span class="voice-action">→ 갱신 알림(7일/3일) + 셀프 취소 UX 개선</span>
+        <span class="voice-action">→ 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -377,7 +377,7 @@
         </div>
         <div class="voice-quote">"Can I get I refund it isnt the same as i thinking that i want. I just buy it for 30 minutes I misunderstood it all so can you please refund it for me please."<br><span class="translation">— #117029 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 86건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
-        <span class="voice-action">→ 환불 조건 사전 안내 + 자동 심사 도입</span>
+        <span class="voice-action">→ 환불 기준(7일/미사용) 자동 심사 규칙 정의 + FAQ 업데이트</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -388,7 +388,7 @@
         </div>
         <div class="voice-quote">"Tenía cancelada la suscripción y hoy se volvió a cobrar y la tuve que volver cancelar"<br><span class="translation">— #117717 (ES)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 100% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ 결제 재시도 로직 점검</span>
+        <span class="voice-action">→ 이중과금 케이스 증빙 수집 + 결제 재시도 패턴 데이터 분석</span>
       </div>
       <div class="voice-category">📚 콘텐츠 & 계정</div>
       <div class="voice-card severity-high">
@@ -400,7 +400,7 @@
         </div>
         <div class="voice-quote">"先日連絡しました会員番号ふ9738737　鈴木です。 誠に勝手ながら退会をキャンセルして継続をお願いします。 あと現在使用不可な33z.rider@gmail.comからsz-rider555@au.comに変更をお願いしたいです。 ※以下が先日連絡したメール内容です わたしは鈴木政之と言います 解約手続きをしたいのですが 当初のアドレス33z.rider@gmail.comで登録してましたが現在"<br><span class="translation">— #118231 (JP)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 21건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
-        <span class="voice-action">→ 셀프 삭제 UX + GDPR 파이프라인</span>
+        <span class="voice-action">→ GDPR 삭제 요청 SLA 준수 모니터링 + 셀프 삭제 플로우 요건 정리</span>
       </div>
       <div class="voice-card severity-medium">
         <div class="voice-header">
@@ -413,7 +413,7 @@
 
 회차정보 : 13"<br><span class="translation">— #115045 (ES)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 5건 발생 — 모니터링 유지, 추세 악화 시 즉시 대응 필요.</div>
-        <span class="voice-action">→ 작품별 이미지 에셋 점검</span>
+        <span class="voice-action">→ 이미지 오류 작품/회차 리스트 취합 + QA 리포트 전달</span>
       </div>
 
   </div>
@@ -436,14 +436,14 @@
     <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Strategic Recommendations</div>
     <div class="chart-card">
       <table class="rec-table">
-        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>예상 임팩트</th><th>상태</th></tr></thead>
         <tbody>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -73건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>셀프 구독 해지 UX</strong><br><span style="font-size:11px;color:var(--text-muted);">설정 > 구독관리 > 원클릭 해지 + 해지 사유 수집</span></td><td>Product</td><td>4주</td><td>해지 CS -30%, CSAT 개선</td><td><span class="cat-badge partial">백로그</span></td></tr>
-          <tr><td><span class="priority-badge p2">P2</span></td><td><strong>FR/ES 마켓 CS 템플릿 확충</strong><br><span style="font-size:11px;color:var(--text-muted);">영문 템플릿 현지화 번역 + FAQ 확대</span></td><td>CS Ops</td><td>3주</td><td>유럽 마켓 FRT -20%, CSAT +5%</td><td><span class="cat-badge auto">계획</span></td></tr>
-          <tr><td><span class="priority-badge p3">P3</span></td><td><strong>CS 자동응답 파일럿 (EN)</strong><br><span style="font-size:11px;color:var(--text-muted);">FAQ 기반 자동응답 + 에이전트 에스컬레이션</span></td><td>AI Team</td><td>6주</td><td>EN 마켓 CS 처리량 +40%, FRT -70%</td><td><span class="cat-badge auto">파일럿</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span></td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>해지 CS -73건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>셀프 구독 해지 UX</strong><br><span style="font-size:11px;color:var(--text-muted);">설정 > 구독관리 > 원클릭 해지 + 해지 사유 수집</span></td><td>해지 CS -30%, CSAT 개선</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p2">P2</span></td><td><strong>FR/ES 마켓 CS 템플릿 확충</strong><br><span style="font-size:11px;color:var(--text-muted);">영문 템플릿 현지화 번역 + FAQ 확대</span></td><td>유럽 마켓 FRT -20%, CSAT +5%</td><td><span class="cat-badge auto">계획</span></td></tr>
+          <tr><td><span class="priority-badge p3">P3</span></td><td><strong>CS 자동응답 파일럿 (EN)</strong><br><span style="font-size:11px;color:var(--text-muted);">FAQ 기반 자동응답 + 에이전트 에스컬레이션</span></td><td>EN 마켓 CS 처리량 +40%, FRT -70%</td><td><span class="cat-badge auto">파일럿</span></td></tr>
         </tbody>
       </table>
     </div>
