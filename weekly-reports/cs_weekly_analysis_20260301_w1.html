@@ -78,15 +78,17 @@
   .voice-card.severity-high { border-left-color: #ef4444; }
   .voice-card.severity-medium { border-left-color: #f59e0b; }
   .voice-card.severity-low { border-left-color: #22c55e; }
-  .voc-group { font-size:14px; font-weight:800; color:#f1f5f9; margin:20px 0 8px; padding:8px 14px; background:linear-gradient(90deg,#1e3a5f 0%,#1e293b 100%); border-radius:8px; border-left:4px solid #0ea5e9; }
-  .voc-group:first-of-type { margin-top:0; }
-  .voc-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; table-layout:fixed; }
-  .voc-table th { text-align:left; padding:8px 10px; border-bottom:2px solid #334155; color:#94a3b8; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
-  .voc-table td { padding:8px 10px; border-bottom:1px solid #2d3a4e; vertical-align:top; color:#e2e8f0; }
-  .voc-table tr:hover td { background:#162032; }
-  .sev { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
-  .sev-high { background:#3b1c1c; color:#fca5a5; }
-  .sev-medium { background:#3b2e1c; color:#fcd34d; }
+  .voice-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
+  .voice-badge { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .badge-market { background:#1e3a5f; color:#7dd3fc; }
+  .badge-count { background:#1e293b; color:#94a3b8; border:1px solid #334155; }
+  .badge-severity-high { background:#3b1c1c; color:#fca5a5; }
+  .badge-severity-medium { background:#3b2e1c; color:#fcd34d; }
+  .voice-title { font-size:13px; font-weight:700; color:#f1f5f9; }
+  .voice-quote { font-size:12px; color:#94a3b8; font-style:italic; padding:10px 16px; background:#0f172a; border-radius:8px; margin-bottom:10px; line-height:1.7; border-left:3px solid #334155; }
+  .voice-quote .translation { display:block; font-style:normal; font-size:11px; color:#64748b; margin-top:4px; }
+  .voice-impact { font-size:12px; color:#cbd5e1; margin-bottom:8px; line-height:1.6; }
+  .voice-action { font-size:12px; color:#38bdf8; font-weight:600; }
   .action-list { background: #1e293b; border-radius: 16px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,0.3); border: 1px solid #334155; }
   .action-list h3 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 16px; }
   .action-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #2d3a4e; }
@@ -115,13 +117,15 @@
     </div>
   </div>
 
-  <!-- EXECUTIVE SUMMARY (placeholder — 에이전트가 인사이트 채움) -->
+  <!-- EXECUTIVE SUMMARY -->
   <div class="exec-summary">
     <h2>Executive Summary</h2>
     <ul>
-      <li><span class="tag tag-info">📈 VOLUME</span> 1월 1주차 총 <strong>467건</strong> 처리. (전주 비교 데이터 없음).</li>
-      <li><span class="tag tag-warn">⏱ FRT</span> 평균 첫 응답 <strong>17.9h</strong>.</li>
-      <li><span class="tag tag-up">🔴 CB</span> 차지백 <strong>85건</strong>(~$1,179) — 전주 대비 <strong>+19.7%</strong>. Paypal 64.7% 지배적.</li>
+      <li><span class="tag tag-info">VOLUME</span> 1월 1주차 총 <strong>467건</strong> 처리. (전주 비교 데이터 없음).</li>
+      <li><span class="tag tag-warn">IMPROVE</span> 평균 첫 응답 <strong>17.9h</strong>. 해결 시간 <strong>56.9h</strong>.</li>
+      <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 39.2% + Refund 28.7%</strong> → 전체의 <strong>67.9%</strong> 차지.</li>
+      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>124건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
+      <li><span class="tag tag-up">CB</span> 차지백 <strong>85건</strong>(~$1,179) — 전주 대비 <strong>+19.7%</strong>. Paypal 64.7% 지배적.</li>
     </ul>
   </div>
 
@@ -220,39 +224,111 @@
   
   <div class="section voice-section">
     <div class="section-title"><span class="dot" style="background:#8b5cf6;"></span>Customer Voice — 주요 이슈 요약</div>
-    <div class="chart-card">
-      <div class="voc-group">🔧 기술/시스템 이슈</div>
-      <table class="voc-table">
-        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·FR</td><td>22</td><td>IAP/결제 동기화 모니터링 강화</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>EN·ES·FR</td><td>19</td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>PT·ES·EN</td><td>20</td><td>CDN/이미지 서버 성능 모니터링</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>PT·ES·FR</td><td>10</td><td>OAuth 안정성 모니터링</td></tr>
-        </tbody>
-      </table>
-      <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
-      <table class="voc-table">
-        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·FR·DE</td><td>124</td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·FR·TH</td><td>86</td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>PT·ES·CN</td><td>6</td><td>결제 재시도 로직 점검</td></tr>
-        </tbody>
-      </table>
-      <div class="voc-group">📚 콘텐츠 & 계정</div>
-      <table class="voc-table">
-        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·JP</td><td>21</td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
-          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>ES·DE·FR</td><td>5</td><td>작품별 이미지 에셋 점검</td></tr>
-        </tbody>
-      </table>
+      <div class="voice-category">🔧 기술/시스템 이슈</div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">PT·ES·FR</span>
+          <span class="voice-badge badge-count">22건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">VIP 결제 후 미적용 (결제-VIP 동기화 실패)</span>
+        </div>
+        <div class="voice-quote">"Efetuei o pagamento, mas não estou tento acesso aos episódios"<br><span class="translation">— #114569 (PT)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 22건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
+        <span class="voice-action">→ IAP/결제 동기화 모니터링 강화</span>
+      </div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">EN·ES·FR</span>
+          <span class="voice-badge badge-count">19건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">VIP 구독 미표시 (프리미엄 상태 미반영)</span>
+        </div>
+        <div class="voice-quote">"I’ve paid for subscription and it’s not working it’s not letting me use it"<br><span class="translation">— #117067 (EN)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 79% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
+        <span class="voice-action">→ VIP 상태 캐시 갱신 로직 점검</span>
+      </div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">PT·ES·EN</span>
+          <span class="voice-badge badge-count">20건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">콘텐츠 재생/로딩 오류</span>
+        </div>
+        <div class="voice-quote">"สมัครไปแล้ว ดูไม่ได้"<br><span class="translation">— #117090 (TH)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 20건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
+        <span class="voice-action">→ CDN/이미지 서버 성능 모니터링</span>
+      </div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">PT·ES·FR</span>
+          <span class="voice-badge badge-count">10건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">로그인/계정 접근 실패</span>
+        </div>
+        <div class="voice-quote">"Nao consigo acessar Ja sou vip"<br><span class="translation">— #114273 (PT)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 10건 발생 — 모니터링 유지, 추세 악화 시 즉시 대응 필요.</div>
+        <span class="voice-action">→ OAuth 안정성 모니터링</span>
+      </div>
+      <div class="voice-category">⚠️ 정책 오해 & UX 혼란</div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">EN·FR·DE</span>
+          <span class="voice-badge badge-count">124건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">자동갱신 미인지 / 구독 해지 요청</span>
+        </div>
+        <div class="voice-quote">"Please cancel my subscription: Hi, I'd like to cancel Toomics, effective immediately and no longer wish to be billed. i’ve emailed multiple times before saying i wish to not be billed anymore and im s"<br><span class="translation">— #117215 (EN)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 124건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
+        <span class="voice-action">→ 갱신 알림(7일/3일) + 셀프 취소 UX 개선</span>
+      </div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">EN·FR·TH</span>
+          <span class="voice-badge badge-count">86건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">환불 요청 (서비스 기대 불일치 포함)</span>
+        </div>
+        <div class="voice-quote">"Can I get I refund it isnt the same as i thinking that i want. I just buy it for 30 minutes I misunderstood it all so can you please refund it for me please."<br><span class="translation">— #117029 (EN)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 86건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
+        <span class="voice-action">→ 환불 조건 사전 안내 + 자동 심사 도입</span>
+      </div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">PT·ES·CN</span>
+          <span class="voice-badge badge-count">6건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">이중/오과금 클레임</span>
+        </div>
+        <div class="voice-quote">"Tenía cancelada la suscripción y hoy se volvió a cobrar y la tuve que volver cancelar"<br><span class="translation">— #117717 (ES)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 100% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
+        <span class="voice-action">→ 결제 재시도 로직 점검</span>
+      </div>
+      <div class="voice-category">📚 콘텐츠 & 계정</div>
+      <div class="voice-card severity-high">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">EN·FR·JP</span>
+          <span class="voice-badge badge-count">21건</span>
+          <span class="voice-badge badge-severity-high">HIGH</span>
+          <span class="voice-title">계정 삭제/GDPR 요청</span>
+        </div>
+        <div class="voice-quote">"先日連絡しました会員番号ふ9738737　鈴木です。 誠に勝手ながら退会をキャンセルして継続をお願いします。 あと現在使用不可な33z.rider@gmail.comからsz-rider555@au.comに変更をお願いしたいです。 ※以下が先日連絡したメール内容です わたしは鈴木政之と言います 解約手続きをしたいのですが 当初のアドレス33z.rider@gmail.comで登録してましたが現在"<br><span class="translation">— #118231 (JP)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 21건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
+        <span class="voice-action">→ 셀프 삭제 UX + GDPR 파이프라인</span>
+      </div>
+      <div class="voice-card severity-medium">
+        <div class="voice-header">
+          <span class="voice-badge badge-market">ES·DE·FR</span>
+          <span class="voice-badge badge-count">5건</span>
+          <span class="voice-badge badge-severity-medium">MEDIUM</span>
+          <span class="voice-title">이미지 오류/스크린샷 첨부 문의</span>
+        </div>
+        <div class="voice-quote">"작품정보 : Switch ON
 
-    </div>
+회차정보 : 13"<br><span class="translation">— #115045 (ES)</span></div>
+        <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 5건 발생 — 모니터링 유지, 추세 악화 시 즉시 대응 필요.</div>
+        <span class="voice-action">→ 작품별 이미지 에셋 점검</span>
+      </div>
+
   </div>
 
   <!-- FOOTER -->
