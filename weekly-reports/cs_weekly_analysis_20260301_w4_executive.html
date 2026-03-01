@@ -147,6 +147,15 @@
     canvas { max-width: 100% !important; }
     .back-to-top { display:none !important; }
   }
+  .voc-group { font-size:14px; font-weight:800; color:var(--text-primary); margin:20px 0 8px; padding:8px 14px; background:linear-gradient(90deg,#DBEAFE 0%,#F8FAFC 100%); border-radius:8px; border-left:4px solid var(--accent-info); }
+  .voc-group:first-of-type { margin-top:0; }
+  .voc-table { width:100%; border-collapse:collapse; font-size:13px; margin-bottom:16px; table-layout:fixed; }
+  .voc-table th { text-align:left; padding:8px 10px; border-bottom:2px solid #CBD5E1; color:#64748B; font-weight:600; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
+  .voc-table td { padding:8px 10px; border-bottom:1px solid var(--border); vertical-align:top; }
+  .voc-table tr:hover td { background:var(--bg-muted); }
+  .sev { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .sev-high { background:#fef2f2; color:#b91c1c; }
+  .sev-medium { background:#fefce8; color:#b45309; }
   ::selection { background:#3b82f6; color:#fff; }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml">
@@ -342,6 +351,46 @@
       </div>
     </div>
   </div>
+
+  
+  <!-- CUSTOMER VOICE -->
+  <div class="section voice-section">
+    <div class="section-title"><span class="dot"></span>Customer Voice — 주요 이슈 요약</div>
+    <div class="chart-card">
+      <div class="voc-group">🔧 기술/시스템 이슈</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td>IAP/결제 동기화 모니터링 강화</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>FR·ES·EN</td><td>25</td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·FR·ES</td><td>13</td><td>CDN/이미지 서버 성능 모니터링</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·ES</td><td>10</td><td>OAuth 안정성 모니터링</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>125</td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·PT</td><td>79</td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·ES</td><td>7</td><td>결제 재시도 로직 점검</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">📚 콘텐츠 & 계정</div>
+      <table class="voc-table">
+        <colgroup><col style="width:10%"><col style="width:40%"><col style="width:15%"><col style="width:10%"><col style="width:25%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·PT</td><td>11</td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>PT·FR·TH</td><td>20</td><td>작품별 이미지 에셋 점검</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
 
   <!-- FOOTER -->
   <div class="footer">
