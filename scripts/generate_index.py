@@ -396,7 +396,7 @@ def generate_html(sections_data, total_count, today_str):
     lines.append('<header class="hero">')
     lines.append('  <div class="hero-badge">Document Index</div>')
     lines.append("  <h1>BizOps 산출물</h1>")
-    lines.append('  <div class="subtitle">Toomics Global · 글로벌 플랫폼 운영팀</div>')
+    lines.append('  <div class="subtitle">Toomics Global · BizOps팀</div>')
     lines.append('  <div class="hero-meta">')
     lines.append("    <span>작성자: 유종선</span>")
     lines.append(f"    <span>최종 업데이트: {today_str}</span>")

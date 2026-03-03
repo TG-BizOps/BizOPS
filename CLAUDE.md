@@ -1,7 +1,7 @@
 # CLAUDE.md — BizOps Global Platform Operations
 
 ## 프로젝트 개요
-- 소속: Toomics Global / 글로벌 플랫폼 운영팀 (BizOps)
+- 소속: Toomics Global / BizOps팀 (BizOps)
 - 담당: 결제(PG), 고객지원(CS), 저작권 보호(IP) — 10개 언어 마켓
 - 팀: 유종선(팀장), 김지호, 이동원, 박선주, 왕시베이
 - 주요 도구: Zendesk, Confluence, Slack, Google Sheets, GitHub
