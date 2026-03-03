@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="유종선">
-<meta name="description" content="Toomics Global BizOps — 산출물 포탈">
-<title>BizOps Portal | Toomics Global</title>
+<meta name="description" content="Toomics Global BizOps — 산출물 인덱스">
+<title>BizOps 산출물 | Toomics Global</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -33,74 +33,45 @@
     margin-top: 20px; font-size: 12px; opacity: 0.75;
   }
   .container { max-width: 1280px; margin: 0 auto; padding: 32px 24px 64px; }
-
-  /* Stat Cards */
   .stats {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     gap: 16px; margin-bottom: 40px;
   }
   .stat-card {
     background: #fff; border: 1px solid #E2E8F0;
     border-radius: 12px; padding: 20px; text-align: center;
     border-top: 3px solid #2563EB;
-    text-decoration: none; color: #1E293B;
-    transition: box-shadow 0.15s, transform 0.15s;
-    cursor: pointer;
   }
-  .stat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
   .stat-card .num { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .stat-card .lbl { font-size: 12px; color: #475569; margin-top: 4px; }
-  .stat-card:nth-child(2) { border-top-color: #7C3AED; }
-  .stat-card:nth-child(3) { border-top-color: #F59E0B; }
-  .stat-card:nth-child(4) { border-top-color: #0EA5E9; }
-  .stat-card:nth-child(5) { border-top-color: #10B981; }
-  .stat-card:nth-child(6) { border-top-color: #EF4444; }
-  .stat-card:nth-child(7) { border-top-color: #475569; }
-
-  /* Accordion */
-  .accordion { margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
-  .accordion-header {
+  .stat-card:nth-child(2) { border-top-color: #0EA5E9; }
+  .stat-card:nth-child(3) { border-top-color: #10B981; }
+  .stat-card:nth-child(4) { border-top-color: #F59E0B; }
+  .stat-card:nth-child(5) { border-top-color: #7C3AED; }
+  .section { margin-bottom: 36px; }
+  .section-title {
     display: flex; align-items: center; gap: 10px;
-    padding: 16px 20px; background: #fff; cursor: pointer;
-    font-size: 16px; font-weight: 800; user-select: none;
-    transition: background 0.15s;
-    border: none; width: 100%; text-align: left; color: #1E293B;
-    font-family: inherit; line-height: 1.7;
+    font-size: 18px; font-weight: 800; margin-bottom: 16px;
+    padding-bottom: 10px; border-bottom: 2px solid #E2E8F0;
   }
-  .accordion-header:hover { background: #F8FAFC; }
-  .accordion-header .icon {
+  .section-title .icon {
     width: 28px; height: 28px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; color: #fff; flex-shrink: 0;
+    font-size: 14px; color: #fff; flex-shrink: 0;
   }
-  .accordion-header .count {
+  .section-title .count {
     margin-left: auto; font-size: 12px; font-weight: 600;
     color: #94A3B8; background: #F1F5F9;
     padding: 2px 10px; border-radius: 12px;
   }
-  .accordion-header .chevron {
-    width: 20px; height: 20px; flex-shrink: 0;
-    transition: transform 0.25s ease;
-    color: #94A3B8;
-  }
-  .accordion.open .accordion-header .chevron { transform: rotate(180deg); }
-  .accordion-body {
-    max-height: 0; overflow: hidden;
-    transition: max-height 0.35s ease;
-    background: #F8FAFC;
-  }
-  .accordion.open .accordion-body { max-height: 2000px; }
-  .accordion-body-inner { padding: 8px 20px 20px; }
-
-  /* Link Grid */
   .link-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 10px;
+    gap: 12px;
   }
   .link-card {
     display: flex; align-items: center; gap: 14px;
     background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 10px; padding: 14px 16px;
+    border-radius: 12px; padding: 16px 18px;
     text-decoration: none; color: #1E293B;
     transition: border-color 0.15s, box-shadow 0.15s;
     border-left: 4px solid transparent;
@@ -110,22 +81,20 @@
     border-left-color: #2563EB;
   }
   .link-card .lc-icon {
-    width: 34px; height: 34px; border-radius: 8px;
+    width: 36px; height: 36px; border-radius: 8px;
     display: flex; align-items: center; justify-content: center;
-    font-size: 13px; font-weight: 700; flex-shrink: 0;
+    font-size: 16px; flex-shrink: 0;
   }
   .link-card .lc-body { flex: 1; min-width: 0; overflow: hidden; }
   .link-card .lc-title {
-    font-size: 13px; font-weight: 700;
+    font-size: 14px; font-weight: 700;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  .link-card .lc-desc { font-size: 11px; color: #475569; margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
+  .link-card .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
   .link-card .lc-badge {
-    font-size: 10px; font-weight: 700; padding: 2px 8px;
+    font-size: 10.5px; font-weight: 700; padding: 2px 8px;
     border-radius: 6px; white-space: nowrap;
   }
-
-  /* Color Tokens */
   .bg-blue   { background: #EFF6FF; color: #2563EB; }
   .bg-cyan   { background: #ECFEFF; color: #0891B2; }
   .bg-green  { background: #ECFDF5; color: #059669; }
@@ -139,335 +108,193 @@
   .ic-amber  { background: #F59E0B; }
   .ic-red    { background: #EF4444; }
   .ic-purple { background: #7C3AED; }
-  .ic-slate  { background: #475569; }
-
-  /* History */
-  .history-list { list-style: none; }
-  .history-item {
-    display: flex; gap: 12px; padding: 10px 0;
-    border-bottom: 1px solid #E2E8F0; font-size: 13px;
-  }
-  .history-item:last-child { border-bottom: none; }
-  .history-date {
-    flex-shrink: 0; font-weight: 700; color: #64748B;
-    font-variant-numeric: tabular-nums; min-width: 90px;
-  }
-  .history-msg { color: #334155; }
-
-  /* Pagination */
-  .pagination {
-    display: flex; justify-content: center; align-items: center;
-    gap: 4px; margin-top: 16px; padding-top: 16px;
-    border-top: 1px solid #E2E8F0;
-  }
-  .pagination button {
-    min-width: 36px; height: 36px; border: 1px solid #E2E8F0;
-    border-radius: 8px; background: #fff; color: #475569;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    transition: all 0.15s; font-family: inherit;
-  }
-  .pagination button:hover { background: #F1F5F9; border-color: #CBD5E1; }
-  .pagination button.active {
-    background: #2563EB; color: #fff; border-color: #2563EB;
-  }
-  .pagination button:disabled {
-    opacity: 0.4; cursor: default; background: #F8FAFC;
-  }
-  .pagination .page-info {
-    font-size: 12px; color: #94A3B8; margin: 0 8px;
-  }
-
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
   }
   @media print {
     .hero { padding: 24px; }
-    .accordion-body { max-height: none !important; }
-    .chevron { display: none; }
+    .link-card { break-inside: avoid; }
+    .link-card::after { content: " (" attr(href) ")"; font-size: 10px; color: #94A3B8; }
   }
   @media (max-width: 600px) {
     .link-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2, 1fr); }
     .hero h1 { font-size: 24px; }
   }
+
 </style>
 </head>
 <body>
 
 <header class="hero">
-  <div class="hero-badge">Document Portal</div>
-  <h1>BizOps Portal</h1>
-  <div class="subtitle">Toomics Global &middot; BizOps Team</div>
+  <div class="hero-badge">Document Index</div>
+  <h1>BizOps 산출물</h1>
+  <div class="subtitle">Toomics Global · 글로벌 플랫폼 운영팀</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>최종 업데이트: 2026-03-01</span>
-    <span>문서 41건 &middot; 7개 카테고리</span>
+    <span>최종 업데이트: 2026-03-03</span>
+    <span>문서 12건</span>
   </div>
 </header>
 
 <div class="container">
-
-  <!-- Stats -->
   <div class="stats">
-    <div class="stat-card" data-target="sec-cs">
-      <div class="num">8</div><div class="lbl">CS 운영</div>
-    </div>
-    <div class="stat-card" data-target="sec-chatbot">
-      <div class="num">14</div><div class="lbl">AI 챗봇</div>
-    </div>
-    <div class="stat-card" data-target="sec-cb">
-      <div class="num">4</div><div class="lbl">차지백</div>
-    </div>
-    <a class="stat-card" href="weekly-reports/" style="text-decoration:none;">
-      <div class="num">12</div><div class="lbl">주간 리포트</div>
-    </a>
-    <div class="stat-card" data-target="sec-ip">
-      <div class="num">1</div><div class="lbl">IP 보호</div>
-    </div>
-    <div class="stat-card" data-target="sec-ticket">
-      <div class="num">2</div><div class="lbl">대시보드</div>
-    </div>
-    <div class="stat-card" data-target="sec-tpl">
-      <div class="num">1</div><div class="lbl">기타</div>
-    </div>
+    <div class="stat-card"><div class="num">9</div><div class="lbl">CS 운영</div></div>
+    <div class="stat-card"><div class="num">0</div><div class="lbl">AI 챗봇</div></div>
+    <div class="stat-card"><div class="num">3</div><div class="lbl">차지백</div></div>
+    <div class="stat-card"><div class="num">0</div><div class="lbl">IP 보호</div></div>
+    <div class="stat-card"><div class="num">0</div><div class="lbl">대시보드</div></div>
   </div>
 
-  <!-- CS 운영 -->
-  <div class="accordion" id="sec-cs">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-blue">CS</span> CS 운영
-      <span class="count">8건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="cs/cs_manual_EN_20260219.html"><span class="lc-icon bg-blue">EN</span><span class="lc-body"><span class="lc-title">TOOMICS Global CS Operations Manual v2.1</span></span><span class="lc-badge bg-blue">Manual</span></a>
-        <a class="link-card" href="cs/cs_manual_KO_20260219.html"><span class="lc-icon bg-blue">KO</span><span class="lc-body"><span class="lc-title">TOOMICS Global CS 운영 매뉴얼 v2.1</span></span><span class="lc-badge bg-blue">Manual</span></a>
-        <a class="link-card" href="cs/cs_repeat_complaint_manual_20260225.html"><span class="lc-icon bg-blue">R</span><span class="lc-body"><span class="lc-title">반복 문의 고객 대응 매뉴얼</span></span><span class="lc-badge bg-blue">Manual</span></a>
-        <a class="link-card" href="cs/cs_fraud_analysis_20260219_refund_dispute.html"><span class="lc-icon bg-red">F</span><span class="lc-body"><span class="lc-title">악의성 환불 요청 분석 리포트</span></span><span class="lc-badge bg-red">Analysis</span></a>
-        <a class="link-card" href="cs/cs_infographic_20260220.html"><span class="lc-icon bg-cyan">I</span><span class="lc-body"><span class="lc-title">CS Infographic | 2025.07 ~ 2026.01</span></span><span class="lc-badge bg-cyan">Visual</span></a>
-        <a class="link-card" href="cs/cs_l1_l2_l3_analysis_20260225.html"><span class="lc-icon bg-cyan">L</span><span class="lc-body"><span class="lc-title">CS 티켓 레벨 분석 (L1/L2/L3)</span></span><span class="lc-badge bg-cyan">Analysis</span></a>
-        <a class="link-card" href="cs/cs_flow_diagram_20260219.html"><span class="lc-icon bg-green">F</span><span class="lc-body"><span class="lc-title">CS Flow Diagram</span></span><span class="lc-badge bg-green">Process</span></a>
-        <a class="link-card" href="cs/cs_automation_roadmap_20260219.html"><span class="lc-icon bg-green">R</span><span class="lc-body"><span class="lc-title">CS 자동화 시스템 고도화 로드맵</span></span><span class="lc-badge bg-green">Roadmap</span></a>
-      </div>
-    </div></div>
-  </div>
-
-  <!-- AI 챗봇 -->
-  <div class="accordion" id="sec-chatbot">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-purple">AI</span> AI 챗봇
-      <span class="count">14건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="chatbot/chatbot_one_pager_20260223.html"><span class="lc-icon bg-purple">1P</span><span class="lc-body"><span class="lc-title">CS AI Chatbot — One Pager</span></span><span class="lc-badge bg-purple">Overview</span></a>
-        <a class="link-card" href="chatbot/chatbot_system_overview_20260223.html"><span class="lc-icon bg-purple">S</span><span class="lc-body"><span class="lc-title">시스템 아키텍처 설명서 v1.0</span></span><span class="lc-badge bg-purple">Architecture</span></a>
-        <a class="link-card" href="chatbot/chatbot_cost_analysis_20260222.html"><span class="lc-icon bg-purple">$</span><span class="lc-body"><span class="lc-title">CS AI 챗봇 비용 분석</span></span><span class="lc-badge bg-purple">Analysis</span></a>
-        <a class="link-card" href="chatbot/chatbot_roadmap_20260222.html"><span class="lc-icon bg-purple">R</span><span class="lc-body"><span class="lc-title">프로젝트 로드맵</span></span><span class="lc-badge bg-purple">Roadmap</span></a>
-        <a class="link-card" href="chatbot/chatbot_infographic_20260222.html"><span class="lc-icon bg-purple">I</span><span class="lc-body"><span class="lc-title">AI 챗봇 운영 인포그래픽</span></span><span class="lc-badge bg-purple">Visual</span></a>
-        <a class="link-card" href="chatbot/chatbot_operations_manual_20260222.html"><span class="lc-icon bg-purple">M</span><span class="lc-body"><span class="lc-title">AI Chatbot 운영 매뉴얼 v1.0</span></span><span class="lc-badge bg-purple">Manual</span></a>
-        <a class="link-card" href="chatbot/chatbot_cs_operator_guide_20260222.html"><span class="lc-icon bg-purple">G</span><span class="lc-body"><span class="lc-title">CS 운영자 가이드 v1.0</span></span><span class="lc-badge bg-purple">Guide</span></a>
-        <a class="link-card" href="chatbot/chatbot_training_guide_20260223.html"><span class="lc-icon bg-purple">T</span><span class="lc-body"><span class="lc-title">운영자/리더 교육 자료 v1.0</span></span><span class="lc-badge bg-purple">Training</span></a>
-        <a class="link-card" href="chatbot/chatbot_training_test_scenarios_20260223.html"><span class="lc-icon bg-purple">Q</span><span class="lc-body"><span class="lc-title">교육용 테스트 시나리오 v1.0</span></span><span class="lc-badge bg-purple">Training</span></a>
-        <a class="link-card" href="chatbot/chatbot_demo_script_20260223.html"><span class="lc-icon bg-purple">D</span><span class="lc-body"><span class="lc-title">시연 시나리오 스크립트 v1.0</span></span><span class="lc-badge bg-purple">Demo</span></a>
-        <a class="link-card" href="chatbot/chatbot_escalation_scenarios_20260223.html"><span class="lc-icon bg-purple">E</span><span class="lc-body"><span class="lc-title">Escalation Scenarios (L1/L2/L3)</span></span><span class="lc-badge bg-purple">Process</span></a>
-        <a class="link-card" href="chatbot/chatbot_flow_diagram_20260222_detail.html"><span class="lc-icon bg-purple">D</span><span class="lc-body"><span class="lc-title">파이프라인 플로우 다이어그램 (상세)</span></span><span class="lc-badge bg-purple">Flow</span></a>
-        <a class="link-card" href="chatbot/chatbot_flow_simple_20260222.html"><span class="lc-icon bg-purple">S</span><span class="lc-body"><span class="lc-title">처리 흐름도 (간략)</span></span><span class="lc-badge bg-purple">Flow</span></a>
-        <a class="link-card" href="chatbot/chatbot_weekly_report_20260222.html"><span class="lc-icon bg-purple">W</span><span class="lc-body"><span class="lc-title">AI 챗봇 주간 리포트</span></span><span class="lc-badge bg-purple">Report</span></a>
-      </div>
-    </div></div>
-  </div>
-
-  <!-- 차지백 -->
-  <div class="accordion" id="sec-cb">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-amber">CB</span> 차지백
-      <span class="count">4건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="chargeback/chargeback_operation_manual_20260220.html"><span class="lc-icon bg-amber">M</span><span class="lc-body"><span class="lc-title">차지백 운영 매뉴얼 v1.3</span><span class="lc-desc">8개 PG사 소명 절차 통합 가이드</span></span><span class="lc-badge bg-amber">Manual</span></a>
-        <a class="link-card" href="chargeback/chargeback_flow_diagram_20260220.html"><span class="lc-icon bg-amber">F</span><span class="lc-body"><span class="lc-title">차지백 프로세스 플로우 다이어그램</span><span class="lc-desc">접수 &rarr; 소명 &rarr; 제재 전 프로세스</span></span><span class="lc-badge bg-amber">Flow</span></a>
-        <a class="link-card" href="chargeback/chargeback_sample_template_v2.html"><span class="lc-icon bg-amber">T</span><span class="lc-body"><span class="lc-title">증빙 템플릿 미리보기</span></span><span class="lc-badge bg-amber">Template</span></a>
-        <a class="link-card" href="chargeback/Chargeback_Explanation_Form_v5.xlsx"><span class="lc-icon bg-slate">v5</span><span class="lc-body"><span class="lc-title">Explanation Form v5</span><span class="lc-desc">Excel 다운로드</span></span><span class="lc-badge bg-slate">XLSX</span></a>
-      </div>
-    </div></div>
-  </div>
-
-  <!-- 주간 리포트 -->
-  <div id="sec-weekly" style="margin-bottom:16px;">
-    <a class="link-card" href="weekly-reports/" style="border:1px solid #E2E8F0; border-radius:12px; padding:16px 20px; border-left:4px solid #0EA5E9;">
-      <span class="lc-icon bg-cyan" style="width:40px; height:40px; font-size:15px;">W</span>
-      <span class="lc-body">
-        <span class="lc-title" style="font-size:15px;">주간 리포트 아카이브</span>
-        <span class="lc-desc">2026년 2월 W1~W4 상세 + 요약본 · 8건</span>
-      </span>
-      <span class="lc-badge bg-cyan">8건 →</span>
-    </a>
-  </div>
-
-  <!-- IP 보호 -->
-  <div class="accordion" id="sec-ip">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-green">IP</span> IP 보호
-      <span class="count">1건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="ip/ip_ops_manual.html"><span class="lc-icon bg-green">M</span><span class="lc-body"><span class="lc-title">TOOMICS Global IP 보호 업무 운영 매뉴얼</span></span><span class="lc-badge bg-green">Manual</span></a>
-      </div>
-    </div></div>
-  </div>
-
-  <!-- 티켓 대시보드 -->
-  <div class="accordion" id="sec-ticket">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-red">TK</span> 티켓 대시보드
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-blue">M</span> CS 운영 매뉴얼
       <span class="count">2건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="ticket/ticket_dashboard_20260223.html"><span class="lc-icon bg-red">V</span><span class="lc-body"><span class="lc-title">CS Ticket Dashboard</span></span><span class="lc-badge bg-red">Dashboard</span></a>
-        <a class="link-card" href="ticket/ticket_dashboard_manual_20260223.html"><span class="lc-icon bg-red">M</span><span class="lc-body"><span class="lc-title">Ticket Dashboard 운영 매뉴얼 v1.0</span></span><span class="lc-badge bg-red">Manual</span></a>
-      </div>
-    </div></div>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="cs_manual_EN_20260219.html">
+        <span class="lc-icon bg-blue">EN</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS Global CS Operations Manual v2.0</span>
+        </span>
+        <span class="lc-badge bg-blue">960px</span>
+      </a>
+      <a class="link-card" href="cs_manual_KO_20260219.html">
+        <span class="lc-icon bg-blue">KO</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS Global CS 운영 매뉴얼 v2.0</span>
+        </span>
+        <span class="lc-badge bg-blue">960px</span>
+      </a>
+    </div>
   </div>
 
-  <!-- 기타 -->
-  <div class="accordion" id="sec-tpl">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-slate">E</span> 기타
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-cyan">A</span> CS 분석 · 시각화
       <span class="count">1건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <div class="link-grid">
-        <a class="link-card" href="기타/personal_info_evidence_EA2_EA37_EA56_EA57.html"><span class="lc-icon bg-slate">P</span><span class="lc-body"><span class="lc-title">개인정보 증빙 (EA2/EA37/EA56/EA57)</span></span><span class="lc-badge bg-slate">Evidence</span></a>
-      </div>
-    </div></div>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="cs_infographic_20260220.html">
+        <span class="lc-icon bg-cyan">I</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS Global CS Infographic | 2025.07 ~ 2026.01</span>
+        </span>
+        <span class="lc-badge bg-cyan">960px</span>
+      </a>
+    </div>
   </div>
 
-  <!-- 변경 히스토리 -->
-  <div class="accordion" id="sec-history" style="margin-top: 24px;">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-slate">H</span> 변경 히스토리
-      <span class="count">전체 25건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
-      <ul class="history-list">
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">요약본 프로젝트 섹션 여백 압축 (compact CSS)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">프로젝트 섹션 축소 + 차지백↔Voice 사이 배치</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">sync 스크립트에 bizops_portal_report.html 배포 추가</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">프로젝트 섹션 UI 개선 + BizOps 포탈 리포트 산출물 추가</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">BizOps 산출물 포탈 섹션 추가 — 포탈 리포트 스타일 참조</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">프로젝트 섹션 삭제 — 함수, HTML 삽입, CSS 전부 제거</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">프로젝트 섹션 비주얼 리디자인 — Core Insight + Before/After + Impact Cards</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">BizOps Portal 프로젝트 산출물 섹션 추가 (41건, 5카테고리 카드)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">PROJECT 뱃지에 BizOps Portal 산출물 현황 반영 (총 41건, 7개 카테고리)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">HTML 리포트 '팀 현장 보고' → '팀 피드백' 명칭 통일</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">팀 피드백 매칭 규칙 개선 (14/19 → 19/19 매칭)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">Executive Summary AI PROJECT → PROJECT 뱃지명 변경</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">전체 점검 — CLAUDE.md 업데이트, 미사용 import 제거</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">차지백 주간 트렌드 5주 → 4주 변경</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">W4 차지백 데이터 갱신 및 리포트 재생성</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">차지백 데이터 업데이트: 전체 동기화 (423일)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">chartCBTrend 괄호 밸런스 오류 수정 (차트 미표시 원인)</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">팀 피드백을 기존 voice issue에 맥락 기반 통합</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">W4 주간 리포트에 실제 슬랙 팀 피드백 반영</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">--feedback 옵션으로 슬랙 팀 피드백 HTML 주간 리포트 통합</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">슬랙 팀 피드백 → Confluence 통합 골든 템플릿 추가</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">Confluence 테이블 colwidth REST API 일괄 적용 스크립트</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">add auto column width utility and update templates</span></li>
-        <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">add Confluence table colgroup rules to CLAUDE.md</span></li>
-        <li class="history-item"><span class="history-date">2026-03-01</span><span class="history-msg">BIZOPS_DEPLOY_KEY 시크릿 등록 완료 반영</span></li>
-      </ul>
-      <div class="pagination" id="historyPagination"></div>
-    </div></div>
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-green">P</span> CS 프로세스
+      <span class="count">3건</span>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="chargeback_flow_diagram_20260220.html">
+        <span class="lc-icon bg-amber">C</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS 차지백 프로세스 플로우 다이어그램 | 유종선</span>
+          <span class="lc-desc">TOOMICS Global 차지백 프로세스 플로우 다이어그램 — 8개 PG사 접수→소명→제재 전 프로세스</span>
+        </span>
+        <span class="lc-badge bg-amber">960px</span>
+      </a>
+      <a class="link-card" href="cs_automation_roadmap_20260219.html">
+        <span class="lc-icon bg-green">R</span>
+        <span class="lc-body">
+          <span class="lc-title">Toomics CS 자동화 시스템 고도화 로드맵 | 2026-02-19</span>
+        </span>
+        <span class="lc-badge bg-green">960px</span>
+      </a>
+      <a class="link-card" href="cs_flow_diagram_20260219.html">
+        <span class="lc-icon bg-green">F</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS Global CS Flow Diagram</span>
+        </span>
+        <span class="lc-badge bg-green">960px</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-amber">$</span> 차지백
+      <span class="count">3건</span>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="chargeback_operation_manual_20260220.html">
+        <span class="lc-icon bg-amber">M</span>
+        <span class="lc-body">
+          <span class="lc-title">TOOMICS 차지백 운영 매뉴얼 v1.1 | 유종선</span>
+          <span class="lc-desc">TOOMICS Global 차지백 운영 매뉴얼 v1.1 — 8개 PG사 소명 절차 통합 가이드</span>
+        </span>
+        <span class="lc-badge bg-amber">960px</span>
+      </a>
+      <a class="link-card" href="chargeback_sample_template.html">
+        <span class="lc-icon bg-amber">T</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Explanation Template | 유종선</span>
+          <span class="lc-desc">TOOMICS Global Chargeback Explanation Template — Proof of Delivery, Invoice, Recurring Agreement, Refund Policy</span>
+        </span>
+        <span class="lc-badge bg-amber">960px</span>
+      </a>
+      <a class="link-card" href="chargeback_template.xlsx">
+        <span class="lc-icon bg-slate">X</span>
+        <span class="lc-body">
+          <span class="lc-title">Chargeback Template</span>
+          <span class="lc-desc">Excel 다운로드</span>
+        </span>
+        <span class="lc-badge bg-slate">XLSX</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-cyan">R</span> 주간 리포트
+      <span class="count">1건</span>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="weekly_reports.html">
+        <span class="lc-icon bg-cyan">A</span>
+        <span class="lc-body">
+          <span class="lc-title">BizOps 주간 보고서 아카이브 | Toomics Global</span>
+          <span class="lc-desc">Toomics Global BizOps — 주간 보고서 아카이브</span>
+        </span>
+        <span class="lc-badge bg-cyan">960px</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2 class="section-title">
+      <span class="icon ic-blue">?</span> 기타
+      <span class="count">2건</span>
+    </h2>
+    <div class="link-grid">
+      <a class="link-card" href="bizops_portal_report.html">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">BizOps 산출물 포탈 — 프로젝트 보고</span>
+        </span>
+        <span class="lc-badge bg-slate">960px</span>
+      </a>
+      <a class="link-card" href="portal_manual_v1_20260303.html">
+        <span class="lc-icon bg-slate">?</span>
+        <span class="lc-body">
+          <span class="lc-title">BizOps 산출물 포탈 사용 매뉴얼 v1.0</span>
+        </span>
+        <span class="lc-badge bg-slate">960px</span>
+      </a>
+    </div>
   </div>
 
 </div>
 
 <footer class="footer">
-  Toomics Global &middot; BizOps Team &middot; 유종선 &middot; 2026
+  Toomics Global · BizOps Team · 유종선 · 2026
 </footer>
-
-<script>
-// Accordion toggle
-document.querySelectorAll('.accordion-header').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const acc = btn.parentElement;
-    const isOpen = acc.classList.contains('open');
-    acc.classList.toggle('open');
-    btn.setAttribute('aria-expanded', !isOpen);
-  });
-});
-
-// Stat card → scroll to accordion & open it
-document.querySelectorAll('.stat-card[data-target]').forEach(card => {
-  card.addEventListener('click', () => {
-    const target = document.getElementById(card.dataset.target);
-    if (!target) return;
-    if (!target.classList.contains('open')) {
-      target.classList.add('open');
-      target.querySelector('.accordion-header').setAttribute('aria-expanded', 'true');
-    }
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
-
-// History pagination (20 items per page)
-(function() {
-  const list = document.querySelector('.history-list');
-  const pagination = document.getElementById('historyPagination');
-  if (!list || !pagination) return;
-
-  const items = Array.from(list.querySelectorAll('.history-item'));
-  const perPage = 20;
-  const totalPages = Math.ceil(items.length / perPage);
-  let currentPage = 1;
-
-  function showPage(page) {
-    currentPage = page;
-    const start = (page - 1) * perPage;
-    const end = start + perPage;
-    items.forEach((item, i) => {
-      item.style.display = (i >= start && i < end) ? '' : 'none';
-    });
-    renderPagination();
-  }
-
-  function renderPagination() {
-    if (totalPages <= 1) { pagination.style.display = 'none'; return; }
-    let html = '';
-    html += '<button class="pg-prev" ' + (currentPage === 1 ? 'disabled' : '') + '>&lsaquo;</button>';
-    for (let p = 1; p <= totalPages; p++) {
-      html += '<button class="pg-num' + (p === currentPage ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
-    }
-    html += '<button class="pg-next" ' + (currentPage === totalPages ? 'disabled' : '') + '>&rsaquo;</button>';
-    html += '<span class="page-info">' + currentPage + ' / ' + totalPages + '</span>';
-    pagination.innerHTML = html;
-
-    pagination.querySelectorAll('.pg-num').forEach(btn => {
-      btn.addEventListener('click', () => showPage(parseInt(btn.dataset.page)));
-    });
-    pagination.querySelector('.pg-prev').addEventListener('click', () => {
-      if (currentPage > 1) showPage(currentPage - 1);
-    });
-    pagination.querySelector('.pg-next').addEventListener('click', () => {
-      if (currentPage < totalPages) showPage(currentPage + 1);
-    });
-  }
-
-  showPage(1);
-})();
-</script>
 
 </body>
 </html>
