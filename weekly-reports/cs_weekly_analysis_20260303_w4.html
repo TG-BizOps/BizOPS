@@ -122,6 +122,19 @@
   .voice-action { font-size:12px; color:var(--accent-brand); font-weight:600; }
   .badge-team { background:#e0f2fe; color:#0369a1; border:1px dashed #7dd3fc; }
   .team-blockquote { background:#f0f9ff; border-left:3px solid #0ea5e9; border-radius:8px; padding:10px 16px; font-size:12px; color:var(--text-secondary); margin-top:8px; }
+  .project-summary { display:flex; gap:24px; margin-bottom:20px; }
+  .project-total { background:var(--bg-card); border-radius:12px; padding:16px 24px; border:1px solid var(--border); text-align:center; flex:1; }
+  .project-total-number { display:block; font-size:32px; font-weight:800; color:var(--accent-purple); }
+  .project-total-label { display:block; font-size:12px; color:var(--text-muted); margin-top:4px; text-transform:uppercase; letter-spacing:1px; }
+  .project-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+  .project-card { background:var(--bg-card); border-radius:12px; padding:20px; border:1px solid var(--border); box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+  .project-card-header { padding-left:12px; display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; }
+  .project-card-title { font-size:15px; font-weight:700; color:var(--text-primary); }
+  .project-card-count { font-size:18px; font-weight:800; }
+  .project-card-list { list-style:none; padding:0; margin:0; }
+  .project-card-list li { font-size:12px; color:var(--text-secondary); padding:4px 0; border-bottom:1px solid var(--bg-muted); }
+  .project-card-list li:last-child { border-bottom:none; }
+  @media print { .project-grid { grid-template-columns:repeat(3,1fr); } }
   .insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
   .insight-card { background:var(--bg-card); border-radius:16px; padding:24px; border-left:4px solid; box-shadow:0 2px 12px rgba(0,0,0,0.08); border-top:1px solid var(--border); border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
   .insight-card.blue { border-left-color:var(--accent-info); } .insight-card.green { border-left-color:var(--accent-success); }
@@ -441,6 +454,63 @@
       <div class="insight-card purple"><h4>🌍 Market Intelligence</h4><p>ES 마켓 <span class="highlight">+3.2%p</span> 점유율 상승(11.9→15.1%). 10개 마켓 활성. <strong>액션:</strong> 성장 마켓 CS 템플릿 품질 점검.</p></div>
       <div class="insight-card yellow"><h4>💬 Sentiment Pulse</h4><p>부정 감성 <span class="highlight">41.2%</span>(196건). 전주 대비 -0.7%p 개선. <strong>액션:</strong> Very Negative 건 48시간 내 에스컬레이션 SLA.</p></div>
       <div class="insight-card red"><h4>🚨 Risk Assessment</h4><p>차지백 75건 중 <span class="highlight">Paypal 64.0%</span> 집중. 주요 사유: unauthorized. <strong>액션:</strong> 결제-서비스 연동 모니터링 강화.</p></div>
+    </div>
+  </div>
+
+  <!-- PROJECT -->
+  
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:#7c3aed;"></span>BizOps Portal 프로젝트 산출물</div>
+    <div class="project-summary">
+      <div class="project-total">
+        <span class="project-total-number">41</span>
+        <span class="project-total-label">총 산출물</span>
+      </div>
+      <div class="project-total">
+        <span class="project-total-number">7</span>
+        <span class="project-total-label">카테고리</span>
+      </div>
+      <div class="project-total">
+        <span class="project-total-number" style="font-size:18px;">tg-bizops.github.io/BizOPS</span>
+        <span class="project-total-label">배포 포탈</span>
+      </div>
+    </div>
+    <div class="project-grid">
+      <div class="project-card">
+        <div class="project-card-header" style="border-left:4px solid #2563eb;">
+          <span class="project-card-title">CS 운영</span>
+          <span class="project-card-count" style="color:#2563eb;">8건</span>
+        </div>
+        <ul class="project-card-list"><li>CS 운영 매뉴얼 EN/KO v2.1</li><li>반복 문의 대응 매뉴얼</li><li>Fraud 분석 리포트</li><li>CS 인포그래픽</li><li>L1/L2/L3 분석</li><li>CS 플로우 다이어그램</li><li>CS 자동화 로드맵</li></ul>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header" style="border-left:4px solid #7c3aed;">
+          <span class="project-card-title">AI 챗봇</span>
+          <span class="project-card-count" style="color:#7c3aed;">14건</span>
+        </div>
+        <ul class="project-card-list"><li>원페이저 · 시스템 아키텍처</li><li>비용 분석 · 프로젝트 로드맵</li><li>운영 매뉴얼 · CS 운영자 가이드</li><li>교육자료 · 테스트 시나리오 · 시연 스크립트</li><li>에스컬레이션 시나리오 · 플로우 다이어그램</li></ul>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header" style="border-left:4px solid #ef4444;">
+          <span class="project-card-title">차지백</span>
+          <span class="project-card-count" style="color:#ef4444;">4건</span>
+        </div>
+        <ul class="project-card-list"><li>차지백 운영 매뉴얼 v1.3</li><li>프로세스 플로우 다이어그램</li><li>증빙 템플릿 · Explanation Form v5</li></ul>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header" style="border-left:4px solid #0ea5e9;">
+          <span class="project-card-title">주간 리포트</span>
+          <span class="project-card-count" style="color:#0ea5e9;">12건</span>
+        </div>
+        <ul class="project-card-list"><li>W1~W4 상세본 + Executive 요약본</li><li>자동 생성 파이프라인 구축</li></ul>
+      </div>
+      <div class="project-card">
+        <div class="project-card-header" style="border-left:4px solid #64748b;">
+          <span class="project-card-title">기타</span>
+          <span class="project-card-count" style="color:#64748b;">3건</span>
+        </div>
+        <ul class="project-card-list"><li>IP 보호 운영 매뉴얼</li><li>CS Ticket Dashboard · 운영 매뉴얼</li></ul>
+      </div>
     </div>
   </div>
 
