@@ -265,6 +265,17 @@
   .filter-pill:hover { border-color: #CBD5E1; background: #F8FAFC; }
   .filter-pill.active { background: #1E293B; color: #fff; border-color: #1E293B; }
 
+  /* Document Status Badges */
+  .doc-status {
+    font-size: 9px; font-weight: 700; padding: 1px 6px;
+    border-radius: 4px; margin-left: 6px; letter-spacing: 0.3px;
+    vertical-align: middle; white-space: nowrap;
+  }
+  .doc-status-published { background: #DCFCE7; color: #16A34A; }
+  .doc-status-review { background: #FEF3C7; color: #D97706; }
+  .doc-status-draft { background: #F1F5F9; color: #94A3B8; }
+  .doc-status-deprecated { background: #FEE2E2; color: #DC2626; }
+
   /* NEW / UPDATED badges */
   .badge-new {
     display: inline-block; background: #DCFCE7; color: #16A34A;
@@ -472,6 +483,16 @@
           <button class="filter-pill" data-value="Dashboard" type="button">Dashboard</button>
           <button class="filter-pill" data-value="Evidence" type="button">Evidence</button>
           <button class="filter-pill" data-value="XLSX" type="button">XLSX</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">상태</div>
+        <div class="filter-pills" data-group="status">
+          <button class="filter-pill active" data-value="all" type="button">All</button>
+          <button class="filter-pill" data-value="Published" type="button">Published</button>
+          <button class="filter-pill" data-value="Review" type="button">Review</button>
+          <button class="filter-pill" data-value="Draft" type="button">Draft</button>
+          <button class="filter-pill" data-value="Deprecated" type="button">Deprecated</button>
         </div>
       </div>
     </div>
@@ -705,6 +726,32 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   }
 
   showPage(1);
+})();
+
+// Document Status Data (key = filename from href)
+var DOC_STATUS = {
+  // All current documents default to Published
+};
+(function() {
+  var statusColors = {
+    Published: 'doc-status-published',
+    Review: 'doc-status-review',
+    Draft: 'doc-status-draft',
+    Deprecated: 'doc-status-deprecated'
+  };
+  document.querySelectorAll('.link-card').forEach(function(card) {
+    var href = card.getAttribute('href') || '';
+    var fname = href.split('/').pop();
+    var status = DOC_STATUS[fname] || 'Published';
+    card.dataset.status = status;
+    // Inject badge next to type badge
+    var typeBadge = card.querySelector('.lc-badge');
+    if (typeBadge) {
+      var cls = statusColors[status] || statusColors.Published;
+      typeBadge.insertAdjacentHTML('afterend',
+        '<span class="doc-status ' + cls + '">' + status + '</span>');
+    }
+  });
 })();
 
 // Achievement Panel + Badges (성과 중심 — 날짜 미표시)
