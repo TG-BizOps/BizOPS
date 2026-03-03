@@ -276,6 +276,38 @@
   .doc-status-draft { background: #F1F5F9; color: #94A3B8; }
   .doc-status-deprecated { background: #FEE2E2; color: #DC2626; }
 
+  /* Version History */
+  .version-toggle {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 22px; height: 22px; border-radius: 6px;
+    background: #F1F5F9; border: 1px solid #E2E8F0;
+    color: #94A3B8; font-size: 11px; cursor: pointer;
+    margin-left: 6px; flex-shrink: 0; transition: all 0.15s;
+    vertical-align: middle; line-height: 1;
+  }
+  .version-toggle:hover { background: #E2E8F0; color: #475569; }
+  .version-toggle.open { background: #EFF6FF; border-color: #BFDBFE; color: #2563EB; }
+  .version-dropdown {
+    display: none; margin-top: 8px; padding: 10px 14px;
+    background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;
+    font-size: 12px;
+  }
+  .version-dropdown.open { display: block; }
+  .version-entry {
+    display: flex; align-items: baseline; gap: 8px;
+    padding: 5px 0; border-bottom: 1px solid #E2E8F0;
+  }
+  .version-entry:last-child { border-bottom: none; }
+  .version-entry .ver-tag {
+    font-weight: 800; color: #2563EB; font-size: 11px;
+    min-width: 32px; flex-shrink: 0;
+  }
+  .version-entry .ver-date {
+    font-size: 11px; color: #94A3B8; min-width: 78px; flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+  }
+  .version-entry .ver-summary { color: #475569; }
+
   /* NEW / UPDATED badges */
   .badge-new {
     display: inline-block; background: #DCFCE7; color: #16A34A;
@@ -621,10 +653,11 @@
   <!-- 변경 히스토리 (숨김 처리) -->
   <details class="history-details" id="sec-history">
     <summary class="history-summary">
-      변경 히스토리 <span class="count">전체 22건</span>
+      변경 히스토리 <span class="count">전체 23건</span>
     </summary>
     <div class="history-content">
       <ul class="history-list">
+        <li class="history-item"><span class="history-date">2026-03-04</span><span class="history-msg">포탈 UX 개선: 멀티 필터 검색, 문서 상태 태그, 최근 업데이트 하이라이트, 버전 아카이브 추가</span></li>
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">골든 템플릿 v3.0 — 상세본+요약본(Executive) 듀얼 구조 통합</span></li>
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">골든 템플릿 v2.0 재정의 + CSS 정합성 최적화</span></li>
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">산출물 포탈 사용 매뉴얼 v1.0 저장 및 배포 설정</span></li>
@@ -751,6 +784,107 @@ var DOC_STATUS = {
       typeBadge.insertAdjacentHTML('afterend',
         '<span class="doc-status ' + cls + '">' + status + '</span>');
     }
+  });
+})();
+
+// Version History Data
+var VERSION_HISTORY = {
+  "cs_manual_EN_20260219.html": {
+    current: "v2.1",
+    history: [
+      { version: "v2.0", date: "2026-02-19", summary: "전체 구조 개편, EN/KO 분리" },
+      { version: "v1.0", date: "2026-01-15", summary: "최초 작성" }
+    ]
+  },
+  "cs_manual_KO_20260219.html": {
+    current: "v2.1",
+    history: [
+      { version: "v2.0", date: "2026-02-19", summary: "전체 구조 개편, EN/KO 분리" },
+      { version: "v1.0", date: "2026-01-15", summary: "최초 작성" }
+    ]
+  },
+  "chargeback_operation_manual_20260220.html": {
+    current: "v1.3",
+    history: [
+      { version: "v1.2", date: "2026-02-18", summary: "MyCard 프로세스 추가" },
+      { version: "v1.1", date: "2026-02-10", summary: "8개 PG사 통합" },
+      { version: "v1.0", date: "2026-01-20", summary: "최초 작성" }
+    ]
+  },
+  "chatbot_operations_manual_20260222.html": {
+    current: "v1.0",
+    history: []
+  },
+  "chatbot_system_overview_20260223.html": {
+    current: "v1.0",
+    history: []
+  },
+  "chatbot_cs_operator_guide_20260222.html": {
+    current: "v1.0",
+    history: []
+  },
+  "chatbot_training_guide_20260223.html": {
+    current: "v1.0",
+    history: []
+  }
+};
+
+// Inject version history toggles
+(function() {
+  document.querySelectorAll('.link-card').forEach(function(card) {
+    var href = card.getAttribute('href') || '';
+    var fname = href.split('/').pop();
+    var vData = VERSION_HISTORY[fname];
+    if (!vData || !vData.history || vData.history.length === 0) return;
+
+    // Add toggle button after doc-status badge (or after lc-badge)
+    var statusBadge = card.querySelector('.doc-status');
+    var insertAfter = statusBadge || card.querySelector('.lc-badge');
+    if (!insertAfter) return;
+
+    var toggleBtn = document.createElement('button');
+    toggleBtn.className = 'version-toggle';
+    toggleBtn.type = 'button';
+    toggleBtn.textContent = '🕐';
+    toggleBtn.title = '버전 히스토리 (' + vData.history.length + '건)';
+    insertAfter.insertAdjacentElement('afterend', toggleBtn);
+
+    // Build dropdown
+    var dropdown = document.createElement('div');
+    dropdown.className = 'version-dropdown';
+    var html = '';
+    vData.history.forEach(function(h) {
+      html += '<div class="version-entry">';
+      html += '<span class="ver-tag">' + h.version + '</span>';
+      html += '<span class="ver-date">' + h.date + '</span>';
+      html += '<span class="ver-summary">' + h.summary + '</span>';
+      html += '</div>';
+    });
+    dropdown.innerHTML = html;
+
+    // Append dropdown to the card's body area
+    var lcBody = card.querySelector('.lc-body');
+    if (lcBody) {
+      lcBody.appendChild(dropdown);
+    }
+
+    // Toggle behavior
+    toggleBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var isOpen = dropdown.classList.contains('open');
+      // Close all others first
+      document.querySelectorAll('.version-dropdown.open').forEach(function(d) {
+        d.classList.remove('open');
+      });
+      document.querySelectorAll('.version-toggle.open').forEach(function(t) {
+        t.classList.remove('open');
+      });
+      if (!isOpen) {
+        dropdown.classList.add('open');
+        toggleBtn.classList.add('open');
+      }
+    });
   });
 })();
 
