@@ -361,7 +361,7 @@
         </table></div>
       </div>
       <div class="chart-card" style="padding:20px;">
-        <h3>주별 차지백 트렌드 (5주)</h3>
+        <h3>주별 차지백 트렌드 (4주)</h3>
         <div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div>
       </div>
     </div>
@@ -469,10 +469,10 @@ new Chart(document.getElementById('chartMarket'), {
 new Chart(document.getElementById('chartCBTrend'), {
   type: 'bar',
   data: {
-    labels: ["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],
+    labels: ["FEB W1", "FEB W2", "FEB W3", "FEB W4"],
     datasets: [{
       label: '주간 차지백',
-      data: [71, 85, 86, 64, 75],
+      data: [85, 86, 64, 75],
       backgroundColor: ['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],
       borderRadius: 8,
       borderSkipped: false,

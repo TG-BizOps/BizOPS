@@ -309,7 +309,7 @@
   <!-- CB TREND -->
   <div class="section">
     <div class="section-title"><span class="dot" style="background:#ef4444;"></span>차지백 주간 트렌드</div>
-    <div class="chart-card"><h3>차지백 주간 트렌드 (5주)</h3><div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div></div>
+    <div class="chart-card"><h3>차지백 주간 트렌드 (4주)</h3><div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div></div>
   </div>
 
   
@@ -511,7 +511,7 @@ new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:[
 new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'Solved',data:[467, 433, 394, 476],backgroundColor:['#0ea5e9','#6366f1','#f97316','#22c55e'],borderRadius:8,barPercentage:0.6}]},options:{responsive:true,maintainAspectRatio:true,aspectRatio:2.4,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:13,weight:'600'}}},y:{grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
 new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:["Web", "Email", "API"],datasets:[{data:[223, 168, 85],backgroundColor:['#0ea5e9','#6366f1','#f97316'],borderWidth:0}]},options:dOptLegend});
 new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:["Neutral", "Negative", "Very Negative", "Positive", "Very Positive"],datasets:[{data:[275, 183, 13, 2, 1],backgroundColor:['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'],borderWidth:0}]},options:dOptLegend});
-new Chart(document.getElementById('chartCBTrend'),{type:'bar',data:{labels:["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'CB',data:[71, 85, 86, 64, 75],backgroundColor:['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],borderRadius:8,borderSkipped:false,barThickness:52}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}}],options:{responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:12,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
+new Chart(document.getElementById('chartCBTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'CB',data:[85, 86, 64, 75],backgroundColor:['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],borderRadius:8,borderSkipped:false,barThickness:52}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font='bold 12px sans-serif';ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}}],options:{responsive:true,maintainAspectRatio:true,aspectRatio:2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:12,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
 </script>
 
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
