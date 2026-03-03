@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="유종선">
-<meta name="description" content="투믹스 글로벌 BizOps 팀 주간 보고서 2월 4주차 Executive Summary">
-<title>TOOMICS BizOps Weekly Report | 2026년 2월 4주차 (02.21 ~ 02.27)</title>
+<meta name="description" content="투믹스 글로벌 BizOps팀 주간 보고서 2월 4주차 Executive Summary">
+<title>TOOMICS BizOps팀 주간 보고서 | 2026년 2월 4주차 (02.21 ~ 02.27)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -71,7 +71,7 @@
   .tag-down { background: #f0fdf4; color: #16a34a; }
   .tag-warn { background: #fefce8; color: #854d0e; }
   .tag-info { background: #eff6ff; color: var(--accent-brand); }
-  .tag-project { background: #f0e7fe; color: #7c3aed; }
+  .tag-ai { background: #f0e7fe; color: #7c3aed; }
 
   .kpi-strip { display:grid; grid-template-columns:repeat(5,1fr); gap:16px; padding:0 24px; margin-bottom:32px; }
   .kpi-card { background:linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius:16px; padding:24px 20px; text-align:center; box-shadow:0 2px 12px rgba(0,0,0,0.1); border:1px solid #CBD5E1; transition:transform 0.2s; }
@@ -90,9 +90,8 @@
   .chart-card h3 { font-size:14px; font-weight:700; color:var(--text-primary); margin-bottom:4px; }
   .chart-card .chart-desc { font-size:12px; color:#64748B; margin-bottom:16px; }
   .chart-wrap { position:relative; width:100%; }
-  .category-layout { display:grid; grid-template-columns:45fr 55fr; gap:24px; align-items:stretch; }
-  .chart-container { position:relative; width:100%; height:100%; }
-  .category-layout > .chart-card:first-child { padding:10px; display:flex; align-items:center; justify-content:center; }
+  .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .chart-container { position:relative; width:100%; max-width:360px; margin:0 auto; }
   .category-table { width:100%; border-collapse:collapse; font-size:14px; }
   .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid #CBD5E1; color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
   .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
@@ -118,6 +117,8 @@
   .trend-flat { color:#64748B; font-weight:600; font-size:12px; }
 
   .cb-kpi-strip { display:grid; }
+  .badge-team { background:#e0f2fe; color:#0369a1; border:1px dashed #7dd3fc; }
+  .team-blockquote { background:#f0f9ff; border-left:3px solid #0ea5e9; border-radius:8px; padding:10px 16px; font-size:12px; color:var(--text-secondary); margin-top:8px; }
   .footer { text-align:center; padding:32px 24px 16px; font-size:12px; color:#64748B; }
   tbody tr:nth-child(even) { background:rgba(248,250,252,0.5); }
   thead th { font-weight:700 !important; }
@@ -176,7 +177,7 @@
   <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">BIZOPS WEEKLY REPORT</div>
-    <h1>BizOps 팀 주간 보고서 — 2월 4주차</h1>
+    <h1>BizOps팀 주간 보고서 — 2월 4주차</h1>
     <p class="subtitle">2026.02.21 ~ 02.27 | CS 476건 + Chargeback 59건</p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -206,9 +207,10 @@
       <li><span class="tag tag-down">IMPROVE</span> 평균 첫 응답 <strong>22.2h</strong> (전주 대비 <strong>-4.8h</strong>). 해결 시간 <strong>73.2h</strong> (+3.1h).</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 37.8% + Refund 27.3%</strong> → 전체의 <strong>65.1%</strong> 차지.</li>
       <li><span class="tag tag-info">GROWTH</span> ES 마켓 점유율 <strong>11.9% → 15.1%</strong> (+3.2%p 상승).</li>
-      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>125건</strong> — 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성.</li>
-      <li><span class="tag tag-down">CB</span> 차지백 <strong>59건</strong>(~$639) — 전주 대비 <strong>-7.8%</strong>. Paypal 66.1% 지배적.</li>
-      <li><span class="tag tag-project">PROJECT</span> BizOps 산출물 포탈(<strong>tg-bizops.github.io/BizOPS</strong>) 구축 완료 — GitHub Pages 자동배포 + 주간리포트·CS/CB 매뉴얼·템플릿 통합 호스팅. CS 자동분류 정확도 <strong>92.3%</strong>(목표 95%), 부정 감성 자동 탐지율 <strong>41.2%</strong>.</li>
+      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>125건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
+      <li><span class="tag tag-down">CB</span> 차지백 <strong>59건</strong>(~$639) (팀 보고: 75건) — 전주 대비 <strong>-7.8%</strong>. Paypal 66.1% 지배적.</li>
+      <li><span class="tag tag-info">IP</span> 🛡️ 마크비전 AI Generated Content 침해 대응 성과: AI 캐릭터 챗봇 탐지 총 35건, 담배피지마세요 27건 최다, Zeta 플랫폼 27건 1위. AI Content Takedown 탐지 0건. 1월부터 탐지량 대폭 감소</li>
+      <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>41.2%</strong>(196건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
     </ul>
   </div>
 
@@ -344,6 +346,7 @@
           <div style="font-size:12px; color:#64748b;">WoW 변화</div>
         </div>
       </div>
+      <div class="team-blockquote">📋 팀 리포트: W4 총 75건 유입 (전주 대비 11건 증가), PaymentWall 주 7건 집중 인입, 대만 달러(TWD) 유입 증가, 1개월 상품 차지백 소폭 증가</div>
     </div>
 
     <!-- CB WoW -->
@@ -358,7 +361,7 @@
         </table></div>
       </div>
       <div class="chart-card" style="padding:20px;">
-        <h3>주별 차지백 트렌드 (FEB)</h3>
+        <h3>주별 차지백 트렌드 (5주)</h3>
         <div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div>
       </div>
     </div>
@@ -372,33 +375,59 @@
       <div class="voc-group">🔧 기술/시스템 이슈</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Boa tarde fiz o pagamento mais não estou conseguindo acessar as histórias" <span style="font-size:10px;color:var(--text-muted);">#124982</span></td><td>결제-VIP 동기화 실패 케이스 수집 후 패턴 분석</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>FR·ES·EN</td><td>25</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Can´t accsses to my account: Dear sirs, I buy an access to TOMMICS on january 4th 2026, but since ye" <span style="font-size:10px;color:var(--text-muted);">#124503</span></td><td>미적용 티켓 즉시 수동 VIP 부여 + 재발 패턴 로그 수집</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·FR·ES</td><td>13</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Do u have problems with the server?!? I have problems with downloads of the episodes. I checked the " <span style="font-size:10px;color:var(--text-muted);">#124312</span></td><td>재생 오류 마켓/디바이스별 패턴 분석 후 CS 매크로 업데이트</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·ES</td><td>10</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I can not access to my Toomics account I pay USD 35.99 on january 1st 2026, please fix this isue. Ac" <span style="font-size:10px;color:var(--text-muted);">#124334</span></td><td>로그인 실패 마켓별 빈도 추적 + 임시 해결 가이드 CS 매크로 추가</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Boa tarde fiz o pagamento mais não estou conseguindo acessar as histórias" <span style="font-size:10px;color:var(--text-muted);">#124982</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>FR·ES·EN</td><td>25</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Can´t accsses to my account: Dear sirs, I buy an access to TOMMICS on january 4th 2026, but since ye" <span style="font-size:10px;color:var(--text-muted);">#124503</span></td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·FR·ES</td><td>13</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Do u have problems with the server?!? I have problems with downloads of the episodes. I checked the " <span style="font-size:10px;color:var(--text-muted);">#124312</span></td><td>CDN/이미지 서버 성능 모니터링</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·ES</td><td>10</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I can not access to my Toomics account I pay USD 35.99 on january 1st 2026, please fix this isue. Ac" <span style="font-size:10px;color:var(--text-muted);">#124334</span></td><td>OAuth 안정성 모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 에피소드를 불러올 수 없습니다 (로딩 오류)</td><td>IT</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125085</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 이미지 로딩 시간이 오래 걸림</td><td>PT</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#124563</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 Never Just Friends 주인공 이름 오류 제보</td><td>EN</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126598</span></td><td>수정완료</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 이미지 로딩이 느림 (3건), 분량 내릴수록 로딩 5분 소요</td><td>DE</td><td>3</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125196</span></td><td>강력 새로고침 및 매뉴얼 가이던스 제공</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 로딩 이슈 (5건+), 무한 로딩 포함</td><td>FR</td><td>5</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#124957</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 spelling 오류가 너무 많다</td><td>FR</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125448</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 APP 사용성 불만, 오류 빈번 발생</td><td>FR</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#124991</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 로딩 이슈, 이미지가 전혀 로딩되지 않음 (2건)</td><td>CN</td><td>2</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#127283</span></td><td>모니터링</td></tr>
         </tbody>
       </table>
       <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>125</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Solicitei o cancelamento de minha conta e acabou de ser feitou uma cobrança no meu cartão, não quero" <span style="font-size:10px;color:var(--text-muted);">#124390</span></td><td>갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·PT</td><td>79</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I was checking out content and I have no clue how but it made me purchase a subscription I never ent" <span style="font-size:10px;color:var(--text-muted);">#124295</span></td><td>환불 기준(7일/미사용) 자동 심사 규칙 정의 + FAQ 업데이트</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·ES</td><td>7</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"He accedido a la oferta de 2 meses + 1 gratis , por 7,99 euors al mes y me han cobrado 21 euros al f" <span style="font-size:10px;color:var(--text-muted);">#124322</span></td><td>이중과금 케이스 증빙 수집 + 결제 재시도 패턴 데이터 분석</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>125</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Solicitei o cancelamento de minha conta e acabou de ser feitou uma cobrança no meu cartão, não quero" <span style="font-size:10px;color:var(--text-muted);">#124390</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·PT</td><td>79</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I was checking out content and I have no clue how but it made me purchase a subscription I never ent" <span style="font-size:10px;color:var(--text-muted);">#124295</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·ES</td><td>7</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"He accedido a la oferta de 2 meses + 1 gratis , por 7,99 euors al mes y me han cobrado 21 euros al f" <span style="font-size:10px;color:var(--text-muted);">#124322</span></td><td>결제 재시도 로직 점검</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 브라질 소비자보호법 언급 환불 요청</td><td>PT</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126235</span></td><td>1차 환불 정책 안내, 2차 환불 완료</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 원치 않은 고액 결제 자동 처리, 환불 요청</td><td>ES</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126063</span></td><td>1차 환불 정책안내, 2차 환불완료</td></tr>
         </tbody>
       </table>
       <div class="voc-group">📚 콘텐츠 & 계정</div>
       <table class="voc-table">
         <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>Next Action</th></tr></thead>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·PT</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"It is not letting me deactivate my account, I’ll cancel my membership and then go to deactivate my a" <span style="font-size:10px;color:var(--text-muted);">#125814</span></td><td>GDPR 삭제 요청 SLA 준수 모니터링 + 셀프 삭제 플로우 요건 정리</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·PT</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"It is not letting me deactivate my account, I’ll cancel my membership and then go to deactivate my a" <span style="font-size:10px;color:var(--text-muted);">#125814</span></td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
           <tr><td><span class="sev sev-high">HIGH</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>PT·FR·TH</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
 
-회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#124986</span></td><td>이미지 오류 작품/회차 리스트 취합 + QA 리포트 전달</td></tr>
+회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#124986</span></td><td>작품별 이미지 에셋 점검</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 작품 8716 시즌2 그림체 위화감 피드백</td><td>DE</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126168</span></td><td>모니터링</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">🌍 마켓별 특이사항</div>
+      <table class="voc-table">
+        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 이미지가 로드되지 않습니다</td><td>IT</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126120</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 코인 작품이 구독(멤버십)으로 전환되는 기간 문의</td><td>IT</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125763</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 웹사이트가 로드되지 않음</td><td>ES</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125807</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 결제 에러코드 422 확인 요청</td><td>EN</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126822</span></td><td>회원 카드 재확인 답변</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 BIG GUY 결말 불만</td><td>EN</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125663</span></td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 결제 수단 변경 관련 확인 요청</td><td>EN</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">—</td><td>모니터링</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 트루머니 결제 완료 불가</td><td>TH</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#125220</span></td><td>결제 제공자 직접 연락 권고</td></tr>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>📋 구글 인앱결제 관리자 지급 누락</td><td>CN</td><td>1</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);"><span style="font-size:10px;color:var(--text-muted);">#126272</span></td><td>모니터링</td></tr>
         </tbody>
       </table>
 
@@ -407,142 +436,15 @@
 
 
   
-  <!-- ════════ BIZOPS 산출물 관리 포탈 ════════ -->
-  <div class="section">
-    <div class="section-title"><span class="dot" style="background:#8b5cf6;"></span>BizOPS 산출물 관리 포탈</div>
-
-    <!-- Top Highlight Cards -->
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px;" class="cb-kpi-strip">
-      <div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%); border:2px solid #8b5cf6; border-radius:12px; padding:18px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-          <span style="font-size:22px;">📂</span>
-          <div style="font-size:13px; font-weight:800; color:#5b21b6;">BizOPS Document Portal</div>
-          <span style="background:#ecfdf5; color:#047857; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700;">LIVE</span>
-          <a href="https://tg-bizops.github.io/BizOPS/" target="_blank" rel="noopener" style="font-size:10px; color:#5b21b6; text-decoration:none; font-weight:600;">🔗 Portal →</a>
-        </div>
-        <div style="font-size:11px; color:var(--text-secondary); line-height:1.6;">
-          42+ 문서 · 7개 카테고리 · GitHub Pages 자동 배포 · 아코디언 네비게이션
-        </div>
-      </div>
-      <div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%); border:2px solid #8b5cf6; border-radius:12px; padding:18px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-        <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
-          <span style="font-size:22px;">💬</span>
-          <div style="font-size:13px; font-weight:800; color:#5b21b6;">CS Template Feedback System</div>
-          <span style="background:#eff6ff; color:#2563eb; padding:3px 10px; border-radius:20px; font-size:10px; font-weight:700;">ACTIVE</span>
-        </div>
-        <div style="font-size:11px; color:var(--text-secondary); line-height:1.6;">
-          CS 에이전트 피드백 수집 · 템플릿 개선 반영 · Voice-of-Agent 루프
-        </div>
-      </div>
-    </div>
-
-    <div class="chart-card" style="border-top:3px solid #8b5cf6;">
-
-      <!-- Status Badges -->
-      <div style="display:flex; align-items:center; gap:10px; margin-bottom:20px; flex-wrap:wrap;">
-        <span style="background:#ecfdf5; color:#047857; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:700;">Portal v1.0 운영중</span>
-        <span style="background:#eff6ff; color:#2563eb; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:700;">Template Feedback 수집중</span>
-        <span style="background:#fffbeb; color:#92400e; padding:4px 14px; border-radius:20px; font-size:12px; font-weight:700;">CB 증빙 v5 업데이트</span>
-        <span style="margin-left:auto; font-size:11px; color:var(--text-muted); font-weight:500;">GitHub Pages · Confluence · Auto Deploy</span>
-      </div>
-
-      <!-- KPI Cards -->
-      <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:20px;" class="cb-kpi-strip">
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; border-top:3px solid #8b5cf6; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:26px; font-weight:800; color:#5b21b6; line-height:1;">42+</div>
-          <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-top:6px;">총 문서 수</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">매뉴얼·리포트·템플릿</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; border-top:3px solid var(--accent-brand); box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:26px; font-weight:800; color:#1d4ed8; line-height:1;">7</div>
-          <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-top:6px;">카테고리</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">CS·AI·CB·주간·IP·TK·기타</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; border-top:3px solid var(--accent-success); box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:26px; font-weight:800; color:#047857; line-height:1;">10+</div>
-          <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-top:6px;">피드백 반영</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">템플릿 개선 반영 건</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; border-top:3px solid var(--accent-info); box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:26px; font-weight:800; color:#0369a1; line-height:1;">Auto</div>
-          <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-top:6px;">배포 자동화</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">push → GitHub Pages</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; border-top:3px solid #d97706; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="font-size:26px; font-weight:800; color:#d97706; line-height:1;">2ch</div>
-          <div style="font-size:11px; font-weight:700; color:var(--text-secondary); margin-top:6px;">듀얼 채널</div>
-          <div style="font-size:10px; color:var(--text-muted); margin-top:2px;">HTML + Confluence</div>
-        </div>
-      </div>
-
-      <!-- 4 Feature Cards -->
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:20px;" class="cb-kpi-strip">
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; border-top:3px solid #22c55e; min-height:120px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-            <div style="font-size:13px; font-weight:800; color:#166534;">📂 BizOPS Document Portal</div>
-            <span style="background:#ecfdf5; color:#047857; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">LIVE</span>
-          </div>
-          <div style="font-size:10px; color:var(--text-muted); margin-bottom:6px;">GitHub Pages · 아코디언 UI · 자동 배포</div>
-          <div style="font-size:10px; color:var(--text-secondary); line-height:1.6;"><strong style="color:#047857;">42+ 문서</strong> · 7개 카테고리 통합 관리 · 모바일 반응형</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; border-top:3px solid var(--accent-brand); min-height:120px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-            <div style="font-size:13px; font-weight:800; color:#1e40af;">💬 CS Template Feedback</div>
-            <span style="background:#eff6ff; color:#2563eb; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">ACTIVE</span>
-          </div>
-          <div style="font-size:10px; color:var(--text-muted); margin-bottom:6px;">에이전트 피드백 → 매뉴얼 반영 루프</div>
-          <div style="font-size:10px; color:var(--text-secondary); line-height:1.6;"><strong style="color:#1d4ed8;">10+ 반영 완료</strong> · EN/KO 템플릿 지속 개선</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; border-top:3px solid #d97706; min-height:120px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-            <div style="font-size:13px; font-weight:800; color:#92400e;">📋 CB Evidence Template</div>
-            <span style="background:#fffbeb; color:#d97706; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">UPDATED v5</span>
-          </div>
-          <div style="font-size:10px; color:var(--text-muted); margin-bottom:6px;">8개 PG사 통합 · HTML 미리보기 + XLSX</div>
-          <div style="font-size:10px; color:var(--text-secondary); line-height:1.6;"><strong style="color:#d97706;">소명 승률 향상</strong> · 체크리스트 포함 증빙 자동화</div>
-        </div>
-        <div style="background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:16px 18px; border-top:3px solid var(--accent-info); min-height:120px; box-shadow:0 1px 3px rgba(0,0,0,0.06);">
-          <div style="display:flex; align-items:baseline; justify-content:space-between; margin-bottom:8px;">
-            <div style="font-size:13px; font-weight:800; color:#0c4a6e;">🔄 HTML + Confluence Sync</div>
-            <span style="background:#ecfeff; color:#0891b2; padding:2px 8px; border-radius:12px; font-size:10px; font-weight:700;">SYNCED</span>
-          </div>
-          <div style="font-size:10px; color:var(--text-muted); margin-bottom:6px;">주간 보고 듀얼 채널 동시 배포</div>
-          <div style="font-size:10px; color:var(--text-secondary); line-height:1.6;"><strong style="color:#0369a1;">2채널 동기화</strong> · 경영진(Confluence) + 전사(GitHub Pages)</div>
-        </div>
-      </div>
-
-      <!-- Impact Boxes -->
-      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-bottom:20px;" class="cb-kpi-strip">
-        <div style="background:linear-gradient(135deg,#ecfdf5 0%,#d1fae5 100%); border:1px solid #86efac; border-radius:12px; padding:14px; text-align:center;">
-          <div style="font-size:13px; font-weight:800; color:#047857; margin-bottom:4px;">산출물 통합 관리</div>
-          <div style="font-size:10px; color:#166534; line-height:1.6;">42+ 문서 → 단일 포탈 접근<br>카테고리별 아코디언 네비게이션</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#eff6ff 0%,#dbeafe 100%); border:1px solid #93c5fd; border-radius:12px; padding:14px; text-align:center;">
-          <div style="font-size:13px; font-weight:800; color:#1d4ed8; margin-bottom:4px;">문서 품질 개선 루프</div>
-          <div style="font-size:10px; color:#1e40af; line-height:1.6;">에이전트 피드백 수집<br>매뉴얼·템플릿 즉시 반영</div>
-        </div>
-        <div style="background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%); border:1px solid #c4b5fd; border-radius:12px; padding:14px; text-align:center;">
-          <div style="font-size:13px; font-weight:800; color:#5b21b6; margin-bottom:4px;">듀얼 배포 자동화</div>
-          <div style="font-size:10px; color:#6d28d9; line-height:1.6;">git push → GitHub Pages 자동<br>Confluence API 동시 배포</div>
-        </div>
-      </div>
-
-      <!-- Next Step -->
-      <div style="padding:12px 16px; background:linear-gradient(135deg,#f5f3ff 0%,#ede9fe 100%); border-radius:12px; border-left:4px solid #8b5cf6; font-size:12px; color:var(--text-secondary); line-height:1.7;">
-        <strong style="color:#5b21b6;">Next Step:</strong> 3월 포탈 고도화 — 문서 검색 기능 · 주간보고 자동 생성 파이프라인 · Slack 알림 연동
-      </div>
-    </div>
-  </div>
-
   <div class="section">
     <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Top 3 Action Items</div>
     <div class="chart-card">
       <table class="rec-table">
-        <thead><tr><th>우선순위</th><th>조치 사항</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
         <tbody>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span></td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>해지 CS -72건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -72건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -550,7 +452,7 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps 팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-01</p>
+    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-03</p>
     <p>데이터 소스: Zendesk CS 476건 + Chargeback 59건(시트)</p>
     <p class="no-print" style="margin-top:8px;">Ctrl+P → PDF 저장 가능</p>
   </div>
@@ -569,7 +471,7 @@ new Chart(document.getElementById('chartCategory'), {
     labels: ["Subscription", "Refund", "Account", "Content", "Technical", "Payment", "IP", "Coin", "Other"],
     datasets: [{ data: [180, 130, 58, 30, 29, 29, 10, 5, 5], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartMarket'), {
@@ -578,20 +480,20 @@ new Chart(document.getElementById('chartMarket'), {
     labels: ["EN", "ES", "FR", "PT", "DE", "TH", "JP", "CN", "IT", "Unknown"],
     datasets: [{ data: [169, 72, 69, 50, 41, 24, 21, 16, 12, 2], backgroundColor: chartColors, borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false } } }
 });
 
 new Chart(document.getElementById('chartCBTrend'), {
   type: 'bar',
   data: {
-    labels: ["FEB W1", "FEB W2", "FEB W3", "FEB W4"],
+    labels: ["JAN W4", "FEB W1", "FEB W2", "FEB W3", "FEB W4"],
     datasets: [{
       label: '주간 차지백',
-      data: [85, 86, 64, 59],
-      backgroundColor: ['#94a3b8','#64748b','#64748b','#2563EB'],
+      data: [71, 85, 86, 64, 59],
+      backgroundColor: ['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],
       borderRadius: 8,
       borderSkipped: false,
-      barPercentage: 0.5
+      barThickness: 52
     }]
   },
   plugins: [{
@@ -609,7 +511,7 @@ new Chart(document.getElementById('chartCBTrend'), {
     }
   }],
   options: {
-    responsive: true, maintainAspectRatio: true, aspectRatio: 3,
+    responsive: true,
     plugins: { legend: { display: false } },
     scales: {
       y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
