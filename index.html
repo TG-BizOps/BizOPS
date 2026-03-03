@@ -788,12 +788,11 @@ var DOC_STATUS = {
     updates.push({ date: d, diff: diff, title: rawTitle, badge: badge, cat: cat, card: card });
   });
 
-  // 1) Add NEW/UPDATED badges on cards (no date text)
+  // 1) Add "Updated" badge on cards within 7 days
   updates.forEach(function(u) {
     var titleEl = u.card.querySelector('.lc-title');
-    if (titleEl) {
-      if (u.diff <= 7) titleEl.insertAdjacentHTML('beforeend', '<span class="badge-new">NEW</span>');
-      else if (u.diff <= 14) titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">UPDATED</span>');
+    if (titleEl && u.diff <= 7) {
+      titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">Updated</span>');
     }
   });
 
@@ -802,8 +801,9 @@ var DOC_STATUS = {
     return { id: c.id, name: c.name, color: c.color, count: catCounts[c.id] || 0 };
   }).sort(function(a, b) { return b.count - a.count; });
 
-  // 3) Recent 5 (newest first)
-  var recent = updates.slice().sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
+  // 3) Recent: only 7-day window, max 5, newest first
+  var recent = updates.filter(function(u) { return u.diff <= 7; })
+    .sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
 
   // 4) Extract version from title
   function extractVersion(title) {
@@ -846,20 +846,22 @@ var DOC_STATUS = {
   });
   h += '</div>';
 
-  // Recent 5
-  h += '<div class="recent-header">최근 업데이트</div>';
-  recent.forEach(function(u) {
-    var catData = categories.find(function(c) { return c.id === u.cat; });
-    var color = catData ? catData.color : '#94A3B8';
-    var ver = extractVersion(u.title);
-    var cleanTitle = u.title.replace(/NEW|UPDATED/g, '').trim();
-    h += '<div class="recent-item">';
-    h += '<span class="recent-dot" style="background:' + color + ';"></span>';
-    h += '<span class="recent-title">' + cleanTitle + '</span>';
-    if (ver) h += '<span class="recent-version">' + ver + '</span>';
-    h += '<span class="recent-type">' + u.badge + '</span>';
-    h += '</div>';
-  });
+  // Recent (7-day window)
+  if (recent.length > 0) {
+    h += '<div class="recent-header">최근 업데이트 (7일 이내)</div>';
+    recent.forEach(function(u) {
+      var catData = categories.find(function(c) { return c.id === u.cat; });
+      var color = catData ? catData.color : '#94A3B8';
+      var ver = extractVersion(u.title);
+      var cleanTitle = u.title.replace(/Updated/g, '').trim();
+      h += '<div class="recent-item">';
+      h += '<span class="recent-dot" style="background:' + color + ';"></span>';
+      h += '<span class="recent-title">' + cleanTitle + '</span>';
+      if (ver) h += '<span class="recent-version">' + ver + '</span>';
+      h += '<span class="recent-type">' + u.badge + '</span>';
+      h += '</div>';
+    });
+  }
 
   panel.innerHTML = h;
 
