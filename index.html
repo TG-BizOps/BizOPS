@@ -205,8 +205,7 @@
     text-align: center; padding: 40px 20px; color: #94A3B8;
     font-size: 14px; display: none;
   }
-  .accordion.search-hidden, .link-card.search-hidden,
-  #sec-weekly.search-hidden { display: none; }
+  .accordion.search-hidden, .link-card.search-hidden { display: none; }
 
   /* NEW / UPDATED badges */
   .badge-new {
@@ -312,7 +311,7 @@
   <div class="hero-meta">
     <span>작성자: 유종선</span>
     <span>최종 업데이트: 2026-03-03</span>
-    <span>문서 42건 &middot; 7개 카테고리</span>
+    <span>문서 31건 &middot; 6개 카테고리</span>
   </div>
 </header>
 
@@ -329,9 +328,6 @@
     <div class="stat-card" data-target="sec-cb">
       <div class="num">4</div><div class="lbl">차지백</div>
     </div>
-    <a class="stat-card" href="weekly-reports/" style="text-decoration:none;">
-      <div class="num">11</div><div class="lbl">주간 리포트</div>
-    </a>
     <div class="stat-card" data-target="sec-ip">
       <div class="num">1</div><div class="lbl">IP 보호</div>
     </div>
@@ -417,18 +413,6 @@
         <a class="link-card" href="chargeback/Chargeback_Explanation_Form_v5.xlsx" data-updated="2026-03-01"><span class="lc-icon bg-slate">v5</span><span class="lc-body"><span class="lc-title">Explanation Form v5</span><span class="lc-desc">Excel 다운로드</span></span><span class="lc-badge bg-slate">XLSX</span></a>
       </div>
     </div></div>
-  </div>
-
-  <!-- 주간 리포트 -->
-  <div id="sec-weekly" style="margin-bottom:16px;">
-    <a class="link-card" href="weekly-reports/" style="border:1px solid #E2E8F0; border-radius:12px; padding:16px 20px; border-left:4px solid #0EA5E9;">
-      <span class="lc-icon bg-cyan" style="width:40px; height:40px; font-size:15px;">W</span>
-      <span class="lc-body">
-        <span class="lc-title" style="font-size:15px;">주간 리포트 아카이브</span>
-        <span class="lc-desc">2026년 2월 W1~W4 상세 + 요약본 · 11건</span>
-      </span>
-      <span class="lc-badge bg-cyan">11건 →</span>
-    </a>
   </div>
 
   <!-- IP 보호 -->
@@ -694,7 +678,6 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   if (!input) return;
 
   const accordions = document.querySelectorAll('.accordion:not(#sec-history)');
-  const weeklySection = document.getElementById('sec-weekly');
   const allCards = document.querySelectorAll('.link-card');
 
   input.addEventListener('input', function() {
@@ -708,7 +691,6 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
         a.classList.remove('open');
         a.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
       });
-      if (weeklySection) weeklySection.classList.remove('search-hidden');
       meta.classList.add('hidden');
       noResults.style.display = 'none';
       return;
@@ -738,18 +720,6 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
         acc.classList.add('search-hidden');
       }
     });
-
-    // Weekly section
-    if (weeklySection) {
-      const wCard = weeklySection.querySelector('.link-card');
-      if (wCard) {
-        const wTitle = (wCard.querySelector('.lc-title')?.textContent || '').toLowerCase();
-        const wDesc = (wCard.querySelector('.lc-desc')?.textContent || '').toLowerCase();
-        const wMatch = wTitle.includes(q) || wDesc.includes(q) || '주간'.includes(q) || 'weekly'.includes(q);
-        weeklySection.classList.toggle('search-hidden', !wMatch);
-        if (wMatch) totalMatch++;
-      }
-    }
 
     // Meta & no-results
     if (totalMatch > 0) {
