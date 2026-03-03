@@ -182,19 +182,14 @@
   .pj-impact-title { font-size:12px; font-weight:700; color:var(--text-primary); margin:4px 0 2px; }
   .pj-impact-before { font-size:11px; color:#94A3B8; text-decoration:line-through; }
   .pj-impact-after { font-size:13px; font-weight:700; color:#059669; }
-  .pj-roadmap { position:relative; padding-left:24px; }
-  .pj-roadmap::before { content:''; position:absolute; left:9px; top:4px; bottom:4px; width:2px; background:linear-gradient(180deg,#10b981,#2563eb,#94a3b8,#94a3b8); }
-  .pj-rm-item { position:relative; margin-bottom:16px; }
-  .pj-rm-item:last-child { margin-bottom:0; }
-  .pj-rm-dot { position:absolute; left:-20px; top:4px; width:10px; height:10px; border-radius:50%; border:2px solid #fff; }
-  .pj-rm-content { font-size:12px; color:var(--text-secondary); }
-  .pj-rm-head { margin-bottom:2px; }
-  .pj-rm-head strong { color:var(--text-primary); }
-  .pj-rm-desc { font-size:11px; color:var(--text-muted); }
-  .pj-rm-tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700; margin-right:6px; }
-  .pj-rm-tag.done { background:#ecfdf5; color:#059669; }
-  .pj-rm-tag.progress { background:#eff6ff; color:#2563eb; }
-  .pj-rm-tag.planned { background:#f1f5f9; color:#64748b; }
+  .pj-roadmap-h { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .pj-rmh { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  .pj-rmh-tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700; margin-bottom:4px; }
+  .pj-rmh-tag.done { background:#ecfdf5; color:#059669; }
+  .pj-rmh-tag.progress { background:#eff6ff; color:#2563eb; }
+  .pj-rmh-tag.planned { background:#f1f5f9; color:#64748b; }
+  .pj-rmh-title { font-size:13px; font-weight:800; color:var(--text-primary); }
+  .pj-rmh-desc { font-size:11px; color:var(--text-muted); margin-top:2px; }
   .pj-keymsg { background:linear-gradient(135deg,#EEF2FF,#E0E7FF); border:1px solid #C7D2FE; border-radius:14px; padding:18px 24px; text-align:center; }
   .pj-keymsg-text { font-size:13px; font-weight:600; color:#3730A3; line-height:1.6; }
   .pj-keymsg-sub { font-size:11px; color:#6366F1; margin-top:4px; }
@@ -426,39 +421,12 @@
       </div>
     </div>
 
-    <!-- ROADMAP -->
-    <div class="pj-box" style="margin-bottom:16px;">
-      <div class="pj-box-title">🗺️ 고도화 로드맵</div>
-      <div class="pj-roadmap">
-        <div class="pj-rm-item">
-          <div class="pj-rm-dot" style="background:#10b981;box-shadow:0 0 0 3px #d1fae5;"></div>
-          <div class="pj-rm-content">
-            <div class="pj-rm-head"><span class="pj-rm-tag done">✅ 완료</span><strong>Phase 1</strong> 산출물 포탈 구축</div>
-            <div class="pj-rm-desc">29개 문서 통합 · 자동 인덱싱 · GitHub Pages 배포</div>
-          </div>
-        </div>
-        <div class="pj-rm-item">
-          <div class="pj-rm-dot" style="background:#2563eb;box-shadow:0 0 0 3px #dbeafe;"></div>
-          <div class="pj-rm-content">
-            <div class="pj-rm-head"><span class="pj-rm-tag progress">🔄 Q2</span><strong>Phase 2</strong> 피드백 포탈</div>
-            <div class="pj-rm-desc">문서별 피드백 → GitHub Issue 자동 생성</div>
-          </div>
-        </div>
-        <div class="pj-rm-item">
-          <div class="pj-rm-dot" style="background:#94a3b8;box-shadow:0 0 0 3px #f1f5f9;"></div>
-          <div class="pj-rm-content">
-            <div class="pj-rm-head"><span class="pj-rm-tag planned">📋 Q3</span><strong>Phase 3</strong> 스마트 검색 + AI 어시스턴트</div>
-            <div class="pj-rm-desc">29개 문서 자연어 검색 · 신규 입사자 AI Q&A</div>
-          </div>
-        </div>
-        <div class="pj-rm-item">
-          <div class="pj-rm-dot" style="background:#94a3b8;box-shadow:0 0 0 3px #f1f5f9;"></div>
-          <div class="pj-rm-content">
-            <div class="pj-rm-head"><span class="pj-rm-tag planned">📋 Q4</span><strong>Phase 4</strong> 자동 업데이트 파이프라인</div>
-            <div class="pj-rm-desc">트렌드 변화 감지 → 매뉴얼 자동 업데이트 제안</div>
-          </div>
-        </div>
-      </div>
+    <!-- ROADMAP — 가로 4카드 -->
+    <div class="pj-roadmap-h">
+      <div class="pj-rmh" style="border-top:3px solid #10b981;"><div class="pj-rmh-tag done">✅ 완료</div><div class="pj-rmh-title">Phase 1</div><div class="pj-rmh-desc">포탈 구축 · 29개 문서</div></div>
+      <div class="pj-rmh" style="border-top:3px solid #2563eb;"><div class="pj-rmh-tag progress">🔄 Q2</div><div class="pj-rmh-title">Phase 2</div><div class="pj-rmh-desc">피드백 포탈</div></div>
+      <div class="pj-rmh" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q3</div><div class="pj-rmh-title">Phase 3</div><div class="pj-rmh-desc">스마트 검색 + AI</div></div>
+      <div class="pj-rmh" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q4</div><div class="pj-rmh-title">Phase 4</div><div class="pj-rmh-desc">자동 업데이트</div></div>
     </div>
 
     <!-- KEY MESSAGE -->
