@@ -226,6 +226,66 @@
     50% { opacity: 0.7; }
   }
 
+  /* Update Overview Panel */
+  .update-panel {
+    background: #fff; border: 1px solid #E2E8F0;
+    border-radius: 12px; padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .update-panel-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  }
+  .update-panel-header h3 {
+    font-size: 14px; font-weight: 700; color: #1E293B; margin: 0;
+  }
+  .update-panel-header .sub {
+    font-size: 12px; color: #94A3B8; margin-left: auto;
+  }
+  .activity-chart {
+    display: flex; gap: 6px; align-items: flex-end;
+    height: 64px; margin-bottom: 20px; padding: 0 4px;
+  }
+  .activity-col {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; gap: 4px;
+  }
+  .activity-count {
+    font-size: 10px; font-weight: 700; color: #1E293B;
+  }
+  .activity-count.zero { color: #CBD5E1; }
+  .activity-bar {
+    width: 100%; border-radius: 4px; min-height: 4px;
+    transition: height 0.3s ease;
+  }
+  .activity-label {
+    font-size: 10px; color: #94A3B8; white-space: nowrap;
+  }
+  .recent-header {
+    font-size: 12px; font-weight: 700; color: #64748B;
+    margin-bottom: 10px; padding-top: 14px;
+    border-top: 1px solid #E2E8F0;
+  }
+  .recent-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 6px 0; font-size: 12px;
+  }
+  .recent-dot {
+    width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0;
+  }
+  .recent-title {
+    flex: 1; white-space: nowrap; overflow: hidden;
+    text-overflow: ellipsis; color: #334155;
+  }
+  .recent-date {
+    color: #94A3B8; flex-shrink: 0; font-variant-numeric: tabular-nums;
+  }
+  .recent-rel {
+    color: #94A3B8; flex-shrink: 0; min-width: 44px; text-align: right;
+  }
+  .lc-date {
+    font-size: 10px; color: #94A3B8; margin-top: 1px; display: block;
+  }
+
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
@@ -234,7 +294,7 @@
     .hero { padding: 24px; }
     .accordion-body { max-height: none !important; }
     .chevron { display: none; }
-    .search-wrap, .badge-new, .badge-updated { display: none; }
+    .search-wrap, .badge-new, .badge-updated, .update-panel { display: none; }
   }
   @media (max-width: 600px) {
     .link-grid { grid-template-columns: 1fr; }
@@ -290,6 +350,9 @@
     <span class="search-meta hidden" id="searchMeta"></span>
   </div>
   <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
+
+  <!-- Update Overview -->
+  <div class="update-panel" id="updateOverview"></div>
 
   <!-- CS 운영 -->
   <div class="accordion" id="sec-cs">
@@ -524,21 +587,103 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   showPage(1);
 })();
 
-// NEW / UPDATED badge injection
+// Update Overview + Badges + Relative Dates
 (function() {
   const now = new Date();
-  const DAY_MS = 86400000;
-  document.querySelectorAll('.link-card[data-updated]').forEach(card => {
-    const updated = new Date(card.dataset.updated + 'T00:00:00');
-    const diff = Math.floor((now - updated) / DAY_MS);
-    const titleEl = card.querySelector('.lc-title');
-    if (!titleEl) return;
-    if (diff <= 7) {
-      titleEl.insertAdjacentHTML('beforeend', '<span class="badge-new">NEW</span>');
-    } else if (diff <= 14) {
-      titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">UPDATED</span>');
+  const DAY = 86400000;
+  const catColors = {
+    'sec-cs':'#2563EB','sec-chatbot':'#7C3AED','sec-cb':'#F59E0B',
+    'sec-ip':'#10B981','sec-ticket':'#EF4444','sec-tpl':'#475569','sec-weekly':'#0EA5E9'
+  };
+
+  function relText(diff) {
+    if (diff === 0) return '오늘';
+    if (diff === 1) return '어제';
+    if (diff < 7) return diff + '일 전';
+    if (diff < 14) return '1주 전';
+    if (diff < 21) return '2주 전';
+    if (diff < 30) return '3주 전';
+    return Math.floor(diff / 30) + '개월 전';
+  }
+
+  // Collect all cards with dates
+  var updates = [];
+  document.querySelectorAll('.link-card[data-updated]').forEach(function(card) {
+    var d = new Date(card.dataset.updated + 'T00:00:00');
+    var diff = Math.floor((now - d) / DAY);
+    var title = (card.querySelector('.lc-title')?.textContent || '').replace(/NEW|UPDATED/g,'').trim();
+    var acc = card.closest('.accordion');
+    var cat = acc ? acc.id : (card.closest('#sec-weekly') ? 'sec-weekly' : '');
+    updates.push({ date: d, dateStr: card.dataset.updated, diff: diff, title: title, cat: cat, card: card });
+  });
+  updates.sort(function(a,b){ return a.date - b.date; }); // oldest first for badges
+
+  // 1) Badges + relative dates on each card
+  updates.forEach(function(u) {
+    var titleEl = u.card.querySelector('.lc-title');
+    if (titleEl) {
+      if (u.diff <= 7) titleEl.insertAdjacentHTML('beforeend','<span class="badge-new">NEW</span>');
+      else if (u.diff <= 14) titleEl.insertAdjacentHTML('beforeend','<span class="badge-updated">UPDATED</span>');
+    }
+    var body = u.card.querySelector('.lc-body');
+    if (body) {
+      body.insertAdjacentHTML('beforeend','<span class="lc-date">' + u.dateStr + ' · ' + relText(u.diff) + '</span>');
     }
   });
+
+  // 2) Activity chart (6 weekly buckets)
+  var weeks = [];
+  for (var w = 0; w < 6; w++) {
+    var lo = w * 7, hi = (w + 1) * 7;
+    var cnt = updates.filter(function(u){ return u.diff >= lo && u.diff < hi; }).length;
+    var endD = new Date(now.getTime() - lo * DAY);
+    var startD = new Date(now.getTime() - (hi - 1) * DAY);
+    var label = (startD.getMonth()+1) + '/' + startD.getDate() + '~' + (endD.getMonth()+1) + '/' + endD.getDate();
+    weeks.unshift({ count: cnt, label: label, isCurrent: w === 0 });
+  }
+  var maxCnt = Math.max.apply(null, weeks.map(function(w){ return w.count; }));
+  if (maxCnt < 1) maxCnt = 1;
+
+  // 3) Recent 5
+  var recent = updates.slice().sort(function(a,b){ return a.diff - b.diff; }).slice(0, 5);
+
+  // 4) Render panel
+  var panel = document.getElementById('updateOverview');
+  if (!panel) return;
+
+  var h = '<div class="update-panel-header">';
+  h += '<span style="font-size:15px;">📅</span>';
+  h += '<h3>업데이트 현황</h3>';
+  h += '<span class="sub">최근 6주 · 전체 ' + updates.length + '건</span>';
+  h += '</div>';
+
+  // Activity bars
+  h += '<div class="activity-chart">';
+  weeks.forEach(function(wk) {
+    var barH = wk.count > 0 ? Math.max(12, Math.round((wk.count / maxCnt) * 52)) : 4;
+    var color = wk.count > 0 ? (wk.isCurrent ? '#2563EB' : '#93C5FD') : '#F1F5F9';
+    h += '<div class="activity-col">';
+    h += '<span class="activity-count' + (wk.count === 0 ? ' zero' : '') + '">' + (wk.count > 0 ? wk.count + '건' : '-') + '</span>';
+    h += '<div class="activity-bar" style="height:' + barH + 'px;background:' + color + ';"></div>';
+    h += '<span class="activity-label">' + wk.label + '</span>';
+    h += '</div>';
+  });
+  h += '</div>';
+
+  // Recent updates
+  h += '<div class="recent-header">최근 업데이트</div>';
+  recent.forEach(function(u) {
+    var color = catColors[u.cat] || '#94A3B8';
+    var shortDate = (u.date.getMonth()+1) + '월 ' + u.date.getDate() + '일';
+    h += '<div class="recent-item">';
+    h += '<span class="recent-dot" style="background:' + color + ';"></span>';
+    h += '<span class="recent-title">' + u.title + '</span>';
+    h += '<span class="recent-date">' + shortDate + '</span>';
+    h += '<span class="recent-rel">' + relText(u.diff) + '</span>';
+    h += '</div>';
+  });
+
+  panel.innerHTML = h;
 })();
 
 // Search
