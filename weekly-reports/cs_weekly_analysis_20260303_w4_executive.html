@@ -591,10 +591,10 @@ new Chart(document.getElementById('chartCBTrend'), {
     datasets: [{
       label: '주간 차지백',
       data: [85, 86, 64, 75],
-      backgroundColor: ['#94a3b8','#94a3b8','#64748b','#64748b','#2563EB'],
+      backgroundColor: ['#94a3b8','#94a3b8','#64748b','#2563EB'],
       borderRadius: 8,
       borderSkipped: false,
-      barThickness: 52
+      barPercentage: 0.55
     }]
   },
   plugins: [{
@@ -604,7 +604,7 @@ new Chart(document.getElementById('chartCBTrend'), {
         var meta = chart.getDatasetMeta(i);
         meta.data.forEach(function(bar, idx) {
           ctx.fillStyle = '#1e293b';
-          ctx.font = "bold 12px " + fontFamily;
+          ctx.font = "bold 13px " + fontFamily;
           ctx.textAlign = 'center';
           ctx.fillText(ds.data[idx] + '건', bar.x, bar.y - 8);
         });
@@ -613,6 +613,8 @@ new Chart(document.getElementById('chartCBTrend'), {
   }],
   options: {
     responsive: true,
+    maintainAspectRatio: true,
+    aspectRatio: 3.2,
     plugins: { legend: { display: false } },
     scales: {
       y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
