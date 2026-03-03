@@ -190,35 +190,6 @@
   .pj-ba-before li::before { content:'✕'; color:#DC2626; font-size:10px; font-weight:800; flex-shrink:0; }
   .pj-ba-after li::before { content:'✓'; color:#059669; font-size:10px; font-weight:800; flex-shrink:0; }
   .pj-ba-arrow { display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; color:#2563EB; padding:0 10px; }
-  .pj-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
-  .pj-stat { background:var(--bg-card); border-radius:12px; padding:16px; text-align:center; border:1px solid var(--border); position:relative; overflow:hidden; box-shadow:0 1px 3px rgba(0,0,0,.04); }
-  .pj-stat::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
-  .pj-stat:nth-child(1)::before { background:#2563EB; }
-  .pj-stat:nth-child(2)::before { background:#0EA5E9; }
-  .pj-stat:nth-child(3)::before { background:#10B981; }
-  .pj-stat:nth-child(4)::before { background:#F59E0B; }
-  .pj-stat-num { font-size:26px; font-weight:800; font-variant-numeric:tabular-nums; }
-  .pj-stat-num span { font-size:13px; font-weight:600; }
-  .pj-stat-label { font-size:11px; color:var(--text-muted); margin-top:2px; }
-  .pj-ach-list { display:flex; flex-direction:column; gap:8px; }
-  .pj-ach { display:flex; align-items:flex-start; gap:10px; padding:10px 14px; background:var(--bg-muted); border-radius:10px; border:1px solid var(--border); font-size:12.5px; line-height:1.6; }
-  .pj-ach-icon { flex-shrink:0; width:28px; height:28px; border-radius:8px; display:flex; align-items:center; justify-content:center; font-size:14px; }
-  .pj-cats { display:grid; grid-template-columns:repeat(5,1fr); gap:10px; margin-bottom:16px; }
-  .pj-cat { border-radius:10px; padding:14px 10px; text-align:center; border:1px solid transparent; box-shadow:0 1px 3px rgba(0,0,0,.04); }
-  .pj-cat.c-cs { background:#EFF6FF; border-color:#BFDBFE; }
-  .pj-cat.c-ai { background:#F5F3FF; border-color:#DDD6FE; }
-  .pj-cat.c-cb { background:#FFFBEB; border-color:#FDE68A; }
-  .pj-cat.c-ip { background:#ECFDF5; border-color:#A7F3D0; }
-  .pj-cat.c-dash { background:#F0F9FF; border-color:#BAE6FD; }
-  .pj-cat-icon { font-size:22px; margin-bottom:4px; }
-  .pj-cat-name { font-size:11px; font-weight:700; }
-  .pj-cat-count { font-size:22px; font-weight:800; margin-top:2px; }
-  .pj-cat-desc { font-size:9.5px; color:#64748B; margin-top:2px; }
-  .pj-cov-bars { display:flex; flex-direction:column; gap:12px; }
-  .pj-cov-row { display:flex; align-items:center; gap:12px; }
-  .pj-cov-label { width:130px; font-size:12px; font-weight:700; flex-shrink:0; }
-  .pj-cov-track { flex:1; height:20px; background:#F1F5F9; border-radius:10px; overflow:hidden; }
-  .pj-cov-fill { height:100%; border-radius:10px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; font-size:10px; font-weight:800; color:#fff; }
   .pj-impacts { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
   .pj-impact { background:var(--bg-card); border-radius:12px; padding:18px; text-align:center; border:1px solid var(--border); box-shadow:0 1px 3px rgba(0,0,0,.04); }
   .pj-impact-icon { font-size:24px; margin-bottom:4px; }
@@ -243,7 +214,7 @@
   .pj-keymsg { background:linear-gradient(135deg,#EEF2FF,#E0E7FF); border:1px solid #C7D2FE; border-radius:14px; padding:18px 24px; text-align:center; }
   .pj-keymsg-text { font-size:13px; font-weight:600; color:#3730A3; line-height:1.6; }
   .pj-keymsg-sub { font-size:11px; color:#6366F1; margin-top:4px; }
-  @media print { .pj-hero,.pj-cat,.pj-cov-fill { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } }
+  @media print { .pj-hero { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } }
 </style>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📊</text></svg>" type="image/svg+xml">
 </head>
@@ -443,63 +414,6 @@
   </div>
 
   
-  <!-- CUSTOMER VOICE -->
-  <div class="section voice-section">
-    <div class="section-title"><span class="dot"></span>Customer Voice — 주요 이슈 요약</div>
-    <div class="chart-card">
-      <div class="voc-group">🔧 기술/시스템 이슈</div>
-      <table class="voc-table">
-        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Boa tarde fiz o pagamento mais não estou conseguindo acessar as histórias" <span style="font-size:10px;color:var(--text-muted);">#124982</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>FR·ES·EN</td><td>25</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Can´t accsses to my account: Dear sirs, I buy an access to TOMMICS on january 4th 2026, but since ye" <span style="font-size:10px;color:var(--text-muted);">#124503</span></td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·FR·ES</td><td>13</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Do u have problems with the server?!? I have problems with downloads of the episodes. I checked the " <span style="font-size:10px;color:var(--text-muted);">#124312</span></td><td>CDN/이미지 서버 성능 모니터링</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·ES</td><td>10</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I can not access to my Toomics account I pay USD 35.99 on january 1st 2026, please fix this isue. Ac" <span style="font-size:10px;color:var(--text-muted);">#124334</span></td><td>OAuth 안정성 모니터링</td></tr>
-        </tbody>
-      </table>
-      <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
-      <table class="voc-table">
-        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>125</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Solicitei o cancelamento de minha conta e acabou de ser feitou uma cobrança no meu cartão, não quero" <span style="font-size:10px;color:var(--text-muted);">#124390</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·PT</td><td>79</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I was checking out content and I have no clue how but it made me purchase a subscription I never ent" <span style="font-size:10px;color:var(--text-muted);">#124295</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·ES</td><td>7</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"He accedido a la oferta de 2 meses + 1 gratis , por 7,99 euors al mes y me han cobrado 21 euros al f" <span style="font-size:10px;color:var(--text-muted);">#124322</span></td><td>결제 재시도 로직 점검</td></tr>
-        </tbody>
-      </table>
-      <div class="voc-group">📚 콘텐츠 & 계정</div>
-      <table class="voc-table">
-        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
-        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
-        <tbody>
-          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·PT</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"It is not letting me deactivate my account, I’ll cancel my membership and then go to deactivate my a" <span style="font-size:10px;color:var(--text-muted);">#125814</span></td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>PT·FR·TH</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
-
-회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#124986</span></td><td>작품별 이미지 에셋 점검</td></tr>
-        </tbody>
-      </table>
-
-    </div>
-  </div>
-
-
-  
-  <div class="section">
-    <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Top 3 Action Items</div>
-    <div class="chart-card">
-      <table class="rec-table">
-        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
-        <tbody>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -72건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  
   <div class="section">
     <div class="section-title"><span class="dot" style="background:#7c3aed;"></span>BizOps 산출물 포탈</div>
 
@@ -540,47 +454,6 @@
             <li>Git 기반 자동 버전 관리 + 자동 인덱싱</li>
           </ul>
         </div>
-      </div>
-    </div>
-
-    <!-- STATS -->
-    <div class="pj-stats">
-      <div class="pj-stat"><div class="pj-stat-num" style="color:#2563eb;">29<span>건</span></div><div class="pj-stat-label">총 산출물</div></div>
-      <div class="pj-stat"><div class="pj-stat-num" style="color:#0ea5e9;">5<span>개</span></div><div class="pj-stat-label">운영 영역</div></div>
-      <div class="pj-stat"><div class="pj-stat-num" style="color:#10b981;">11,621<span>건</span></div><div class="pj-stat-label">분석 기반 데이터</div></div>
-      <div class="pj-stat"><div class="pj-stat-num" style="color:#f59e0b;">7<span>개월</span></div><div class="pj-stat-label">분석 기간</div></div>
-    </div>
-
-    <!-- ACHIEVEMENTS -->
-    <div class="pj-box">
-      <div class="pj-box-title">🏆 주요 성과</div>
-      <div class="pj-ach-list">
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#EFF6FF;">📄</div><div><strong>29개 문서 단독 기획·작성</strong> — 10개 글로벌 마켓 대응 운영 산출물 전량 자체 제작</div></div>
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#F5F3FF;">🤖</div><div><strong>AI 챗봇 기획 풀세트 13종</strong> — 아키텍처 → 로드맵 → 시연 시나리오 → 교육 자료 → 운영 매뉴얼</div></div>
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#ECFEFF;">📊</div><div><strong>11,621건 × 7개월 실데이터 분석</strong> → 인포그래픽 · Fraud 리포트 · 티켓 레벨 분석</div></div>
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#FFFBEB;">💳</div><div><strong>8개 PG사 차지백 소명 체계</strong> — 매뉴얼 v1.3 + 소명 폼 V5 + 증빙 템플릿 v2</div></div>
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#EFF6FF;">🌐</div><div><strong>이중 언어 매뉴얼 EN/KO</strong> — 복사 즉시 사용 가능한 응대 템플릿 내장</div></div>
-        <div class="pj-ach"><div class="pj-ach-icon" style="background:#ECFDF5;">📈</div><div><strong>CS Ticket Dashboard</strong> — 인터랙티브 실시간 시각화 + 운영 매뉴얼</div></div>
-      </div>
-    </div>
-
-    <!-- CATEGORIES -->
-    <div class="pj-cats">
-      <div class="pj-cat c-cs"><div class="pj-cat-icon">🎧</div><div class="pj-cat-name">CS 운영</div><div class="pj-cat-count">9</div><div class="pj-cat-desc">매뉴얼·분석·프로세스</div></div>
-      <div class="pj-cat c-ai"><div class="pj-cat-icon">🤖</div><div class="pj-cat-name">AI 챗봇</div><div class="pj-cat-count">13</div><div class="pj-cat-desc">기획·운영·교육·플로우</div></div>
-      <div class="pj-cat c-cb"><div class="pj-cat-icon">💳</div><div class="pj-cat-name">차지백</div><div class="pj-cat-count">4</div><div class="pj-cat-desc">매뉴얼·템플릿·증빙</div></div>
-      <div class="pj-cat c-ip"><div class="pj-cat-icon">🛡️</div><div class="pj-cat-name">IP 보호</div><div class="pj-cat-count">1</div><div class="pj-cat-desc">운영 매뉴얼</div></div>
-      <div class="pj-cat c-dash"><div class="pj-cat-icon">📈</div><div class="pj-cat-name">대시보드</div><div class="pj-cat-count">2</div><div class="pj-cat-desc">티켓 대시보드·매뉴얼</div></div>
-    </div>
-
-    <!-- COVERAGE -->
-    <div class="pj-box">
-      <div class="pj-box-title">📏 문서 커버리지</div>
-      <div class="pj-cov-bars">
-        <div class="pj-cov-row"><div class="pj-cov-label">CS 문의 유형</div><div class="pj-cov-track"><div class="pj-cov-fill" style="width:95%;background:linear-gradient(90deg,#2563EB,#3B82F6);">95%</div></div></div>
-        <div class="pj-cov-row"><div class="pj-cov-label">차지백 PG사</div><div class="pj-cov-track"><div class="pj-cov-fill" style="width:100%;background:linear-gradient(90deg,#D97706,#F59E0B);">8/8 PG사</div></div></div>
-        <div class="pj-cov-row"><div class="pj-cov-label">AI 챗봇 라이프사이클</div><div class="pj-cov-track"><div class="pj-cov-fill" style="width:100%;background:linear-gradient(90deg,#7C3AED,#8B5CF6);">기획→교육 100%</div></div></div>
-        <div class="pj-cov-row"><div class="pj-cov-label">글로벌 마켓</div><div class="pj-cov-track"><div class="pj-cov-fill" style="width:100%;background:linear-gradient(90deg,#059669,#10B981);">10개 언어</div></div></div>
       </div>
     </div>
 
@@ -650,6 +523,63 @@
       <div class="pj-keymsg-sub">단독 기획/작성 · GitHub Pages · 자동 인덱싱 · Git 버전 관리</div>
     </div>
 
+  </div>
+
+  
+  <!-- CUSTOMER VOICE -->
+  <div class="section voice-section">
+    <div class="section-title"><span class="dot"></span>Customer Voice — 주요 이슈 요약</div>
+    <div class="chart-card">
+      <div class="voc-group">🔧 기술/시스템 이슈</div>
+      <table class="voc-table">
+        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·ES·EN</td><td>22</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Boa tarde fiz o pagamento mais não estou conseguindo acessar as histórias" <span style="font-size:10px;color:var(--text-muted);">#124982</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>FR·ES·EN</td><td>25</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Can´t accsses to my account: Dear sirs, I buy an access to TOMMICS on january 4th 2026, but since ye" <span style="font-size:10px;color:var(--text-muted);">#124503</span></td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 재생/로딩 오류</td><td>EN·FR·ES</td><td>13</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Do u have problems with the server?!? I have problems with downloads of the episodes. I checked the " <span style="font-size:10px;color:var(--text-muted);">#124312</span></td><td>CDN/이미지 서버 성능 모니터링</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>EN·PT·ES</td><td>10</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I can not access to my Toomics account I pay USD 35.99 on january 1st 2026, please fix this isue. Ac" <span style="font-size:10px;color:var(--text-muted);">#124334</span></td><td>OAuth 안정성 모니터링</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">⚠️ 정책 오해 & UX 혼란</div>
+      <table class="voc-table">
+        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>125</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Solicitei o cancelamento de minha conta e acabou de ser feitou uma cobrança no meu cartão, não quero" <span style="font-size:10px;color:var(--text-muted);">#124390</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·ES·PT</td><td>79</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I was checking out content and I have no clue how but it made me purchase a subscription I never ent" <span style="font-size:10px;color:var(--text-muted);">#124295</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·ES</td><td>7</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"He accedido a la oferta de 2 meses + 1 gratis , por 7,99 euors al mes y me han cobrado 21 euros al f" <span style="font-size:10px;color:var(--text-muted);">#124322</span></td><td>결제 재시도 로직 점검</td></tr>
+        </tbody>
+      </table>
+      <div class="voc-group">📚 콘텐츠 & 계정</div>
+      <table class="voc-table">
+        <colgroup><col style="width:8%"><col style="width:28%"><col style="width:12%"><col style="width:7%"><col style="width:22%"><col style="width:23%"></colgroup>
+        <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·FR·PT</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"It is not letting me deactivate my account, I’ll cancel my membership and then go to deactivate my a" <span style="font-size:10px;color:var(--text-muted);">#125814</span></td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>이미지 오류/스크린샷 첨부 문의</td><td>PT·FR·TH</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
+
+회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#124986</span></td><td>작품별 이미지 에셋 점검</td></tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+
+  
+  <div class="section">
+    <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Top 3 Action Items</div>
+    <div class="chart-card">
+      <table class="rec-table">
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <tbody>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -72건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- FOOTER -->
