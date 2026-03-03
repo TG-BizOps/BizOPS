@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BizOps 산출물 포탈 — 프로젝트 보고</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;background:#F8FAFC;color:#1E293B;font-size:14px;line-height:1.7}
+.section{max-width:900px;margin:32px auto;padding:0 20px}
+
+.project-header{background:linear-gradient(135deg,#1E3A5F 0%,#2563EB 60%,#0EA5E9 100%);border-radius:16px;padding:28px 32px;color:#fff;position:relative;overflow:hidden}
+.project-header::after{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:rgba(255,255,255,.04);border-radius:50%}
+.ph-badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:3px 12px;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px}
+.ph-title{font-size:22px;font-weight:800;margin-bottom:4px}
+.ph-sub{font-size:13px;opacity:.75}
+.ph-link{display:inline-block;margin-top:12px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;color:#fff;text-decoration:none;transition:.2s}
+.ph-link:hover{background:rgba(255,255,255,.25)}
+
+.problem-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.box-title{font-size:15px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.before-after{display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch}
+.ba-col{padding:16px;border-radius:12px}
+.ba-col.before{background:#FEF2F2;border:1px solid #FECACA}
+.ba-col.after{background:#ECFDF5;border:1px solid #A7F3D0}
+.ba-arrow{display:flex;align-items:center;justify-content:center;padding:0 12px;font-size:24px;color:#2563EB}
+.ba-label{font-size:11px;font-weight:800;letter-spacing:1px;margin-bottom:10px}
+.ba-label.red{color:#DC2626}
+.ba-label.green{color:#059669}
+.ba-list{list-style:none;font-size:12.5px}
+.ba-list li{padding:5px 0;display:flex;align-items:flex-start;gap:6px;line-height:1.5}
+.ba-col.before .ba-list li::before{content:'✕';color:#DC2626;font-size:11px;font-weight:800;flex-shrink:0;width:14px}
+.ba-col.after .ba-list li::before{content:'✓';color:#059669;font-size:11px;font-weight:800;flex-shrink:0;width:14px}
+
+/* Screenshots */
+.screenshot-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.screenshot-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.ss-item{position:relative}
+.ss-label{font-size:11px;font-weight:700;color:#64748B;margin-bottom:8px;text-align:center}
+.ss-frame{border-radius:10px;overflow:hidden;border:1px solid #E2E8F0;box-shadow:0 2px 8px rgba(0,0,0,.06);position:relative}
+.ss-titlebar{background:#E2E8F0;padding:6px 12px;display:flex;align-items:center;gap:6px}
+.ss-dot{width:8px;height:8px;border-radius:50%}
+.ss-dot.r{background:#FC5753}.ss-dot.y{background:#FDBC40}.ss-dot.g{background:#33C748}
+.ss-url{font-size:9px;color:#94A3B8;margin-left:8px;background:#fff;padding:2px 8px;border-radius:4px;flex:1;text-align:center}
+
+/* Before mock */
+.mock-before{background:#fff;padding:12px;min-height:160px}
+.mock-tabs{display:flex;gap:4px;margin-bottom:8px}
+.mock-tab{font-size:8px;padding:3px 8px;border-radius:4px;background:#F1F5F9;color:#94A3B8}
+.mock-tab.active{background:#E0E7FF;color:#3730A3}
+.mock-scattered{display:flex;flex-direction:column;gap:6px}
+.mock-doc{display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:6px;font-size:9px;background:#F8FAFC;border:1px solid #E2E8F0;color:#64748B}
+.mock-doc.lost{opacity:.4;transform:rotate(-1deg)}
+.mock-doc.dup{border-color:#FECACA;color:#DC2626;font-size:8px}
+.mock-doc .md-icon{font-size:12px}
+.mock-warn{text-align:center;font-size:20px;margin:8px 0;opacity:.3}
+.mock-q{font-size:8px;color:#DC2626;text-align:center;font-style:italic;margin-top:4px}
+
+/* After mock - portal */
+.mock-after{background:#0f172a;padding:12px;min-height:160px}
+.mock-portal-header{text-align:center;padding:6px 0}
+.mock-portal-header .mph-title{font-size:10px;font-weight:800;color:#E2E8F0}
+.mock-portal-header .mph-sub{font-size:7px;color:#64748B}
+.mock-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-top:8px}
+.mock-card{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:6px;text-align:center}
+.mock-card .mc-icon{font-size:12px}
+.mock-card .mc-name{font-size:7px;color:#94A3B8;margin-top:2px}
+.mock-card .mc-count{font-size:9px;color:#E2E8F0;font-weight:800}
+.mock-search{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:4px;padding:4px 8px;font-size:7px;color:#64748B;margin-top:6px;display:flex;align-items:center;gap:4px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:20px}
+.stat-card{background:#fff;border:1px solid #E2E8F0;border-radius:12px;padding:16px;text-align:center;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px}
+.stat-card:nth-child(1)::before{background:#2563EB}
+.stat-card:nth-child(2)::before{background:#0EA5E9}
+.stat-card:nth-child(3)::before{background:#10B981}
+.stat-card:nth-child(4)::before{background:#F59E0B}
+.sc-num{font-size:28px;font-weight:800;font-variant-numeric:tabular-nums}
+.sc-num span{font-size:14px;font-weight:600}
+.sc-label{font-size:11px;color:#64748B;margin-top:2px}
+
+.achievements{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.ach-list{display:flex;flex-direction:column;gap:8px}
+.ach-item{display:flex;align-items:flex-start;gap:10px;padding:10px 14px;background:#F8FAFC;border-radius:10px;border:1px solid #E2E8F0;font-size:13px;line-height:1.6}
+.ach-item .ach-icon{flex-shrink:0;width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px}
+.ach-item .ach-icon.blue{background:#EFF6FF}
+.ach-item .ach-icon.purple{background:#F5F3FF}
+.ach-item .ach-icon.amber{background:#FFFBEB}
+.ach-item .ach-icon.green{background:#ECFDF5}
+.ach-item .ach-icon.cyan{background:#ECFEFF}
+
+.coverage-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.coverage-bars{display:flex;flex-direction:column;gap:14px}
+.cb-row{display:flex;align-items:center;gap:12px}
+.cb-label{width:120px;font-size:12px;font-weight:700;flex-shrink:0}
+.cb-track{flex:1;height:20px;background:#F1F5F9;border-radius:10px;overflow:hidden}
+.cb-fill{height:100%;border-radius:10px;display:flex;align-items:center;justify-content:flex-end;padding-right:8px;font-size:10px;font-weight:800;color:#fff}
+.cb-fill.blue{background:linear-gradient(90deg,#2563EB,#3B82F6)}
+.cb-fill.purple{background:linear-gradient(90deg,#7C3AED,#8B5CF6)}
+.cb-fill.amber{background:linear-gradient(90deg,#D97706,#F59E0B)}
+.cb-fill.green{background:linear-gradient(90deg,#059669,#10B981)}
+
+.categories{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.cat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.cat-card{border-radius:10px;padding:14px 10px;text-align:center;border:1px solid transparent}
+.cat-card.c-cs{background:#EFF6FF;border-color:#BFDBFE}
+.cat-card.c-ai{background:#F5F3FF;border-color:#DDD6FE}
+.cat-card.c-cb{background:#FFFBEB;border-color:#FDE68A}
+.cat-card.c-ip{background:#ECFDF5;border-color:#A7F3D0}
+.cat-card.c-dash{background:#F0F9FF;border-color:#BAE6FD}
+.cat-icon{font-size:22px;margin-bottom:4px}
+.cat-name{font-size:11px;font-weight:700}
+.cat-count{font-size:22px;font-weight:800;margin-top:2px}
+.cat-desc{font-size:9.5px;color:#64748B;margin-top:2px}
+
+/* Dashboard mock */
+.dashboard-preview{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.dash-mock{background:#0f172a;border-radius:10px;padding:16px;overflow:hidden}
+.dash-mock-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.dash-mock-header .dmh-title{font-size:10px;font-weight:800;color:#E2E8F0}
+.dash-mock-header .dmh-date{font-size:8px;color:#64748B}
+.dash-stats{display:flex;gap:8px;margin-bottom:12px}
+.dash-stat{flex:1;background:rgba(255,255,255,.05);border-radius:6px;padding:8px;text-align:center}
+.dash-stat .ds-num{font-size:14px;font-weight:800;color:#E2E8F0}
+.dash-stat .ds-label{font-size:7px;color:#64748B}
+.dash-stat .ds-change{font-size:7px;font-weight:700}
+.dash-stat .ds-change.up{color:#22C55E}
+.dash-stat .ds-change.down{color:#EF4444}
+.dash-chart{display:flex;align-items:flex-end;gap:3px;height:50px;padding:4px 0}
+.dash-bar{flex:1;border-radius:2px 2px 0 0;transition:.3s}
+.dash-labels{display:flex;gap:3px;margin-top:2px}
+.dash-labels span{flex:1;text-align:center;font-size:6px;color:#475569}
+
+/* Artifact sample */
+.artifact-preview{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.art-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.art-item{border-radius:10px;overflow:hidden;border:1px solid #E2E8F0;box-shadow:0 2px 6px rgba(0,0,0,.04)}
+.art-mock{padding:10px;min-height:100px}
+.art-mock.doc{background:linear-gradient(135deg,#fff 0%,#F8FAFC 100%)}
+.art-mock.infographic{background:linear-gradient(135deg,#1E293B,#334155)}
+.art-mock.flow{background:#fff}
+.art-mock-title{font-size:8px;font-weight:800;margin-bottom:6px}
+.art-mock.infographic .art-mock-title{color:#E2E8F0}
+.art-mock-lines{display:flex;flex-direction:column;gap:3px}
+.art-mock-line{height:3px;background:#E2E8F0;border-radius:2px}
+.art-mock-line.short{width:60%}
+.art-mock-line.medium{width:80%}
+.art-mock-line.accent{background:#BFDBFE;width:70%}
+/* infographic mini chart */
+.art-mini-bars{display:flex;align-items:flex-end;gap:2px;height:30px;margin-top:6px}
+.art-mini-bar{flex:1;border-radius:1px 1px 0 0}
+/* flow nodes */
+.art-flow-nodes{display:flex;flex-direction:column;align-items:center;gap:4px;margin-top:4px}
+.art-flow-node{font-size:6px;padding:3px 8px;border-radius:4px;border:1px solid #BFDBFE;background:#EFF6FF;color:#2563EB;font-weight:700;text-align:center}
+.art-flow-arrow{font-size:8px;color:#94A3B8}
+.art-caption{padding:8px 10px;font-size:9px;font-weight:700;color:#475569;background:#F8FAFC;border-top:1px solid #E2E8F0}
+
+.impact-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.impact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.impact-card{background:#F8FAFC;border-radius:10px;padding:16px;text-align:center;border:1px solid #E2E8F0}
+.impact-card .ic-icon{font-size:28px;margin-bottom:6px}
+.impact-card .ic-metric{font-size:11px;color:#64748B;margin-bottom:2px}
+.impact-card .ic-before{font-size:13px;color:#94A3B8;text-decoration:line-through}
+.impact-card .ic-after{font-size:18px;font-weight:800;color:#059669}
+.impact-card .ic-label{font-size:10px;color:#64748B;margin-top:4px}
+
+.usecase-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.usecase-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.uc-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px;font-size:12.5px;line-height:1.6}
+.uc-card .uc-scenario{color:#64748B;font-size:11px;margin-bottom:4px}
+.uc-card .uc-result{font-weight:700}
+.uc-card .uc-arrow{color:#059669;font-weight:800}
+
+.connected-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.conn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.conn-card{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:14px;text-align:center}
+.conn-card .cc-icon{font-size:24px;margin-bottom:4px}
+.conn-card .cc-name{font-size:12px;font-weight:700}
+.conn-card .cc-desc{font-size:10px;color:#64748B;margin-top:2px}
+.conn-card .cc-arrow{font-size:10px;color:#2563EB;margin-top:6px;font-weight:700}
+
+.tech-box{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.tech-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.tech-tag{display:inline-flex;align-items:center;gap:4px;background:#F1F5F9;border:1px solid #E2E8F0;border-radius:8px;padding:5px 12px;font-size:12px;font-weight:600;color:#475569}
+
+.roadmap{background:#fff;border:1px solid #E2E8F0;border-radius:14px;padding:24px;margin-top:20px}
+.roadmap-timeline{position:relative;padding-left:28px}
+.roadmap-timeline::before{content:'';position:absolute;left:10px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,#2563EB,#0EA5E9,#10B981,#F59E0B)}
+.rm-item{position:relative;margin-bottom:20px}
+.rm-item:last-child{margin-bottom:0}
+.rm-item::before{content:'';position:absolute;left:-22px;top:6px;width:12px;height:12px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px #2563EB}
+.rm-item.phase2::before{box-shadow:0 0 0 2px #0EA5E9}
+.rm-item.phase3::before{box-shadow:0 0 0 2px #10B981}
+.rm-item.phase4::before{box-shadow:0 0 0 2px #F59E0B}
+.rm-phase{font-size:10px;font-weight:700;color:#2563EB;text-transform:uppercase;letter-spacing:1px}
+.rm-item.phase2 .rm-phase{color:#0EA5E9}
+.rm-item.phase3 .rm-phase{color:#10B981}
+.rm-item.phase4 .rm-phase{color:#F59E0B}
+.rm-title{font-size:14px;font-weight:800;margin-top:2px}
+.rm-desc{font-size:12px;color:#64748B;margin-top:4px;line-height:1.6}
+.rm-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}
+.rm-tag{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600}
+.rm-tag.done{background:#ECFDF5;color:#059669}
+.rm-tag.progress{background:#EFF6FF;color:#2563EB}
+.rm-tag.planned{background:#F1F5F9;color:#64748B}
+.rm-kpi{font-size:11px;color:#475569;margin-top:4px;padding:4px 8px;background:#F8FAFC;border-radius:6px;display:inline-block}
+
+.key-message{background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border:1px solid #C7D2FE;border-radius:14px;padding:20px 24px;margin-top:20px;text-align:center}
+.km-text{font-size:14px;font-weight:600;color:#3730A3;line-height:1.6}
+.km-sub{font-size:11px;color:#6366F1;margin-top:6px}
+
+@media(max-width:640px){
+  .before-after{grid-template-columns:1fr}.ba-arrow{transform:rotate(90deg);padding:8px 0}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .impact-grid,.conn-grid{grid-template-columns:1fr}
+  .cat-grid{grid-template-columns:repeat(3,1fr)}
+  .usecase-grid,.screenshot-grid{grid-template-columns:1fr}
+  .art-grid{grid-template-columns:1fr}
+}
+@media print{body{background:#fff}.section{margin:0 auto}}
+</style>
+</head>
+<body>
+<div class="section">
+
+  <!-- Header -->
+  <div class="project-header">
+    <div class="ph-badge">Project Update</div>
+    <div class="ph-title">📂 BizOps 산출물 포탈</div>
+    <div class="ph-sub">글로벌 플랫폼 운영팀 · 10개 언어 마켓 운영 노하우 체계화 · 단독 기획/작성</div>
+    <a class="ph-link" href="https://tg-bizops.github.io/BizOPS/" target="_blank">🔗 포탈 바로가기 →</a>
+  </div>
+
+  <!-- Before/After -->
+  <div class="problem-box">
+    <div class="box-title">🔍 왜 만들었는가</div>
+    <div class="before-after">
+      <div class="ba-col before">
+        <div class="ba-label red">❌ BEFORE</div>
+        <ul class="ba-list">
+          <li>CS 매뉴얼이 Confluence·Slack·Google Docs에 분산</li>
+          <li>신규 입사자 온보딩 시 구두 전달 + 자료 찾기 반복</li>
+          <li>차지백 처리 프로세스·양식 매번 검색</li>
+          <li>AI 챗봇 검토 자료가 PPT 10개에 흩어짐</li>
+          <li>IP 보호 업무가 담당자 머릿속에만 존재</li>
+          <li>버전 관리 없음 — "이게 최신본 맞아?"</li>
+        </ul>
+      </div>
+      <div class="ba-arrow">→</div>
+      <div class="ba-col after">
+        <div class="ba-label green">✅ AFTER — 포탈 하나로</div>
+        <ul class="ba-list">
+          <li>URL 하나로 전체 산출물 즉시 접근</li>
+          <li>셀프 온보딩 가능 — 매뉴얼·플로우·템플릿 통합</li>
+          <li>차지백 매뉴얼+플로우+템플릿+증빙 원스톱</li>
+          <li>AI 챗봇 기획~운영~교육 13건 체계적 문서화</li>
+          <li>IP 보호 운영 매뉴얼 체계화</li>
+          <li>Git 기반 자동 버전 관리 + 자동 인덱싱</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Before / After Screenshots -->
+  <div class="screenshot-box">
+    <div class="box-title">📸 Before vs After</div>
+    <div class="screenshot-grid">
+      <div class="ss-item">
+        <div class="ss-label">❌ 기존 — 흩어진 문서</div>
+        <div class="ss-frame">
+          <div class="ss-titlebar"><div class="ss-dot r"></div><div class="ss-dot y"></div><div class="ss-dot g"></div><div class="ss-url">confluence.example.com</div></div>
+          <div class="mock-before">
+            <div class="mock-tabs"><span class="mock-tab active">CS팀 공간</span><span class="mock-tab">BizOps</span><span class="mock-tab">임시</span></div>
+            <div class="mock-scattered">
+              <div class="mock-doc"><span class="md-icon">📄</span>CS매뉴얼_최종.docx</div>
+              <div class="mock-doc dup"><span class="md-icon">⚠️</span>CS매뉴얼_최종_진짜최종(2).docx</div>
+              <div class="mock-doc lost"><span class="md-icon">📄</span>차지백_양식_어디갔지...</div>
+              <div class="mock-doc"><span class="md-icon">📊</span>챗봇기획_v3_수정중.pptx</div>
+              <div class="mock-doc lost"><span class="md-icon">💬</span>슬랙에서 공유한 그 파일...</div>
+            </div>
+            <div class="mock-q">"이게 최신 버전 맞아요?"</div>
+          </div>
+        </div>
+      </div>
+      <div class="ss-item">
+        <div class="ss-label">✅ 현재 — BizOps 포탈</div>
+        <div class="ss-frame">
+          <div class="ss-titlebar"><div class="ss-dot r"></div><div class="ss-dot y"></div><div class="ss-dot g"></div><div class="ss-url">tg-bizops.github.io/BizOPS</div></div>
+          <div class="mock-after">
+            <div class="mock-portal-header">
+              <div class="mph-title">📂 BizOps Artifacts Portal</div>
+              <div class="mph-sub">Toomics Global · 29 Documents</div>
+            </div>
+            <div class="mock-search">🔍 문서 검색...</div>
+            <div class="mock-grid">
+              <div class="mock-card"><div class="mc-icon">🎧</div><div class="mc-name">CS 운영</div><div class="mc-count">9</div></div>
+              <div class="mock-card"><div class="mc-icon">🤖</div><div class="mc-name">AI 챗봇</div><div class="mc-count">13</div></div>
+              <div class="mock-card"><div class="mc-icon">💳</div><div class="mc-name">차지백</div><div class="mc-count">4</div></div>
+              <div class="mock-card"><div class="mc-icon">🛡️</div><div class="mc-name">IP 보호</div><div class="mc-count">1</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-grid">
+    <div class="stat-card"><div class="sc-num">29<span>건</span></div><div class="sc-label">총 산출물</div></div>
+    <div class="stat-card"><div class="sc-num">5<span>개</span></div><div class="sc-label">운영 영역</div></div>
+    <div class="stat-card"><div class="sc-num">11,621<span>건</span></div><div class="sc-label">분석 기반 데이터</div></div>
+    <div class="stat-card"><div class="sc-num">7<span>개월</span></div><div class="sc-label">분석 기간</div></div>
+  </div>
+
+  <!-- Key Achievements -->
+  <div class="achievements">
+    <div class="box-title">🏆 주요 성과</div>
+    <div class="ach-list">
+      <div class="ach-item"><div class="ach-icon blue">📄</div><div><strong>29개 문서 단독 기획·작성</strong> — 10개 글로벌 마켓 대응 운영 산출물 전량 자체 제작</div></div>
+      <div class="ach-item"><div class="ach-icon purple">🤖</div><div><strong>AI 챗봇 기획 풀세트 13종</strong> — 아키텍처 → 로드맵 → 시연 시나리오 → 교육 자료 → 운영 매뉴얼</div></div>
+      <div class="ach-item"><div class="ach-icon cyan">📊</div><div><strong>11,621건 × 7개월 실데이터 분석</strong> → 인포그래픽 · Fraud 리포트 · 티켓 레벨 분석(L1/L2/L3)</div></div>
+      <div class="ach-item"><div class="ach-icon amber">💳</div><div><strong>8개 PG사 차지백 소명 체계</strong> — 매뉴얼 v1.3 + 소명 폼 V5 + 증빙 템플릿 v2</div></div>
+      <div class="ach-item"><div class="ach-icon blue">🌐</div><div><strong>이중 언어 매뉴얼 EN/KO</strong> — 복사 즉시 사용 가능한 응대 템플릿 내장</div></div>
+      <div class="ach-item"><div class="ach-icon green">📈</div><div><strong>CS Ticket Dashboard</strong> — 인터랙티브 실시간 시각화 + 운영 매뉴얼</div></div>
+    </div>
+  </div>
+
+  <!-- Artifact Samples -->
+  <div class="artifact-preview">
+    <div class="box-title">📑 산출물 예시</div>
+    <div class="art-grid">
+      <!-- Doc mock -->
+      <div class="art-item">
+        <div class="art-mock doc">
+          <div class="art-mock-title" style="color:#1E293B">📄 CS 운영 매뉴얼 v2.1</div>
+          <div class="art-mock-lines">
+            <div class="art-mock-line"></div>
+            <div class="art-mock-line medium"></div>
+            <div class="art-mock-line accent"></div>
+            <div class="art-mock-line short"></div>
+            <div class="art-mock-line"></div>
+            <div class="art-mock-line medium"></div>
+          </div>
+          <div style="margin-top:8px;padding:4px 6px;background:#EFF6FF;border-radius:3px;font-size:7px;color:#2563EB;font-weight:700">📋 응대 템플릿 · 복사 즉시 사용</div>
+        </div>
+        <div class="art-caption">운영 매뉴얼 (EN/KO)</div>
+      </div>
+      <!-- Infographic mock -->
+      <div class="art-item">
+        <div class="art-mock infographic">
+          <div class="art-mock-title">📊 CS 인포그래픽</div>
+          <div style="display:flex;gap:4px;margin-bottom:6px">
+            <div style="flex:1;background:rgba(99,102,241,.3);border-radius:3px;padding:4px;text-align:center"><div style="font-size:10px;font-weight:800;color:#A5B4FC">1,660</div><div style="font-size:6px;color:#64748B">월평균</div></div>
+            <div style="flex:1;background:rgba(34,197,94,.3);border-radius:3px;padding:4px;text-align:center"><div style="font-size:10px;font-weight:800;color:#86EFAC">94%</div><div style="font-size:6px;color:#64748B">해결률</div></div>
+          </div>
+          <div class="art-mini-bars">
+            <div class="art-mini-bar" style="flex:1;height:60%;background:#6366F1"></div>
+            <div class="art-mini-bar" style="flex:1;height:80%;background:#818CF8"></div>
+            <div class="art-mini-bar" style="flex:1;height:45%;background:#6366F1"></div>
+            <div class="art-mini-bar" style="flex:1;height:100%;background:#818CF8"></div>
+            <div class="art-mini-bar" style="flex:1;height:70%;background:#6366F1"></div>
+            <div class="art-mini-bar" style="flex:1;height:55%;background:#818CF8"></div>
+            <div class="art-mini-bar" style="flex:1;height:90%;background:#6366F1"></div>
+          </div>
+        </div>
+        <div class="art-caption">데이터 분석 인포그래픽</div>
+      </div>
+      <!-- Flow mock -->
+      <div class="art-item">
+        <div class="art-mock flow">
+          <div class="art-mock-title" style="color:#1E293B">🔀 차지백 플로우</div>
+          <div class="art-flow-nodes">
+            <div class="art-flow-node">PG사 알림 수신</div>
+            <div class="art-flow-arrow">↓</div>
+            <div class="art-flow-node">증빙 자료 수집</div>
+            <div class="art-flow-arrow">↓</div>
+            <div class="art-flow-node">소명서 제출</div>
+            <div class="art-flow-arrow">↓</div>
+            <div class="art-flow-node" style="border-color:#A7F3D0;background:#ECFDF5;color:#059669">결과 확인</div>
+          </div>
+        </div>
+        <div class="art-caption">프로세스 플로우</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard Preview -->
+  <div class="dashboard-preview">
+    <div class="box-title">📈 CS Ticket Dashboard 미리보기</div>
+    <div class="dash-mock">
+      <div class="dash-mock-header">
+        <div class="dmh-title">📊 Toomics CS Ticket Dashboard</div>
+        <div class="dmh-date">2025.07 ~ 2026.02</div>
+      </div>
+      <div class="dash-stats">
+        <div class="dash-stat"><div class="ds-num">11,621</div><div class="ds-label">총 티켓</div></div>
+        <div class="dash-stat"><div class="ds-num">1,660</div><div class="ds-label">월평균</div></div>
+        <div class="dash-stat"><div class="ds-num">94.2%</div><div class="ds-label">해결률</div><div class="ds-change up">▲ 2.1%</div></div>
+        <div class="dash-stat"><div class="ds-num">4.2h</div><div class="ds-label">평균 FRT</div><div class="ds-change up">▼ 0.8h</div></div>
+      </div>
+      <div style="font-size:7px;color:#64748B;margin-bottom:4px">월별 티켓 추이</div>
+      <div class="dash-chart">
+        <div class="dash-bar" style="height:55%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:65%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:70%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:60%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:80%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:90%;background:#3B82F6"></div>
+        <div class="dash-bar" style="height:100%;background:#2563EB"></div>
+      </div>
+      <div class="dash-labels"><span>7월</span><span>8월</span><span>9월</span><span>10월</span><span>11월</span><span>12월</span><span>1월</span></div>
+    </div>
+  </div>
+
+  <!-- Coverage -->
+  <div class="coverage-box">
+    <div class="box-title">📏 문서 커버리지</div>
+    <div class="coverage-bars">
+      <div class="cb-row"><div class="cb-label">CS 문의 유형</div><div class="cb-track"><div class="cb-fill blue" style="width:95%">95%</div></div></div>
+      <div class="cb-row"><div class="cb-label">차지백 PG사</div><div class="cb-track"><div class="cb-fill amber" style="width:100%">8/8 PG사</div></div></div>
+      <div class="cb-row"><div class="cb-label">AI 챗봇 라이프사이클</div><div class="cb-track"><div class="cb-fill purple" style="width:100%">기획→교육 100%</div></div></div>
+      <div class="cb-row"><div class="cb-label">글로벌 마켓</div><div class="cb-track"><div class="cb-fill green" style="width:100%">10개 언어</div></div></div>
+    </div>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories">
+    <div class="box-title">📊 영역별 산출물 현황</div>
+    <div class="cat-grid">
+      <div class="cat-card c-cs"><div class="cat-icon">🎧</div><div class="cat-name">CS 운영</div><div class="cat-count">9</div><div class="cat-desc">매뉴얼·분석·프로세스</div></div>
+      <div class="cat-card c-ai"><div class="cat-icon">🤖</div><div class="cat-name">AI 챗봇</div><div class="cat-count">13</div><div class="cat-desc">기획·운영·교육·플로우</div></div>
+      <div class="cat-card c-cb"><div class="cat-icon">💳</div><div class="cat-name">차지백</div><div class="cat-count">4</div><div class="cat-desc">매뉴얼·템플릿·증빙</div></div>
+      <div class="cat-card c-ip"><div class="cat-icon">🛡️</div><div class="cat-name">IP 보호</div><div class="cat-count">1</div><div class="cat-desc">운영 매뉴얼</div></div>
+      <div class="cat-card c-dash"><div class="cat-icon">📈</div><div class="cat-name">대시보드</div><div class="cat-count">2</div><div class="cat-desc">티켓 대시보드·매뉴얼</div></div>
+    </div>
+  </div>
+
+  <!-- Impact -->
+  <div class="impact-box">
+    <div class="box-title">🚀 기대 효과</div>
+    <div class="impact-grid">
+      <div class="impact-card"><div class="ic-icon">⏱️</div><div class="ic-metric">문서 접근 시간</div><div class="ic-before">5~10분 (검색)</div><div class="ic-after">10초</div><div class="ic-label">URL 클릭 즉시</div></div>
+      <div class="impact-card"><div class="ic-icon">👤</div><div class="ic-metric">신규 온보딩</div><div class="ic-before">구두 전달 2~3주</div><div class="ic-after">셀프 학습</div><div class="ic-label">매뉴얼 기반</div></div>
+      <div class="impact-card"><div class="ic-icon">🔄</div><div class="ic-metric">업무 연속성</div><div class="ic-before">담당자 의존</div><div class="ic-after">즉시 대체</div><div class="ic-label">인적 리스크 해소</div></div>
+    </div>
+  </div>
+
+  <!-- Use cases -->
+  <div class="usecase-box">
+    <div class="box-title">💬 실제 활용 시나리오</div>
+    <div class="usecase-grid">
+      <div class="uc-card"><div class="uc-scenario">🎧 CS 담당자 — 첫 차지백 소명 업무</div><div>기존: 선임에게 물어보고 양식 찾기 30분+<br><span class="uc-arrow">→</span> <span class="uc-result">포탈에서 매뉴얼+양식+증빙 템플릿 즉시 다운로드</span></div></div>
+      <div class="uc-card"><div class="uc-scenario">👤 신규 입사자 — 글로벌 CS 프로세스 파악</div><div>기존: Confluence 흩어져 어디서부터 읽어야 할지 모름<br><span class="uc-arrow">→</span> <span class="uc-result">포탈에서 매뉴얼 EN/KO 순서대로 학습</span></div></div>
+      <div class="uc-card"><div class="uc-scenario">📊 팀 리드 — 주간 CS 현황 공유</div><div>기존: 매주 수동으로 데이터 취합 후 슬랙 공유<br><span class="uc-arrow">→</span> <span class="uc-result">대시보드 URL 공유로 실시간 확인</span></div></div>
+      <div class="uc-card"><div class="uc-scenario">🤖 경영진 — AI 챗봇 도입 의사결정</div><div>기존: 기획자에게 매번 자료 요청<br><span class="uc-arrow">→</span> <span class="uc-result">One Pager · 로드맵 · 아키텍처 즉시 확인</span></div></div>
+    </div>
+  </div>
+
+  <!-- Connected -->
+  <div class="connected-box">
+    <div class="box-title">🔗 연계 프로젝트</div>
+    <div class="conn-grid">
+      <div class="conn-card"><div class="cc-icon">🤖</div><div class="cc-name">CS AI 챗봇</div><div class="cc-desc">포탈 문서를 챗봇 학습 데이터로 활용 예정</div><div class="cc-arrow">포탈 → 학습 데이터</div></div>
+      <div class="conn-card"><div class="cc-icon">📊</div><div class="cc-name">주간 CS 분석</div><div class="cc-desc">분석 리포트가 포탈에 자동 축적</div><div class="cc-arrow">분석 → 포탈 아카이브</div></div>
+      <div class="conn-card"><div class="cc-icon">🛡️</div><div class="cc-name">IP 보호 자동화</div><div class="cc-desc">탐지→신고 프로세스 매뉴얼 연동</div><div class="cc-arrow">자동화 → 매뉴얼</div></div>
+    </div>
+  </div>
+
+  <!-- Tech -->
+  <div class="tech-box">
+    <div class="box-title">🛠️ 기술 스택</div>
+    <div class="tech-tags">
+      <span class="tech-tag">📄 GitHub Pages</span>
+      <span class="tech-tag">🎨 HTML/CSS</span>
+      <span class="tech-tag">🤖 Claude AI 자동 생성</span>
+      <span class="tech-tag">🖨️ @media print PDF 지원</span>
+      <span class="tech-tag">🔄 자동 인덱싱 스크립트</span>
+      <span class="tech-tag">📦 Git 버전 관리</span>
+    </div>
+  </div>
+
+  <!-- Roadmap -->
+  <div class="roadmap">
+    <div class="box-title">🗺️ 고도화 로드맵</div>
+    <div class="roadmap-timeline">
+      <div class="rm-item">
+        <div class="rm-phase">Phase 1 — 완료</div>
+        <div class="rm-title">산출물 포탈 구축</div>
+        <div class="rm-desc">29개 문서 통합 · 자동 인덱싱 · GitHub Pages 배포 · 버전 관리 체계화</div>
+        <div class="rm-tags"><span class="rm-tag done">✅ 완료</span></div>
+      </div>
+      <div class="rm-item phase2">
+        <div class="rm-phase">Phase 2 — 운영자 피드백 루프</div>
+        <div class="rm-title">📝 Feedback Portal</div>
+        <div class="rm-desc">문서별 "도움이 됐나요?" 피드백 버튼 → GitHub Issue 자동 생성 → 문서 업데이트 트리거. 가장 많이 조회·피드백 받는 문서 데이터 수집.</div>
+        <div class="rm-tags"><span class="rm-tag progress">🔄 Q2 예정</span></div>
+        <div class="rm-kpi">📌 목표: 피드백 월 30건+ · 문서 개선 주기 2주</div>
+      </div>
+      <div class="rm-item phase3">
+        <div class="rm-phase">Phase 3 — 스마트 검색 + AI 어시스턴트</div>
+        <div class="rm-title">🔍 포탈 내 검색 & AI Q&A</div>
+        <div class="rm-desc">29개 문서 자연어 검색 지원. "차지백 소명서 양식?" → 해당 섹션 즉시 이동. 신규 입사자용 AI 어시스턴트 — 문서 기반 즉시 답변.</div>
+        <div class="rm-tags"><span class="rm-tag planned">📋 Q3 검토</span></div>
+        <div class="rm-kpi">📌 목표: 검색 응답 3초 이내 · 정확도 90%+</div>
+      </div>
+      <div class="rm-item phase4">
+        <div class="rm-phase">Phase 4 — Living Document</div>
+        <div class="rm-title">🔄 자동 업데이트 파이프라인</div>
+        <div class="rm-desc">Zendesk 티켓 트렌드 변화 감지 → 매뉴얼 자동 업데이트 제안. PG사 정책 변경 시 차지백 매뉴얼 자동 플래그. 주간 분석 리포트 자동 생성 → 포탈 자동 배포.</div>
+        <div class="rm-tags"><span class="rm-tag planned">📋 Q4 검토</span></div>
+        <div class="rm-kpi">📌 목표: 매뉴얼 업데이트 수동 → 자동 전환</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Key message -->
+  <div class="key-message">
+    <div class="km-text">💡 10개 언어 마켓 운영 노하우를 29개 문서로 체계화하여<br>누구나 · 언제든 · 즉시 접근 가능한 원스톱 포탈을 구축했습니다.</div>
+    <div class="km-sub">단독 기획/작성 · GitHub Pages · 자동 인덱싱 · Git 버전 관리</div>
+  </div>
+
+</div>
+</body>
+</html>
