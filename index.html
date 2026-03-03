@@ -74,14 +74,14 @@
     font-size: 13px; color: #fff; flex-shrink: 0;
   }
   .accordion-header .count {
-    margin-left: auto; font-size: 12px; font-weight: 600;
+    font-size: 12px; font-weight: 600;
     color: #94A3B8; background: #F1F5F9;
     padding: 2px 10px; border-radius: 12px;
   }
   .accordion-header .chevron {
     width: 20px; height: 20px; flex-shrink: 0;
     transition: transform 0.25s ease;
-    color: #94A3B8;
+    color: #94A3B8; margin-left: auto;
   }
   .accordion.open .accordion-header .chevron { transform: rotate(180deg); }
   .accordion-body {
@@ -141,7 +141,26 @@
   .ic-purple { background: #7C3AED; }
   .ic-slate  { background: #475569; }
 
-  /* History */
+  /* History (details/summary) */
+  .history-details {
+    margin-top: 48px; border-top: 1px solid #E2E8F0; padding-top: 20px;
+  }
+  .history-summary {
+    font-size: 13px; font-weight: 600; color: #94A3B8; cursor: pointer;
+    padding: 8px 0; user-select: none; list-style: none;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .history-summary::-webkit-details-marker { display: none; }
+  .history-summary::before {
+    content: '▶'; font-size: 9px; transition: transform 0.2s;
+    display: inline-block;
+  }
+  .history-details[open] .history-summary::before { transform: rotate(90deg); }
+  .history-summary .count {
+    font-size: 11px; font-weight: 600; color: #94A3B8;
+    background: #F1F5F9; padding: 1px 8px; border-radius: 10px;
+  }
+  .history-content { padding-top: 12px; }
   .history-list { list-style: none; }
   .history-item {
     display: flex; gap: 12px; padding: 10px 0;
@@ -225,43 +244,58 @@
     50% { opacity: 0.7; }
   }
 
-  /* Update Overview Panel */
+  /* Achievement Panel */
   .update-panel {
     background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 12px; padding: 20px 24px;
+    border-radius: 12px; padding: 24px;
     margin-bottom: 24px;
   }
-  .update-panel-header {
-    display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+  .achievement-header {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 20px;
   }
-  .update-panel-header h3 {
-    font-size: 14px; font-weight: 700; color: #1E293B; margin: 0;
+  .achievement-header h3 {
+    font-size: 15px; font-weight: 800; color: #1E293B; margin: 0;
   }
-  .update-panel-header .sub {
-    font-size: 12px; color: #94A3B8; margin-left: auto;
+  .achievement-stats {
+    display: flex; gap: 12px; margin-bottom: 24px;
   }
-  .activity-chart {
-    display: flex; gap: 6px; align-items: flex-end;
-    height: 64px; margin-bottom: 20px; padding: 0 4px;
+  .achievement-stat {
+    flex: 1; text-align: center; padding: 16px 8px;
+    background: #F8FAFC; border-radius: 10px; border: 1px solid #E2E8F0;
   }
-  .activity-col {
-    flex: 1; display: flex; flex-direction: column;
-    align-items: center; gap: 4px;
+  .achievement-stat .big-num {
+    font-size: 32px; font-weight: 900; color: #1E293B;
+    font-variant-numeric: tabular-nums; line-height: 1.2;
   }
-  .activity-count {
-    font-size: 10px; font-weight: 700; color: #1E293B;
+  .achievement-stat .big-label {
+    font-size: 11px; color: #64748B; font-weight: 600; margin-top: 4px;
   }
-  .activity-count.zero { color: #CBD5E1; }
-  .activity-bar {
-    width: 100%; border-radius: 4px; min-height: 4px;
-    transition: height 0.3s ease;
+  .achievement-stat.accent {
+    background: #EFF6FF; border-color: #BFDBFE;
   }
-  .activity-label {
-    font-size: 10px; color: #94A3B8; white-space: nowrap;
+  .achievement-stat.accent .big-num { color: #2563EB; }
+
+  .progress-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .progress-item { display: flex; align-items: center; gap: 12px; }
+  .progress-name {
+    font-size: 12px; font-weight: 700; min-width: 64px; flex-shrink: 0;
   }
+  .progress-bar-track {
+    flex: 1; height: 8px; background: #F1F5F9; border-radius: 4px; overflow: hidden;
+  }
+  .progress-bar-fill {
+    height: 100%; border-radius: 4px;
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .progress-count {
+    font-size: 12px; font-weight: 700; color: #334155;
+    min-width: 88px; text-align: right; flex-shrink: 0;
+  }
+  .progress-pct { color: #94A3B8; font-weight: 600; }
+
   .recent-header {
     font-size: 12px; font-weight: 700; color: #64748B;
-    margin-bottom: 10px; padding-top: 14px;
+    margin-bottom: 10px; padding-top: 16px;
     border-top: 1px solid #E2E8F0;
   }
   .recent-item {
@@ -273,17 +307,25 @@
   }
   .recent-title {
     flex: 1; white-space: nowrap; overflow: hidden;
-    text-overflow: ellipsis; color: #334155;
+    text-overflow: ellipsis; color: #334155; font-weight: 600;
   }
-  .recent-date {
-    color: #94A3B8; flex-shrink: 0; font-variant-numeric: tabular-nums;
+  .recent-version {
+    font-size: 11px; font-weight: 800; color: #2563EB;
+    flex-shrink: 0; font-variant-numeric: tabular-nums;
   }
-  .recent-rel {
-    color: #94A3B8; flex-shrink: 0; min-width: 44px; text-align: right;
+  .recent-type {
+    font-size: 10px; font-weight: 700; padding: 2px 8px;
+    border-radius: 6px; background: #F1F5F9; color: #64748B;
+    flex-shrink: 0; white-space: nowrap;
   }
-  .lc-date {
-    font-size: 10px; color: #94A3B8; margin-top: 1px; display: block;
+
+  /* Status Badge */
+  .status-badge {
+    font-size: 11px; font-weight: 700; padding: 2px 10px;
+    border-radius: 6px; margin-left: 4px;
   }
+  .status-active { background: #DBEAFE; color: #2563EB; }
+  .status-complete { background: #DCFCE7; color: #16A34A; }
 
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
@@ -293,12 +335,15 @@
     .hero { padding: 24px; }
     .accordion-body { max-height: none !important; }
     .chevron { display: none; }
-    .search-wrap, .badge-new, .badge-updated, .update-panel { display: none; }
+    .search-wrap, .badge-new, .badge-updated, .update-panel, .history-details { display: none; }
   }
   @media (max-width: 600px) {
     .link-grid { grid-template-columns: 1fr; }
     .stats { grid-template-columns: repeat(2, 1fr); }
     .hero h1 { font-size: 24px; }
+    .achievement-stats { flex-direction: column; gap: 8px; }
+    .progress-name { min-width: 56px; }
+    .progress-count { min-width: 72px; }
   }
 </style>
 </head>
@@ -310,7 +355,6 @@
   <div class="subtitle">Toomics Global &middot; BizOps Team</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>최종 업데이트: 2026-03-03</span>
     <span>문서 31건 &middot; 6개 카테고리</span>
   </div>
 </header>
@@ -347,13 +391,14 @@
   </div>
   <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
 
-  <!-- Update Overview -->
+  <!-- Achievement Panel -->
   <div class="update-panel" id="updateOverview"></div>
 
   <!-- CS 운영 -->
   <div class="accordion" id="sec-cs">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-blue">CS</span> CS 운영
+      <span class="status-badge status-active">운영중</span>
       <span class="count">8건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -375,6 +420,7 @@
   <div class="accordion" id="sec-chatbot">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-purple">AI</span> AI 챗봇
+      <span class="status-badge status-complete">완료</span>
       <span class="count">14건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -402,6 +448,7 @@
   <div class="accordion" id="sec-cb">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-amber">CB</span> 차지백
+      <span class="status-badge status-active">운영중</span>
       <span class="count">4건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -419,6 +466,7 @@
   <div class="accordion" id="sec-ip">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-green">IP</span> IP 보호
+      <span class="status-badge status-complete">완료</span>
       <span class="count">1건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -433,6 +481,7 @@
   <div class="accordion" id="sec-ticket">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-red">TK</span> 티켓 대시보드
+      <span class="status-badge status-complete">완료</span>
       <span class="count">2건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -448,6 +497,7 @@
   <div class="accordion" id="sec-tpl">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-slate">E</span> 기타
+      <span class="status-badge status-complete">완료</span>
       <span class="count">2건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -459,14 +509,12 @@
     </div></div>
   </div>
 
-  <!-- 변경 히스토리 -->
-  <div class="accordion" id="sec-history" style="margin-top: 24px;">
-    <button class="accordion-header" aria-expanded="false">
-      <span class="icon ic-slate">H</span> 변경 히스토리
-      <span class="count">전체 22건</span>
-      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
-    </button>
-    <div class="accordion-body"><div class="accordion-body-inner">
+  <!-- 변경 히스토리 (숨김 처리) -->
+  <details class="history-details" id="sec-history">
+    <summary class="history-summary">
+      변경 히스토리 <span class="count">전체 22건</span>
+    </summary>
+    <div class="history-content">
       <ul class="history-list">
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">골든 템플릿 v3.0 — 상세본+요약본(Executive) 듀얼 구조 통합</span></li>
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">골든 템플릿 v2.0 재정의 + CSS 정합성 최적화</span></li>
@@ -492,8 +540,8 @@
         <li class="history-item"><span class="history-date">2026-02-18</span><span class="history-msg">차지백 엑셀 리포트 생성기 및 종합 분석 리포트 추가</span></li>
       </ul>
       <div class="pagination" id="historyPagination"></div>
-    </div></div>
-  </div>
+    </div>
+  </details>
 
 </div>
 
@@ -571,103 +619,123 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   showPage(1);
 })();
 
-// Update Overview + Badges + Relative Dates
+// Achievement Panel + Badges (성과 중심 — 날짜 미표시)
 (function() {
-  const now = new Date();
-  const DAY = 86400000;
-  const catColors = {
-    'sec-cs':'#2563EB','sec-chatbot':'#7C3AED','sec-cb':'#F59E0B',
-    'sec-ip':'#10B981','sec-ticket':'#EF4444','sec-tpl':'#475569','sec-weekly':'#0EA5E9'
-  };
+  var now = new Date();
+  var DAY = 86400000;
+  var categories = [
+    { id: 'sec-cs', name: 'CS 운영', color: '#2563EB' },
+    { id: 'sec-chatbot', name: 'AI 챗봇', color: '#7C3AED' },
+    { id: 'sec-cb', name: '차지백', color: '#F59E0B' },
+    { id: 'sec-ip', name: 'IP 보호', color: '#10B981' },
+    { id: 'sec-ticket', name: '대시보드', color: '#EF4444' },
+    { id: 'sec-tpl', name: '기타', color: '#475569' }
+  ];
 
-  function relText(diff) {
-    if (diff === 0) return '오늘';
-    if (diff === 1) return '어제';
-    if (diff < 7) return diff + '일 전';
-    if (diff < 14) return '1주 전';
-    if (diff < 21) return '2주 전';
-    if (diff < 30) return '3주 전';
-    return Math.floor(diff / 30) + '개월 전';
-  }
-
-  // Collect all cards with dates
+  // Collect all cards
   var updates = [];
+  var catCounts = {};
+  var totalDocs = 0;
+  var newCount = 0;
+
   document.querySelectorAll('.link-card[data-updated]').forEach(function(card) {
     var d = new Date(card.dataset.updated + 'T00:00:00');
     var diff = Math.floor((now - d) / DAY);
-    var title = (card.querySelector('.lc-title')?.textContent || '').replace(/NEW|UPDATED/g,'').trim();
+    var rawTitle = (card.querySelector('.lc-title')?.textContent || '').trim();
+    var badge = (card.querySelector('.lc-badge')?.textContent || '').trim();
     var acc = card.closest('.accordion');
-    var cat = acc ? acc.id : (card.closest('#sec-weekly') ? 'sec-weekly' : '');
-    updates.push({ date: d, dateStr: card.dataset.updated, diff: diff, title: title, cat: cat, card: card });
-  });
-  updates.sort(function(a,b){ return a.date - b.date; }); // oldest first for badges
+    var cat = acc ? acc.id : '';
 
-  // 1) Badges + relative dates on each card
+    catCounts[cat] = (catCounts[cat] || 0) + 1;
+    totalDocs++;
+    if (diff <= 7) newCount++;
+
+    updates.push({ date: d, diff: diff, title: rawTitle, badge: badge, cat: cat, card: card });
+  });
+
+  // 1) Add NEW/UPDATED badges on cards (no date text)
   updates.forEach(function(u) {
     var titleEl = u.card.querySelector('.lc-title');
     if (titleEl) {
-      if (u.diff <= 7) titleEl.insertAdjacentHTML('beforeend','<span class="badge-new">NEW</span>');
-      else if (u.diff <= 14) titleEl.insertAdjacentHTML('beforeend','<span class="badge-updated">UPDATED</span>');
-    }
-    var body = u.card.querySelector('.lc-body');
-    if (body) {
-      body.insertAdjacentHTML('beforeend','<span class="lc-date">' + u.dateStr + ' · ' + relText(u.diff) + '</span>');
+      if (u.diff <= 7) titleEl.insertAdjacentHTML('beforeend', '<span class="badge-new">NEW</span>');
+      else if (u.diff <= 14) titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">UPDATED</span>');
     }
   });
 
-  // 2) Activity chart (6 weekly buckets)
-  var weeks = [];
-  for (var w = 0; w < 6; w++) {
-    var lo = w * 7, hi = (w + 1) * 7;
-    var cnt = updates.filter(function(u){ return u.diff >= lo && u.diff < hi; }).length;
-    var endD = new Date(now.getTime() - lo * DAY);
-    var startD = new Date(now.getTime() - (hi - 1) * DAY);
-    var label = (startD.getMonth()+1) + '/' + startD.getDate() + '~' + (endD.getMonth()+1) + '/' + endD.getDate();
-    weeks.unshift({ count: cnt, label: label, isCurrent: w === 0 });
+  // 2) Sort categories by count descending
+  var sortedCats = categories.map(function(c) {
+    return { id: c.id, name: c.name, color: c.color, count: catCounts[c.id] || 0 };
+  }).sort(function(a, b) { return b.count - a.count; });
+
+  // 3) Recent 5 (newest first)
+  var recent = updates.slice().sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
+
+  // 4) Extract version from title
+  function extractVersion(title) {
+    var m = title.match(/v\d+(\.\d+)*/i);
+    return m ? m[0] : '';
   }
-  var maxCnt = Math.max.apply(null, weeks.map(function(w){ return w.count; }));
-  if (maxCnt < 1) maxCnt = 1;
 
-  // 3) Recent 5
-  var recent = updates.slice().sort(function(a,b){ return a.diff - b.diff; }).slice(0, 5);
-
-  // 4) Render panel
+  // 5) Render panel
   var panel = document.getElementById('updateOverview');
   if (!panel) return;
+  var h = '';
 
-  var h = '<div class="update-panel-header">';
-  h += '<span style="font-size:15px;">📅</span>';
-  h += '<h3>업데이트 현황</h3>';
-  h += '<span class="sub">최근 6주 · 전체 ' + updates.length + '건</span>';
+  // Header
+  h += '<div class="achievement-header">';
+  h += '<span style="font-size:16px;">📊</span>';
+  h += '<h3>산출물 현황</h3>';
   h += '</div>';
 
-  // Activity bars
-  h += '<div class="activity-chart">';
-  weeks.forEach(function(wk) {
-    var barH = wk.count > 0 ? Math.max(12, Math.round((wk.count / maxCnt) * 52)) : 4;
-    var color = wk.count > 0 ? (wk.isCurrent ? '#2563EB' : '#93C5FD') : '#F1F5F9';
-    h += '<div class="activity-col">';
-    h += '<span class="activity-count' + (wk.count === 0 ? ' zero' : '') + '">' + (wk.count > 0 ? wk.count + '건' : '-') + '</span>';
-    h += '<div class="activity-bar" style="height:' + barH + 'px;background:' + color + ';"></div>';
-    h += '<span class="activity-label">' + wk.label + '</span>';
+  // Big stats
+  h += '<div class="achievement-stats">';
+  h += '<div class="achievement-stat"><div class="big-num">' + totalDocs + '</div><div class="big-label">전체 문서</div></div>';
+  h += '<div class="achievement-stat"><div class="big-num">' + categories.length + '</div><div class="big-label">카테고리</div></div>';
+  if (newCount > 0) {
+    h += '<div class="achievement-stat accent"><div class="big-num">' + newCount + '</div><div class="big-label">신규 (7일)</div></div>';
+  }
+  h += '</div>';
+
+  // Category progress bars
+  h += '<div class="progress-list">';
+  sortedCats.forEach(function(c) {
+    if (c.count === 0) return;
+    var pct = Math.round((c.count / totalDocs) * 100);
+    h += '<div class="progress-item">';
+    h += '<span class="progress-name" style="color:' + c.color + ';">' + c.name + '</span>';
+    h += '<div class="progress-bar-track">';
+    h += '<div class="progress-bar-fill" style="width:0%;background:' + c.color + ';" data-target-width="' + pct + '%"></div>';
+    h += '</div>';
+    h += '<span class="progress-count">' + c.count + '건 <span class="progress-pct">(' + pct + '%)</span></span>';
     h += '</div>';
   });
   h += '</div>';
 
-  // Recent updates
+  // Recent 5
   h += '<div class="recent-header">최근 업데이트</div>';
   recent.forEach(function(u) {
-    var color = catColors[u.cat] || '#94A3B8';
-    var shortDate = (u.date.getMonth()+1) + '월 ' + u.date.getDate() + '일';
+    var catData = categories.find(function(c) { return c.id === u.cat; });
+    var color = catData ? catData.color : '#94A3B8';
+    var ver = extractVersion(u.title);
+    var cleanTitle = u.title.replace(/NEW|UPDATED/g, '').trim();
     h += '<div class="recent-item">';
     h += '<span class="recent-dot" style="background:' + color + ';"></span>';
-    h += '<span class="recent-title">' + u.title + '</span>';
-    h += '<span class="recent-date">' + shortDate + '</span>';
-    h += '<span class="recent-rel">' + relText(u.diff) + '</span>';
+    h += '<span class="recent-title">' + cleanTitle + '</span>';
+    if (ver) h += '<span class="recent-version">' + ver + '</span>';
+    h += '<span class="recent-type">' + u.badge + '</span>';
     h += '</div>';
   });
 
   panel.innerHTML = h;
+
+  // Animate progress bars
+  requestAnimationFrame(function() {
+    requestAnimationFrame(function() {
+      document.querySelectorAll('.progress-bar-fill[data-target-width]').forEach(function(bar) {
+        bar.style.width = bar.dataset.targetWidth;
+      });
+    });
+  });
 })();
 
 // Search
@@ -677,14 +745,13 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   const noResults = document.getElementById('noResults');
   if (!input) return;
 
-  const accordions = document.querySelectorAll('.accordion:not(#sec-history)');
+  const accordions = document.querySelectorAll('.accordion');
   const allCards = document.querySelectorAll('.link-card');
 
   input.addEventListener('input', function() {
     const q = this.value.trim().toLowerCase();
 
     if (!q) {
-      // Reset: show everything
       allCards.forEach(c => c.classList.remove('search-hidden'));
       accordions.forEach(a => {
         a.classList.remove('search-hidden');
@@ -698,7 +765,6 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
 
     let totalMatch = 0;
 
-    // Filter link-cards inside accordions
     accordions.forEach(acc => {
       const cards = acc.querySelectorAll('.link-card');
       let accMatch = 0;
@@ -721,7 +787,6 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
       }
     });
 
-    // Meta & no-results
     if (totalMatch > 0) {
       meta.textContent = totalMatch + '건 일치';
       meta.classList.remove('hidden');
