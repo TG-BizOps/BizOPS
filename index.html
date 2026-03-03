@@ -226,6 +226,45 @@
   }
   .accordion.search-hidden, .link-card.search-hidden { display: none; }
 
+  /* Filters */
+  .filter-wrap { margin-top: -16px; margin-bottom: 20px; }
+  .filter-toggle {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: #fff; border: 1px solid #E2E8F0; border-radius: 8px;
+    padding: 7px 14px; font-size: 12px; font-weight: 600;
+    color: #64748B; cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .filter-toggle:hover { border-color: #CBD5E1; background: #F8FAFC; }
+  .filter-toggle.has-filter { border-color: #2563EB; color: #2563EB; background: #EFF6FF; }
+  .filter-active-count {
+    font-size: 10px; background: #2563EB; color: #fff;
+    padding: 1px 7px; border-radius: 10px; font-weight: 700; display: none;
+  }
+  .filter-toggle.has-filter .filter-active-count { display: inline; }
+  .filter-chevron { width: 14px; height: 14px; transition: transform 0.2s; }
+  .filter-wrap.open .filter-chevron { transform: rotate(180deg); }
+  .filter-body {
+    display: none; margin-top: 12px; padding: 16px 20px;
+    background: #fff; border: 1px solid #E2E8F0; border-radius: 12px;
+  }
+  .filter-wrap.open .filter-body { display: block; }
+  .filter-group { margin-bottom: 14px; }
+  .filter-group:last-child { margin-bottom: 0; }
+  .filter-label {
+    font-size: 11px; font-weight: 700; color: #94A3B8;
+    letter-spacing: 0.5px; margin-bottom: 8px;
+  }
+  .filter-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .filter-pill {
+    padding: 4px 12px; border: 1px solid #E2E8F0; border-radius: 16px;
+    background: #fff; color: #64748B; font-size: 11px; font-weight: 600;
+    cursor: pointer; font-family: inherit; transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-pill:hover { border-color: #CBD5E1; background: #F8FAFC; }
+  .filter-pill.active { background: #1E293B; color: #fff; border-color: #1E293B; }
+
   /* NEW / UPDATED badges */
   .badge-new {
     display: inline-block; background: #DCFCE7; color: #16A34A;
@@ -344,6 +383,8 @@
     .achievement-stats { flex-direction: column; gap: 8px; }
     .progress-name { min-width: 56px; }
     .progress-count { min-width: 72px; }
+    .filter-pills { gap: 4px; }
+    .filter-pill { padding: 3px 8px; font-size: 10px; }
   }
 </style>
 </head>
@@ -389,6 +430,53 @@
     <input class="search-input" type="text" id="searchInput" placeholder="문서 검색 (제목, 유형, 키워드)">
     <span class="search-meta hidden" id="searchMeta"></span>
   </div>
+
+  <!-- Filters -->
+  <div class="filter-wrap" id="filterWrap">
+    <button class="filter-toggle" id="filterToggle" type="button">
+      <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"/></svg>
+      필터
+      <span class="filter-active-count" id="filterActiveCount">0</span>
+      <svg class="filter-chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="filter-body" id="filterBody">
+      <div class="filter-group">
+        <div class="filter-label">카테고리</div>
+        <div class="filter-pills" data-group="cat">
+          <button class="filter-pill active" data-value="all" type="button">All</button>
+          <button class="filter-pill" data-value="sec-cs" type="button">CS 운영</button>
+          <button class="filter-pill" data-value="sec-chatbot" type="button">AI 챗봇</button>
+          <button class="filter-pill" data-value="sec-cb" type="button">차지백</button>
+          <button class="filter-pill" data-value="sec-ip" type="button">IP 보호</button>
+          <button class="filter-pill" data-value="sec-ticket" type="button">대시보드</button>
+          <button class="filter-pill" data-value="sec-tpl" type="button">기타</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-label">문서 타입</div>
+        <div class="filter-pills" data-group="type">
+          <button class="filter-pill active" data-value="all" type="button">All</button>
+          <button class="filter-pill" data-value="Manual" type="button">Manual</button>
+          <button class="filter-pill" data-value="Analysis" type="button">Analysis</button>
+          <button class="filter-pill" data-value="Visual" type="button">Visual</button>
+          <button class="filter-pill" data-value="Process" type="button">Process</button>
+          <button class="filter-pill" data-value="Flow" type="button">Flow</button>
+          <button class="filter-pill" data-value="Roadmap" type="button">Roadmap</button>
+          <button class="filter-pill" data-value="Overview" type="button">Overview</button>
+          <button class="filter-pill" data-value="Architecture" type="button">Architecture</button>
+          <button class="filter-pill" data-value="Guide" type="button">Guide</button>
+          <button class="filter-pill" data-value="Training" type="button">Training</button>
+          <button class="filter-pill" data-value="Demo" type="button">Demo</button>
+          <button class="filter-pill" data-value="Report" type="button">Report</button>
+          <button class="filter-pill" data-value="Template" type="button">Template</button>
+          <button class="filter-pill" data-value="Dashboard" type="button">Dashboard</button>
+          <button class="filter-pill" data-value="Evidence" type="button">Evidence</button>
+          <button class="filter-pill" data-value="XLSX" type="button">XLSX</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="no-results" id="noResults">검색 결과가 없습니다.</div>
 
   <!-- Achievement Panel -->
@@ -738,22 +826,87 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   });
 })();
 
-// Search
+// Unified Search + Filter
 (function() {
-  const input = document.getElementById('searchInput');
-  const meta = document.getElementById('searchMeta');
-  const noResults = document.getElementById('noResults');
+  var input = document.getElementById('searchInput');
+  var meta = document.getElementById('searchMeta');
+  var noResults = document.getElementById('noResults');
+  var filterWrap = document.getElementById('filterWrap');
+  var filterToggle = document.getElementById('filterToggle');
+  var filterCountEl = document.getElementById('filterActiveCount');
   if (!input) return;
 
-  const accordions = document.querySelectorAll('.accordion');
-  const allCards = document.querySelectorAll('.link-card');
+  var accordions = document.querySelectorAll('.accordion');
+  var allCards = document.querySelectorAll('.link-card');
 
-  input.addEventListener('input', function() {
-    const q = this.value.trim().toLowerCase();
+  // Filter state
+  var activeCats = new Set();
+  var activeTypes = new Set();
+  var activeStatuses = new Set();
 
-    if (!q) {
-      allCards.forEach(c => c.classList.remove('search-hidden'));
-      accordions.forEach(a => {
+  // Toggle filter panel
+  filterToggle.addEventListener('click', function() {
+    filterWrap.classList.toggle('open');
+  });
+
+  // Filter pill click
+  document.querySelectorAll('.filter-pills').forEach(function(group) {
+    group.addEventListener('click', function(e) {
+      var pill = e.target.closest('.filter-pill');
+      if (!pill) return;
+      var val = pill.dataset.value;
+      var gName = group.dataset.group;
+      var stateSet = gName === 'cat' ? activeCats : gName === 'type' ? activeTypes : activeStatuses;
+
+      if (val === 'all') {
+        stateSet.clear();
+        group.querySelectorAll('.filter-pill').forEach(function(p) {
+          p.classList.toggle('active', p.dataset.value === 'all');
+        });
+      } else {
+        var allBtn = group.querySelector('[data-value="all"]');
+        if (pill.classList.contains('active')) {
+          pill.classList.remove('active');
+          stateSet.delete(val);
+          if (stateSet.size === 0) allBtn.classList.add('active');
+        } else {
+          pill.classList.add('active');
+          stateSet.add(val);
+          allBtn.classList.remove('active');
+        }
+      }
+      updateFilterUI();
+      applyFilters();
+    });
+  });
+
+  function updateFilterUI() {
+    var count = activeCats.size + activeTypes.size + activeStatuses.size;
+    if (count > 0) {
+      filterToggle.classList.add('has-filter');
+      filterCountEl.textContent = count;
+      filterCountEl.style.display = 'inline';
+    } else {
+      filterToggle.classList.remove('has-filter');
+      filterCountEl.style.display = 'none';
+    }
+  }
+
+  input.addEventListener('input', applyFilters);
+
+  window._applyFilters = applyFilters; // expose for other modules
+
+  function applyFilters() {
+    var q = input.value.trim().toLowerCase();
+    var hasQuery = q.length > 0;
+    var hasCat = activeCats.size > 0;
+    var hasType = activeTypes.size > 0;
+    var hasStatus = activeStatuses.size > 0;
+    var hasAny = hasQuery || hasCat || hasType || hasStatus;
+
+    if (!hasAny) {
+      allCards.forEach(function(c) { c.classList.remove('search-hidden'); });
+      accordions.forEach(function(a) {
         a.classList.remove('search-hidden');
         a.classList.remove('open');
         a.querySelector('.accordion-header').setAttribute('aria-expanded', 'false');
@@ -763,18 +916,33 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
       return;
     }
 
-    let totalMatch = 0;
+    var totalMatch = 0;
 
-    accordions.forEach(acc => {
-      const cards = acc.querySelectorAll('.link-card');
-      let accMatch = 0;
-      cards.forEach(card => {
-        const title = (card.querySelector('.lc-title')?.textContent || '').toLowerCase();
-        const desc = (card.querySelector('.lc-desc')?.textContent || '').toLowerCase();
-        const badge = (card.querySelector('.lc-badge')?.textContent || '').toLowerCase();
-        const match = title.includes(q) || desc.includes(q) || badge.includes(q);
-        card.classList.toggle('search-hidden', !match);
-        if (match) accMatch++;
+    accordions.forEach(function(acc) {
+      var catId = acc.id;
+      var catOk = !hasCat || activeCats.has(catId);
+      var cards = acc.querySelectorAll('.link-card');
+      var accMatch = 0;
+
+      cards.forEach(function(card) {
+        var show = true;
+        if (!catOk) show = false;
+        if (show && hasType) {
+          var badge = (card.querySelector('.lc-badge')?.textContent || '').trim();
+          if (!activeTypes.has(badge)) show = false;
+        }
+        if (show && hasStatus) {
+          var st = card.dataset.status || 'Published';
+          if (!activeStatuses.has(st)) show = false;
+        }
+        if (show && hasQuery) {
+          var title = (card.querySelector('.lc-title')?.textContent || '').toLowerCase();
+          var desc = (card.querySelector('.lc-desc')?.textContent || '').toLowerCase();
+          var bdg = (card.querySelector('.lc-badge')?.textContent || '').toLowerCase();
+          if (!title.includes(q) && !desc.includes(q) && !bdg.includes(q)) show = false;
+        }
+        card.classList.toggle('search-hidden', !show);
+        if (show) accMatch++;
       });
       totalMatch += accMatch;
 
@@ -795,7 +963,7 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
       meta.classList.add('hidden');
       noResults.style.display = 'block';
     }
-  });
+  }
 })();
 </script>
 
