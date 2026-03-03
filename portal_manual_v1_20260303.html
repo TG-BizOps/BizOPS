@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BizOps 산출물 포탈 사용 매뉴얼 v1.0</title>
+    <style>
+        :root {
+            --brand-primary: #3B1F8E;
+            --brand-secondary: #5B3CC4;
+            --brand-accent: #7C5CFC;
+            --brand-light: #EDE8FF;
+            --brand-bg: #F7F5FF;
+            --navy: #1A1A3E;
+            --dark: #2D2D3F;
+            --text: #333344;
+            --text-light: #666680;
+            --border: #D8D8E8;
+            --success: #28A06C;
+            --warning: #E8A020;
+            --danger: #D94052;
+            --info: #2196F3;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFE;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', Roboto, sans-serif; font-size: 15px; line-height: 1.7; color: var(--text); background: var(--bg-light); -webkit-font-smoothing: antialiased; }
+        .container { max-width: 960px; margin: 0 auto; padding: 0 32px; background: var(--white); box-shadow: 0 0 40px rgba(59,31,142,0.06); }
+        .cover { background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%); color: var(--white); padding: 64px 48px; text-align: center; border-bottom: 4px solid var(--brand-accent); }
+        .cover h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+        .cover .meta { display: flex; justify-content: center; gap: 32px; flex-wrap: wrap; font-size: 13px; opacity: 0.85; }
+        .cover .meta span { display: inline-flex; align-items: center; gap: 6px; }
+        .cover .meta span::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.6); }
+        .toc { background: var(--brand-bg); border: 1px solid var(--brand-light); border-radius: 8px; padding: 32px 40px; margin: 40px 32px; }
+        .toc h2 { color: var(--brand-primary); font-size: 20px; font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 2px solid var(--brand-accent); display: inline-block; }
+        .toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+        .toc ol li { counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0; border-bottom: 1px solid rgba(124,92,252,0.1); }
+        .toc ol li:last-child { border-bottom: none; }
+        .toc ol li::before { content: counter(toc-counter) "."; color: var(--brand-accent); font-weight: 700; margin-right: 10px; font-size: 14px; }
+        .toc ol li a { color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px; transition: color 0.2s; }
+        .toc ol li a:hover { color: var(--brand-secondary); }
+        .content { padding: 16px 32px 64px; }
+        h1 { color: var(--brand-primary); font-size: 28px; font-weight: 800; margin-top: 56px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px; }
+        h1 .section-number { color: var(--brand-accent); font-weight: 800; }
+        h2 { color: var(--brand-secondary); font-size: 21px; font-weight: 700; margin-top: 40px; margin-bottom: 14px; padding-left: 14px; border-left: 4px solid var(--brand-accent); }
+        h3 { color: var(--navy); font-size: 17px; font-weight: 600; margin-top: 28px; margin-bottom: 10px; }
+        p { margin-bottom: 12px; line-height: 1.75; }
+        strong { color: var(--dark); font-weight: 600; }
+        .note-box { background: #FFF8E1; border-left: 4px solid var(--warning); padding: 12px 18px; border-radius: 0 6px 6px 0; margin: 16px 0; font-size: 14px; }
+        .note-box strong { color: #B8860B; }
+        .info-box { background: #E3F2FD; border-left: 4px solid var(--info); padding: 12px 18px; border-radius: 0 6px 6px 0; margin: 16px 0; font-size: 14px; }
+        .info-box strong { color: #1565C0; }
+        .success-box { background: #E8F5E9; border-left: 4px solid var(--success); padding: 12px 18px; border-radius: 0 6px 6px 0; margin: 16px 0; font-size: 14px; }
+        .success-box strong { color: #2E7D32; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 16px 0 24px; font-size: 14px; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+        thead th { background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 100%); color: var(--white); font-weight: 600; padding: 12px 16px; text-align: left; font-size: 13px; letter-spacing: 0.3px; }
+        tbody td { padding: 10px 16px; border-bottom: 1px solid #EDEDF5; vertical-align: top; }
+        tbody tr:nth-child(even) { background: var(--bg-light); }
+        tbody tr:nth-child(odd) { background: var(--white); }
+        tbody tr:hover { background: var(--brand-bg); }
+        tbody tr:last-child td { border-bottom: none; }
+        ul, ol { margin: 8px 0 16px; padding-left: 28px; }
+        li { margin-bottom: 6px; line-height: 1.65; }
+        hr { border: none; height: 2px; background: linear-gradient(to right, var(--brand-primary), var(--brand-accent), transparent); margin: 48px 0; }
+        pre { background: var(--navy); color: #E0E0F0; border-radius: 8px; padding: 24px; margin: 16px 0 24px; overflow-x: auto; font-family: 'Fira Code', Consolas, monospace; font-size: 13px; line-height: 1.6; border: 1px solid rgba(124,92,252,0.3); }
+        code { font-family: 'Fira Code', Consolas, monospace; font-size: 13px; background: var(--brand-bg); color: var(--brand-primary); padding: 2px 6px; border-radius: 4px; }
+        pre code { background: none; color: inherit; padding: 0; }
+        .step-grid { display: grid; grid-template-columns: 48px 1fr; gap: 0; margin: 16px 0; }
+        .step-num { background: var(--brand-accent); color: #fff; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 16px; margin-top: 2px; }
+        .step-content { padding: 4px 0 24px 16px; border-left: 2px solid var(--brand-light); margin-left: 18px; }
+        .step-content:last-child { border-left: none; }
+        .screenshot-placeholder { background: var(--brand-bg); border: 2px dashed var(--brand-light); border-radius: 8px; padding: 32px; text-align: center; margin: 12px 0; color: var(--text-light); font-size: 13px; }
+        .key-combo { display: inline-block; background: var(--navy); color: #E0E0F0; padding: 2px 8px; border-radius: 4px; font-family: Consolas, monospace; font-size: 13px; }
+        .footer { background: var(--navy); color: rgba(255,255,255,0.7); padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8; }
+        .footer strong { color: rgba(255,255,255,0.9); }
+        @media print { body { background: #fff; } .container { box-shadow: none; } .cover { padding: 40px 32px; } }
+        @media (max-width: 640px) { .container { padding: 0 16px; } .cover { padding: 40px 24px; } .cover h1 { font-size: 24px; } .toc { margin: 24px 16px; padding: 24px; } .content { padding: 16px 16px 48px; } .step-grid { grid-template-columns: 40px 1fr; } }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- ===== Cover ===== -->
+    <div class="cover">
+        <h1>📂 BizOps 산출물 포탈<br>사용 매뉴얼 v1.0</h1>
+        <div class="subtitle">Toomics Global · 글로벌 플랫폼 운영팀</div>
+        <div class="meta">
+            <span>작성: 유종선</span>
+            <span>버전: 1.0</span>
+            <span>작성일: 2026-03-03</span>
+            <span>대상: BizOps 팀 전체</span>
+        </div>
+    </div>
+
+    <!-- ===== TOC ===== -->
+    <div class="toc">
+        <h2>📑 목차</h2>
+        <ol>
+            <li><a href="#s1">포탈 개요</a></li>
+            <li><a href="#s2">접속 방법</a></li>
+            <li><a href="#s3">포탈 구조 및 카테고리</a></li>
+            <li><a href="#s4">문서 열람 및 활용</a></li>
+            <li><a href="#s5">검색 및 필터링</a></li>
+            <li><a href="#s6">문서별 활용 가이드</a></li>
+            <li><a href="#s7">자주 묻는 질문 (FAQ)</a></li>
+            <li><a href="#s8">문서 요청 및 피드백</a></li>
+            <li><a href="#s9">업데이트 이력</a></li>
+        </ol>
+    </div>
+
+    <!-- ===== Content ===== -->
+    <div class="content">
+
+        <!-- Section 1 -->
+        <h1 id="s1"><span class="section-number">1.</span> 포탈 개요</h1>
+
+        <p><strong>BizOps 산출물 포탈</strong>은 Toomics Global 글로벌 플랫폼 운영팀의 모든 운영 산출물을 한 곳에서 열람할 수 있는 웹 포탈입니다.</p>
+
+        <div class="info-box">
+            <strong>💡 핵심 가치:</strong> 기존에 Confluence, Slack, Google Docs 등에 흩어져 있던 문서를 하나의 URL로 통합하여, 누구나 · 언제든 · 즉시 접근할 수 있게 만들었습니다.
+        </div>
+
+        <h2>1.1 포탈 기본 정보</h2>
+        <table>
+            <thead><tr><th>항목</th><th>내용</th></tr></thead>
+            <tbody>
+                <tr><td>포탈 URL</td><td><a href="https://tg-bizops.github.io/BizOPS/" target="_blank">https://tg-bizops.github.io/BizOPS/</a></td></tr>
+                <tr><td>총 산출물 수</td><td>29건</td></tr>
+                <tr><td>운영 영역</td><td>CS 운영 · AI 챗봇 · 차지백 · IP 보호 · 대시보드</td></tr>
+                <tr><td>호스팅</td><td>GitHub Pages (별도 로그인 불필요)</td></tr>
+                <tr><td>접근 제한</td><td>없음 (퍼블릭 — URL만 있으면 접근 가능)</td></tr>
+                <tr><td>업데이트 주기</td><td>수시 (Git push 시 자동 배포)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>1.2 포탈에 포함된 산출물 현황</h2>
+        <table>
+            <thead><tr><th>카테고리</th><th>건수</th><th>주요 산출물</th></tr></thead>
+            <tbody>
+                <tr><td>🎧 CS 운영</td><td>9건</td><td>운영 매뉴얼(EN/KO), 반복문의 대응, 티켓 분석, 인포그래픽</td></tr>
+                <tr><td>🤖 AI 챗봇</td><td>13건</td><td>아키텍처, 로드맵, 비용분석, 운영매뉴얼, 교육자료, 시연 시나리오</td></tr>
+                <tr><td>💳 차지백</td><td>4건</td><td>운영 매뉴얼, 플로우 다이어그램, 소명 폼, 증빙 템플릿</td></tr>
+                <tr><td>🛡️ IP 보호</td><td>1건</td><td>IP 보호 운영 매뉴얼</td></tr>
+                <tr><td>📈 대시보드</td><td>2건</td><td>CS Ticket Dashboard, 대시보드 운영 매뉴얼</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- Section 2 -->
+        <h1 id="s2"><span class="section-number">2.</span> 접속 방법</h1>
+
+        <h2>2.1 PC에서 접속</h2>
+        <div class="step-grid">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <p>브라우저(Chrome, Edge, Safari 등)를 엽니다.</p>
+            </div>
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <p>주소창에 아래 URL을 입력하거나, 북마크에서 클릭합니다.</p>
+                <pre><code>https://tg-bizops.github.io/BizOPS/</code></pre>
+            </div>
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <p>포탈 메인 페이지가 로드되면, 카테고리별 문서 목록이 표시됩니다.</p>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>✅ 팁:</strong> 자주 사용한다면 브라우저 북마크에 추가해두세요. <span class="key-combo">Ctrl+D</span> (Mac: <span class="key-combo">⌘+D</span>)
+        </div>
+
+        <h2>2.2 모바일에서 접속</h2>
+        <p>모바일 브라우저에서도 동일한 URL로 접속 가능합니다. 반응형 디자인이 적용되어 모바일 화면에 최적화됩니다.</p>
+
+        <div class="note-box">
+            <strong>⚠️ 참고:</strong> 일부 문서(Excel 파일 등)는 모바일에서 다운로드만 가능하고, PC에서 열어야 정상적으로 확인됩니다.
+        </div>
+
+        <h2>2.3 슬랙에서 바로 접속</h2>
+        <p>슬랙에서 포탈 링크를 공유하면 미리보기가 표시됩니다. 링크를 클릭하면 바로 포탈로 이동합니다.</p>
+
+        <hr>
+
+        <!-- Section 3 -->
+        <h1 id="s3"><span class="section-number">3.</span> 포탈 구조 및 카테고리</h1>
+
+        <h2>3.1 메인 페이지 구성</h2>
+        <p>포탈 메인 페이지는 다음과 같이 구성되어 있습니다:</p>
+
+        <table>
+            <thead><tr><th>영역</th><th>설명</th></tr></thead>
+            <tbody>
+                <tr><td><strong>헤더</strong></td><td>포탈 제목, 총 문서 수, 마지막 업데이트 날짜</td></tr>
+                <tr><td><strong>카테고리 탭</strong></td><td>CS 운영 / AI 챗봇 / 차지백 / IP 보호 / 대시보드 / 주간 리포트</td></tr>
+                <tr><td><strong>문서 카드</strong></td><td>각 산출물의 제목, 설명, 날짜, 파일 형식 아이콘</td></tr>
+                <tr><td><strong>푸터</strong></td><td>버전 정보, 관리자 연락처</td></tr>
+            </tbody>
+        </table>
+
+        <h2>3.2 카테고리별 폴더 구조</h2>
+        <pre><code>BizOPS/
+├── cs/                  🎧 CS 운영 산출물
+│   ├── cs_manual_EN_*.html
+│   ├── cs_manual_KO_*.html
+│   ├── cs_infographic_*.html
+│   ├── cs_ticket_analysis_*.html
+│   └── ...
+├── chatbot/             🤖 AI 챗봇 산출물
+│   ├── chatbot_architecture_*.html
+│   ├── chatbot_roadmap_*.html
+│   ├── chatbot_cost_analysis_*.html
+│   └── ...
+├── chargeback/          💳 차지백 산출물
+│   ├── chargeback_manual_*.html
+│   ├── chargeback_flow_*.html
+│   └── ...
+├── ip/                  🛡️ IP 보호 산출물
+│   └── ip_protection_manual_*.html
+├── dashboard/           📈 대시보드
+│   ├── cs_ticket_dashboard.html
+│   └── dashboard_manual_*.html
+├── weekly/              📊 주간 리포트 아카이브
+│   └── weekly_report_w*.html
+└── index.html           🏠 포탈 메인 페이지</code></pre>
+
+        <h2>3.3 파일 형식</h2>
+        <table>
+            <thead><tr><th>형식</th><th>아이콘</th><th>열람 방법</th></tr></thead>
+            <tbody>
+                <tr><td>HTML</td><td>🌐</td><td>브라우저에서 바로 열람 (클릭 즉시)</td></tr>
+                <tr><td>Excel (.xlsx)</td><td>📊</td><td>클릭 시 다운로드 → Excel/Google Sheets에서 열기</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- Section 4 -->
+        <h1 id="s4"><span class="section-number">4.</span> 문서 열람 및 활용</h1>
+
+        <h2>4.1 HTML 문서 열람</h2>
+        <div class="step-grid">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <p>포탈 메인 페이지에서 원하는 카테고리의 문서 카드를 클릭합니다.</p>
+            </div>
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <p>새 탭에서 문서가 열립니다. 문서 내에서 목차 링크를 통해 원하는 섹션으로 바로 이동할 수 있습니다.</p>
+            </div>
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <p>문서 내 응대 템플릿은 <strong>드래그 → 복사</strong>하여 바로 사용할 수 있습니다.</p>
+            </div>
+        </div>
+
+        <div class="success-box">
+            <strong>✅ 팁:</strong> 문서 내에서 <span class="key-combo">Ctrl+F</span> (Mac: <span class="key-combo">⌘+F</span>)로 특정 키워드를 검색할 수 있습니다.
+        </div>
+
+        <h2>4.2 PDF로 저장/인쇄</h2>
+        <p>모든 HTML 문서는 <code>@media print</code> 스타일이 적용되어 있어, 브라우저 인쇄 기능으로 깔끔한 PDF를 만들 수 있습니다.</p>
+        <div class="step-grid">
+            <div class="step-num">1</div>
+            <div class="step-content">
+                <p>문서 페이지에서 <span class="key-combo">Ctrl+P</span> (Mac: <span class="key-combo">⌘+P</span>)를 누릅니다.</p>
+            </div>
+            <div class="step-num">2</div>
+            <div class="step-content">
+                <p>대상을 <strong>"PDF로 저장"</strong>으로 선택합니다.</p>
+            </div>
+            <div class="step-num">3</div>
+            <div class="step-content">
+                <p>"배경 그래픽" 옵션을 체크하면 색상과 차트가 포함됩니다.</p>
+            </div>
+        </div>
+
+        <h2>4.3 Excel 파일 다운로드</h2>
+        <p>차지백 증빙 템플릿 등 Excel 파일은 클릭 시 자동 다운로드됩니다. 다운로드 후 로컬에서 편집하여 사용하세요.</p>
+
+        <div class="note-box">
+            <strong>⚠️ 주의:</strong> 다운로드한 Excel 파일을 수정해도 포탈의 원본에는 영향이 없습니다. 항상 포탈에서 최신 버전을 다운로드하여 사용하세요.
+        </div>
+
+        <hr>
+
+        <!-- Section 5 -->
+        <h1 id="s5"><span class="section-number">5.</span> 검색 및 필터링</h1>
+
+        <h2>5.1 포탈 내 검색</h2>
+        <p>포탈 메인 페이지 상단의 <strong>검색 바</strong>에 키워드를 입력하면, 문서 제목을 기준으로 실시간 필터링됩니다.</p>
+
+        <table>
+            <thead><tr><th>검색 예시</th><th>결과</th></tr></thead>
+            <tbody>
+                <tr><td><code>차지백</code></td><td>차지백 관련 4건 필터링</td></tr>
+                <tr><td><code>chatbot</code></td><td>AI 챗봇 관련 13건 필터링</td></tr>
+                <tr><td><code>manual</code></td><td>매뉴얼 문서 전체 필터링</td></tr>
+                <tr><td><code>v2</code></td><td>v2 버전 문서 필터링</td></tr>
+            </tbody>
+        </table>
+
+        <h2>5.2 카테고리 필터</h2>
+        <p>포탈 상단의 카테고리 탭을 클릭하면 해당 영역의 문서만 표시됩니다.</p>
+
+        <h2>5.3 문서 내 검색</h2>
+        <p>개별 문서를 열어 브라우저의 <span class="key-combo">Ctrl+F</span>로 문서 내용을 검색할 수 있습니다.</p>
+
+        <hr>
+
+        <!-- Section 6 -->
+        <h1 id="s6"><span class="section-number">6.</span> 문서별 활용 가이드</h1>
+
+        <h2>6.1 CS 운영 매뉴얼 활용</h2>
+        <h3>용도</h3>
+        <p>CS 티켓 응대 시 카테고리별 템플릿을 복사하여 사용합니다.</p>
+        <h3>활용 순서</h3>
+        <ol>
+            <li>티켓의 <strong>카테고리</strong>를 확인합니다 (구독/환불/계정/결제 등)</li>
+            <li>매뉴얼에서 해당 섹션으로 이동합니다 (목차 클릭)</li>
+            <li>적합한 <strong>응대 템플릿</strong>을 찾아 복사합니다</li>
+            <li>고객 정보에 맞게 <strong>빈칸(_____)을 수정</strong>하여 회신합니다</li>
+        </ol>
+
+        <div class="info-box">
+            <strong>💡 참고:</strong> EN 매뉴얼과 KO 매뉴얼이 별도로 제공됩니다. 마켓 언어에 맞는 매뉴얼을 사용하세요.
+        </div>
+
+        <h2>6.2 차지백 소명 업무</h2>
+        <h3>활용 순서</h3>
+        <ol>
+            <li><strong>차지백 운영 매뉴얼</strong>에서 PG사별 소명 프로세스를 확인합니다</li>
+            <li><strong>차지백 플로우 다이어그램</strong>에서 전체 흐름을 파악합니다</li>
+            <li><strong>소명 폼 V5</strong>를 다운로드하여 내용을 작성합니다</li>
+            <li><strong>증빙 템플릿 v2</strong>를 활용하여 증빙 자료를 정리합니다</li>
+            <li>PG사에 소명서를 제출합니다</li>
+        </ol>
+
+        <h2>6.3 AI 챗봇 관련 문서</h2>
+        <table>
+            <thead><tr><th>상황</th><th>참고 문서</th></tr></thead>
+            <tbody>
+                <tr><td>챗봇 도입 검토 시 (경영진 보고)</td><td>One Pager · 비용 분석</td></tr>
+                <tr><td>기술 검토 시</td><td>아키텍처 설명서 · 파이프라인 플로우</td></tr>
+                <tr><td>로드맵 확인 시</td><td>프로젝트 로드맵</td></tr>
+                <tr><td>팀 교육 시</td><td>운영자 가이드 · 교육 자료 · 테스트 시나리오</td></tr>
+                <tr><td>시연 준비 시</td><td>시연 시나리오 스크립트</td></tr>
+                <tr><td>에스컬레이션 기준 확인 시</td><td>Escalation Scenarios (L1/L2/L3)</td></tr>
+            </tbody>
+        </table>
+
+        <h2>6.4 CS Ticket Dashboard</h2>
+        <p>대시보드는 <strong>인터랙티브 HTML</strong>로, 필터/차트를 직접 조작하여 데이터를 확인할 수 있습니다.</p>
+        <p>상세 사용법은 <strong>대시보드 운영 매뉴얼</strong>을 참고하세요.</p>
+
+        <hr>
+
+        <!-- Section 7 -->
+        <h1 id="s7"><span class="section-number">7.</span> 자주 묻는 질문 (FAQ)</h1>
+
+        <h2>Q1. 포탈에 접속하려면 로그인이 필요한가요?</h2>
+        <p><strong>아닙니다.</strong> GitHub Pages 기반 퍼블릭 사이트로, URL만 알면 누구나 접근 가능합니다.</p>
+
+        <h2>Q2. 문서가 업데이트되면 어떻게 알 수 있나요?</h2>
+        <p>포탈 메인 페이지의 <strong>"최종 업데이트" 날짜</strong>를 확인하세요. 주요 업데이트 시 슬랙으로 공지합니다.</p>
+
+        <h2>Q3. 특정 문서의 이전 버전을 볼 수 있나요?</h2>
+        <p>Git 기반으로 모든 변경 이력이 보존됩니다. 이전 버전이 필요한 경우 팀 리드에게 요청하세요.</p>
+
+        <h2>Q4. 문서에 오류가 있으면 어떻게 하나요?</h2>
+        <p>팀 리드 또는 슬랙 <strong>#bizops</strong> 채널에 알려주세요. 확인 후 수정하여 재배포합니다.</p>
+
+        <h2>Q5. 새로운 문서를 요청하고 싶어요.</h2>
+        <p>아래 <strong>섹션 8. 문서 요청 및 피드백</strong>을 참고하세요.</p>
+
+        <h2>Q6. 오프라인에서도 볼 수 있나요?</h2>
+        <p>인터넷 연결이 필요합니다. 오프라인 사용이 필요한 경우 PDF로 저장해두세요 (섹션 4.2 참고).</p>
+
+        <h2>Q7. 모바일에서 문서가 깨져 보여요.</h2>
+        <p>대부분의 문서는 반응형이지만, 일부 표/차트가 포함된 문서는 PC 브라우저에서 최적화되어 있습니다. 가로 모드로 전환하거나 PC를 이용해주세요.</p>
+
+        <hr>
+
+        <!-- Section 8 -->
+        <h1 id="s8"><span class="section-number">8.</span> 문서 요청 및 피드백</h1>
+
+        <h2>8.1 신규 문서 요청</h2>
+        <p>새로운 산출물이 필요한 경우 아래 정보를 포함하여 팀 리드에게 요청하세요:</p>
+        <ul>
+            <li><strong>문서 제목</strong> (예: "DE 마켓 특이 케이스 대응 가이드")</li>
+            <li><strong>카테고리</strong> (CS/차지백/AI/IP/대시보드/기타)</li>
+            <li><strong>목적 및 대상</strong> (누가, 언제, 왜 사용하는지)</li>
+            <li><strong>우선순위</strong> (높음/보통/낮음)</li>
+        </ul>
+
+        <h2>8.2 기존 문서 수정 요청</h2>
+        <p>문서 내용이 현행과 맞지 않거나 개선이 필요한 경우:</p>
+        <ul>
+            <li><strong>해당 문서 이름</strong>과 <strong>수정이 필요한 부분</strong>을 구체적으로 알려주세요</li>
+            <li>슬랙 DM 또는 #bizops 채널 모두 가능합니다</li>
+        </ul>
+
+        <h2>8.3 피드백 채널</h2>
+        <table>
+            <thead><tr><th>채널</th><th>용도</th></tr></thead>
+            <tbody>
+                <tr><td>슬랙 #bizops</td><td>일반 피드백, 오류 제보, 문서 요청</td></tr>
+                <tr><td>팀 리드 DM</td><td>긴급 수정, 민감한 내용</td></tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <!-- Section 9 -->
+        <h1 id="s9"><span class="section-number">9.</span> 업데이트 이력</h1>
+
+        <table>
+            <thead><tr><th>버전</th><th>날짜</th><th>변경 내용</th></tr></thead>
+            <tbody>
+                <tr><td>v1.0</td><td>2026-03-03</td><td>초판 작성 — 포탈 사용 매뉴얼</td></tr>
+            </tbody>
+        </table>
+
+    </div>
+
+    <!-- ===== Footer ===== -->
+    <div class="footer">
+        <strong>TOOMICS Global · 글로벌 플랫폼 운영팀 · BizOps</strong><br>
+        본 문서는 내부 운영용이며, 외부 배포를 금합니다.<br>
+        문의: 유종선 (BizOps 팀 리드)
+    </div>
+
+</div>
+</body>
+</html>
