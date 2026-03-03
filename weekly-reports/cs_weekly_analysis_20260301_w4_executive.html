@@ -20,6 +20,7 @@
   --text-secondary: #475569;
   --text-muted: #94A3B8;
   --border: #E2E8F0;
+  --border-strong: #CBD5E1;
   --accent-brand: #2563EB;
   --accent-info: #0EA5E9;
   --accent-success: #10B981;
@@ -252,7 +253,7 @@
       <li><span class="tag tag-info">GROWTH</span> ES 마켓 점유율 <strong>11.9% → 15.1%</strong> (+3.2%p 상승).</li>
       <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>125건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
       <li><span class="tag tag-up">CB</span> 차지백 <strong>75건</strong>(~$793) — 전주 대비 <strong>+17.2%</strong>. Paypal 64.0% 지배적.</li>
-      <li><span class="tag tag-project">PROJECT</span> BizOps Portal 산출물 <strong>총 41건</strong> 배포 완료 (CS 운영 8건, AI 챗봇 14건, 차지백 4건, 주간리포트 12건, IP·대시보드·기타 3건). CS 매뉴얼 EN/KO v2.1, 차지백 매뉴얼 v1.3, AI 챗봇 원페이저·아키텍처·교육자료 등 <strong>7개 카테고리</strong> 체계화.</li>
+      <li><span class="tag tag-project">PROJECT</span> BizOps Portal 산출물 <strong>총 29건</strong> 배포 완료 (CS 운영 9건, 차지백 4건, 주간리포트 12건, IP·대시보드·기타 4건). CS 매뉴얼 EN/KO v2.1, 차지백 매뉴얼 v1.3, 포탈 사용 매뉴얼 등 <strong>5개 카테고리</strong> 체계화.</li>
     </ul>
   </div>
 
@@ -432,7 +433,6 @@
             <li>CS 매뉴얼이 Confluence·Slack·Google Docs에 분산</li>
             <li>신규 입사자 온보딩 시 구두 전달 + 자료 찾기 반복</li>
             <li>차지백 처리 프로세스·양식 매번 검색</li>
-            <li>AI 챗봇 검토 자료가 PPT 10개에 흩어짐</li>
             <li>IP 보호 업무가 담당자 머릿속에만 존재</li>
             <li>버전 관리 없음 — "이게 최신본 맞아?"</li>
           </ul>
@@ -444,7 +444,6 @@
             <li>URL 하나로 전체 산출물 즉시 접근</li>
             <li>셀프 온보딩 가능 — 매뉴얼·플로우·템플릿 통합</li>
             <li>차지백 매뉴얼+플로우+템플릿+증빙 원스톱</li>
-            <li>AI 챗봇 기획~운영~교육 13건 체계적 문서화</li>
             <li>IP 보호 운영 매뉴얼 체계화</li>
             <li>Git 기반 자동 버전 관리 + 자동 인덱싱</li>
           </ul>
@@ -464,7 +463,7 @@
       <div class="pj-impact">
         <div class="pj-impact-icon">👤</div>
         <div class="pj-impact-metric">75%<span>단축</span></div>
-        <div class="pj-impact-title">신규 온보딩</div>
+        <div class="pj-impact-title">신규 업무 온보딩</div>
         <div class="pj-impact-before">구두 전달 2~3주</div>
         <div class="pj-impact-after">→ 셀프 학습</div>
       </div>
@@ -603,7 +602,7 @@ new Chart(document.getElementById('chartCBTrend'), {
         var meta = chart.getDatasetMeta(i);
         meta.data.forEach(function(bar, idx) {
           ctx.fillStyle = '#1e293b';
-          ctx.font = 'bold 12px sans-serif';
+          ctx.font = "bold 12px " + fontFamily;
           ctx.textAlign = 'center';
           ctx.fillText(ds.data[idx] + '건', bar.x, bar.y - 8);
         });
