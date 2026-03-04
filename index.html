@@ -1270,10 +1270,17 @@ var VERSION_HISTORY = {
   function loadRequests() {
     var tbody = document.getElementById('reqTableBody');
     var bar = document.getElementById('reqStatusBar');
+    console.log('[BizOPS] loadRequests 호출, URL:', APPS_SCRIPT_URL + '?action=list');
 
     fetch(APPS_SCRIPT_URL + '?action=list', { mode: 'cors' })
-      .then(function(r) { return r.json(); })
+      .then(function(r) {
+        console.log('[BizOPS] fetch 응답 수신, status:', r.status);
+        return r.json();
+      })
       .then(function(data) {
+        console.log('[BizOPS] 파싱된 데이터:', JSON.stringify(data).substring(0, 500));
+        console.log('[BizOPS] 요청 건수:', (data.requests || []).length);
+
         // Status counts
         var counts = { '대기중': 0, '진행중': 0, '완료': 0 };
         (data.requests || []).forEach(function(r) {
@@ -1296,17 +1303,18 @@ var VERSION_HISTORY = {
           var pri = r.priority === '높음' ? '🔴 높음' : r.priority === '낮음' ? '🟢 낮음' : '🟡 보통';
           html += '<tr>';
           html += '<td>' + (r.id || '-') + '</td>';
-          html += '<td>' + (r.name || '-') + '</td>';
-          html += '<td>' + (r.doc || '-') + '</td>';
+          html += '<td>' + (r.requester || '-') + '</td>';
+          html += '<td>' + (r.document || '-') + '</td>';
           html += '<td>' + (r.type || '-') + '</td>';
           html += '<td class="td-pri">' + pri + '</td>';
           html += '<td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td>';
-          html += '<td>' + (r.date || '-') + '</td>';
+          html += '<td>' + (r.timestamp || '-') + '</td>';
           html += '</tr>';
         });
         tbody.innerHTML = html;
       })
-      .catch(function() {
+      .catch(function(err) {
+        console.error('[BizOPS] loadRequests 에러:', err);
         tbody.innerHTML = '<tr><td colspan="7" class="req-empty">현황 데이터를 불러올 수 없습니다.</td></tr>';
         bar.innerHTML =
           '<span class="req-status-badge req-badge-wait">대기중 <strong>-</strong></span>' +
