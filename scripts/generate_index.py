@@ -99,6 +99,8 @@ PREFIX_RULES = [
     ("ticket_dashboard",        "dashboard",    "V",  "bg-blue"),
     # Zendesk FAQ
     ("zendesk_faq",             "cs_analysis",  "Z",  "bg-cyan"),
+    # 데이터 품질
+    ("data_quality",            "other",        "D",  "bg-slate"),
 ]
 
 
