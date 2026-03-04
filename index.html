@@ -332,9 +332,18 @@
   }
   .req-section-title {
     font-size: 15px; font-weight: 800; color: #0369A1;
-    margin-bottom: 14px; padding-bottom: 8px;
-    border-bottom: 2px solid #E0F2FE;
+    padding: 12px 16px; cursor: pointer; user-select: none;
+    border: 1px solid #E0F2FE; border-radius: 10px;
+    background: #F0F9FF; display: flex; align-items: center; justify-content: space-between;
+    transition: background 0.15s;
   }
+  .req-section-title:hover { background: #E0F2FE; }
+  .req-section-title .chevron-req {
+    font-size: 11px; color: #0369A1; transition: transform 0.2s;
+  }
+  .req-section-title.open .chevron-req { transform: rotate(90deg); }
+  .req-section .req-card { display: none; margin-top: 12px; }
+  .req-section.open .req-card { display: block; }
   .req-card {
     background: #fff; border: 1px solid #E2E8F0;
     border-radius: 12px; padding: 20px 24px;
@@ -688,7 +697,7 @@
 
   <!-- 요청 현황 -->
   <div class="req-section">
-    <div class="req-section-title">📊 요청 현황</div>
+    <div class="req-section-title" onclick="this.classList.toggle('open');this.closest('.req-section').classList.toggle('open')">📊 요청 현황<span class="chevron-req">▶</span></div>
     <div class="req-card">
       <div class="req-status-bar" id="reqStatusBar">
         <span class="req-status-badge req-badge-wait">대기중 <strong>-</strong></span>
@@ -706,7 +715,7 @@
 
   <!-- 문서 업데이트 요청 -->
   <div class="req-section">
-    <div class="req-section-title">📋 문서 업데이트 요청</div>
+    <div class="req-section-title" onclick="this.classList.toggle('open');this.closest('.req-section').classList.toggle('open')">📋 문서 업데이트 요청<span class="chevron-req">▶</span></div>
     <div class="req-card">
       <form class="req-form" id="reqForm">
         <div class="req-field">
