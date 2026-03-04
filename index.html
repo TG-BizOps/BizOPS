@@ -333,6 +333,98 @@
     50% { opacity: 0.7; }
   }
 
+  /* Request System */
+  .req-section {
+    margin-top: 32px; margin-bottom: 24px;
+  }
+  .req-section-title {
+    font-size: 15px; font-weight: 800; color: #0369A1;
+    margin-bottom: 14px; padding-bottom: 8px;
+    border-bottom: 2px solid #E0F2FE;
+  }
+  .req-card {
+    background: #fff; border: 1px solid #E2E8F0;
+    border-radius: 12px; padding: 20px 24px;
+  }
+  .req-status-bar {
+    display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap;
+  }
+  .req-status-badge {
+    font-size: 12px; font-weight: 700; padding: 4px 12px;
+    border-radius: 8px; display: inline-flex; align-items: center; gap: 6px;
+  }
+  .req-badge-wait { background: #FEF9C3; color: #A16207; }
+  .req-badge-progress { background: #DBEAFE; color: #1D4ED8; }
+  .req-badge-done { background: #DCFCE7; color: #15803D; }
+  .req-table {
+    width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 12px;
+  }
+  .req-table th {
+    background: #F8FAFC; padding: 8px 10px; text-align: left;
+    font-weight: 700; color: #475569; border-bottom: 2px solid #E2E8F0;
+    white-space: nowrap;
+  }
+  .req-table td {
+    padding: 8px 10px; border-bottom: 1px solid #F1F5F9; color: #334155;
+  }
+  .req-table tr:hover td { background: #F8FAFC; }
+  .req-table .td-status {
+    font-size: 11px; font-weight: 700; padding: 2px 8px;
+    border-radius: 6px; display: inline-block; white-space: nowrap;
+  }
+  .req-table .td-pri {
+    font-size: 11px; white-space: nowrap;
+  }
+  .req-empty {
+    text-align: center; padding: 24px; color: #94A3B8; font-size: 13px;
+  }
+
+  .req-form { display: flex; flex-direction: column; gap: 14px; }
+  .req-field label {
+    display: block; font-size: 12px; font-weight: 700;
+    color: #475569; margin-bottom: 4px;
+  }
+  .req-field input[type="text"],
+  .req-field select,
+  .req-field textarea {
+    width: 100%; padding: 8px 12px; border: 1px solid #E2E8F0;
+    border-radius: 8px; font-size: 13px; font-family: inherit;
+    background: #F8FAFC; color: #1E293B;
+    transition: border-color 0.15s;
+  }
+  .req-field input:focus,
+  .req-field select:focus,
+  .req-field textarea:focus {
+    outline: none; border-color: #0EA5E9; background: #fff;
+  }
+  .req-field textarea { min-height: 80px; resize: vertical; }
+  .req-radio-group {
+    display: flex; gap: 16px; margin-top: 4px;
+  }
+  .req-radio-group label {
+    display: inline-flex; align-items: center; gap: 4px;
+    font-size: 13px; font-weight: 600; cursor: pointer; color: #334155;
+  }
+  .req-radio-group input[type="radio"] { accent-color: #0EA5E9; }
+  .req-submit {
+    align-self: flex-start; padding: 10px 28px;
+    background: linear-gradient(135deg, #0C4A6E, #0EA5E9);
+    color: #fff; border: none; border-radius: 8px;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .req-submit:hover { opacity: 0.9; }
+  .req-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+  .req-toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
+    background: #0C4A6E; color: #fff; padding: 12px 28px;
+    border-radius: 10px; font-size: 13px; font-weight: 700;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    opacity: 0; transition: opacity 0.3s;
+    z-index: 9999; pointer-events: none;
+  }
+  .req-toast.show { opacity: 1; }
+
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
@@ -341,7 +433,7 @@
     .hero { padding: 24px; }
     .accordion-body { max-height: none !important; }
     .chevron { display: none; }
-    .search-wrap, .badge-new, .badge-updated, .history-details { display: none; }
+    .search-wrap, .badge-new, .badge-updated, .history-details, .req-section, .req-toast { display: none; }
   }
   @media (max-width: 600px) {
     .link-grid { grid-template-columns: 1fr; }
@@ -566,6 +658,67 @@
     </div></div>
   </div>
 
+  <!-- 요청 현황 -->
+  <div class="req-section">
+    <div class="req-section-title">📊 요청 현황</div>
+    <div class="req-card">
+      <div class="req-status-bar" id="reqStatusBar">
+        <span class="req-status-badge req-badge-wait">대기중 <strong>-</strong></span>
+        <span class="req-status-badge req-badge-progress">진행중 <strong>-</strong></span>
+        <span class="req-status-badge req-badge-done">완료 <strong>-</strong></span>
+      </div>
+      <table class="req-table">
+        <thead><tr><th>ID</th><th>요청자</th><th>대상 문서</th><th>유형</th><th>우선순위</th><th>상태</th><th>날짜</th></tr></thead>
+        <tbody id="reqTableBody">
+          <tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 문서 업데이트 요청 -->
+  <div class="req-section">
+    <div class="req-section-title">📋 문서 업데이트 요청</div>
+    <div class="req-card">
+      <form class="req-form" id="reqForm">
+        <div class="req-field">
+          <label for="reqName">요청자 이름</label>
+          <input type="text" id="reqName" placeholder="이름을 입력하세요" required>
+        </div>
+        <div class="req-field">
+          <label for="reqDoc">대상 문서</label>
+          <select id="reqDoc" required><option value="">문서를 선택하세요</option></select>
+        </div>
+        <div class="req-field">
+          <label for="reqType">요청 유형</label>
+          <select id="reqType" required>
+            <option value="">유형을 선택하세요</option>
+            <option value="오류 수정">오류 수정</option>
+            <option value="내용 추가">내용 추가</option>
+            <option value="내용 삭제">내용 삭제</option>
+            <option value="버전 업데이트">버전 업데이트</option>
+            <option value="기타">기타</option>
+          </select>
+        </div>
+        <div class="req-field">
+          <label for="reqContent">요청 내용</label>
+          <textarea id="reqContent" placeholder="수정/추가/삭제할 내용을 상세히 작성해주세요" required></textarea>
+        </div>
+        <div class="req-field">
+          <label>우선순위</label>
+          <div class="req-radio-group">
+            <label><input type="radio" name="reqPriority" value="높음" required> 🔴 높음</label>
+            <label><input type="radio" name="reqPriority" value="보통" checked> 🟡 보통</label>
+            <label><input type="radio" name="reqPriority" value="낮음"> 🟢 낮음</label>
+          </div>
+        </div>
+        <button type="submit" class="req-submit" id="reqSubmitBtn">요청 제출</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="req-toast" id="reqToast"></div>
+
   <!-- 변경 히스토리 (숨김 처리) -->
   <details class="history-details" id="sec-history">
     <summary class="history-summary">
@@ -610,6 +763,8 @@
 </footer>
 
 <script>
+var APPS_SCRIPT_URL = 'https://script.google.com/macros/s/PLACEHOLDER/exec';
+
 // Accordion toggle
 document.querySelectorAll('.accordion-header').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -951,6 +1106,140 @@ var VERSION_HISTORY = {
       meta.classList.add('hidden');
       noResults.style.display = 'block';
     }
+  }
+})();
+
+// Document Request System
+(function() {
+  // Populate document dropdown from portal cards
+  var docSelect = document.getElementById('reqDoc');
+  if (docSelect) {
+    var titles = [];
+    document.querySelectorAll('.link-card .lc-title').forEach(function(el) {
+      var t = el.textContent.replace(/Updated/g, '').trim();
+      if (t && titles.indexOf(t) === -1) titles.push(t);
+    });
+    titles.sort();
+    titles.forEach(function(t) {
+      var opt = document.createElement('option');
+      opt.value = t;
+      opt.textContent = t;
+      docSelect.appendChild(opt);
+    });
+  }
+
+  // Toast
+  function showToast(msg, isError) {
+    var toast = document.getElementById('reqToast');
+    toast.textContent = msg;
+    toast.style.background = isError ? '#DC2626' : '#0C4A6E';
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 3000);
+  }
+
+  // Status color map
+  var statusClass = { '대기중': 'req-badge-wait', '진행중': 'req-badge-progress', '완료': 'req-badge-done' };
+
+  // Fetch request status
+  function loadRequests() {
+    var tbody = document.getElementById('reqTableBody');
+    var bar = document.getElementById('reqStatusBar');
+
+    fetch(APPS_SCRIPT_URL + '?action=list', { mode: 'cors' })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        // Status counts
+        var counts = { '대기중': 0, '진행중': 0, '완료': 0 };
+        (data.requests || []).forEach(function(r) {
+          if (counts.hasOwnProperty(r.status)) counts[r.status]++;
+        });
+        bar.innerHTML =
+          '<span class="req-status-badge req-badge-wait">대기중 <strong>' + counts['대기중'] + '</strong></span>' +
+          '<span class="req-status-badge req-badge-progress">진행중 <strong>' + counts['진행중'] + '</strong></span>' +
+          '<span class="req-status-badge req-badge-done">완료 <strong>' + counts['완료'] + '</strong></span>';
+
+        // Table (recent 5)
+        var rows = (data.requests || []).slice(0, 5);
+        if (rows.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" class="req-empty">등록된 요청이 없습니다.</td></tr>';
+          return;
+        }
+        var html = '';
+        rows.forEach(function(r) {
+          var sc = statusClass[r.status] || 'req-badge-wait';
+          var pri = r.priority === '높음' ? '🔴 높음' : r.priority === '낮음' ? '🟢 낮음' : '🟡 보통';
+          html += '<tr>';
+          html += '<td>' + (r.id || '-') + '</td>';
+          html += '<td>' + (r.name || '-') + '</td>';
+          html += '<td>' + (r.doc || '-') + '</td>';
+          html += '<td>' + (r.type || '-') + '</td>';
+          html += '<td class="td-pri">' + pri + '</td>';
+          html += '<td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td>';
+          html += '<td>' + (r.date || '-') + '</td>';
+          html += '</tr>';
+        });
+        tbody.innerHTML = html;
+      })
+      .catch(function() {
+        tbody.innerHTML = '<tr><td colspan="7" class="req-empty">현황 데이터를 불러올 수 없습니다.</td></tr>';
+        bar.innerHTML =
+          '<span class="req-status-badge req-badge-wait">대기중 <strong>-</strong></span>' +
+          '<span class="req-status-badge req-badge-progress">진행중 <strong>-</strong></span>' +
+          '<span class="req-status-badge req-badge-done">완료 <strong>-</strong></span>';
+      });
+  }
+
+  // Load on page init
+  loadRequests();
+
+  // Form submit
+  var form = document.getElementById('reqForm');
+  var submitBtn = document.getElementById('reqSubmitBtn');
+  if (form) {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      submitBtn.disabled = true;
+      submitBtn.textContent = '제출 중...';
+
+      var priority = '';
+      document.querySelectorAll('input[name="reqPriority"]').forEach(function(r) {
+        if (r.checked) priority = r.value;
+      });
+
+      var payload = {
+        action: 'submit',
+        name: document.getElementById('reqName').value.trim(),
+        doc: document.getElementById('reqDoc').value,
+        type: document.getElementById('reqType').value,
+        content: document.getElementById('reqContent').value.trim(),
+        priority: priority
+      };
+
+      fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'text/plain' },
+        body: JSON.stringify(payload)
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        if (data.success) {
+          showToast('요청이 등록되었습니다');
+          form.reset();
+          document.querySelector('input[name="reqPriority"][value="보통"]').checked = true;
+          loadRequests();
+        } else {
+          showToast(data.error || '등록에 실패했습니다', true);
+        }
+      })
+      .catch(function() {
+        showToast('서버 연결에 실패했습니다', true);
+      })
+      .finally(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = '요청 제출';
+      });
+    });
   }
 })();
 </script>
