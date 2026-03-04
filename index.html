@@ -172,29 +172,6 @@
   }
   .history-msg { color: #334155; }
 
-  /* Pagination */
-  .pagination {
-    display: flex; justify-content: center; align-items: center;
-    gap: 4px; margin-top: 16px; padding-top: 16px;
-    border-top: 1px solid #E2E8F0;
-  }
-  .pagination button {
-    min-width: 36px; height: 36px; border: 1px solid #E2E8F0;
-    border-radius: 8px; background: #fff; color: #475569;
-    font-size: 13px; font-weight: 600; cursor: pointer;
-    transition: all 0.15s; font-family: inherit;
-  }
-  .pagination button:hover { background: #F1F5F9; border-color: #CBD5E1; }
-  .pagination button.active {
-    background: #2563EB; color: #fff; border-color: #2563EB;
-  }
-  .pagination button:disabled {
-    opacity: 0.4; cursor: default; background: #F8FAFC;
-  }
-  .pagination .page-info {
-    font-size: 12px; color: #94A3B8; margin: 0 8px;
-  }
-
   /* Search */
   .search-wrap {
     position: relative; margin-bottom: 24px;
@@ -271,9 +248,6 @@
     vertical-align: middle; white-space: nowrap;
   }
   .doc-status-published { background: #DCFCE7; color: #16A34A; }
-  .doc-status-review { background: #FEF3C7; color: #D97706; }
-  .doc-status-draft { background: #F1F5F9; color: #94A3B8; }
-  .doc-status-deprecated { background: #FEE2E2; color: #DC2626; }
 
   /* Version History */
   .version-toggle {
@@ -882,74 +856,17 @@ document.querySelectorAll('.stat-card[data-target]').forEach(card => {
   });
 });
 
-// History pagination (20 items per page)
-(function() {
-  const list = document.querySelector('.history-list');
-  const pagination = document.getElementById('historyPagination');
-  if (!list || !pagination) return;
-
-  const items = Array.from(list.querySelectorAll('.history-item'));
-  const perPage = 20;
-  const totalPages = Math.ceil(items.length / perPage);
-  let currentPage = 1;
-
-  function showPage(page) {
-    currentPage = page;
-    const start = (page - 1) * perPage;
-    const end = start + perPage;
-    items.forEach((item, i) => {
-      item.style.display = (i >= start && i < end) ? '' : 'none';
-    });
-    renderPagination();
-  }
-
-  function renderPagination() {
-    if (totalPages <= 1) { pagination.style.display = 'none'; return; }
-    let html = '';
-    html += '<button class="pg-prev" ' + (currentPage === 1 ? 'disabled' : '') + '>&lsaquo;</button>';
-    for (let p = 1; p <= totalPages; p++) {
-      html += '<button class="pg-num' + (p === currentPage ? ' active' : '') + '" data-page="' + p + '">' + p + '</button>';
-    }
-    html += '<button class="pg-next" ' + (currentPage === totalPages ? 'disabled' : '') + '>&rsaquo;</button>';
-    html += '<span class="page-info">' + currentPage + ' / ' + totalPages + '</span>';
-    pagination.innerHTML = html;
-
-    pagination.querySelectorAll('.pg-num').forEach(btn => {
-      btn.addEventListener('click', () => showPage(parseInt(btn.dataset.page)));
-    });
-    pagination.querySelector('.pg-prev').addEventListener('click', () => {
-      if (currentPage > 1) showPage(currentPage - 1);
-    });
-    pagination.querySelector('.pg-next').addEventListener('click', () => {
-      if (currentPage < totalPages) showPage(currentPage + 1);
-    });
-  }
-
-  showPage(1);
-})();
-
 // Document Status Data (key = filename from href)
-var DOC_STATUS = {
-  // All current documents default to Published
-};
+var DOC_STATUS = {};
 (function() {
-  var statusColors = {
-    Published: 'doc-status-published',
-    Review: 'doc-status-review',
-    Draft: 'doc-status-draft',
-    Deprecated: 'doc-status-deprecated'
-  };
   document.querySelectorAll('.link-card').forEach(function(card) {
     var href = card.getAttribute('href') || '';
-    var fname = href.split('/').pop();
-    var status = DOC_STATUS[fname] || 'Published';
+    var status = DOC_STATUS[href.split('/').pop()] || 'Published';
     card.dataset.status = status;
-    // Inject badge next to type badge
     var typeBadge = card.querySelector('.lc-badge');
     if (typeBadge) {
-      var cls = statusColors[status] || statusColors.Published;
       typeBadge.insertAdjacentHTML('afterend',
-        '<span class="doc-status ' + cls + '">' + status + '</span>');
+        '<span class="doc-status doc-status-published">' + status + '</span>');
     }
   });
 })();
@@ -977,22 +894,6 @@ var VERSION_HISTORY = {
       { version: "v1.1", date: "2026-02-10", summary: "8개 PG사 통합" },
       { version: "v1.0", date: "2026-01-20", summary: "최초 작성" }
     ]
-  },
-  "chatbot_operations_manual_20260222.html": {
-    current: "v1.0",
-    history: []
-  },
-  "chatbot_system_overview_20260223.html": {
-    current: "v1.0",
-    history: []
-  },
-  "chatbot_cs_operator_guide_20260222.html": {
-    current: "v1.0",
-    history: []
-  },
-  "chatbot_training_guide_20260223.html": {
-    current: "v1.0",
-    history: []
   },
   "Chargeback_Explanation_Form_v5.xlsx": {
     current: "v5.0",
@@ -1275,90 +1176,65 @@ var VERSION_HISTORY = {
     setTimeout(function() { toast.classList.remove('show'); }, 3000);
   }
 
-  // Status color map
+  // Status color map & shared constants
   var statusClass = { '대기중': 'req-badge-wait', '진행중': 'req-badge-progress', '완료': 'req-badge-done' };
+  var REFRESH_BTN = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
+
+  function statusBarHtml(counts) {
+    return '<span class="req-status-badge req-badge-wait">대기중 <strong>' + counts['대기중'] + '</strong></span>' +
+      '<span class="req-status-badge req-badge-progress">진행중 <strong>' + counts['진행중'] + '</strong></span>' +
+      '<span class="req-status-badge req-badge-done">완료 <strong>' + counts['완료'] + '</strong></span>' + REFRESH_BTN;
+  }
 
   // Fetch request status
   function loadRequests() {
     var tbody = document.getElementById('reqTableBody');
     var bar = document.getElementById('reqStatusBar');
     var btn = document.getElementById('reqRefreshBtn');
-    var btnHtml = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
-    console.log('[BizOPS] loadRequests 호출, URL:', APPS_SCRIPT_URL);
-
     if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
     tbody.innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
 
     fetch(APPS_SCRIPT_URL, { mode: 'cors', redirect: 'follow' })
-      .then(function(r) {
-        console.log('[BizOPS] fetch 응답 수신, status:', r.status);
-        return r.json();
-      })
+      .then(function(r) { return r.json(); })
       .then(function(data) {
-        console.log('[BizOPS] 파싱된 데이터:', JSON.stringify(data).substring(0, 500));
-        console.log('[BizOPS] 요청 건수:', (Array.isArray(data) ? data : []).length);
+        var rows = Array.isArray(data) ? data : [];
+        console.log('[BizOPS] 요청 데이터 수신:', rows.length, '건');
 
-        // Status counts
         var counts = { '대기중': 0, '진행중': 0, '완료': 0 };
-        (Array.isArray(data) ? data : []).forEach(function(r) {
+        rows.forEach(function(r) {
           if (counts.hasOwnProperty(r.status)) counts[r.status]++;
         });
-        bar.innerHTML =
-          '<span class="req-status-badge req-badge-wait">대기중 <strong>' + counts['대기중'] + '</strong></span>' +
-          '<span class="req-status-badge req-badge-progress">진행중 <strong>' + counts['진행중'] + '</strong></span>' +
-          '<span class="req-status-badge req-badge-done">완료 <strong>' + counts['완료'] + '</strong></span>' +
-          btnHtml;
+        bar.innerHTML = statusBarHtml(counts);
 
-        // Table (recent 5)
-        var rows = (Array.isArray(data) ? data : []).slice(0, 5);
-        if (rows.length === 0) {
+        var recent = rows.slice(0, 5);
+        if (recent.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7" class="req-empty">등록된 요청이 없습니다.</td></tr>';
           return;
         }
         var html = '';
-        rows.forEach(function(r) {
+        recent.forEach(function(r) {
           var sc = statusClass[r.status] || 'req-badge-wait';
           var pri = r.priority === '높음' ? '🔴 높음' : r.priority === '낮음' ? '🟢 낮음' : '🟡 보통';
-          html += '<tr>';
-          html += '<td>' + (r.id || '-') + '</td>';
-          html += '<td>' + (r.requester || '-') + '</td>';
-          html += '<td>' + (r.document || '-') + '</td>';
-          html += '<td>' + (r.type || '-') + '</td>';
-          html += '<td class="td-pri">' + pri + '</td>';
-          html += '<td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td>';
-          html += '<td>' + (r.timestamp || '-') + '</td>';
-          html += '</tr>';
+          html += '<tr><td>' + (r.id || '-') + '</td><td>' + (r.requester || '-') + '</td><td>' + (r.document || '-') + '</td><td>' + (r.type || '-') + '</td><td class="td-pri">' + pri + '</td><td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td><td>' + (r.timestamp || '-') + '</td></tr>';
         });
         tbody.innerHTML = html;
       })
       .catch(function(err) {
         console.error('[BizOPS] loadRequests 에러:', err);
         tbody.innerHTML = '<tr><td colspan="7" class="req-empty">현황 데이터를 불러올 수 없습니다.</td></tr>';
-        bar.innerHTML =
-          '<span class="req-status-badge req-badge-wait">대기중 <strong>-</strong></span>' +
-          '<span class="req-status-badge req-badge-progress">진행중 <strong>-</strong></span>' +
-          '<span class="req-status-badge req-badge-done">완료 <strong>-</strong></span>' +
-          btnHtml;
+        bar.innerHTML = statusBarHtml({ '대기중': '-', '진행중': '-', '완료': '-' });
       });
   }
 
-  // Refresh button handler — window에 노출 (IIFE 내부이므로 onclick에서 접근 필요)
+  // Refresh: 시각적 초기화 후 300ms 딜레이
   window.refreshRequests = function() {
-    console.log('[BizOPS] 새로고침 버튼 클릭');
     var btn = document.getElementById('reqRefreshBtn');
-    var tbody = document.getElementById('reqTableBody');
-    var bar = document.getElementById('reqStatusBar');
-    var btnHtml = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
     if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
-    tbody.innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
-    bar.innerHTML =
-      '<span class="req-status-badge req-badge-wait">대기중 <strong>0</strong></span>' +
-      '<span class="req-status-badge req-badge-progress">진행중 <strong>0</strong></span>' +
-      '<span class="req-status-badge req-badge-done">완료 <strong>0</strong></span>' +
-      btnHtml;
-    var newBtn = document.getElementById('reqRefreshBtn');
-    if (newBtn) { newBtn.disabled = true; newBtn.textContent = '로딩중...'; }
-    setTimeout(function() { loadRequests(); }, 300);
+    document.getElementById('reqTableBody').innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
+    document.getElementById('reqStatusBar').innerHTML = statusBarHtml({ '대기중': 0, '진행중': 0, '완료': 0 });
+    var nb = document.getElementById('reqRefreshBtn');
+    if (nb) { nb.disabled = true; nb.textContent = '로딩중...'; }
+    setTimeout(loadRequests, 300);
   };
 
   // Load on page init
