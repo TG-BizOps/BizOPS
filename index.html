@@ -687,7 +687,52 @@
         </div>
         <div class="req-field">
           <label for="reqDoc">대상 문서</label>
-          <select id="reqDoc" required><option value="">문서를 선택하세요</option></select>
+          <select id="reqDoc" required>
+            <option value="">문서를 선택하세요</option>
+            <optgroup label="CS 운영">
+              <option>TOOMICS Global CS Operations Manual v2.1 (EN)</option>
+              <option>TOOMICS Global CS 운영 매뉴얼 v2.1 (KO)</option>
+              <option>반복 문의 고객 대응 매뉴얼</option>
+              <option>악의성 환불 요청 분석 리포트</option>
+              <option>CS Infographic</option>
+              <option>CS 티켓 레벨 분석 (L1/L2/L3)</option>
+              <option>CS Flow Diagram</option>
+              <option>CS 자동화 시스템 고도화 로드맵</option>
+            </optgroup>
+            <optgroup label="AI 챗봇">
+              <option>CS AI Chatbot One Pager</option>
+              <option>시스템 아키텍처 설명서</option>
+              <option>CS AI 챗봇 비용 분석</option>
+              <option>프로젝트 로드맵</option>
+              <option>AI 챗봇 운영 인포그래픽</option>
+              <option>AI Chatbot 운영 매뉴얼</option>
+              <option>CS 운영자 가이드</option>
+              <option>운영자/리더 교육 자료</option>
+              <option>교육용 테스트 시나리오</option>
+              <option>시연 시나리오 스크립트</option>
+              <option>Escalation Scenarios</option>
+              <option>파이프라인 플로우 다이어그램</option>
+              <option>처리 흐름도</option>
+              <option>AI 챗봇 주간 리포트</option>
+            </optgroup>
+            <optgroup label="차지백">
+              <option>차지백 운영 매뉴얼</option>
+              <option>차지백 프로세스 플로우 다이어그램</option>
+              <option>증빙 템플릿</option>
+              <option>Explanation Form v5</option>
+            </optgroup>
+            <optgroup label="IP 보호">
+              <option>IP 보호 업무 운영 매뉴얼</option>
+            </optgroup>
+            <optgroup label="티켓 대시보드">
+              <option>CS Ticket Dashboard</option>
+              <option>Ticket Dashboard 운영 매뉴얼</option>
+            </optgroup>
+            <optgroup label="기타">
+              <option>BizOps 산출물 포탈 사용 매뉴얼</option>
+              <option>개인정보 증빙</option>
+            </optgroup>
+          </select>
         </div>
         <div class="req-field">
           <label for="reqType">요청 유형</label>
@@ -1111,23 +1156,6 @@ var VERSION_HISTORY = {
 
 // Document Request System
 (function() {
-  // Populate document dropdown from portal cards
-  var docSelect = document.getElementById('reqDoc');
-  if (docSelect) {
-    var titles = [];
-    document.querySelectorAll('.link-card .lc-title').forEach(function(el) {
-      var t = el.textContent.replace(/Updated/g, '').trim();
-      if (t && titles.indexOf(t) === -1) titles.push(t);
-    });
-    titles.sort();
-    titles.forEach(function(t) {
-      var opt = document.createElement('option');
-      opt.value = t;
-      opt.textContent = t;
-      docSelect.appendChild(opt);
-    });
-  }
-
   // Toast
   function showToast(msg, isError) {
     var toast = document.getElementById('reqToast');
