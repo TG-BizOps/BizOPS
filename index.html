@@ -1342,8 +1342,8 @@ var VERSION_HISTORY = {
       });
   }
 
-  // Refresh button handler
-  function refreshRequests() {
+  // Refresh button handler — window에 노출 (IIFE 내부이므로 onclick에서 접근 필요)
+  window.refreshRequests = function() {
     console.log('[BizOPS] 새로고침 버튼 클릭');
     var btn = document.getElementById('reqRefreshBtn');
     var tbody = document.getElementById('reqTableBody');
@@ -1359,7 +1359,7 @@ var VERSION_HISTORY = {
     var newBtn = document.getElementById('reqRefreshBtn');
     if (newBtn) { newBtn.disabled = true; newBtn.textContent = '로딩중...'; }
     setTimeout(function() { loadRequests(); }, 300);
-  }
+  };
 
   // Load on page init
   loadRequests();
