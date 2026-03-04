@@ -1282,23 +1282,23 @@ var VERSION_HISTORY = {
     var bar = document.getElementById('reqStatusBar');
     var btn = document.getElementById('reqRefreshBtn');
     var btnHtml = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
-    console.log('[BizOPS] loadRequests 호출, URL:', APPS_SCRIPT_URL + '?action=list');
+    console.log('[BizOPS] loadRequests 호출, URL:', APPS_SCRIPT_URL);
 
     if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
     tbody.innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
 
-    fetch(APPS_SCRIPT_URL + '?action=list', { mode: 'cors' })
+    fetch(APPS_SCRIPT_URL, { mode: 'cors', redirect: 'follow' })
       .then(function(r) {
         console.log('[BizOPS] fetch 응답 수신, status:', r.status);
         return r.json();
       })
       .then(function(data) {
         console.log('[BizOPS] 파싱된 데이터:', JSON.stringify(data).substring(0, 500));
-        console.log('[BizOPS] 요청 건수:', (data.requests || []).length);
+        console.log('[BizOPS] 요청 건수:', (Array.isArray(data) ? data : []).length);
 
         // Status counts
         var counts = { '대기중': 0, '진행중': 0, '완료': 0 };
-        (data.requests || []).forEach(function(r) {
+        (Array.isArray(data) ? data : []).forEach(function(r) {
           if (counts.hasOwnProperty(r.status)) counts[r.status]++;
         });
         bar.innerHTML =
@@ -1308,7 +1308,7 @@ var VERSION_HISTORY = {
           btnHtml;
 
         // Table (recent 5)
-        var rows = (data.requests || []).slice(0, 5);
+        var rows = (Array.isArray(data) ? data : []).slice(0, 5);
         if (rows.length === 0) {
           tbody.innerHTML = '<tr><td colspan="7" class="req-empty">등록된 요청이 없습니다.</td></tr>';
           return;
