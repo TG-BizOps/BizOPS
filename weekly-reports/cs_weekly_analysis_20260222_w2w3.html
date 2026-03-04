@@ -12,8 +12,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
-    color: #e2e8f0;
-    background: #0f172a;
+    color: #E2E8F0;
+    background: #FFFFFF;
     line-height: 1.5;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -26,7 +26,7 @@
 
   /* ── Hero Header ── */
   .hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    background: linear-gradient(135deg, #FFFFFF 0%, #EFF6FF 40%, #0ea5e9 100%);
     color: white;
     padding: 48px 56px 40px;
     position: relative;
@@ -45,7 +45,7 @@
   .hero-badge {
     display: inline-block;
     background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(0,0,0,0.08);
     border-radius: 20px;
     padding: 4px 16px;
     font-size: 12px;
@@ -64,15 +64,15 @@
 
   /* ── Executive Summary ── */
   .exec-summary {
-    background: linear-gradient(145deg, #1e293b 0%, #0f172a 100%);
+    background: linear-gradient(145deg, #FFFFFF 0%, #FFFFFF 100%);
     border-radius: 16px;
     padding: 32px;
     margin: 0 24px 32px;
-    border: 1px solid #334155;
+    border: 1px solid #FFFFFF;
   }
   .exec-summary h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #38bdf8; }
   .exec-summary ul { list-style: none; padding: 0; }
-  .exec-summary li { padding: 8px 0; border-bottom: 1px solid #1e293b; font-size: 13px; line-height: 1.7; color: #e2e8f0; }
+  .exec-summary li { padding: 8px 0; border-bottom: 1px solid #FFFFFF; font-size: 13px; line-height: 1.7; color: #E2E8F0; }
   .exec-summary li:last-child { border-bottom: none; }
   .exec-summary .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10.5px; font-weight: 700; margin-right: 6px; }
   .tag-up { background: #fef2f2; color: #dc2626; }
@@ -83,19 +83,19 @@
   /* ── KPI Strip ── */
   .kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; padding: 0 24px; margin-bottom: 32px; }
   .kpi-card {
-    background: linear-gradient(145deg, #1e293b 0%, #162032 100%);
+    background: linear-gradient(145deg, #FFFFFF 0%, #162032 100%);
     border-radius: 16px;
     padding: 24px 20px;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    border: 1px solid #334155;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #FFFFFF;
     transition: transform 0.2s;
   }
-  .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.4); }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.06); }
   .kpi-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px; }
   .kpi-number { font-size: 32px; font-weight: 800; color: #ffffff; line-height: 1.1; }
   .kpi-number .small { font-size: 16px; font-weight: 600; }
-  .kpi-label { font-size: 12px; color: #94a3b8; margin-top: 4px; font-weight: 500; }
+  .kpi-label { font-size: 12px; color: #64748B; margin-top: 4px; font-weight: 500; }
   .kpi-sub { font-size: 11px; color: #64748b; margin-top: 2px; }
 
   /* ── Section ── */
@@ -106,13 +106,13 @@
   /* ── Chart Grid ── */
   .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
   .chart-card {
-    background: #1e293b;
+    background: #FFFFFF;
     border-radius: 16px;
     padding: 28px 24px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    border: 1px solid #334155;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #FFFFFF;
   }
-  .chart-card h3 { font-size: 14px; font-weight: 700; color: #f1f5f9; margin-bottom: 4px; }
+  .chart-card h3 { font-size: 14px; font-weight: 700; color: #FFFFFF; margin-bottom: 4px; }
   .chart-card .chart-desc { font-size: 11px; color: #64748b; margin-bottom: 16px; }
   .chart-wrap { position: relative; width: 100%; }
 
@@ -120,17 +120,17 @@
   .bar-legend { width: 100%; }
   .bar-legend-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid #2d3a4e; }
   .bar-legend-item:last-child { border-bottom: none; }
-  .bar-legend-label { min-width: 100px; font-size: 12px; font-weight: 600; color: #e2e8f0; }
-  .bar-legend-bar-wrap { flex: 1; height: 20px; background: #0f172a; border-radius: 4px; overflow: hidden; position: relative; }
+  .bar-legend-label { min-width: 100px; font-size: 12px; font-weight: 600; color: #E2E8F0; }
+  .bar-legend-bar-wrap { flex: 1; height: 20px; background: #FFFFFF; border-radius: 4px; overflow: hidden; position: relative; }
   .bar-legend-bar { height: 100%; border-radius: 4px; transition: width 0.8s ease; display: flex; align-items: center; padding-left: 8px; }
   .bar-legend-bar span { font-size: 10px; font-weight: 700; color: #fff; white-space: nowrap; }
-  .bar-legend-val { min-width: 72px; text-align: right; font-size: 12px; font-weight: 700; color: #94a3b8; font-variant-numeric: tabular-nums; }
+  .bar-legend-val { min-width: 72px; text-align: right; font-size: 12px; font-weight: 700; color: #64748B; font-variant-numeric: tabular-nums; }
 
   /* ── WoW Table ── */
   .wow-table { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
   .wow-table thead th {
-    background: #0f172a;
-    color: #94a3b8;
+    background: #FFFFFF;
+    color: #64748B;
     padding: 12px 16px;
     text-align: left;
     font-weight: 600;
@@ -140,22 +140,22 @@
   }
   .wow-table thead th:first-child { border-radius: 10px 0 0 0; }
   .wow-table thead th:last-child { border-radius: 0 10px 0 0; }
-  .wow-table tbody td { padding: 12px 16px; border-bottom: 1px solid #2d3a4e; color: #e2e8f0; }
+  .wow-table tbody td { padding: 12px 16px; border-bottom: 1px solid #2d3a4e; color: #E2E8F0; }
   .wow-table tbody tr:hover { background: #162032; }
   .wow-table tbody tr:last-child td { border-bottom: none; }
   .wow-table .num { text-align: right; font-variant-numeric: tabular-nums; }
   .trend-up { color: #ef4444; font-weight: 700; font-size: 12px; }
   .trend-down { color: #22c55e; font-weight: 700; font-size: 12px; }
-  .trend-flat { color: #94a3b8; font-weight: 600; font-size: 12px; }
+  .trend-flat { color: #64748B; font-weight: 600; font-size: 12px; }
 
   /* ── Insight Cards ── */
   .insight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .insight-card {
-    background: #1e293b;
+    background: #FFFFFF;
     border-radius: 16px;
     padding: 24px;
     border-left: 4px solid;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   }
   .insight-card.red { border-left-color: #ef4444; }
   .insight-card.blue { border-left-color: #0ea5e9; }
@@ -163,8 +163,8 @@
   .insight-card.yellow { border-left-color: #eab308; }
   .insight-card.purple { border-left-color: #8b5cf6; }
   .insight-card.orange { border-left-color: #f97316; }
-  .insight-card h4 { font-size: 13px; font-weight: 700; color: #f1f5f9; margin-bottom: 6px; }
-  .insight-card p { font-size: 12px; color: #94a3b8; line-height: 1.7; }
+  .insight-card h4 { font-size: 13px; font-weight: 700; color: #FFFFFF; margin-bottom: 6px; }
+  .insight-card p { font-size: 12px; color: #64748B; line-height: 1.7; }
   .insight-card .highlight { font-weight: 700; color: #38bdf8; }
 
   /* ── Customer Voice ── */
@@ -172,20 +172,20 @@
   .voice-category {
     font-size: 15px;
     font-weight: 800;
-    color: #f1f5f9;
+    color: #FFFFFF;
     margin-bottom: 14px;
     padding: 10px 16px;
-    background: linear-gradient(90deg, #1e3a5f 0%, #1e293b 100%);
+    background: linear-gradient(90deg, #EFF6FF 0%, #FFFFFF 100%);
     border-radius: 10px;
     border-left: 4px solid #0ea5e9;
   }
   .voice-card {
-    background: #1e293b;
+    background: #FFFFFF;
     border-radius: 12px;
     padding: 20px 24px;
     margin-bottom: 12px;
-    box-shadow: 0 1px 6px rgba(0,0,0,0.2);
-    border: 1px solid #334155;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+    border: 1px solid #FFFFFF;
     border-left: 4px solid;
   }
   .voice-card.severity-high { border-left-color: #ef4444; }
@@ -194,32 +194,32 @@
   .voice-card.severity-critical { border-left-color: #7c3aed; }
   .voice-header { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; flex-wrap: wrap; }
   .voice-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
-  .badge-market { background: #1e3a5f; color: #38bdf8; }
-  .badge-count { background: #3b1c1c; color: #fca5a5; }
-  .badge-severity-high { background: #3b1c1c; color: #fca5a5; }
+  .badge-market { background: #EFF6FF; color: #38bdf8; }
+  .badge-count { background: #3b1c1c; color: #EF4444; }
+  .badge-severity-high { background: #3b1c1c; color: #EF4444; }
   .badge-severity-medium { background: #3b2e1c; color: #fcd34d; }
   .badge-severity-low { background: #1c3b2a; color: #86efac; }
   .badge-severity-critical { background: #2e1c3b; color: #c4b5fd; }
-  .voice-title { font-size: 13px; font-weight: 700; color: #f1f5f9; }
+  .voice-title { font-size: 13px; font-weight: 700; color: #FFFFFF; }
   .voice-quote {
-    background: #0f172a;
+    background: #FFFFFF;
     border-radius: 8px;
     padding: 12px 16px;
     margin: 8px 0;
     font-size: 12px;
     font-style: italic;
-    color: #cbd5e1;
+    color: #475569;
     line-height: 1.7;
     border-left: 3px solid #475569;
   }
   .voice-quote .translation { display: block; margin-top: 4px; font-style: normal; color: #64748b; font-size: 11px; }
-  .voice-impact { font-size: 12px; color: #94a3b8; line-height: 1.6; margin-top: 8px; }
-  .voice-impact strong { color: #e2e8f0; }
+  .voice-impact { font-size: 12px; color: #64748B; line-height: 1.6; margin-top: 8px; }
+  .voice-impact strong { color: #E2E8F0; }
   .voice-action {
     display: inline-block;
     margin-top: 8px;
     padding: 4px 12px;
-    background: #1e3a5f;
+    background: #EFF6FF;
     color: #38bdf8;
     border-radius: 6px;
     font-size: 11px;
@@ -228,13 +228,13 @@
 
   /* ── Action Items ── */
   .action-list {
-    background: #1e293b;
+    background: #FFFFFF;
     border-radius: 16px;
     padding: 28px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.3);
-    border: 1px solid #334155;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid #FFFFFF;
   }
-  .action-list h3 { font-size: 15px; font-weight: 700; color: #f1f5f9; margin-bottom: 16px; }
+  .action-list h3 { font-size: 15px; font-weight: 700; color: #FFFFFF; margin-bottom: 16px; }
   .action-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid #2d3a4e; }
   .action-item:last-child { border-bottom: none; }
   .action-priority { min-width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; color: white; }
@@ -242,8 +242,8 @@
   .priority-mid { background: #f59e0b; }
   .priority-low { background: #22c55e; }
   .action-content { flex: 1; }
-  .action-content .action-title { font-size: 13px; font-weight: 700; color: #f1f5f9; }
-  .action-content .action-desc { font-size: 12px; color: #94a3b8; margin-top: 2px; }
+  .action-content .action-title { font-size: 13px; font-weight: 700; color: #FFFFFF; }
+  .action-content .action-desc { font-size: 12px; color: #64748B; margin-top: 2px; }
   .action-content .action-owner { font-size: 11px; color: #64748b; margin-top: 4px; }
 
   /* ── Footer ── */
@@ -267,7 +267,7 @@
     .hero h1 { font-size: 20px; }
   }
   @media print {
-    body { background: #0f172a; color: #e2e8f0; }
+    body { background: #FFFFFF; color: #E2E8F0; }
     .container { box-shadow: none; }
     .chart-card, .insight-card, .voice-card, .action-item { page-break-inside: avoid; }
     .section { page-break-before: auto; }
@@ -327,13 +327,13 @@
       <div class="kpi-sub">W2: 433건 / W3: 396건</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-icon" style="background:rgba(34,197,94,0.15);">⏱</div>
+      <div class="kpi-icon" style="background:rgba(22,163,74,0.08);">⏱</div>
       <div class="kpi-number">22.1<span class="small">h</span></div>
       <div class="kpi-label">평균 첫 응답</div>
       <div class="kpi-sub">전주 대비 -5.7h 개선</div>
     </div>
     <div class="kpi-card">
-      <div class="kpi-icon" style="background:rgba(239,68,68,0.15);">🔄</div>
+      <div class="kpi-icon" style="background:rgba(220,38,38,0.08);">🔄</div>
       <div class="kpi-number">62.5<span class="small">h</span></div>
       <div class="kpi-label">평균 해결 시간</div>
       <div class="kpi-sub">전주 대비 -8.4h 개선</div>
@@ -480,29 +480,29 @@
     <div class="chart-card" style="border-top:3px solid #ef4444; margin-bottom:20px;">
       <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
         <h3 style="font-size:16px; margin:0;">📅 W2 — 2월 2주차 (02.07 토 ~ 02.13 금)</h3>
-        <span style="background:#3b1c1c; color:#fca5a5; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">86건</span>
-        <span style="background:#1e3a5f; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">~$1,659 USD</span>
+        <span style="background:#3b1c1c; color:#EF4444; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">86건</span>
+        <span style="background:#EFF6FF; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">~$1,659 USD</span>
       </div>
 
       <!-- W2 KPI -->
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:18px;" class="cb-kpi-strip">
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#fff;">86</div>
           <div style="font-size:10px; color:#64748b;">총 건수 (7일)</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#f59e0b;">12.3</div>
           <div style="font-size:10px; color:#64748b;">일 평균</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#ef4444;">22</div>
           <div style="font-size:10px; color:#64748b;">피크일 (02.11 수)</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#0ea5e9;">51.2%</div>
           <div style="font-size:10px; color:#64748b;">PayPal 비중</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#22c55e;">$1,659</div>
           <div style="font-size:10px; color:#64748b;">추정 피해액</div>
         </div>
@@ -511,7 +511,7 @@
       <!-- W2 PG / Reason / Product -->
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;" class="cb-breakdown-grid">
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">PG사별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">PG사별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">PayPal</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#0ea5e9;"><span>44</span></div></div><span class="bar-legend-val">51.2%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">CKO</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:77.3%;background:#6366f1;"><span>34</span></div></div><span class="bar-legend-val">39.5%</span></div>
@@ -519,7 +519,7 @@
           </div>
         </div>
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">사유별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">사유별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">Unauthorized</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#ef4444;"><span>39</span></div></div><span class="bar-legend-val">45.3%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">Fraudulent</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:69.2%;background:#f97316;"><span>27</span></div></div><span class="bar-legend-val">31.4%</span></div>
@@ -527,7 +527,7 @@
           </div>
         </div>
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">상품별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">상품별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">1M</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#0ea5e9;"><span>41</span></div></div><span class="bar-legend-val">47.7%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">6M</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:48.8%;background:#f97316;"><span>20</span></div></div><span class="bar-legend-val">23.3%</span></div>
@@ -535,8 +535,8 @@
           </div>
         </div>
       </div>
-      <div style="margin-top:12px; padding:10px 14px; background:#0f172a; border-radius:8px; border-left:3px solid #f59e0b; font-size:11px; color:#94a3b8; line-height:1.7;">
-        <strong style="color:#f59e0b;">⚠ 핵심:</strong> 수·목(02.11~12) <strong style="color:#fca5a5;">43건(50%)</strong> 집중 · Unauthorized+Fraudulent <strong style="color:#fca5a5;">76.7%</strong> · 피해액 ~$1,659
+      <div style="margin-top:12px; padding:10px 14px; background:#FFFFFF; border-radius:8px; border-left:3px solid #f59e0b; font-size:11px; color:#64748B; line-height:1.7;">
+        <strong style="color:#f59e0b;">⚠ 핵심:</strong> 수·목(02.11~12) <strong style="color:#EF4444;">43건(50%)</strong> 집중 · Unauthorized+Fraudulent <strong style="color:#EF4444;">76.7%</strong> · 피해액 ~$1,659
       </div>
     </div>
 
@@ -544,30 +544,30 @@
     <div class="chart-card" style="border-top:3px solid #0ea5e9; margin-bottom:20px;">
       <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
         <h3 style="font-size:16px; margin:0;">📅 W3 — 2월 3주차 (02.14 토 ~ 02.20 금)</h3>
-        <span style="background:#1e3a5f; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">40건*</span>
-        <span style="background:#1e3a5f; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">~$706 USD</span>
+        <span style="background:#EFF6FF; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">40건*</span>
+        <span style="background:#EFF6FF; color:#38bdf8; padding:3px 10px; border-radius:6px; font-size:11px; font-weight:700;">~$706 USD</span>
         <span style="background:#3b2e1c; color:#fcd34d; padding:3px 10px; border-radius:6px; font-size:10px; font-weight:600;">02.20(금) 미반영 · 6일 데이터</span>
       </div>
 
       <!-- W3 KPI -->
       <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-bottom:18px;" class="cb-kpi-strip">
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#fff;">40<span style="font-size:12px; color:#64748b;">*</span></div>
           <div style="font-size:10px; color:#64748b;">총 건수 (6일)</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#22c55e;">6.7</div>
           <div style="font-size:10px; color:#64748b;">일 평균 <span style="color:#22c55e;">▼</span></div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#f59e0b;">14</div>
           <div style="font-size:10px; color:#64748b;">피크일 (02.18 수)</div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#0ea5e9;">62.5%</div>
           <div style="font-size:10px; color:#64748b;">PayPal 비중 <span style="color:#ef4444;">▲</span></div>
         </div>
-        <div style="background:#0f172a; border-radius:10px; padding:14px; text-align:center;">
+        <div style="background:#FFFFFF; border-radius:10px; padding:14px; text-align:center;">
           <div style="font-size:22px; font-weight:800; color:#22c55e;">$706</div>
           <div style="font-size:10px; color:#64748b;">추정 피해액</div>
         </div>
@@ -576,7 +576,7 @@
       <!-- W3 PG / Reason / Product -->
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px;" class="cb-breakdown-grid">
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">PG사별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">PG사별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">PayPal</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#0ea5e9;"><span>25</span></div></div><span class="bar-legend-val">62.5%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">CKO</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:32%;background:#6366f1;"><span>8</span></div></div><span class="bar-legend-val">20.0%</span></div>
@@ -584,7 +584,7 @@
           </div>
         </div>
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">사유별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">사유별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">Unauthorized</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#ef4444;"><span>18</span></div></div><span class="bar-legend-val">45.0%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">Fraudulent</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:55.6%;background:#f97316;"><span>10</span></div></div><span class="bar-legend-val">25.0%</span></div>
@@ -592,7 +592,7 @@
           </div>
         </div>
         <div>
-          <p class="chart-desc" style="font-weight:700; color:#e2e8f0; margin-bottom:8px;">상품별</p>
+          <p class="chart-desc" style="font-weight:700; color:#E2E8F0; margin-bottom:8px;">상품별</p>
           <div class="bar-legend">
             <div class="bar-legend-item"><span class="bar-legend-label">1M</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:100%;background:#0ea5e9;"><span>23</span></div></div><span class="bar-legend-val">57.5%</span></div>
             <div class="bar-legend-item"><span class="bar-legend-label">3M/6M</span><div class="bar-legend-bar-wrap"><div class="bar-legend-bar" style="width:60.9%;background:#6366f1;"><span>14</span></div></div><span class="bar-legend-val">35.0%</span></div>
@@ -600,7 +600,7 @@
           </div>
         </div>
       </div>
-      <div style="margin-top:12px; padding:10px 14px; background:#0f172a; border-radius:8px; border-left:3px solid #0ea5e9; font-size:11px; color:#94a3b8; line-height:1.7;">
+      <div style="margin-top:12px; padding:10px 14px; background:#FFFFFF; border-radius:8px; border-left:3px solid #0ea5e9; font-size:11px; color:#64748B; line-height:1.7;">
         <strong style="color:#0ea5e9;">ℹ 핵심:</strong> 건수 <strong style="color:#22c55e;">-53.5%↓</strong>(86→40*) · AWX <strong style="color:#f97316;">17.5%</strong>(+9.4%p) 급증 · Canceled 15.0%(+5.7%p) · 피해액 ~$706
       </div>
     </div>
@@ -630,8 +630,8 @@
     </div>
 
     <!-- ──── 소명 현황 요약 ──── -->
-    <div style="background:#0f172a; border-radius:10px; padding:14px 18px; font-size:11px; color:#94a3b8; line-height:1.8;">
-      <strong style="color:#0ea5e9;">📋 소명:</strong> PayPal W2:44+W3:25건 · CKO W2:34+W3:8건 · AWX 14건 — <strong style="color:#fca5a5;">Fraudulent 즉시 이용 제한</strong> · PG별 기한 초과 시 자동 패소
+    <div style="background:#FFFFFF; border-radius:10px; padding:14px 18px; font-size:11px; color:#64748B; line-height:1.8;">
+      <strong style="color:#0ea5e9;">📋 소명:</strong> PayPal W2:44+W3:25건 · CKO W2:34+W3:8건 · AWX 14건 — <strong style="color:#EF4444;">Fraudulent 즉시 이용 제한</strong> · PG별 기한 초과 시 자동 패소
     </div>
   </div>
 
@@ -966,7 +966,7 @@
 const fontFamily = "'Malgun Gothic','Noto Sans KR',sans-serif";
 Chart.defaults.font.family = fontFamily;
 Chart.defaults.font.size = 12;
-Chart.defaults.color = '#94a3b8';
+Chart.defaults.color = '#64748B';
 
 // ── Category Pie ──
 new Chart(document.getElementById('chartCategory'), {
@@ -975,7 +975,7 @@ new Chart(document.getElementById('chartCategory'), {
     labels: ['Subscription 321건 (38.7%)','Refund 228건 (27.5%)','Account 114건 (13.8%)','Payment 57건 (6.9%)','Content 44건 (5.3%)','Technical 31건 (3.7%)','IP/Other 34건 (4.1%)'],
     datasets: [{ data: [321,228,114,57,44,31,34], backgroundColor: ['#0ea5e9','#6366f1','#f97316','#22c55e','#eab308','#ec4899','#8b5cf6'], borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ padding:12, color:'#e2e8f0', font:{size:13, weight:'600'}, boxWidth:14, usePointStyle:true, pointStyle:'circle' } } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ padding:12, color:'#E2E8F0', font:{size:13, weight:'600'}, boxWidth:14, usePointStyle:true, pointStyle:'circle' } } } }
 });
 
 // ── Market Pie ──
@@ -985,7 +985,7 @@ new Chart(document.getElementById('chartMarket'), {
     labels: ['🇬🇧 EN 292건 (35.2%)','🇫🇷 FR 133건 (16.0%)','🇪🇸 ES 107건 (12.9%)','🇧🇷 PT 104건 (12.5%)','🇩🇪 DE 67건 (8.1%)','🇹🇭 TH 43건 (5.2%)','🇮🇹🇯🇵🇨🇳 83건 (10.0%)'],
     datasets: [{ data: [292,133,107,104,67,43,83], backgroundColor: ['#0ea5e9','#6366f1','#f97316','#22c55e','#eab308','#ec4899','#8b5cf6'], borderWidth: 0 }]
   },
-  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ padding:12, color:'#e2e8f0', font:{size:13, weight:'600'}, boxWidth:14, usePointStyle:true, pointStyle:'circle' } } } }
+  options: { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'60%', plugins:{ legend:{ position:'bottom', labels:{ padding:12, color:'#E2E8F0', font:{size:13, weight:'600'}, boxWidth:14, usePointStyle:true, pointStyle:'circle' } } } }
 });
 
 // ── Weekly Trend (4 weeks) ──
@@ -1010,8 +1010,8 @@ new Chart(document.getElementById('chartWeeklyTrend'), {
       tooltip: { callbacks: { label: ctx => ctx.raw + '건' } }
     },
     scales: {
-      y: { beginAtZero: false, min: 350, max: 520, grid: { color: '#1e293b' }, ticks: { color: '#64748b' } },
-      x: { grid: { display: false }, ticks: { color: '#e2e8f0', font: { size: 13, weight: '600' } } }
+      y: { beginAtZero: false, min: 350, max: 520, grid: { color: '#FFFFFF' }, ticks: { color: '#64748b' } },
+      x: { grid: { display: false }, ticks: { color: '#E2E8F0', font: { size: 13, weight: '600' } } }
     }
   }
 });
@@ -1037,8 +1037,8 @@ new Chart(document.getElementById('chartCBTrend'), {
       tooltip: { callbacks: { label: ctx => ctx.raw + '건' } }
     },
     scales: {
-      y: { beginAtZero: true, grid: { color: '#1e293b' }, ticks: { color: '#64748b' } },
-      x: { grid: { display: false }, ticks: { color: '#e2e8f0', font: { size: 13, weight: '600' } } }
+      y: { beginAtZero: true, grid: { color: '#FFFFFF' }, ticks: { color: '#64748b' } },
+      x: { grid: { display: false }, ticks: { color: '#E2E8F0', font: { size: 13, weight: '600' } } }
     }
   }
 });
@@ -1059,7 +1059,7 @@ new Chart(document.getElementById('chartChannel'), {
     aspectRatio: 1.2,
     cutout: '65%',
     plugins: {
-      legend: { position: 'bottom', labels: { padding: 12, color: '#e2e8f0', font: { size: 13, weight: '600' }, boxWidth: 14, usePointStyle: true, pointStyle: 'circle' } },
+      legend: { position: 'bottom', labels: { padding: 12, color: '#E2E8F0', font: { size: 13, weight: '600' }, boxWidth: 14, usePointStyle: true, pointStyle: 'circle' } },
       tooltip: { callbacks: { label: ctx => ctx.raw + '건' } }
     }
   }
@@ -1081,7 +1081,7 @@ new Chart(document.getElementById('chartSentiment'), {
     aspectRatio: 1.2,
     cutout: '65%',
     plugins: {
-      legend: { position: 'bottom', labels: { padding: 12, color: '#e2e8f0', font: { size: 13, weight: '600' }, boxWidth: 14, usePointStyle: true, pointStyle: 'circle' } },
+      legend: { position: 'bottom', labels: { padding: 12, color: '#E2E8F0', font: { size: 13, weight: '600' }, boxWidth: 14, usePointStyle: true, pointStyle: 'circle' } },
       tooltip: { callbacks: { label: ctx => ctx.raw + '건' } }
     }
   }

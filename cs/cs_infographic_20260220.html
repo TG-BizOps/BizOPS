@@ -10,8 +10,8 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
     font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', -apple-system, sans-serif;
-    color: #1a1a2e;
-    background: #0f172a;
+    color: #F5F3FF;
+    background: #F8FAFC;
     line-height: 1.5;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
@@ -30,7 +30,7 @@
 
   /* ── Hero Header ── */
   .hero {
-    background: linear-gradient(135deg, #0f172a 0%, #1e3a5f 40%, #0ea5e9 100%);
+    background: linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 40%, #0ea5e9 100%);
     color: white;
     padding: 48px 56px 40px;
     position: relative;
@@ -57,7 +57,7 @@
   .hero-badge {
     display: inline-block;
     background: rgba(255,255,255,0.12);
-    border: 1px solid rgba(255,255,255,0.2);
+    border: 1px solid rgba(0,0,0,0.08);
     border-radius: 20px;
     padding: 4px 16px;
     font-size: 12px;
@@ -116,12 +116,12 @@
     margin-bottom: 32px;
   }
   .kpi-card {
-    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
+    background: linear-gradient(145deg, #ffffff 0%, #0F172A 100%);
     border-radius: 16px;
     padding: 24px 20px;
     text-align: center;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #e2e8f0;
+    border: 1px solid #334155;
     transition: transform 0.2s;
   }
   .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
@@ -137,7 +137,7 @@
   .kpi-number {
     font-size: 32px;
     font-weight: 800;
-    color: #0f172a;
+    color: #F8FAFC;
     line-height: 1.1;
   }
   .kpi-number .small { font-size: 16px; font-weight: 600; }
@@ -149,7 +149,7 @@
   }
   .kpi-sub {
     font-size: 11px;
-    color: #94a3b8;
+    color: #64748B;
     margin-top: 2px;
   }
 
@@ -190,17 +190,17 @@
     border-radius: 16px;
     padding: 28px 24px;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #e2e8f0;
+    border: 1px solid #334155;
   }
   .chart-card h3 {
     font-size: 14px;
     font-weight: 700;
-    color: #0f172a;
+    color: #F8FAFC;
     margin-bottom: 4px;
   }
   .chart-card .chart-desc {
     font-size: 11px;
-    color: #94a3b8;
+    color: #64748B;
     margin-bottom: 16px;
   }
   .chart-wrap {
@@ -217,8 +217,8 @@
     font-size: 12.5px;
   }
   .market-table thead th {
-    background: #0f172a;
-    color: #e2e8f0;
+    background: #F8FAFC;
+    color: #334155;
     padding: 10px 14px;
     text-align: left;
     font-weight: 600;
@@ -230,9 +230,9 @@
   .market-table thead th:last-child { border-radius: 0 10px 0 0; }
   .market-table tbody td {
     padding: 10px 14px;
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #1E293B;
   }
-  .market-table tbody tr:hover { background: #f8fafc; }
+  .market-table tbody tr:hover { background: #0F172A; }
   .market-table tbody tr:last-child td { border-bottom: none; }
   .market-table .bar-cell {
     position: relative;
@@ -240,7 +240,7 @@
   }
   .bar-bg {
     height: 8px;
-    background: #e2e8f0;
+    background: #334155;
     border-radius: 4px;
     overflow: hidden;
   }
@@ -256,12 +256,12 @@
     transform: translateY(-50%);
     font-weight: 700;
     font-size: 12px;
-    color: #0f172a;
+    color: #F8FAFC;
   }
   .flag { margin-right: 6px; }
   .trend-up { color: #ef4444; font-weight: 700; font-size: 11px; }
   .trend-down { color: #22c55e; font-weight: 700; font-size: 11px; }
-  .trend-flat { color: #94a3b8; font-weight: 600; font-size: 11px; }
+  .trend-flat { color: #64748B; font-weight: 600; font-size: 11px; }
   .top-cat-badge {
     display: inline-block;
     padding: 2px 8px;
@@ -277,7 +277,7 @@
     gap: 16px;
   }
   .insight-card {
-    background: linear-gradient(145deg, #ffffff, #f8fafc);
+    background: linear-gradient(145deg, #ffffff, #0F172A);
     border-radius: 16px;
     padding: 24px;
     border-left: 4px solid;
@@ -287,9 +287,9 @@
   .insight-card.blue { border-left-color: #0ea5e9; }
   .insight-card.green { border-left-color: #22c55e; }
   .insight-card .insight-icon { font-size: 28px; margin-bottom: 10px; }
-  .insight-card h4 { font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 6px; }
+  .insight-card h4 { font-size: 13px; font-weight: 700; color: #F8FAFC; margin-bottom: 6px; }
   .insight-card p { font-size: 12px; color: #64748b; line-height: 1.6; }
-  .insight-card .highlight { font-weight: 700; color: #0f172a; }
+  .insight-card .highlight { font-weight: 700; color: #F8FAFC; }
 
   /* ── Automation Roadmap ── */
   .roadmap-strip {
@@ -300,13 +300,13 @@
     border-radius: 16px;
     overflow: hidden;
     box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    border: 1px solid #e2e8f0;
+    border: 1px solid #334155;
   }
   .roadmap-phase {
     padding: 24px 20px;
     text-align: center;
     position: relative;
-    border-right: 1px solid #e2e8f0;
+    border-right: 1px solid #334155;
   }
   .roadmap-phase:last-child { border-right: none; }
   .roadmap-phase .phase-label {
@@ -319,7 +319,7 @@
   .roadmap-phase .phase-title {
     font-size: 14px;
     font-weight: 700;
-    color: #0f172a;
+    color: #F8FAFC;
     margin-bottom: 4px;
   }
   .roadmap-phase .phase-effect {
@@ -341,18 +341,18 @@
   .roadmap-phase:nth-child(3) { background: #fefce8; }
   .roadmap-phase:nth-child(3) .phase-label { color: #ca8a04; }
   .roadmap-phase:nth-child(3) .phase-effect { color: #ca8a04; }
-  .roadmap-phase:nth-child(4) { background: linear-gradient(135deg, #0f172a, #1e3a5f); color: white; }
+  .roadmap-phase:nth-child(4) { background: linear-gradient(135deg, #F8FAFC, #EFF6FF); color: white; }
   .roadmap-phase:nth-child(4) .phase-label { color: #38bdf8; }
   .roadmap-phase:nth-child(4) .phase-title { color: white; }
   .roadmap-phase:nth-child(4) .phase-effect { color: #38bdf8; }
-  .roadmap-phase:nth-child(4) .phase-desc { color: #94a3b8; }
+  .roadmap-phase:nth-child(4) .phase-desc { color: #64748B; }
 
   /* ── Footer ── */
   .footer {
     text-align: center;
     padding: 32px 24px 16px;
     font-size: 11px;
-    color: #475569;
+    color: #94A3B8;
   }
   .footer a { color: #0ea5e9; text-decoration: none; }
 
@@ -757,7 +757,7 @@
     options: {
       responsive: true,
       scales: {
-        y: { beginAtZero: false, min: 1200, grid: { color: '#f1f5f9' } },
+        y: { beginAtZero: false, min: 1200, grid: { color: '#1E293B' } },
         x: { grid: { display: false } }
       },
       plugins: {
@@ -796,7 +796,7 @@
     options: {
       responsive: true,
       scales: {
-        y: { beginAtZero: false, grid: { color: '#f1f5f9' } },
+        y: { beginAtZero: false, grid: { color: '#1E293B' } },
         x: { grid: { display: false } }
       },
       plugins: {
@@ -834,7 +834,7 @@
       responsive: true,
       scales: {
         x: { stacked: true, grid: { display: false } },
-        y: { stacked: true, grid: { color: '#f1f5f9' } }
+        y: { stacked: true, grid: { color: '#1E293B' } }
       },
       plugins: {
         legend: { position: 'bottom', labels: { padding: 14 } },
@@ -855,7 +855,7 @@
       datasets: [{
         label: 'PT 마켓 월별 티켓',
         data: [103, 96, 119, 136, 113, 162, 253],
-        backgroundColor: months.map((_, i) => i === 6 ? colors.red : 'rgba(239,68,68,0.3)'),
+        backgroundColor: months.map((_, i) => i === 6 ? colors.red : 'rgba(220,38,38,0.15)'),
         borderRadius: 6,
         borderSkipped: false
       }]
@@ -863,7 +863,7 @@
     options: {
       responsive: true,
       scales: {
-        y: { beginAtZero: true, grid: { color: '#f1f5f9' } },
+        y: { beginAtZero: true, grid: { color: '#1E293B' } },
         x: { grid: { display: false } }
       },
       plugins: {

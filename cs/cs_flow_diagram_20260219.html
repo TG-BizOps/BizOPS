@@ -9,8 +9,8 @@
 
         body {
             font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
+            background: #F8FAFC;
+            color: #334155;
             min-height: 100vh;
             padding: 32px;
         }
@@ -22,20 +22,20 @@
         .header h1 {
             font-size: 28px;
             font-weight: 700;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            background: linear-gradient(135deg, #3B82F6, #7C3AED);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 8px;
         }
         .header .sub {
-            color: #94a3b8;
+            color: #64748B;
             font-size: 14px;
         }
         .header .badge {
             display: inline-block;
-            background: rgba(96,165,250,0.15);
-            border: 1px solid rgba(96,165,250,0.3);
-            color: #93c5fd;
+            background: rgba(59,130,246,0.08);
+            border: 1px solid rgba(59,130,246,0.15);
+            color: #3B82F6;
             padding: 4px 14px;
             border-radius: 20px;
             font-size: 12px;
@@ -105,7 +105,7 @@
 
         /* Start node */
         .node-start {
-            background: linear-gradient(135deg, #1e40af, #3b82f6);
+            background: linear-gradient(135deg, #DBEAFE, #3b82f6);
             border: 2px solid #60a5fa;
             min-width: 260px;
             box-shadow: 0 0 20px rgba(59,130,246,0.3);
@@ -114,7 +114,7 @@
         /* Decision diamond */
         .node-decision {
             background: linear-gradient(135deg, #7c3aed, #a855f7);
-            border: 2px solid #c084fc;
+            border: 2px solid #8B5CF6;
             min-width: 300px;
             border-radius: 16px;
             box-shadow: 0 0 20px rgba(168,85,247,0.2);
@@ -171,20 +171,20 @@
         .cat-account .desc { color: #333; }
         .cat-payment { background: linear-gradient(135deg, #2563eb, #3b82f6); border: 1px solid #60a5fa; }
         .cat-content { background: linear-gradient(135deg, #0891b2, #06b6d4); border: 1px solid #22d3ee; }
-        .cat-fraud { background: linear-gradient(135deg, #9333ea, #a855f7); border: 1px solid #c084fc; }
+        .cat-fraud { background: linear-gradient(135deg, #9333ea, #a855f7); border: 1px solid #8B5CF6; }
         .cat-store { background: linear-gradient(135deg, #059669, #10b981); border: 1px solid #34d399; }
         .cat-language { background: linear-gradient(135deg, #4f46e5, #6366f1); border: 1px solid #818cf8; }
 
         /* Process node */
         .node-process {
-            background: linear-gradient(135deg, #1e3a5f, #1e4976);
+            background: linear-gradient(135deg, #EFF6FF, #1e4976);
             border: 1px solid #3b82f6;
             min-width: 280px;
         }
 
         /* Escalation */
         .node-escalation {
-            background: linear-gradient(135deg, #7f1d1d, #991b1b);
+            background: linear-gradient(135deg, #FEF2F2, #991b1b);
             border: 2px solid #ef4444;
             min-width: 300px;
             box-shadow: 0 0 15px rgba(239,68,68,0.2);
@@ -218,7 +218,7 @@
             margin-bottom: 8px;
         }
         .branch-yes { background: #166534; color: #4ade80; border: 1px solid #22c55e; }
-        .branch-no { background: #7f1d1d; color: #fca5a5; border: 1px solid #ef4444; }
+        .branch-no { background: #FEF2F2; color: #EF4444; border: 1px solid #ef4444; }
 
         /* ===== MARKET STRIP ===== */
         .market-strip {
@@ -233,14 +233,14 @@
             align-items: center;
             gap: 4px;
             background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
             padding: 4px 10px;
             border-radius: 20px;
             font-size: 11px;
-            color: #cbd5e1;
+            color: #475569;
         }
         .market-chip .flag { font-size: 14px; }
-        .market-chip .vol { color: #94a3b8; margin-left: 2px; }
+        .market-chip .vol { color: #64748B; margin-left: 2px; }
 
         /* ===== SECTION DIVIDER ===== */
         .section-label {
@@ -249,12 +249,12 @@
         }
         .section-label span {
             display: inline-block;
-            background: rgba(255,255,255,0.05);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.03);
+            border: 1px solid rgba(0,0,0,0.05);
             padding: 6px 20px;
             border-radius: 8px;
             font-size: 12px;
-            color: #94a3b8;
+            color: #64748B;
             letter-spacing: 1px;
             text-transform: uppercase;
         }
@@ -269,7 +269,7 @@
         }
         .esc-card {
             background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1);
+            border: 1px solid rgba(0,0,0,0.05);
             border-radius: 10px;
             padding: 14px 16px;
             font-size: 12px;
@@ -288,7 +288,7 @@
         }
         .esc-card li {
             padding: 2px 0;
-            color: #cbd5e1;
+            color: #475569;
         }
         .esc-card li::before {
             content: "⚠️ ";
@@ -300,10 +300,10 @@
         }
         .esc-resolve .esc-title { color: #4ade80; }
         .esc-escalate {
-            border-color: rgba(239,68,68,0.3);
+            border-color: rgba(220,38,38,0.15);
             background: rgba(239,68,68,0.05);
         }
-        .esc-escalate .esc-title { color: #fca5a5; }
+        .esc-escalate .esc-title { color: #EF4444; }
 
         /* ===== STATS BAR ===== */
         .stats-bar {
@@ -319,7 +319,7 @@
         .stat-value {
             font-size: 24px;
             font-weight: 800;
-            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            background: linear-gradient(135deg, #3B82F6, #7C3AED);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -337,7 +337,7 @@
             margin: 0 auto;
         }
         .connector-v.purple {
-            background: linear-gradient(to bottom, #a855f7, #c084fc);
+            background: linear-gradient(to bottom, #a855f7, #8B5CF6);
         }
         .connector-v.green {
             background: linear-gradient(to bottom, #10b981, #34d399);
@@ -352,14 +352,14 @@
             margin-top: 40px;
             padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.06);
-            color: #475569;
+            color: #94A3B8;
             font-size: 12px;
         }
 
         /* ===== PRINT ===== */
         @media print {
             body { background: #fff; color: #1a1a1a; padding: 16px; }
-            .header h1 { -webkit-text-fill-color: #1e40af; }
+            .header h1 { -webkit-text-fill-color: #DBEAFE; }
             .node { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
             .node-category { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
         }
@@ -446,7 +446,7 @@
                 <div style="margin-top:10px; display:flex; gap:24px; justify-content:center;">
                     <div style="text-align:center;">
                         <div class="branch-label branch-no" style="font-size:10px;">NO</div>
-                        <div style="font-size:11px; color:#fca5a5; margin-top:4px;">해당 마켓팀 라우팅</div>
+                        <div style="font-size:11px; color:#EF4444; margin-top:4px;">해당 마켓팀 라우팅</div>
                     </div>
                     <div style="text-align:center;">
                         <div class="branch-label branch-yes" style="font-size:10px;">YES</div>
@@ -462,7 +462,7 @@
         <div class="section-label"><span>STEP 3 &mdash; 비공식 요청 필터</span></div>
 
         <div class="flow-row">
-            <div class="node node-decision" style="background: linear-gradient(135deg, #7f1d1d, #991b1b); border-color: #ef4444;">
+            <div class="node node-decision" style="background: linear-gradient(135deg, #FEF2F2, #991b1b); border-color: #ef4444;">
                 <span class="emoji">🚫</span>
                 <div class="title">비공식 제3자 요청인가?</div>
                 <div class="desc">Minna Technologies / Ethoca 등 자동화 해지 요청</div>
@@ -473,11 +473,11 @@
 
         <div class="branch-row">
             <div class="branch">
-                <div class="branch-label branch-no" style="background:#7f1d1d;">🔴 YES &mdash; 비공식</div>
+                <div class="branch-label branch-no" style="background:#FEF2F2;">🔴 YES &mdash; 비공식</div>
                 <div style="background:rgba(239,68,68,0.1); border:1px dashed #ef4444; border-radius:10px; padding:12px 18px; text-align:center;">
                     <div style="font-size:20px; margin-bottom:4px;">🗑️</div>
-                    <div style="font-size:13px; font-weight:700; color:#fca5a5;">답변하지 않음</div>
-                    <div style="font-size:11px; color:#94a3b8;">티켓 무시 처리</div>
+                    <div style="font-size:13px; font-weight:700; color:#EF4444;">답변하지 않음</div>
+                    <div style="font-size:11px; color:#64748B;">티켓 무시 처리</div>
                 </div>
             </div>
             <div class="branch">
@@ -678,8 +678,8 @@
         <!-- SLA Target bar -->
         <div style="margin-top:20px;">
             <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
-                <div style="background:rgba(239,68,68,0.15); border:1px solid rgba(239,68,68,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size:11px; color:#fca5a5;">🔴 P1 구독/결제</div>
+                <div style="background:rgba(220,38,38,0.08); border:1px solid rgba(220,38,38,0.15); padding:8px 16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:11px; color:#EF4444;">🔴 P1 구독/결제</div>
                     <div style="font-size:18px; font-weight:800; color:#ef4444;">2h</div>
                 </div>
                 <div style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
@@ -691,12 +691,12 @@
                     <div style="font-size:18px; font-weight:800; color:#eab308;">8h</div>
                 </div>
                 <div style="background:rgba(59,130,246,0.15); border:1px solid rgba(59,130,246,0.3); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size:11px; color:#93c5fd;">🔵 P4 결제</div>
+                    <div style="font-size:11px; color:#3B82F6;">🔵 P4 결제</div>
                     <div style="font-size:18px; font-weight:800; color:#3b82f6;">8h</div>
                 </div>
-                <div style="background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.15); padding:8px 16px; border-radius:8px; text-align:center;">
-                    <div style="font-size:11px; color:#94a3b8;">⚪ P5 콘텐츠/기술</div>
-                    <div style="font-size:18px; font-weight:800; color:#cbd5e1;">12h</div>
+                <div style="background:rgba(0,0,0,0.03); border:1px solid rgba(0,0,0,0.06); padding:8px 16px; border-radius:8px; text-align:center;">
+                    <div style="font-size:11px; color:#64748B;">⚪ P5 콘텐츠/기술</div>
+                    <div style="font-size:18px; font-weight:800; color:#475569;">12h</div>
                 </div>
             </div>
         </div>
