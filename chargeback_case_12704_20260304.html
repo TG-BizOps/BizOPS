@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="description" content="차지백 케이스 분석 #12704 — Friendly Fraud 대응 내부 공유 문서">
+<meta name="classification" content="CONFIDENTIAL — 내부 공유용">
+<title>차지백 케이스 #12704 | BizOps 내부 분석</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+  :root {
+    --navy-950: #0A0F1E;
+    --navy-900: #0F1629;
+    --navy-800: #151D35;
+    --navy-700: #1B2542;
+    --navy-600: #243052;
+    --slate-500: #64748B;
+    --slate-400: #94A3B8;
+    --slate-300: #CBD5E1;
+    --slate-200: #E2E8F0;
+    --white: #F8FAFC;
+    --red-500: #EF4444;
+    --red-400: #F87171;
+    --red-bg: rgba(239,68,68,0.08);
+    --red-border: rgba(239,68,68,0.2);
+    --amber-500: #F59E0B;
+    --amber-bg: rgba(245,158,11,0.08);
+    --green-500: #10B981;
+    --green-400: #34D399;
+    --green-bg: rgba(16,185,129,0.08);
+    --green-border: rgba(16,185,129,0.25);
+    --blue-500: #3B82F6;
+    --blue-400: #60A5FA;
+    --blue-bg: rgba(59,130,246,0.08);
+    --blue-border: rgba(59,130,246,0.2);
+    --cyan-500: #06B6D4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Plus Jakarta Sans', -apple-system, sans-serif;
+    background: var(--navy-950);
+    color: var(--slate-300);
+    font-size: 14px;
+    line-height: 1.75;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy-900);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding: 56px 24px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 600px 300px at 30% 20%, rgba(239,68,68,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 250px at 70% 80%, rgba(59,130,246,0.04) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-confidential {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.2);
+    border-radius: 4px;
+    padding: 3px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--red-400);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+    font-size: 36px; font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+  .hero h1 .case-num {
+    color: var(--red-400);
+  }
+  .hero .subtitle {
+    font-size: 15px; color: var(--slate-400);
+    font-weight: 400;
+  }
+  .hero-meta {
+    display: flex; justify-content: center; gap: 28px;
+    margin-top: 24px;
+    font-size: 12px; color: var(--slate-500);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 5px; }
+  .risk-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 24px;
+    background: rgba(239,68,68,0.12);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-size: 13px; font-weight: 700;
+    color: var(--red-400);
+  }
+  .risk-dot {
+    width: 10px; height: 10px;
+    background: var(--red-500);
+    border-radius: 50%;
+    animation: pulse-red 2s ease-in-out infinite;
+  }
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(239,68,68,0); }
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ── SECTIONS ── */
+  .section { margin-bottom: 48px; }
+  .section-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--navy-950);
+    background: var(--slate-400);
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-num.red { background: var(--red-500); color: #fff; }
+  .section-num.green { background: var(--green-500); color: #fff; }
+  .section-num.blue { background: var(--blue-500); color: #fff; }
+  .section-num.amber { background: var(--amber-500); color: var(--navy-950); }
+  .section-header h2 {
+    font-size: 18px; font-weight: 700; color: #fff;
+    letter-spacing: -0.3px;
+  }
+
+  /* ── CASE SUMMARY TABLE ── */
+  .summary-table {
+    width: 100%;
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .summary-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+  .summary-row:last-child { border-bottom: none; }
+  .summary-label {
+    padding: 12px 16px;
+    font-size: 12px; font-weight: 600;
+    color: var(--slate-500);
+    background: rgba(255,255,255,0.02);
+    border-right: 1px solid rgba(255,255,255,0.04);
+    display: flex; align-items: center;
+  }
+  .summary-value {
+    padding: 12px 16px;
+    font-size: 13px; color: var(--slate-200);
+    font-family: 'Plus Jakarta Sans', 'Noto Sans KR', sans-serif;
+  }
+  .summary-value .mono {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; color: var(--slate-400);
+  }
+  .summary-value .highlight {
+    color: var(--red-400); font-weight: 600;
+  }
+
+  /* ── RED FLAG CARDS ── */
+  .flags-grid {
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .flag-card {
+    background: var(--navy-900);
+    border: 1px solid var(--red-border);
+    border-left: 3px solid var(--red-500);
+    border-radius: 10px;
+    padding: 20px 22px;
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  .flag-card:hover { border-color: rgba(239,68,68,0.4); }
+  .flag-header {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 10px;
+  }
+  .flag-icon {
+    width: 32px; height: 32px;
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; color: var(--red-400);
+    flex-shrink: 0;
+    font-weight: 800;
+  }
+  .flag-title {
+    font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .flag-tag {
+    margin-left: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    color: var(--red-400);
+    background: var(--red-bg);
+    border: 1px solid var(--red-border);
+    padding: 2px 8px; border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .flag-body {
+    font-size: 13px; color: var(--slate-400);
+    line-height: 1.7;
+    padding-left: 44px;
+  }
+  .flag-body strong { color: var(--slate-200); font-weight: 600; }
+
+  /* ── EVIDENCE TABLE ── */
+  .evidence-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+  .evidence-table th {
+    padding: 12px 16px;
+    font-size: 11px; font-weight: 600;
+    color: var(--slate-500);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: rgba(255,255,255,0.02);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-align: left;
+  }
+  .evidence-table td {
+    padding: 12px 16px;
+    font-size: 13px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .evidence-table tr:last-child td { border-bottom: none; }
+  .priority {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 600;
+    padding: 2px 8px; border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+  .priority.required {
+    background: var(--red-bg); color: var(--red-400);
+    border: 1px solid var(--red-border);
+  }
+  .priority.recommended {
+    background: var(--blue-bg); color: var(--blue-400);
+    border: 1px solid var(--blue-border);
+  }
+  .priority.supplementary {
+    background: rgba(255,255,255,0.04); color: var(--slate-500);
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ── ARGUMENTS LIST ── */
+  .arguments-list {
+    list-style: none;
+    counter-reset: arg;
+    display: flex; flex-direction: column; gap: 14px;
+    margin-bottom: 28px;
+  }
+  .arguments-list li {
+    counter-increment: arg;
+    display: flex; gap: 14px;
+    align-items: flex-start;
+    padding: 16px 18px;
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+  }
+  .arguments-list li::before {
+    content: counter(arg);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    color: var(--green-400);
+    background: var(--green-bg);
+    border: 1px solid var(--green-border);
+    width: 24px; height: 24px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .arg-content { flex: 1; }
+  .arg-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 3px; }
+  .arg-desc { font-size: 12px; color: var(--slate-400); }
+
+  /* ── WIN PROBABILITY ── */
+  .win-block {
+    background: var(--navy-900);
+    border: 1px solid var(--green-border);
+    border-radius: 12px;
+    padding: 24px;
+  }
+  .win-header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 14px;
+  }
+  .win-label { font-size: 14px; font-weight: 700; color: #fff; }
+  .win-pct {
+    font-family: 'Plus Jakarta Sans', monospace;
+    font-size: 28px; font-weight: 800;
+    color: var(--green-400);
+  }
+  .win-bar-track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255,255,255,0.06);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .win-bar-fill {
+    width: 85%;
+    height: 100%;
+    background: linear-gradient(90deg, var(--green-500), var(--green-400));
+    border-radius: 4px;
+  }
+  .win-reasons {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 6px;
+  }
+  .win-reasons li {
+    font-size: 12px; color: var(--slate-400);
+    padding-left: 16px;
+    position: relative;
+  }
+  .win-reasons li::before {
+    content: '';
+    position: absolute; left: 0; top: 7px;
+    width: 6px; height: 6px;
+    background: var(--green-500);
+    border-radius: 50%;
+  }
+
+  /* ── CS RESPONSE ── */
+  .response-block {
+    background: var(--navy-800);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .response-label {
+    padding: 10px 18px;
+    background: rgba(255,255,255,0.03);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--slate-500);
+    letter-spacing: 0.5px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .response-label .dot {
+    width: 7px; height: 7px; border-radius: 50%;
+  }
+  .dot.primary { background: var(--blue-500); }
+  .dot.secondary { background: var(--amber-500); }
+  .response-body {
+    padding: 20px;
+    font-family: 'JetBrains Mono', 'Noto Sans KR', monospace;
+    font-size: 12.5px;
+    line-height: 1.8;
+    color: var(--slate-300);
+    white-space: pre-wrap;
+    word-break: break-word;
+  }
+
+  /* ── CS PRINCIPLES TABLE ── */
+  .principles-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .principle-card {
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+  .principle-title {
+    font-size: 13px; font-weight: 700; color: #fff;
+    margin-bottom: 4px;
+  }
+  .principle-desc {
+    font-size: 12px; color: var(--slate-500);
+  }
+
+  /* ── CHECKLIST ── */
+  .checklist {
+    list-style: none;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .checklist li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 14px 18px;
+    background: var(--navy-900);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    font-size: 13px; color: var(--slate-200);
+    transition: border-color 0.15s;
+  }
+  .checklist li:hover { border-color: var(--blue-border); }
+  .check-box {
+    width: 20px; height: 20px;
+    border: 2px solid var(--slate-500);
+    border-radius: 5px;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .check-box.checked {
+    background: var(--green-500);
+    border-color: var(--green-500);
+  }
+  .check-box.checked::after {
+    content: '';
+    width: 5px; height: 9px;
+    border: solid #fff; border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+    margin-top: -2px;
+  }
+  .check-detail {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--slate-500);
+    margin-left: auto;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 11px; top: 8px; bottom: 8px;
+    width: 2px;
+    background: rgba(255,255,255,0.06);
+  }
+  .tl-item {
+    position: relative;
+    padding: 0 0 28px 24px;
+  }
+  .tl-item:last-child { padding-bottom: 0; }
+  .tl-dot {
+    position: absolute;
+    left: -25px; top: 5px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--navy-700);
+    border: 2px solid var(--slate-500);
+  }
+  .tl-item.action .tl-dot { border-color: var(--blue-500); background: var(--blue-bg); }
+  .tl-item.alert .tl-dot { border-color: var(--red-500); background: var(--red-bg); }
+  .tl-item.resolve .tl-dot { border-color: var(--green-500); background: var(--green-bg); }
+  .tl-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 600;
+    color: var(--slate-500);
+    margin-bottom: 2px;
+  }
+  .tl-text { font-size: 13px; color: var(--slate-300); }
+  .tl-text strong { color: #fff; font-weight: 600; }
+
+  /* ── SUBSECTION LABELS ── */
+  .sub-label {
+    font-size: 13px; font-weight: 700;
+    color: var(--slate-300);
+    margin-bottom: 12px;
+    padding-left: 2px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .sub-label .bar {
+    width: 3px; height: 14px;
+    border-radius: 2px;
+    flex-shrink: 0;
+  }
+  .bar.red { background: var(--red-500); }
+  .bar.green { background: var(--green-500); }
+  .bar.blue { background: var(--blue-500); }
+  .bar.amber { background: var(--amber-500); }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    font-size: 11px;
+    color: var(--slate-500);
+  }
+  .footer .conf {
+    display: inline-block;
+    margin-top: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    color: var(--red-400);
+    opacity: 0.6;
+  }
+
+  /* ── PRINT ── */
+  @media print {
+    body { background: #fff; color: #1E293B; }
+    .hero { background: #0F1629; }
+    .section, .flag-card, .summary-table, .evidence-table,
+    .response-block, .principle-card, .checklist li, .arguments-list li,
+    .win-block { break-inside: avoid; }
+    .flag-card:hover { border-color: var(--red-border); }
+  }
+
+  /* ── MOBILE ── */
+  @media (max-width: 640px) {
+    .hero h1 { font-size: 26px; }
+    .hero-meta { flex-direction: column; gap: 8px; }
+    .summary-row { grid-template-columns: 1fr; }
+    .summary-label { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .principles-grid { grid-template-columns: 1fr; }
+    .flag-body { padding-left: 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<header class="hero">
+  <div class="hero-confidential">CONFIDENTIAL &mdash; 내부 공유용</div>
+  <h1>차지백 케이스 분석 <span class="case-num">#12704</span></h1>
+  <div class="subtitle">Toomics Global &middot; BizOps &middot; 내부 공유용</div>
+  <div class="hero-meta">
+    <span>작성자: 유종선</span>
+    <span>작성일: 2026-03-04</span>
+    <span>Zendesk #127074</span>
+  </div>
+  <div class="risk-badge">
+    <span class="risk-dot"></span>
+    Friendly Fraud &mdash; High Confidence
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- ════════════════════ 1. CASE SUMMARY ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">1</span>
+      <h2>케이스 요약</h2>
+    </div>
+    <div class="summary-table">
+      <div class="summary-row">
+        <div class="summary-label">카드홀더</div>
+        <div class="summary-value"><strong style="color:#fff">Gianmaria Cher</strong> &nbsp;(이탈리아 Treviso)</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">분쟁 금액</div>
+        <div class="summary-value"><span class="highlight">USD 35.99</span> &nbsp;6개월 VIP &middot; 2026.02.12 결제</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">결제 수단</div>
+        <div class="summary-value">Airwallex / Apple Pay &middot; Google 소셜 로그인</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">Zendesk 티켓</div>
+        <div class="summary-value"><span class="mono">#127074</span></div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">계정 ID</div>
+        <div class="summary-value"><span class="mono">107566017412923756326</span></div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">분쟁 접수일</div>
+        <div class="summary-value">2026.02.28</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">상대 은행</div>
+        <div class="summary-value">BCC PAY / Numia (이탈리아)</div>
+      </div>
+      <div class="summary-row">
+        <div class="summary-label">카드번호</div>
+        <div class="summary-value"><span class="mono">**** **** **** 7305</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ 2. RED FLAGS ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num red">2</span>
+      <h2>Red Flags 분석</h2>
+    </div>
+
+    <div class="flags-grid">
+
+      <div class="flag-card">
+        <div class="flag-header">
+          <div class="flag-icon">1</div>
+          <span class="flag-title">반복 분쟁자 (Repeat Offender)</span>
+          <span class="flag-tag">CRITICAL</span>
+        </div>
+        <div class="flag-body">
+          <strong>2024년 3월</strong> 동일인 Toomics 차지백 <strong>2건</strong> 확인 ($9.99 + $23.99)<br>
+          2년 연속 동일 수법으로 분쟁 제기 &mdash; serial abuser 패턴
+        </div>
+      </div>
+
+      <div class="flag-card">
+        <div class="flag-header">
+          <div class="flag-icon">2</div>
+          <span class="flag-title">콘텐츠 이용 확인</span>
+          <span class="flag-tag">CRITICAL</span>
+        </div>
+        <div class="flag-body">
+          결제 당일 VIP 콘텐츠 열람: <strong>"From Weakling to Nemesis"</strong>, <strong>"Someone Stop Her!"</strong><br>
+          서비스를 정상 이용한 뒤 환불 요청 &rarr; 전형적 friendly fraud
+        </div>
+      </div>
+
+      <div class="flag-card">
+        <div class="flag-header">
+          <div class="flag-icon">3</div>
+          <span class="flag-title">다중 가맹점 동시 분쟁</span>
+          <span class="flag-tag">HIGH</span>
+        </div>
+        <div class="flag-body">
+          Toomics (<strong>USD 35.99</strong>)과 Jumpspeak (<strong>USD 98 + USD 399</strong>) 동시 분쟁 제기<br>
+          패턴화된 차지백 남용 의심
+        </div>
+      </div>
+
+      <div class="flag-card">
+        <div class="flag-header">
+          <div class="flag-icon">4</div>
+          <span class="flag-title">의심스러운 "법률 대리인"</span>
+          <span class="flag-tag">MEDIUM</span>
+        </div>
+        <div class="flag-body">
+          Alessandro Nieri &mdash; <strong>Gmail 주소</strong> (brazoa44@gmail.com) 사용<br>
+          법률사무소 소속 표기 없음 &middot; 변호사 등록번호 없음 &rarr; 본인/지인 위장 추정
+        </div>
+      </div>
+
+      <div class="flag-card">
+        <div class="flag-header">
+          <div class="flag-icon">5</div>
+          <span class="flag-title">은행 서류 이상</span>
+          <span class="flag-tag">MEDIUM</span>
+        </div>
+        <div class="flag-body">
+          <strong>A121285</strong>: 수신인 <strong>CATERINA BERTOLASO</strong> (타인 명의) &mdash; 카드 ****859<br>
+          <strong>A121279</strong>: 미완성 플레이스홀더 (&lt;INSERISCI TESTO&gt;)<br>
+          은행이 <strong>3D-Secure 인증 확인</strong> &rarr; 본인 결제 입증됨
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ════════════════════ 3. REPRESENTMENT STRATEGY ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num green">3</span>
+      <h2>소명 전략 (Representment)</h2>
+    </div>
+
+    <div class="sub-label"><span class="bar green"></span>제출 증거 목록</div>
+    <table class="evidence-table">
+      <thead>
+        <tr><th>증거 항목</th><th>내용</th><th>우선순위</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td style="color:#fff; font-weight:600">VIP 이용 로그</td>
+          <td>2026.02.12 콘텐츠 접근 기록 (타이틀, 타임스탬프, IP)</td>
+          <td><span class="priority required">필수</span></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600">3D-Secure 인증</td>
+          <td>은행 A121285에서 3DS 확인 &mdash; 본인 결제 증명</td>
+          <td><span class="priority required">필수</span></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600">이전 분쟁 이력</td>
+          <td>2024년 동일인 차지백 2건 스크린샷 ($9.99, $23.99)</td>
+          <td><span class="priority required">필수</span></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600">계정 정보</td>
+          <td>Google 로그인 기록, 가입일, 접속 이력</td>
+          <td><span class="priority recommended">권장</span></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600">이용약관 동의</td>
+          <td>VIP 구독 시 자동갱신/환불정책 동의 기록</td>
+          <td><span class="priority recommended">권장</span></td>
+        </tr>
+        <tr>
+          <td style="color:#fff; font-weight:600">CS 대응 내역</td>
+          <td>Zendesk 티켓 전체 스레드 (환불 거부 사유 포함)</td>
+          <td><span class="priority supplementary">보조</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="sub-label"><span class="bar green"></span>소명서 핵심 논점</div>
+    <ol class="arguments-list">
+      <li>
+        <div class="arg-content">
+          <div class="arg-title">본인 결제 확인</div>
+          <div class="arg-desc">3D-Secure 멀티팩터 인증 완료 &middot; Google 소셜 로그인 계정 &rarr; 카드홀더 본인 결제 입증</div>
+        </div>
+      </li>
+      <li>
+        <div class="arg-content">
+          <div class="arg-title">서비스 이용 완료</div>
+          <div class="arg-desc">결제 당일 VIP 콘텐츠 열람 확인 &rarr; "서비스 미제공" 주장 반박</div>
+        </div>
+      </li>
+      <li>
+        <div class="arg-content">
+          <div class="arg-title">반복 분쟁 패턴</div>
+          <div class="arg-desc">2024년에도 동일 수법 &mdash; serial abuser로서의 이력이 fraud 의도 입증</div>
+        </div>
+      </li>
+      <li>
+        <div class="arg-content">
+          <div class="arg-title">EU 소비자법 반박</div>
+          <div class="arg-desc">디지털 콘텐츠 이용 개시 시 14일 철회권 소멸 (EU Directive 2011/83/EU Art.16(m))</div>
+        </div>
+      </li>
+      <li>
+        <div class="arg-content">
+          <div class="arg-title">제출 서류 신뢰성 부족</div>
+          <div class="arg-desc">은행 서류 미완성(플레이스홀더) &middot; 타인 명의 서류 혼입 &rarr; 분쟁 근거 취약</div>
+        </div>
+      </li>
+    </ol>
+
+    <div class="sub-label"><span class="bar green"></span>승소 가능성</div>
+    <div class="win-block">
+      <div class="win-header">
+        <span class="win-label">Representment 승소 전망</span>
+        <span class="win-pct">~85%</span>
+      </div>
+      <div class="win-bar-track">
+        <div class="win-bar-fill"></div>
+      </div>
+      <ul class="win-reasons">
+        <li>3D-Secure 인증 + 콘텐츠 이용 증거 &rarr; 대부분의 카드사에서 가맹점 측 승소</li>
+        <li>반복 분쟁 이력은 강력한 보조 증거로 작용</li>
+        <li>상대측 은행 서류의 질이 현저히 낮음 (미완성, 타인 서류)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ════════════════════ 4. CS RESPONSE GUIDE ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num blue">4</span>
+      <h2>CS 답변 가이드</h2>
+    </div>
+
+    <div class="sub-label"><span class="bar blue"></span>영문 최종 답변 템플릿</div>
+    <div class="response-block">
+      <div class="response-label"><span class="dot primary"></span>PRIMARY RESPONSE</div>
+      <div class="response-body">Dear Customer,
+
+Thank you for contacting Toomics Support.
+
+We have thoroughly reviewed your account and transaction records regarding the charge of USD 35.99 on February 12, 2026.
+
+Our findings confirm the following:
+
+1. Your account was accessed and VIP content was consumed on the same day of purchase.
+2. The payment was authenticated via 3D-Secure (multi-factor authentication), confirming the transaction was authorized by the cardholder.
+3. By accessing digital content, the right of withdrawal under EU Directive 2011/83/EU, Article 16(m) no longer applies, as you consented to immediate delivery and acknowledged the loss of withdrawal rights upon first access.
+
+Based on the above, we are unable to process a refund for this transaction.
+
+If you have initiated a dispute through your financial institution, we will respond through the appropriate chargeback process with full supporting documentation.
+
+Regards,
+Toomics Global Support Team</div>
+    </div>
+
+    <div class="sub-label"><span class="bar amber"></span>재문의 시 답변</div>
+    <div class="response-block">
+      <div class="response-label"><span class="dot secondary"></span>FOLLOW-UP RESPONSE</div>
+      <div class="response-body">We have already provided a detailed response regarding this matter. Our position remains unchanged. Any further dispute will be handled through the formal chargeback process with your financial institution.</div>
+    </div>
+
+    <div class="sub-label" style="margin-top:28px"><span class="bar blue"></span>CS 대응 원칙</div>
+    <div class="principles-grid">
+      <div class="principle-card">
+        <div class="principle-title">사과하지 않는다</div>
+        <div class="principle-desc">잘못이 없으므로 사과는 책임 인정으로 해석될 수 있음</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">"법률 대리인"에 직접 답하지 않는다</div>
+        <div class="principle-desc">Gmail 주소, 법률사무소 없음 &rarr; 고객 티켓으로만 답변</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">EU 소비자법 역인용</div>
+        <div class="principle-desc">디지털 콘텐츠 이용 개시 = 14일 철회권 소멸 (Art.16(m))</div>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">추가 대화 차단</div>
+        <div class="principle-desc">동일 내용 반복 시 이전 답변 참고 안내 후 종결</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ════════════════════ 5. ACTION ITEMS ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num amber">5</span>
+      <h2>즉시 조치 체크리스트</h2>
+    </div>
+    <ul class="checklist">
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        Airwallex 소명 기한 확인 및 소명서 제출
+        <span class="check-detail">긴급</span>
+      </li>
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        VIP 이용 로그 추출 (계정 ID: 107566017412923756326)
+        <span class="check-detail">긴급</span>
+      </li>
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        2024년 차지백 이력 내부 기록 조회
+        <span class="check-detail">긴급</span>
+      </li>
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        계정 블랙리스트 처리
+        <span class="check-detail">당일</span>
+      </li>
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        "법률 대리인" 메일 &mdash; 무시 (법적 효력 없음)
+        <span class="check-detail">참고</span>
+      </li>
+      <li>
+        <div class="check-box" onclick="this.classList.toggle('checked')"></div>
+        Airwallex에 카드(****7305) fraud flag 요청
+        <span class="check-detail">당일</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ════════════════════ 6. TIMELINE ════════════════════ -->
+  <div class="section">
+    <div class="section-header">
+      <span class="section-num">6</span>
+      <h2>타임라인</h2>
+    </div>
+    <div class="timeline">
+      <div class="tl-item action">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.12</div>
+        <div class="tl-text"><strong>6개월 VIP 결제</strong> (USD 35.99) + 당일 콘텐츠 열람</div>
+      </div>
+      <div class="tl-item alert">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.13</div>
+        <div class="tl-text">CS 환불 요청 &rarr; <strong>거부</strong> (콘텐츠 이용 확인)</div>
+      </div>
+      <div class="tl-item alert">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.13</div>
+        <div class="tl-text">고객 <strong>EU 소비자법 인용</strong> 재문의</div>
+      </div>
+      <div class="tl-item action">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.16</div>
+        <div class="tl-text">Toomics <strong>상세 답변</strong> (콘텐츠 타이틀 명시: "From Weakling to Nemesis", "Someone Stop Her!")</div>
+      </div>
+      <div class="tl-item alert">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.18</div>
+        <div class="tl-text">"법률 대리인" <strong>Alessandro Nieri</strong> &mdash; 7일 최후통첩</div>
+      </div>
+      <div class="tl-item alert">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.02.28</div>
+        <div class="tl-text">은행 통한 <strong>공식 분쟁 접수</strong> (Zendesk #127074)</div>
+      </div>
+      <div class="tl-item resolve">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2026.03.04</div>
+        <div class="tl-text"><strong>케이스 분석 완료</strong> &mdash; 소명 준비 개시</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer class="footer">
+  Toomics Global &middot; BizOps Team &middot; 유종선 &middot; 2026
+  <br>
+  <span class="conf">CONFIDENTIAL &mdash; 대외비</span>
+</footer>
+
+</body>
+</html>

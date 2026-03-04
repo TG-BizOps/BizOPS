@@ -63,6 +63,7 @@ PREFIX_RULES = [
     ("cs_automation",           "cs_process",   "R",  "bg-green"),
     ("chargeback_flow",         "cs_process",   "C",  "bg-amber"),
     # 차지백
+    ("chargeback_case",         "chargeback",   "C",  "bg-red"),
     ("chargeback_operation",    "chargeback",   "M",  "bg-amber"),
     ("chargeback_sample",       "chargeback",   "T",  "bg-amber"),
     ("chargeback_template",     "chargeback",   "X",  "bg-slate"),
