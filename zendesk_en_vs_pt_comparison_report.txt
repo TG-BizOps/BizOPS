@@ -1,0 +1,241 @@
+================================================================================
+TOOMICS ZENDESK HELP CENTER: EN (en-001) vs PT ARTICLE COMPARISON REPORT
+Generated: 2026-03-04
+================================================================================
+
+NOTE: The Toomics Zendesk Help Center uses SEPARATE article objects for each
+locale (EN articles and PT articles have different IDs). They do NOT use
+Zendesk's built-in translation system to link articles by a shared ID.
+Comparison is therefore done by matching content/titles across parallel
+category and section structures.
+
+================================================================================
+1. TOTALS
+================================================================================
+
+  Total EN (en-001) articles:  90
+  Total PT articles:           86
+  Difference:                   4 articles missing in PT
+
+  EN Categories: 9
+  PT Categories: 9
+
+  EN Sections: 17
+  PT Sections: 17
+
+================================================================================
+2. ARTICLE COUNT COMPARISON BY SECTION
+================================================================================
+
+EN Category               EN Section                      EN#  PT#  Diff
+------------------------------------------------------------------------------------------
+Announcement              Announcement                      4    4    0
+Beginner's Guide          About Toomics                     4    4    0
+Beginner's Guide          Access                            6    5   -1  *** MISSING
+Beginner's Guide          Content                           6    6    0
+Beginner's Guide          Sharing & Submission              3    3    0
+Terms & Policy            Terms & Policy                    1    1    0
+Terms & Policy            Privacy Policy                    1    1    0
+Account Management        Account Setup & Access           10   10    0
+Account Management        Account Settings                  7    6   -1  *** MISSING
+VIP Membership & Coins    VIP Membership                    9    9    0
+VIP Membership & Coins    Coins                             8    6   -2  *** MISSING
+TOOMICS STORE             TOOMICS STORE                     7    7    0
+Payment & Refunds         Payment & Issues                  6    6    0
+Payment & Refunds         Refunds                           6    6    0
+Technical Issues          General                           5    5    0
+Technical Issues          App/PC Specific                   6    6    0
+Event / Benefits          Event / Benefits                  1    1    0
+
+================================================================================
+3. EN ARTICLES MISSING IN PT (4 articles)
+================================================================================
+
+--- Missing Article #1 ---
+  EN Article ID:   37261221245465
+  EN Title:        "Will I be able to read all the webtoons with my VIP Membership?"
+  Category:        Beginner's Guide
+  Section:         Access
+  EN URL:          https://toomicsglobal.zendesk.com/hc/en-001/articles/37261221245465
+
+--- Missing Article #2 ---
+  EN Article ID:   37266398043929
+  EN Title:        "How can I change my login information?"
+  Category:        Account Management
+  Section:         Account Settings
+  EN URL:          https://toomicsglobal.zendesk.com/hc/en-001/articles/37266398043929
+
+--- Missing Article #3 ---
+  EN Article ID:   37267878186649
+  EN Title:        "How can I get more Gift Coins and how do they work?"
+  Category:        VIP Membership & Coins
+  Section:         Coins
+  EN URL:          https://toomicsglobal.zendesk.com/hc/en-001/articles/37267878186649
+
+--- Missing Article #4 ---
+  EN Article ID:   37267929197593
+  EN Title:        "Why do I have to purchase Coins if I am a VIP Member?"
+  Category:        VIP Membership & Coins
+  Section:         Coins
+  EN URL:          https://toomicsglobal.zendesk.com/hc/en-001/articles/37267929197593
+
+================================================================================
+4. PT ARTICLES NOT IN EN (0 articles)
+================================================================================
+
+  No PT-only articles were found. All PT articles have corresponding EN
+  equivalents.
+
+  Note: The PT category "TOOMICS Clube das Moedas" maps to EN "TOOMICS STORE".
+  Both contain 7 articles with equivalent content (same topics, different
+  branding -- "STORE" in EN vs "Clube das Moedas" in PT).
+
+================================================================================
+5. MISSING ARTICLES GROUPED BY CATEGORY/SECTION
+================================================================================
+
+CATEGORY: Beginner's Guide
+  Section: Access (1 missing)
+    - [37261221245465] "Will I be able to read all the webtoons with my VIP Membership?"
+
+CATEGORY: Account Management
+  Section: Account Settings (1 missing)
+    - [37266398043929] "How can I change my login information?"
+
+CATEGORY: VIP Membership & Coins
+  Section: Coins (2 missing)
+    - [37267878186649] "How can I get more Gift Coins and how do they work?"
+    - [37267929197593] "Why do I have to purchase Coins if I am a VIP Member?"
+
+================================================================================
+6. COMPLETE ARTICLE-BY-ARTICLE MATCHING (ALL 17 SECTIONS)
+================================================================================
+
+--- Announcement > Announcement (4 EN / 4 PT) ---
+  EN: Notice of Changes to Terms of Service (02/09/2025) <-> PT: Aviso de alteracao nos Termos de Servico (02/09/2025)
+  EN: Notice of Changes to Terms of Service(09/08/2025)  <-> PT: Aviso de alteracao nos Termos de Servico(09/08/2025)
+  EN: Notice of Changes to Terms of Service(05/06/2025)  <-> PT: Aviso de alteracao nos Termos de Servico(05/06/2025)
+  EN: We are excited to introduce you to our new Help Center! <-> PT: Estamos empolgados para apresentar nosso novo centro de atendimento ao cliente!
+
+--- Beginner's Guide > About Toomics (4 EN / 4 PT) ---
+  EN: What is Toomics?           <-> PT: O que e a Toomics?
+  EN: Is Toomics a legal site?   <-> PT: A Toomics e um site legalizado?
+  EN: Is Toomics free?           <-> PT: A Toomics e gratuita?
+  EN: Our working hours          <-> PT: Nossos Horarios de Trabalho
+
+--- Beginner's Guide > Access (6 EN / 5 PT) --- *** 1 MISSING ***
+  EN: Why can't I read the next episode?                         <-> PT: Por que nao consigo ler o proximo capitulo?
+  EN: How can I verify my age and read 18+ adult content...      <-> PT: Como posso verificar minha idade e ler conteudo adulto 18+...
+  EN: Will I be able to read all the webtoons with my VIP...     <-> *** NO PT EQUIVALENT ***
+  EN: How do I change the content language?                      <-> PT: Como faco para mudar o idioma do conteudo?
+  EN: Can I read webtoons offline or download them?              <-> PT: Posso ler comics offline ou baixa-los?
+  EN: Is there a Dark Mode?                                      <-> PT: Existe um Modo Escuro?
+
+--- Beginner's Guide > Content (6 EN / 6 PT) ---
+  EN: Why is the adult content censored?                         <-> PT: Por que o conteudo adulto e censurado?
+  EN: How to report an Error e.g. a translation, spelling...     <-> PT: Como relatar um erro, como erro de traducao, ortografia...
+  EN: The title has been uploaded twice                          <-> PT: O titulo foi carregado duas vezes
+  EN: I can't find a comic I used to read                       <-> PT: Nao consigo encontrar um quadrinho que costumava ler
+  EN: The content is too graphic                                 <-> PT: O conteudo e muito grafico
+  EN: Restrict Specific Content                                  <-> PT: Restringir conteudo especifico
+
+--- Beginner's Guide > Sharing & Submission (3 EN / 3 PT) ---
+  EN: Can I submit my webtoon?                                   <-> PT: Posso publicar o meu comic?
+  EN: Join Our Team                                              <-> PT: Junte-se a Nossa Equipe
+  EN: Can I share a webtoon from Toomics via social media?       <-> PT: Posso compartilhar um comic da Toomics nas redes sociais?
+
+--- Terms & Policy > Terms & Policy (1 EN / 1 PT) ---
+  EN: Terms of Use                                               <-> PT: Termos de Servico
+
+--- Terms & Policy > Privacy Policy (1 EN / 1 PT) ---
+  EN: Privacy Policy                                             <-> PT: Politica de Privacidade
+
+--- Account Management > Account Setup & Access (10 EN / 10 PT) ---
+  EN: How do I sign up for a Toomics account?                    <-> PT: Como posso me cadastrar na Toomics?
+  EN: What is email log-in or social media log-in?               <-> PT: O que e login por email ou login por redes sociais?
+  EN: I can't log in through my social media account!            <-> PT: Nao consigo entrar pela minha conta de rede social!
+  EN: I can't find my account                                    <-> PT: Nao consigo encontrar minha conta
+  EN: Why do I have to select a gender?                          <-> PT: Por que preciso selecionar um genero?
+  EN: What is the difference between a Web account and App...    <-> PT: Qual e a diferenca entre uma conta da Web e uma conta de App?
+  EN: I made a purchase on the App, how can I read it...         <-> PT: Eu fiz uma compra no App, como posso acessa-la no site?
+  EN: I made a purchase on the Website, how can I read it...     <-> PT: Eu fiz uma compra no site, como posso acessa-la no App?
+  EN: How to merge the account                                   <-> PT: Vincular contas
+  EN: Why are there so many domains?                             <-> PT: Por que existem tantos dominios?
+
+--- Account Management > Account Settings (7 EN / 6 PT) --- *** 1 MISSING ***
+  EN: Missing my favorite list.                                  <-> PT: Lista de Favoritos Nao Visivel
+  EN: How do I keep track of the webtoons I recently read?       <-> PT: Como posso acompanhar os comics que li recentemente?
+  EN: How can I change my password?                              <-> PT: Como posso mudar minha senha?
+  EN: I have reached the 10 times limit to input my password...  <-> PT: Excedi o limite de 10 tentativas de inserir minha senha...
+  EN: How can I change my login information?                     <-> *** NO PT EQUIVALENT ***
+  EN: How can I deactivate/ reactivate/ delete my Account?       <-> PT: Como posso desativar/ reativar/ excluir minha conta?
+  EN: How can I verify my phone number?                          <-> PT: Como posso verificar meu numero de telefone?
+
+--- VIP Membership & Coins > VIP Membership (9 EN / 9 PT) ---
+  EN: I subscribed but can't access my VIP Membership.           <-> PT: Nao consigo acessar minha Assinatura VIP apos a compra...
+  EN: How can I cancel my VIP Membership?                        <-> PT: Como posso cancelar minha assinatura VIP?
+  EN: I have a VIP Membership, will I be billed again...         <-> PT: Minha Assinatura VIP sera renovada automaticamente?...
+  EN: What is the difference between VIP Membership and Coins?   <-> PT: Qual e a diferenca entre uma Assinatura VIP e Moedas?
+  EN: Does my VIP work in other languages too?                   <-> PT: A minha Assinatura VIP pode ser utilizada em outros idiomas?
+  EN: Will I still have access to content after VIP expires?     <-> PT: Posso continuar lendo o conteudo VIP depois que minha assinatura acabar?
+  EN: What is the "Free Month"?                                  <-> PT: O que e o "Mes Gratuito"?
+  EN: Is there a Free Trial option?                              <-> PT: Existe uma opcao de teste gratuito?
+  EN: Will I be able to read all webtoons with VIP...            <-> PT: Com a Assinatura VIP, poderei ler todos os comics?
+
+--- VIP Membership & Coins > Coins (8 EN / 6 PT) --- *** 2 MISSING ***
+  EN: What are Coins?                                            <-> PT: O que sao Moedas?
+  EN: How long do Coins last?                                    <-> PT: Quanto tempo duram as Moedas?
+  EN: How can I get more Gift Coins and how do they work?        <-> *** NO PT EQUIVALENT ***
+  EN: Why do I have to purchase Coins if I am a VIP Member?      <-> *** NO PT EQUIVALENT ***
+  EN: How do I know how many Coins I have or need...             <-> PT: Como saber quantas Moedas tenho ou quanto custa um capitulo?
+  EN: Where can I check the titles I purchased?                  <-> PT: Onde posso verificar os titulos que comprei?
+  EN: Why did the prices for Coins change...                     <-> PT: Por que os precos das Moedas mudaram...
+  EN: Why haven't I gotten my Coins?                             <-> PT: Por que nao recebi minhas Moedas?
+
+--- TOOMICS STORE > TOOMICS STORE (7 EN / 7 PT) ---
+  (Note: PT uses "Clube das Moedas" branding instead of "STORE")
+  EN: What is the TOOMICS STORE?                                 <-> PT: O que e o Clube das Moedas da Toomics?
+  EN: What is the difference between "STORE" and "SUBSCRIBE"?    <-> PT: Qual e a diferenca entre "Clube das Moedas" e "Assinatura"?
+  EN: How can I read content on the STORE?                       <-> PT: Como acessar o conteudo do Clube das Moedas?
+  EN: Can I use Coins to access regular Comics while VIP?        <-> PT: Posso usar Moedas para acessar comics na secao Assinar...
+  EN: Where can I check the titles I purchased on STORE?         <-> PT: Onde posso verificar os titulos que comprei no Clube das Moedas?
+  EN: Why is the TOOMICS Store not showing on the App?           <-> PT: Por que o Clube das Moedas da Toomics nao aparece no aplicativo?
+  EN: Will there be more exclusive Comics added to STORE?        <-> PT: Serao adicionados mais comics exclusivos ao Clube das Moedas...
+
+--- Payment & Refunds > Payment & Issues (6 EN / 6 PT) ---
+  EN: What payment options are available?                        <-> PT: Quais sao os metodos de pagamento disponiveis?
+  EN: Why can't I make the payment?                              <-> PT: Por que nao consigo realizar o pagamento?
+  EN: How can I change my payment method or plan?                <-> PT: Como posso alterar meu metodo de pagamento ou plano?
+  EN: On what date is my payment due?                            <-> PT: Qual e a data de vencimento do meu pagamento?
+  EN: How can I purchase VIP without a credit card?              <-> PT: Como posso comprar uma Assinatura VIP sem um cartao de credito?
+  EN: Why is PayPal not showing?                                 <-> PT: Por que o PayPal nao esta aparecendo?
+
+--- Payment & Refunds > Refunds (6 EN / 6 PT) ---
+  EN: How can I get a refund?                                    <-> PT: Como posso pedir um reembolso?
+  EN: Why haven't I gotten my refund yet?                        <-> PT: Por que ainda nao recebi o meu reembolso?
+  EN: Can I get a refund for my cash payment?                    <-> PT: Posso receber um reembolso para o meu pagamento em dinheiro?
+  EN: Why have I been charged more?                              <-> PT: Por que fui cobrado a mais?
+  EN: Why was I charged again?                                   <-> PT: Por que fui cobrado novamente?
+  EN: Refund on Apple App Store                                  <-> PT: Reembolso na Apple App Store
+
+--- Technical Issues > General (5 EN / 5 PT) ---
+  EN: Why is the website and image loading so slow?              <-> PT: Por que o site e o carregamento de imagens estao tao lentos?
+  EN: How can I reset my password?                               <-> PT: Como posso redefinir minha senha
+  EN: How can I report an error?                                 <-> PT: Como posso relatar um erro?
+  EN: I did not receive my email verification link after signup  <-> PT: Nao recebi meu link de verificacao de e-mail apos me registrar.
+  EN: Why is my account restricted?                              <-> PT: Por que minha conta esta restrita?
+
+--- Technical Issues > App/PC Specific (6 EN / 6 PT) ---
+  EN: Is there an APP?                                           <-> PT: Existe um APP?
+  EN: Why can't I read adult content on the App?                 <-> PT: Por que nao posso ler conteudo adulto no App?
+  EN: Can I use my subscription on different devices...          <-> PT: Posso usar minhas Moedas em diferentes dispositivos...
+  EN: If I made a purchase on Apple App Store, use on Android?   <-> PT: Se fizer uma compra na Apple App Store, posso usa-la em um Android?
+  EN: If I made a purchase on Google Play, use on iPhone?        <-> PT: Se fiz uma compra na Google Play Store, posso usa-la em um iPhone?
+  EN: Can I switch back to the old system or interface?          <-> PT: Posso voltar ao sistema ou interface antigos?
+
+--- Event / Benefits > Event / Benefits (1 EN / 1 PT) ---
+  EN: Are there other promotions and discounts?                  <-> PT: Existem outras promocoes e descontos?
+
+================================================================================
+END OF REPORT
+================================================================================

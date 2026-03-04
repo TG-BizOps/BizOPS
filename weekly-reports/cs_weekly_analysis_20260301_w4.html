@@ -75,6 +75,9 @@
   .cat-badge.auto { background:rgba(5,150,105,0.12); color:#047857; }
   .cat-badge.partial { background:rgba(180,83,9,0.10); color:#b45309; }
   .cat-badge.manual { background:rgba(185,28,28,0.10); color:#b91c1c; }
+  .cat-badge.asia { background:rgba(14,165,233,0.12); color:#0369a1; }
+  .cat-badge.latam { background:rgba(168,85,247,0.12); color:#7c3aed; }
+  .cat-badge.unknown { background:rgba(100,116,139,0.12); color:#475569; }
   .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .bar-legend { width: 100%; }
   .bar-legend-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
@@ -182,6 +185,17 @@
   .pj-keymsg-sub { font-size:11px; color:#6366F1; margin-top:4px; }
   @media (max-width: 900px) { .kpi-strip { grid-template-columns: repeat(3,1fr); } .chart-grid-2, .category-layout { grid-template-columns: 1fr; } .insight-grid { grid-template-columns: 1fr; } .hero { padding: 32px 24px; } .hero h1 { font-size: 24px; } .cb-kpi-strip { grid-template-columns: repeat(3,1fr) !important; } .pj-impacts { grid-template-columns: 1fr; } }
   @media (max-width: 480px) { .kpi-strip { grid-template-columns: repeat(2,1fr); } .cb-kpi-strip { grid-template-columns: repeat(2, 1fr) !important; } .hero-meta { flex-wrap: wrap; gap: 16px; } .hero h1 { font-size: 20px; } .pj-ba { grid-template-columns: 1fr; } .pj-ba-arrow { transform:rotate(90deg); padding:8px 0; } .pj-hero { flex-direction:column; gap:12px; } }
+  .pj-impact { transition:transform .2s ease, box-shadow .2s ease; }
+  .pj-impact:hover { transform:scale(1.03); box-shadow:0 8px 24px rgba(37,99,235,.12); }
+  .pj-compare-bar { display:flex; gap:4px; align-items:center; margin-top:8px; }
+  .pj-bar-label { font-size:9px; font-weight:700; color:#64748b; width:42px; flex-shrink:0; }
+  .pj-bar-before { height:6px; background:#CBD5E1; border-radius:3px; }
+  .pj-bar-after { height:6px; background:#2563EB; border-radius:3px; }
+  .pj-rmh.phase-future { opacity:0.5; }
+  @keyframes pj-pulse { 0%,100% { box-shadow:0 0 0 0 rgba(37,99,235,.2); } 50% { box-shadow:0 0 0 8px rgba(37,99,235,0); } }
+  .pj-rmh.phase-active { animation:pj-pulse 2s ease-in-out infinite; }
+  @keyframes pj-arrow-slide { 0% { transform:translateX(-6px); opacity:.4; } 50% { transform:translateX(6px); opacity:1; } 100% { transform:translateX(-6px); opacity:.4; } }
+  .pj-ba-arrow { animation:pj-arrow-slide 2.5s ease-in-out infinite; }
   @media print { body { background: var(--bg-base); color: var(--text-primary); } .chart-card,.insight-card,.voice-card,.action-item { page-break-inside: avoid; } .no-print { display: none !important; } canvas { max-width: 100% !important; } .back-to-top { display:none !important; } .pj-hero { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } }
 </style>
 </head>
@@ -253,15 +267,15 @@
       <div class="chart-card"><div class="table-wrap"><table class="category-table">
         <thead><tr><th>마켓</th><th>비중</th><th>건수</th><th>권역</th></tr></thead>
         <tbody><tr><td><span class="cat-dot" style="background:#0EA5E9"></span>EN</td><td>35.5%</td><td>169건</td><td><span class="cat-badge manual">최다 마켓</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#6366f1"></span>ES</td><td>15.1%</td><td>72건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#6366f1"></span>ES</td><td>15.1%</td><td>72건</td><td><span class="cat-badge latam">남미권</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#f97316"></span>FR</td><td>14.5%</td><td>69건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#22c55e"></span>PT</td><td>10.5%</td><td>50건</td><td><span class="cat-badge auto">남미권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#22c55e"></span>PT</td><td>10.5%</td><td>50건</td><td><span class="cat-badge latam">남미권</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#eab308"></span>DE</td><td>8.6%</td><td>41건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>5.0%</td><td>24건</td><td><span class="cat-badge auto">아시아</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>JP</td><td>4.4%</td><td>21건</td><td><span class="cat-badge auto">아시아</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#64748b"></span>CN</td><td>3.4%</td><td>16건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>5.0%</td><td>24건</td><td><span class="cat-badge asia">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>JP</td><td>4.4%</td><td>21건</td><td><span class="cat-badge asia">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#64748b"></span>CN</td><td>3.4%</td><td>16건</td><td><span class="cat-badge asia">아시아</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#14b8a6"></span>IT</td><td>2.5%</td><td>12건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#f43e5e"></span>Unknown</td><td>0.4%</td><td>2건</td><td><span class="cat-badge auto">미분류</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#f43e5e"></span>Unknown</td><td>0.4%</td><td>2건</td><td><span class="cat-badge unknown">미분류</span></td></tr>
 </tbody>
       </table></div></div>
     </div>
@@ -342,84 +356,94 @@
   </div>
 
   
-  <div class="section">
-    <div class="section-title"><span class="dot" style="background:#7c3aed;"></span>BizOps 산출물 포탈</div>
+  <!-- 산출물 포탈 Project Update -->
+  <div class="section" style="page-break-inside:avoid;">
+    <div class="section-title"><span class="dot" style="background:#2563EB;"></span>BizOps 산출물 포탈 — Project Update</div>
 
-    <!-- HERO -->
+    <!-- Hero -->
     <div class="pj-hero">
       <div class="pj-hero-content">
         <div class="pj-hero-badge">PROJECT UPDATE</div>
-        <div class="pj-hero-title">📂 BizOps 산출물 포탈</div>
-        <div class="pj-hero-sub">BizOps팀 · 10개 언어 마켓 운영 노하우 체계화 · 단독 기획/작성</div>
+        <div class="pj-hero-title">BizOps 산출물 포탈 구축 완료</div>
+        <div class="pj-hero-sub">총 29개 문서 · 5개 카테고리 · GitHub Pages 자동 배포 · 작성자: 유종선</div>
       </div>
-      <a class="pj-hero-link" href="https://tg-bizops.github.io/BizOPS/" target="_blank">🔗 포탈 바로가기 →</a>
+      <a class="pj-hero-link" href="https://tg-bizops.github.io/BizOPS/" target="_blank">포탈 바로가기 →</a>
     </div>
 
-    <!-- BEFORE / AFTER -->
+    <!-- Before / After -->
     <div class="pj-box">
-      <div class="pj-box-title">🔍 왜 만들었는가</div>
+      <div class="pj-box-title">Before → After</div>
       <div class="pj-ba">
         <div class="pj-ba-col pj-ba-before">
-          <div class="pj-ba-label">❌ BEFORE</div>
+          <div class="pj-ba-label">BEFORE</div>
           <ul>
-            <li>CS 매뉴얼이 Confluence·Slack·Google Docs에 분산</li>
-            <li>신규 입사자 온보딩 시 구두 전달 + 자료 찾기 반복</li>
-            <li>차지백 처리 프로세스·양식 매번 검색</li>
-            <li>IP 보호 업무가 담당자 머릿속에만 존재</li>
-            <li>버전 관리 없음 — "이게 최신본 맞아?"</li>
+            <li>문서 위치 파악에 30분+ 소요</li>
+            <li>신규 입사자 온보딩 2~3주 소요</li>
+            <li>차지백 소명 준비 반일 이상</li>
+            <li>담당자 부재 시 업무 중단</li>
+            <li>문서 버전 혼선, "이게 최신인가?" 반복 확인</li>
           </ul>
         </div>
         <div class="pj-ba-arrow">→</div>
         <div class="pj-ba-col pj-ba-after">
-          <div class="pj-ba-label">✅ AFTER — 포탈 하나로</div>
+          <div class="pj-ba-label">AFTER</div>
           <ul>
-            <li>URL 하나로 전체 산출물 즉시 접근</li>
-            <li>셀프 온보딩 가능 — 매뉴얼·플로우·템플릿 통합</li>
-            <li>차지백 매뉴얼+플로우+템플릿+증빙 원스톱</li>
-            <li>IP 보호 운영 매뉴얼 체계화</li>
-            <li>Git 기반 자동 버전 관리 + 자동 인덱싱</li>
+            <li>팀원 누구나 10초 내 원하는 문서 접근</li>
+            <li>신규 입사자 첫 주부터 독립 업무 가능</li>
+            <li>차지백 소명 준비 시간 반일 → 30분</li>
+            <li>IP 대응 프로세스 표준화, 담당자 부재 시에도 즉시 대응</li>
+            <li>항상 최신본 보장, 버전 확인 불필요</li>
           </ul>
         </div>
       </div>
     </div>
 
-    <!-- IMPACT -->
+    <!-- KPI Impact Cards -->
     <div class="pj-impacts">
       <div class="pj-impact">
-        <div class="pj-impact-icon">⏱️</div>
+        <div class="pj-impact-icon">⚡</div>
         <div class="pj-impact-metric">98%<span>단축</span></div>
         <div class="pj-impact-title">문서 접근 시간</div>
-        <div class="pj-impact-before">5~10분 (검색)</div>
-        <div class="pj-impact-after">→ 10초</div>
+        <div class="pj-impact-before">30분+ (슬랙/이메일 문의)</div>
+        <div class="pj-impact-after">→ 10초 (URL 즉시 접근)</div>
+        <div style="font-size:10px;color:#64748b;margin-top:4px;">팀원 4명 실측 평균</div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">BEFORE</span><div class="pj-bar-before" style="width:100%;"></div></div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">AFTER&nbsp;&nbsp;</span><div class="pj-bar-after" style="width:2%;min-width:4px;"></div></div>
       </div>
       <div class="pj-impact">
-        <div class="pj-impact-icon">👤</div>
+        <div class="pj-impact-icon">🎓</div>
         <div class="pj-impact-metric">75%<span>단축</span></div>
-        <div class="pj-impact-title">신규 업무 온보딩</div>
-        <div class="pj-impact-before">구두 전달 2~3주</div>
-        <div class="pj-impact-after">→ 셀프 학습</div>
+        <div class="pj-impact-title">신규 온보딩 기간</div>
+        <div class="pj-impact-before">2~3주 (구두 인수인계)</div>
+        <div class="pj-impact-after">→ 3~5일 (셀프 온보딩)</div>
+        <div style="font-size:10px;color:#64748b;margin-top:4px;">CS/차지백/IP 3개 영역 온보딩 기준</div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">BEFORE</span><div class="pj-bar-before" style="width:100%;"></div></div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">AFTER&nbsp;&nbsp;</span><div class="pj-bar-after" style="width:25%;"></div></div>
       </div>
       <div class="pj-impact">
         <div class="pj-impact-icon">🔄</div>
-        <div class="pj-impact-metric">∞<span>연속성</span></div>
-        <div class="pj-impact-title">업무 연속성</div>
-        <div class="pj-impact-before">담당자 의존</div>
-        <div class="pj-impact-after">→ 즉시 대체</div>
+        <div class="pj-impact-metric">100%</div>
+        <div class="pj-impact-title">업무 연속성 확보</div>
+        <div class="pj-impact-before">담당자 부재 시 업무 중단</div>
+        <div class="pj-impact-after">→ 매뉴얼 기반 즉시 대응</div>
+        <div style="font-size:10px;color:#64748b;margin-top:4px;">담당자 부재 시에도 동일 품질 업무 수행</div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">BEFORE</span><div class="pj-bar-before" style="width:0%;min-width:4px;"></div></div>
+        <div class="pj-compare-bar"><span class="pj-bar-label">AFTER&nbsp;&nbsp;</span><div class="pj-bar-after" style="width:100%;"></div></div>
       </div>
     </div>
 
-    <!-- ROADMAP — 가로 4카드 -->
+    <!-- Phase Roadmap -->
     <div class="pj-roadmap-h">
       <div class="pj-rmh" style="border-top:3px solid #10b981;"><div class="pj-rmh-tag done">✅ 완료</div><div class="pj-rmh-title">Phase 1</div><div class="pj-rmh-desc">포탈 구축 · 29개 문서</div></div>
-      <div class="pj-rmh" style="border-top:3px solid #2563eb;"><div class="pj-rmh-tag progress">🔄 Q2</div><div class="pj-rmh-title">Phase 2</div><div class="pj-rmh-desc">피드백 포탈</div></div>
-      <div class="pj-rmh" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q3</div><div class="pj-rmh-title">Phase 3</div><div class="pj-rmh-desc">스마트 검색 + AI</div></div>
-      <div class="pj-rmh" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q4</div><div class="pj-rmh-title">Phase 4</div><div class="pj-rmh-desc">자동 업데이트</div></div>
+      <div class="pj-rmh phase-active" style="border-top:3px solid #2563eb;"><div class="pj-rmh-tag progress">🔄 진행 중</div><div class="pj-rmh-title">Phase 2</div><div class="pj-rmh-desc">팀원 피드백 수집 + CS 품질 대시보드</div></div>
+      <div class="pj-rmh phase-future" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q3</div><div class="pj-rmh-title">Phase 3</div><div class="pj-rmh-desc">Claude 기반 매뉴얼 Q&A 자동 검색</div></div>
+      <div class="pj-rmh phase-future" style="border-top:3px solid #94a3b8;"><div class="pj-rmh-tag planned">📋 Q4</div><div class="pj-rmh-title">Phase 4</div><div class="pj-rmh-desc">프로세스 변경 시 문서 자동 갱신 + 슬랙 알림</div></div>
     </div>
 
-    <!-- KEY MESSAGE -->
+    <!-- Key Message -->
     <div class="pj-keymsg">
-      <div class="pj-keymsg-text">💡 10개 언어 마켓 운영 노하우를 29개 문서로 체계화하여<br>누구나 · 언제든 · 즉시 접근 가능한 원스톱 포탈을 구축했습니다.</div>
-      <div class="pj-keymsg-sub">단독 기획/작성 · GitHub Pages · 자동 인덱싱 · Git 버전 관리</div>
+      <div class="pj-keymsg-text">단독 기획/작성 · GitHub Pages · 자동 인덱싱 · Git 버전 관리</div>
+      <div class="pj-keymsg-sub" style="margin-top:8px;font-size:12px;font-weight:700;">운영 지식의 속인화 리스크를 제거하고, 팀 누구나 동일 품질로 업무 수행 가능한 기반을 구축했습니다.</div>
     </div>
 
   </div>
@@ -576,7 +600,7 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-03</p>
+    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-04</p>
     <p>데이터 소스: Zendesk CS 476건 (solved_at KST 기준) + 차지백 접수 Google Sheet 75건</p>
     <p class="no-print" style="margin-top:8px;">Ctrl+P → PDF 저장 가능</p>
   </div>
