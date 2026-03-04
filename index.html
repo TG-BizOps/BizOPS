@@ -1324,22 +1324,33 @@ var VERSION_HISTORY = {
   if (form) {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
-      submitBtn.disabled = true;
-      submitBtn.textContent = '제출 중...';
 
+      var reqName = document.getElementById('reqName').value.trim();
+      var reqDoc = document.getElementById('reqDoc').value;
+      var reqType = document.getElementById('reqType').value;
+      var reqContent = document.getElementById('reqContent').value.trim();
       var priority = '';
       document.querySelectorAll('input[name="reqPriority"]').forEach(function(r) {
         if (r.checked) priority = r.value;
       });
 
+      if (!reqName || !reqDoc || !reqType || !reqContent) {
+        alert('모든 필드를 입력해주세요');
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = '제출 중...';
+
       var payload = {
         action: 'submit',
-        name: document.getElementById('reqName').value.trim(),
-        doc: document.getElementById('reqDoc').value,
-        type: document.getElementById('reqType').value,
-        content: document.getElementById('reqContent').value.trim(),
+        requester: reqName,
+        document: reqDoc,
+        type: reqType,
+        content: reqContent,
         priority: priority
       };
+      console.log('[BizOPS] 요청 제출 데이터:', JSON.stringify(payload));
 
       fetch(APPS_SCRIPT_URL, {
         method: 'POST',
