@@ -942,9 +942,8 @@ var VERSION_HISTORY = {
     return { id: c.id, name: c.name, color: c.color, count: catCounts[c.id] || 0 };
   }).sort(function(a, b) { return b.count - a.count; });
 
-  // 3) Recent: only 7-day window, max 5, newest first
-  var recent = updates.filter(function(u) { return u.diff <= 7; })
-    .sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
+  // 3) Recent: newest 5 documents
+  var recent = updates.slice().sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
 
   // 4) Extract version from title
   function extractVersion(title) {
@@ -989,7 +988,7 @@ var VERSION_HISTORY = {
 
   // Recent (7-day window)
   if (recent.length > 0) {
-    h += '<div class="recent-header">최근 업데이트 (7일 이내)</div>';
+    h += '<div class="recent-header">최근 업데이트 (최근 5개 문서)</div>';
     recent.forEach(function(u) {
       var catData = categories.find(function(c) { return c.id === u.cat; });
       var color = catData ? catData.color : '#94A3B8';
