@@ -579,7 +579,7 @@
     <div class="report-meta">
       <span><span class="label">작성일</span> 2026-02-19</span>
       <span><span class="label">작성자</span> 유종선</span>
-      <span><span class="label">대상 티켓</span> #121830, #123751</span>
+      <span><span class="label">대상 티켓</span> #121830, #123751, #127074</span>
       <span><span class="label">긴급도</span> 🔴 HIGH</span>
     </div>
   </div>
@@ -961,8 +961,8 @@
             <div class="flow-text">가짜 법률 대리인 사칭 → <em>별도 티켓 에스컬레이션</em></div>
           </div>
           <div class="flow-step">
-            <div class="flow-num predicted">5</div>
-            <div class="flow-text" style="color:#9ca3af;">[예상] CS 거절 시 → <em>차지백 접수</em> (Airwallex/Apple Pay 경유)</div>
+            <div class="flow-num" style="background:#e94560; color:#fff;">5</div>
+            <div class="flow-text"><strong style="color:#e94560;">[실현 — 2026.02.28]</strong> CS 거절 후 → <em>은행 통한 공식 차지백 접수</em> (Zendesk #127074)</div>
           </div>
         </div>
 
@@ -1004,6 +1004,248 @@
               </tr>
             </tbody>
           </table></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════ 8. CHARGEBACK ESCALATION (2026-03-04 UPDATE) ═══════ -->
+    <div class="section" style="margin-top:36px; padding-top:28px; border-top:3px solid #e94560;">
+      <div class="section-title">
+        <div class="icon">8</div>
+        차지백 에스컬레이션 — #127074 (2026-03-04 업데이트)
+      </div>
+
+      <div class="summary-box" style="background:linear-gradient(135deg, #fef2f2 0%, #fff5f5 100%);">
+        <h3>예측 적중: Step 5 차지백 접수 실현</h3>
+        <ul>
+          <li>2026.02.28 은행(BCC PAY/Numia) 통한 <strong>공식 분쟁 접수</strong> — Zendesk #127074</li>
+          <li>분쟁 금액: <strong>USD 35.99</strong> (6개월 VIP, 2026.02.12 결제)</li>
+          <li>동시에 Jumpspeak(USD 98 + USD 399)에도 분쟁 제기 — <strong>다중 가맹점 동시 차지백</strong></li>
+          <li>2024년 3월 동일인 Toomics 차지백 <strong>2건 이력</strong> 확인 ($9.99, $23.99) — <strong>반복 분쟁자</strong></li>
+          <li>은행 3D-Secure 인증 확인 → 본인 결제 입증 완료</li>
+        </ul>
+      </div>
+
+      <!-- 타임라인 -->
+      <h3 style="font-size:13px; font-weight:700; margin-bottom:10px;">전체 타임라인 (CS → 차지백)</h3>
+      <div class="timeline">
+        <div class="timeline-item response">
+          <div class="time">02/12</div>
+          <div class="desc">6개월 VIP 결제 (USD 35.99, Airwallex/Apple Pay) + 당일 콘텐츠 열람</div>
+        </div>
+        <div class="timeline-item alert">
+          <div class="time">02/13</div>
+          <div class="desc">[#121830] 1차 환불 요청 → PSJ 거부 (콘텐츠 이용 확인)</div>
+        </div>
+        <div class="timeline-item alert">
+          <div class="time">02/13</div>
+          <div class="desc">[#121830] 고객 EU 소비자법(Directive 2011/83/EU) 인용 재문의</div>
+        </div>
+        <div class="timeline-item response">
+          <div class="time">02/16</div>
+          <div class="desc">[#121830] Toomics 상세 답변 — 열람 작품명 제시 ("From Weakling to Nemesis", "Someone Stop Her!")</div>
+        </div>
+        <div class="timeline-item alert">
+          <div class="time">02/18</div>
+          <div class="desc">[#123751] "법률 대리인" Alessandro Nieri 7일 최후통첩</div>
+        </div>
+        <div class="timeline-item alert">
+          <div class="time">02/28</div>
+          <div class="desc"><strong style="color:#e94560;">[#127074] 은행 통한 공식 차지백 접수</strong> — BCC PAY/Numia, 카드 ****7305</div>
+        </div>
+        <div class="timeline-item response">
+          <div class="time">03/04</div>
+          <div class="desc">케이스 분석 완료 — 소명(Representment) 준비 개시</div>
+        </div>
+      </div>
+
+      <!-- 추가 Red Flags -->
+      <h3 style="font-size:13px; font-weight:700; margin:20px 0 10px;">추가 Red Flags (차지백 단계)</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:5%">#</th><th style="width:25%">항목</th><th>상세</th><th style="width:12%">등급</th></tr></thead>
+        <tbody>
+          <tr style="background:#fef2f2;">
+            <td><strong>1</strong></td>
+            <td><strong>반복 분쟁자</strong></td>
+            <td>2024년 3월 동일인 차지백 2건 ($9.99 + $23.99) — 2년 연속 동일 수법</td>
+            <td><span style="background:#fef2f2; color:#dc2626; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">CRITICAL</span></td>
+          </tr>
+          <tr style="background:#fef2f2;">
+            <td><strong>2</strong></td>
+            <td><strong>다중 가맹점</strong></td>
+            <td>Toomics(USD 35.99) + Jumpspeak(USD 98 + USD 399) 동시 분쟁</td>
+            <td><span style="background:#fef2f2; color:#dc2626; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">HIGH</span></td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td><strong>은행 서류 이상</strong></td>
+            <td>A121285: 수신인 CATERINA BERTOLASO(타인 명의) / A121279: 미완성 플레이스홀더</td>
+            <td><span style="background:#fffbeb; color:#d97706; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">MEDIUM</span></td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td><strong>3D-Secure 확인</strong></td>
+            <td>은행 측 서류(A121285)에서 3DS 인증 확인 → 본인 결제 입증</td>
+            <td><span style="background:#ecfdf5; color:#059669; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">우리측 유리</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <!-- 소명 전략 -->
+      <h3 style="font-size:13px; font-weight:700; margin:20px 0 10px;">소명(Representment) 증거 패키지</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:25%">증거 항목</th><th>내용</th><th style="width:12%">우선순위</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>VIP 이용 로그</strong></td>
+            <td>2026.02.12 콘텐츠 접근 기록 (타이틀, 타임스탬프, IP)</td>
+            <td><span style="background:#fef2f2; color:#dc2626; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">필수</span></td>
+          </tr>
+          <tr>
+            <td><strong>3D-Secure 인증</strong></td>
+            <td>은행 A121285에서 3DS 확인 — 본인 결제 증명</td>
+            <td><span style="background:#fef2f2; color:#dc2626; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">필수</span></td>
+          </tr>
+          <tr>
+            <td><strong>이전 분쟁 이력</strong></td>
+            <td>2024년 동일인 차지백 2건 스크린샷 ($9.99, $23.99)</td>
+            <td><span style="background:#fef2f2; color:#dc2626; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">필수</span></td>
+          </tr>
+          <tr>
+            <td><strong>계정 정보</strong></td>
+            <td>Google 로그인 기록, 가입일, 접속 이력</td>
+            <td><span style="background:#eff6ff; color:#2563eb; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">권장</span></td>
+          </tr>
+          <tr>
+            <td><strong>이용약관 동의</strong></td>
+            <td>VIP 구독 시 자동갱신/환불정책 동의 기록</td>
+            <td><span style="background:#eff6ff; color:#2563eb; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">권장</span></td>
+          </tr>
+          <tr>
+            <td><strong>CS 대응 내역</strong></td>
+            <td>Zendesk #121830, #123751 전체 스레드</td>
+            <td><span style="background:#f1f5f9; color:#64748b; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700;">보조</span></td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <!-- 핵심 논점 -->
+      <h3 style="font-size:13px; font-weight:700; margin:20px 0 10px;">소명서 핵심 논점</h3>
+      <div class="table-wrap"><table>
+        <thead><tr><th style="width:5%">#</th><th style="width:25%">논점</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>1</strong></td>
+            <td><strong>본인 결제</strong></td>
+            <td>3D-Secure 멀티팩터 인증 완료 + Google 소셜 로그인</td>
+          </tr>
+          <tr>
+            <td><strong>2</strong></td>
+            <td><strong>서비스 이용 완료</strong></td>
+            <td>결제 당일 VIP 콘텐츠 열람 → "미제공" 주장 반박</td>
+          </tr>
+          <tr>
+            <td><strong>3</strong></td>
+            <td><strong>반복 패턴</strong></td>
+            <td>2024년 동일 수법 — serial abuser 이력</td>
+          </tr>
+          <tr>
+            <td><strong>4</strong></td>
+            <td><strong>EU 소비자법 반박</strong></td>
+            <td>디지털 콘텐츠 이용 개시 시 14일 철회권 소멸 (Directive 2011/83/EU Art.16(m))</td>
+          </tr>
+          <tr>
+            <td><strong>5</strong></td>
+            <td><strong>서류 신뢰성 부족</strong></td>
+            <td>은행 서류 미완성 + 타인 명의 서류 혼입</td>
+          </tr>
+        </tbody>
+      </table></div>
+
+      <!-- 승소 가능성 -->
+      <div style="background:#ecfdf5; border:1px solid #a7f3d0; border-radius:8px; padding:18px 22px; margin:20px 0;">
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+          <strong style="font-size:13px;">Representment 승소 전망</strong>
+          <span style="font-size:24px; font-weight:800; color:#059669;">~85%</span>
+        </div>
+        <div style="width:100%; height:8px; background:#d1fae5; border-radius:4px; overflow:hidden;">
+          <div style="width:85%; height:100%; background:linear-gradient(90deg,#10B981,#34D399); border-radius:4px;"></div>
+        </div>
+        <ul style="list-style:none; margin-top:12px; font-size:12px; color:#475569;">
+          <li style="padding:2px 0 2px 16px; position:relative;">
+            <span style="position:absolute; left:0; top:8px; width:6px; height:6px; background:#10B981; border-radius:50; display:inline-block;"></span>
+            3D-Secure + 콘텐츠 이용 증거 → 대부분 카드사에서 가맹점 승소
+          </li>
+          <li style="padding:2px 0 2px 16px; position:relative;">
+            <span style="position:absolute; left:0; top:8px; width:6px; height:6px; background:#10B981; border-radius:50%; display:inline-block;"></span>
+            반복 분쟁 이력 = 강력한 보조 증거
+          </li>
+          <li style="padding:2px 0 2px 16px; position:relative;">
+            <span style="position:absolute; left:0; top:8px; width:6px; height:6px; background:#10B981; border-radius:50%; display:inline-block;"></span>
+            상대측 은행 서류 질 낮음 (미완성, 타인 서류)
+          </li>
+        </ul>
+      </div>
+
+      <!-- CS 답변 템플릿 -->
+      <h3 style="font-size:13px; font-weight:700; margin:20px 0 10px;">CS 최종 답변 (차지백 단계)</h3>
+      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; overflow:hidden; margin-bottom:16px;">
+        <div style="padding:8px 16px; background:#f1f5f9; border-bottom:1px solid #e2e8f0; font-size:11px; font-weight:600; color:#64748b;">PRIMARY RESPONSE — #127074</div>
+        <pre style="padding:16px; font-family:monospace; font-size:11px; line-height:1.8; color:#334155; white-space:pre-wrap; word-break:break-word; margin:0;">Dear Customer,
+
+Thank you for contacting Toomics Support.
+
+We have thoroughly reviewed your account and transaction records regarding the charge of USD 35.99 on February 12, 2026.
+
+Our findings confirm the following:
+
+1. Your account was accessed and VIP content was consumed on the same day of purchase.
+2. The payment was authenticated via 3D-Secure (multi-factor authentication), confirming the transaction was authorized by the cardholder.
+3. By accessing digital content, the right of withdrawal under EU Directive 2011/83/EU, Article 16(m) no longer applies, as you consented to immediate delivery and acknowledged the loss of withdrawal rights upon first access.
+
+Based on the above, we are unable to process a refund for this transaction.
+
+If you have initiated a dispute through your financial institution, we will respond through the appropriate chargeback process with full supporting documentation.
+
+Regards,
+Toomics Global Support Team</pre>
+      </div>
+
+      <!-- 즉시 조치 -->
+      <h3 style="font-size:13px; font-weight:700; margin:20px 0 10px;">즉시 조치 체크리스트</h3>
+      <div class="action-item urgent">
+        <div class="action-priority">긴급</div>
+        <div class="action-content">
+          <div class="action-title">Airwallex 소명 기한 확인 및 소명서 제출</div>
+          <div class="action-meta">담당: 결제팀 · 기한: 즉시</div>
+        </div>
+      </div>
+      <div class="action-item urgent">
+        <div class="action-priority">긴급</div>
+        <div class="action-content">
+          <div class="action-title">VIP 이용 로그 추출 (계정 ID: 107566017412923756326)</div>
+          <div class="action-meta">담당: 개발팀 · 기한: 즉시</div>
+        </div>
+      </div>
+      <div class="action-item urgent">
+        <div class="action-priority">긴급</div>
+        <div class="action-content">
+          <div class="action-title">2024년 차지백 이력 내부 기록 조회</div>
+          <div class="action-meta">담당: 결제팀 · 기한: 즉시</div>
+        </div>
+      </div>
+      <div class="action-item medium">
+        <div class="action-priority">당일</div>
+        <div class="action-content">
+          <div class="action-title">계정 블랙리스트 처리 + Airwallex에 카드(****7305) fraud flag 요청</div>
+          <div class="action-meta">담당: CS팀 + 결제팀 · 기한: 당일</div>
+        </div>
+      </div>
+      <div class="action-item low">
+        <div class="action-priority">참고</div>
+        <div class="action-content">
+          <div class="action-title">"법률 대리인" 메일 무시 — 법적 효력 없음 (법률사무소 없음, 등록번호 없음)</div>
+          <div class="action-meta">CS 대응 원칙: 사과 금지 / 티켓으로만 답변 / EU법 역인용 / 추가 대화 차단</div>
         </div>
       </div>
     </div>
