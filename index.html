@@ -1343,7 +1343,20 @@ var VERSION_HISTORY = {
   // Refresh button handler
   function refreshRequests() {
     console.log('[BizOPS] 새로고침 버튼 클릭');
-    loadRequests();
+    var btn = document.getElementById('reqRefreshBtn');
+    var tbody = document.getElementById('reqTableBody');
+    var bar = document.getElementById('reqStatusBar');
+    var btnHtml = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
+    if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
+    tbody.innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
+    bar.innerHTML =
+      '<span class="req-status-badge req-badge-wait">대기중 <strong>0</strong></span>' +
+      '<span class="req-status-badge req-badge-progress">진행중 <strong>0</strong></span>' +
+      '<span class="req-status-badge req-badge-done">완료 <strong>0</strong></span>' +
+      btnHtml;
+    var newBtn = document.getElementById('reqRefreshBtn');
+    if (newBtn) { newBtn.disabled = true; newBtn.textContent = '로딩중...'; }
+    setTimeout(function() { loadRequests(); }, 300);
   }
 
   // Load on page init
