@@ -96,6 +96,8 @@ PREFIX_RULES = [
     # 대시보드
     ("ticket_dashboard_manual", "dashboard",    "M",  "bg-blue"),
     ("ticket_dashboard",        "dashboard",    "V",  "bg-blue"),
+    # Zendesk FAQ
+    ("zendesk_faq",             "cs_analysis",  "Z",  "bg-cyan"),
 ]
 
 
