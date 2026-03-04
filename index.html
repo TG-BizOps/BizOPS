@@ -409,6 +409,8 @@
     outline: none; border-color: #0EA5E9; background: #fff;
   }
   .req-field textarea { min-height: 80px; resize: vertical; }
+  .req-field .field-error { border-color: #DC2626 !important; background: #FEF2F2 !important; }
+  .req-field .field-error-msg { font-size: 11px; color: #DC2626; margin-top: 3px; }
   .req-radio-group {
     display: flex; gap: 16px; margin-top: 4px;
   }
@@ -1369,19 +1371,36 @@ var VERSION_HISTORY = {
     form.addEventListener('submit', function(e) {
       e.preventDefault();
 
-      var reqName = document.getElementById('reqName').value.trim();
-      var reqDoc = document.getElementById('reqDoc').value;
-      var reqType = document.getElementById('reqType').value;
-      var reqContent = document.getElementById('reqContent').value.trim();
+      var fields = [
+        { el: document.getElementById('reqName'), val: function(e) { return e.value.trim(); } },
+        { el: document.getElementById('reqDoc'), val: function(e) { return e.value; } },
+        { el: document.getElementById('reqType'), val: function(e) { return e.value; } },
+        { el: document.getElementById('reqContent'), val: function(e) { return e.value.trim(); } }
+      ];
+      var hasError = false;
+      fields.forEach(function(f) {
+        var msg = f.el.parentElement.querySelector('.field-error-msg');
+        if (msg) msg.remove();
+        f.el.classList.remove('field-error');
+        if (!f.val(f.el)) {
+          hasError = true;
+          f.el.classList.add('field-error');
+          var em = document.createElement('div');
+          em.className = 'field-error-msg';
+          em.textContent = '필수 입력 항목입니다';
+          f.el.parentElement.appendChild(em);
+        }
+      });
+      if (hasError) return;
+
+      var reqName = fields[0].val(fields[0].el);
+      var reqDoc = fields[1].val(fields[1].el);
+      var reqType = fields[2].val(fields[2].el);
+      var reqContent = fields[3].val(fields[3].el);
       var priority = '';
       document.querySelectorAll('input[name="reqPriority"]').forEach(function(r) {
         if (r.checked) priority = r.value;
       });
-
-      if (!reqName || !reqDoc || !reqType || !reqContent) {
-        alert('모든 필드를 입력해주세요');
-        return;
-      }
 
       submitBtn.disabled = true;
       submitBtn.textContent = '제출 중...';
@@ -1419,6 +1438,18 @@ var VERSION_HISTORY = {
       .finally(function() {
         submitBtn.disabled = false;
         submitBtn.textContent = '요청 제출';
+      });
+    });
+
+    // Clear error on input/change
+    ['reqName', 'reqDoc', 'reqType', 'reqContent'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var evt = el.tagName === 'SELECT' ? 'change' : 'input';
+      el.addEventListener(evt, function() {
+        el.classList.remove('field-error');
+        var msg = el.parentElement.querySelector('.field-error-msg');
+        if (msg) msg.remove();
       });
     });
   }
