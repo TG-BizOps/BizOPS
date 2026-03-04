@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="유종선">
 <meta name="description" content="투믹스 글로벌 BizOps팀 주간 보고서 2월 3주차 — Zendesk CS 394건 + Chargeback 64건 통합 분석">
-<title>TOOMICS BizOps Weekly Report | 2026년 2월 3주차 (02.14 ~ 02.20)</title>
+<title>TOOMICS BizOps팀 주간 보고서 | 2026년 2월 3주차 (02.14 ~ 02.20)</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
 <style>
 :root {
@@ -29,7 +29,7 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif; color: var(--text-primary); background: var(--bg-base); line-height: 1.7; -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; font-size: 14px; word-break: keep-all; overflow-wrap: break-word; }
   .container { max-width: 1400px; margin: 0 auto; padding: 0 0 40px; }
-  .hero { background: linear-gradient(135deg,#1e3a5f 0%,#2563eb 50%,#0ea5e9 100%); color: white; padding: 48px 56px 40px; position: relative; overflow: hidden; border-radius: 0 0 24px 24px; margin-bottom:24px; }
+  .hero { background: linear-gradient(135deg,#1e3a5f 0%,#2563eb 50%,#0ea5e9 100%); color: white; padding: 48px 56px 40px; position: relative; overflow: hidden; border-radius: 0 0 24px 24px; margin-bottom: 32px; }
   .hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 400px; height: 400px; background: radial-gradient(circle,rgba(14,165,233,0.15) 0%,transparent 70%); border-radius: 50%; }
   .hero-badge { display: inline-block; background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); border-radius: 20px; padding: 4px 16px; font-size: 12px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 14px; }
   .hero h1 { font-size: 34px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; position: relative; }
@@ -39,7 +39,7 @@
   .hero-meta-item .label { font-size: 12px; opacity: 0.6; text-transform: uppercase; letter-spacing: 1px; }
   .hero-meta-item .value { font-size: 20px; font-weight: 700; }
   .hero-meta-item .value .unit { font-size: 13px; font-weight: 400; opacity: 0.7; }
-  .exec-summary { background: linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius: 16px; padding: 32px; margin:0 24px 24px; border: 1px solid var(--border-strong); }
+  .exec-summary { background: linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius: 16px; padding: 32px; margin: 0 24px 32px; border: 1px solid var(--border-strong); }
   .exec-summary h2 { font-size: 16px; font-weight: 700; margin-bottom: 16px; color: #0369a1; }
   .exec-summary ul { list-style: none; padding: 0; }
   .exec-summary li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; line-height: 1.7; color: var(--text-primary); }
@@ -47,26 +47,25 @@
   .tag { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 10.5px; font-weight: 700; margin-right: 6px; }
   .tag-up { background: #fef2f2; color: #dc2626; } .tag-down { background: #f0fdf4; color: #16a34a; }
   .tag-warn { background: #fefce8; color: #854d0e; } .tag-info { background: #eff6ff; color: var(--accent-brand); }
-  .tag-ai { background: #f0e7fe; color: #7c3aed; }
-  .kpi-strip { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; padding: 0 24px; margin-bottom:24px; }
-  .kpi-card { background: linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius: 16px; padding:20px 16px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); transition: transform 0.2s; }
+  .tag-project { background: #f0e7fe; color: #7c3aed; }
+  .kpi-strip { display: grid; grid-template-columns: repeat(5,1fr); gap: 16px; padding: 0 24px; margin-bottom: 32px; }
+  .kpi-card { background: linear-gradient(145deg,#FFFFFF 0%,#F8FAFC 100%); border-radius: 16px; padding: 24px 20px; text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); transition: transform 0.2s; }
   .kpi-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.12); }
-  .kpi-icon { width:40px; height:40px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px; }
-  .kpi-number { font-size:28px; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
+  .kpi-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 22px; }
+  .kpi-number { font-size: 32px; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
   .kpi-number .small { font-size: 16px; font-weight: 600; }
   .kpi-label { font-size: 12px; color: #64748B; margin-top: 4px; font-weight: 500; }
   .kpi-sub { font-size: 11px; color: #64748B; margin-top: 2px; }
-  .section { padding: 0 24px; margin-bottom:24px; }
-  .section-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom:14px; display: flex; align-items: center; gap: 10px; }
+  .section { padding: 0 24px; margin-bottom: 32px; }
+  .section-title { font-size: 18px; font-weight: 700; color: var(--text-primary); margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
   .section-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-info); display: inline-block; }
   .chart-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-  .chart-card { background: var(--bg-card); border-radius: 16px; padding:22px 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); }
+  .chart-card { background: var(--bg-card); border-radius: 16px; padding: 28px 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); }
   .chart-card h3 { font-size: 14px; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
-  .chart-card .chart-desc { font-size:12px; color: #64748B; margin-bottom:10px; }
-  .chart-wrap { position: relative; width: 100%; height: 250px; }
-  .category-layout { display:grid; grid-template-columns:45fr 55fr; gap:24px; align-items:stretch; }
-  .chart-container { position:relative; width:100%; height:100%; }
-  .category-layout > .chart-card:first-child { padding:10px; display:flex; align-items:center; justify-content:center; }
+  .chart-card .chart-desc { font-size: 11px; color: #64748B; margin-bottom: 16px; }
+  .chart-wrap { position: relative; width: 100%; }
+  .category-layout { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+  .chart-container { position:relative; width:100%; max-width:360px; margin:0 auto; }
   .category-table { width:100%; border-collapse:collapse; font-size:14px; }
   .category-table th { text-align:left; padding:10px 12px; border-bottom:2px solid var(--border-strong); color:#64748B; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; }
   .category-table td { padding:10px 12px; border-bottom:1px solid var(--border); }
@@ -76,6 +75,9 @@
   .cat-badge.auto { background:rgba(5,150,105,0.12); color:#047857; }
   .cat-badge.partial { background:rgba(180,83,9,0.10); color:#b45309; }
   .cat-badge.manual { background:rgba(185,28,28,0.10); color:#b91c1c; }
+  .cat-badge.asia { background:rgba(14,165,233,0.12); color:#0369a1; }
+  .cat-badge.latam { background:rgba(168,85,247,0.12); color:#7c3aed; }
+  .cat-badge.unknown { background:rgba(100,116,139,0.12); color:#475569; }
   .table-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
   .bar-legend { width: 100%; }
   .bar-legend-item { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--border); }
@@ -96,33 +98,28 @@
   .trend-up { color: var(--accent-danger); font-weight: 700; font-size: 12px; }
   .trend-down { color: #22c55e; font-weight: 700; font-size: 12px; }
   .trend-flat { color: #64748B; font-weight: 600; font-size: 12px; }
-  .insight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
-  .insight-card { background: var(--bg-card); border-radius: 16px; padding:20px; border-left: 4px solid; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-  .insight-card.red { border-left-color: #ef4444; } .insight-card.blue { border-left-color: #0ea5e9; }
-  .insight-card.green { border-left-color: #22c55e; } .insight-card.yellow { border-left-color: #eab308; }
-  .insight-card.purple { border-left-color: #8b5cf6; } .insight-card.orange { border-left-color: #f97316; }
-  .insight-card h4 { font-size: 13px; font-weight: 700; color: var(--text-primary); margin-bottom: 6px; }
-  .insight-card p { font-size: 12px; color: var(--text-secondary); line-height: 1.7; }
-  .insight-card .highlight { font-weight: 700; color: var(--accent-info); }
   .voice-section { margin-bottom: 24px; }
   .voice-category { font-size: 15px; font-weight: 800; color: var(--text-primary); margin-bottom: 14px; padding: 10px 16px; background: linear-gradient(90deg,#DBEAFE 0%,#F8FAFC 100%); border-radius: 10px; border-left: 4px solid var(--accent-info); }
   .voice-card { background: var(--bg-card); border-radius: 12px; padding: 20px 24px; margin-bottom: 12px; box-shadow: 0 1px 6px rgba(0,0,0,0.08); border: 1px solid var(--border-strong); border-left: 4px solid; }
   .voice-card.severity-high { border-left-color: #ef4444; }
   .voice-card.severity-medium { border-left-color: #f59e0b; }
-  .voice-card.severity-low { border-left-color: #22c55e; }
+  .voice-card.severity-low { border-left-color: var(--accent-success); }
   .voice-header { display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin-bottom:10px; }
   .voice-badge { display:inline-block; padding:2px 8px; border-radius:6px; font-size:11px; font-weight:700; white-space:nowrap; }
   .badge-market { background:#DBEAFE; color:#1e40af; }
   .badge-count { background:var(--bg-muted); color:var(--text-secondary); border:1px solid var(--border); }
   .badge-severity-high { background:#fef2f2; color:#b91c1c; }
   .badge-severity-medium { background:#fefce8; color:#b45309; }
+  .badge-severity-low { background:#f0fdf4; color:#047857; }
   .voice-title { font-size:13px; font-weight:700; color:var(--text-primary); }
   .voice-quote { font-size:12px; color:var(--text-secondary); font-style:italic; padding:10px 16px; background:var(--bg-muted); border-radius:8px; margin-bottom:10px; line-height:1.7; border-left:3px solid var(--border-strong); }
   .voice-quote .translation { display:block; font-style:normal; font-size:11px; color:var(--text-muted); margin-top:4px; }
   .voice-impact { font-size:12px; color:var(--text-secondary); margin-bottom:8px; line-height:1.6; }
   .voice-action { font-size:12px; color:var(--accent-brand); font-weight:600; }
+  .badge-team { background:#e0f2fe; color:#0369a1; border:1px dashed #7dd3fc; }
+  .team-blockquote { background:#f0f9ff; border-left:3px solid #0ea5e9; border-radius:8px; padding:10px 16px; font-size:12px; color:var(--text-secondary); margin-top:8px; }
   .insight-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-  .insight-card { background:var(--bg-card); border-radius:16px; padding:20px; border-left:4px solid; box-shadow:0 2px 12px rgba(0,0,0,0.08); border-top:1px solid var(--border); border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
+  .insight-card { background:var(--bg-card); border-radius:16px; padding:24px; border-left:4px solid; box-shadow:0 2px 12px rgba(0,0,0,0.08); border-top:1px solid var(--border); border-right:1px solid var(--border); border-bottom:1px solid var(--border); }
   .insight-card.blue { border-left-color:var(--accent-info); } .insight-card.green { border-left-color:var(--accent-success); }
   .insight-card.orange { border-left-color:#f97316; } .insight-card.purple { border-left-color:var(--accent-purple); }
   .insight-card.yellow { border-left-color:var(--accent-warn); } .insight-card.red { border-left-color:var(--accent-danger); }
@@ -144,9 +141,51 @@
   .back-to-top.visible { opacity:1; visibility:visible; }
   .back-to-top:hover { background:#1d4ed8; transform:translateY(-2px); }
   ::selection { background:#3b82f6; color:#fff; }
-  @media (max-width: 900px) { .kpi-strip { grid-template-columns: repeat(3,1fr); } .chart-grid-2 { grid-template-columns: 1fr; } .insight-grid { grid-template-columns: 1fr; } .hero { padding: 32px 24px; } .hero h1 { font-size: 24px; } .cb-kpi-strip { grid-template-columns: repeat(3,1fr) !important; } }
-  @media (max-width: 480px) { .kpi-strip { grid-template-columns: repeat(2,1fr); } .cb-kpi-strip { grid-template-columns: repeat(2, 1fr) !important; } .hero-meta { flex-wrap: wrap; gap: 16px; } .hero h1 { font-size: 20px; } }
-  @media print { body { background: var(--bg-base); color: var(--text-primary); } .chart-card,.insight-card,.voice-card { page-break-inside: avoid; } .no-print { display: none !important; } canvas { max-width: 100% !important; } .back-to-top { display:none !important; } }
+  /* Project Portal Section */
+  .pj-hero { background:linear-gradient(135deg,#1E3A5F 0%,#2563EB 60%,#0EA5E9 100%); border-radius:14px; padding:24px 28px; color:#fff; display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; position:relative; overflow:hidden; }
+  .pj-hero::after { content:''; position:absolute; right:-40px; top:-40px; width:180px; height:180px; background:rgba(255,255,255,.04); border-radius:50%; }
+  .pj-hero-content { position:relative; z-index:1; }
+  .pj-hero-badge { display:inline-block; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.2); border-radius:20px; padding:3px 12px; font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-bottom:8px; }
+  .pj-hero-title { font-size:19px; font-weight:800; margin-bottom:3px; }
+  .pj-hero-sub { font-size:12px; opacity:.75; }
+  .pj-hero-link { position:relative; z-index:1; background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.25); border-radius:8px; padding:6px 14px; font-size:11px; font-weight:600; color:#fff; text-decoration:none; white-space:nowrap; transition:.2s; }
+  .pj-hero-link:hover { background:rgba(255,255,255,.25); }
+  .pj-box { background:var(--bg-card); border:1px solid var(--border); border-radius:14px; padding:20px 24px; margin-bottom:16px; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  .pj-box-title { font-size:14px; font-weight:800; margin-bottom:14px; display:flex; align-items:center; gap:6px; }
+  .pj-ba { display:grid; grid-template-columns:1fr auto 1fr; gap:0; align-items:stretch; }
+  .pj-ba-col { padding:16px; border-radius:10px; }
+  .pj-ba-before { background:#FEF2F2; border:1px solid #FECACA; }
+  .pj-ba-after { background:#ECFDF5; border:1px solid #A7F3D0; }
+  .pj-ba-label { font-size:10px; font-weight:800; letter-spacing:1px; margin-bottom:10px; }
+  .pj-ba-before .pj-ba-label { color:#DC2626; }
+  .pj-ba-after .pj-ba-label { color:#059669; }
+  .pj-ba-col ul { list-style:none; padding:0; margin:0; }
+  .pj-ba-col li { font-size:11.5px; padding:3px 0; color:var(--text-secondary); display:flex; align-items:flex-start; gap:6px; line-height:1.5; }
+  .pj-ba-before li::before { content:'✕'; color:#DC2626; font-size:10px; font-weight:800; flex-shrink:0; }
+  .pj-ba-after li::before { content:'✓'; color:#059669; font-size:10px; font-weight:800; flex-shrink:0; }
+  .pj-ba-arrow { display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800; color:#2563EB; padding:0 10px; }
+  .pj-impacts { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+  .pj-impact { background:var(--bg-card); border-radius:12px; padding:18px; text-align:center; border:1px solid var(--border); box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  .pj-impact-icon { font-size:24px; margin-bottom:4px; }
+  .pj-impact-metric { font-size:28px; font-weight:900; color:#2563EB; }
+  .pj-impact-metric span { font-size:12px; font-weight:600; color:var(--text-muted); margin-left:4px; }
+  .pj-impact-title { font-size:12px; font-weight:700; color:var(--text-primary); margin:4px 0 2px; }
+  .pj-impact-before { font-size:11px; color:#94A3B8; text-decoration:line-through; }
+  .pj-impact-after { font-size:13px; font-weight:700; color:#059669; }
+  .pj-roadmap-h { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:16px; }
+  .pj-rmh { background:var(--bg-card); border:1px solid var(--border); border-radius:10px; padding:12px; text-align:center; box-shadow:0 1px 3px rgba(0,0,0,.04); }
+  .pj-rmh-tag { display:inline-block; padding:2px 8px; border-radius:6px; font-size:10px; font-weight:700; margin-bottom:4px; }
+  .pj-rmh-tag.done { background:#ecfdf5; color:#059669; }
+  .pj-rmh-tag.progress { background:#eff6ff; color:#2563eb; }
+  .pj-rmh-tag.planned { background:#f1f5f9; color:#64748b; }
+  .pj-rmh-title { font-size:13px; font-weight:800; color:var(--text-primary); }
+  .pj-rmh-desc { font-size:11px; color:var(--text-muted); margin-top:2px; }
+  .pj-keymsg { background:linear-gradient(135deg,#EEF2FF,#E0E7FF); border:1px solid #C7D2FE; border-radius:14px; padding:18px 24px; text-align:center; }
+  .pj-keymsg-text { font-size:13px; font-weight:600; color:#3730A3; line-height:1.6; }
+  .pj-keymsg-sub { font-size:11px; color:#6366F1; margin-top:4px; }
+  @media (max-width: 900px) { .kpi-strip { grid-template-columns: repeat(3,1fr); } .chart-grid-2, .category-layout { grid-template-columns: 1fr; } .insight-grid { grid-template-columns: 1fr; } .hero { padding: 32px 24px; } .hero h1 { font-size: 24px; } .cb-kpi-strip { grid-template-columns: repeat(3,1fr) !important; } .pj-impacts { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) { .kpi-strip { grid-template-columns: repeat(2,1fr); } .cb-kpi-strip { grid-template-columns: repeat(2, 1fr) !important; } .hero-meta { flex-wrap: wrap; gap: 16px; } .hero h1 { font-size: 20px; } .pj-ba { grid-template-columns: 1fr; } .pj-ba-arrow { transform:rotate(90deg); padding:8px 0; } .pj-hero { flex-direction:column; gap:12px; } }
+  @media print { body { background: var(--bg-base); color: var(--text-primary); } .chart-card,.insight-card,.voice-card,.action-item { page-break-inside: avoid; } .no-print { display: none !important; } canvas { max-width: 100% !important; } .back-to-top { display:none !important; } .pj-hero { -webkit-print-color-adjust:exact !important; print-color-adjust:exact !important; } }
 </style>
 </head>
 <body>
@@ -173,15 +212,15 @@
       <li><span class="tag tag-warn">IMPROVE</span> 평균 첫 응답 <strong>27.0h</strong> (전주 대비 <strong>+9.2h</strong>). 해결 시간 <strong>70.1h</strong> (+14.6h).</li>
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 41.4% + Refund 24.9%</strong> → 전체의 <strong>66.2%</strong> 차지.</li>
       <li><span class="tag tag-info">GROWTH</span> EN 마켓 점유율 <strong>33.3% → 37.3%</strong> (+4.1%p 상승).</li>
-      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>113건</strong> — 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성.</li>
+      <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>113건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
       <li><span class="tag tag-down">CB</span> 차지백 <strong>64건</strong>(~$736) — 전주 대비 <strong>-25.6%</strong>. Paypal 70.3% 지배적.</li>
-      <li><span class="tag tag-ai">AI PROJECT</span> CS 자동분류 정확도 <strong>92.3%</strong> (목표 95%). 부정 감성 자동 탐지율 <strong>41.9%</strong>(165건). EN 마켓 자동응답 파일럿 3월 2주차 론칭 예정.</li>
+      <li><span class="tag tag-project">PROJECT</span> BizOps Portal 산출물 <strong>총 29건</strong> 배포 완료 (CS 운영 9건, 차지백 4건, 주간리포트 12건, IP·대시보드·기타 4건). CS 매뉴얼 EN/KO v2.1, 차지백 매뉴얼 v1.3, 포탈 사용 매뉴얼 등 <strong>5개 카테고리</strong> 체계화.</li>
     </ul>
   </div>
 
   <!-- KPI STRIP -->
   <div class="kpi-strip">
-    <div class="kpi-card"><div class="kpi-icon" style="background:rgba(14,165,233,0.15);">📨</div><div class="kpi-number">394</div><div class="kpi-label">총 해결 티켓</div><div class="kpi-sub">전주 대비 +394건 (+0%)</div></div>
+    <div class="kpi-card"><div class="kpi-icon" style="background:rgba(14,165,233,0.15);">📨</div><div class="kpi-number">394</div><div class="kpi-label">총 해결 티켓</div><div class="kpi-sub">전주 대비 39건 (-9.0%)</div></div>
     <div class="kpi-card"><div class="kpi-icon" style="background:rgba(34,197,94,0.15);">⏱</div><div class="kpi-number">27.0<span class="small">h</span></div><div class="kpi-label">평균 첫 응답</div><div class="kpi-sub">전주 대비 +9.2h</div></div>
     <div class="kpi-card"><div class="kpi-icon" style="background:rgba(239,68,68,0.15);">🔄</div><div class="kpi-number">70.1<span class="small">h</span></div><div class="kpi-label">평균 해결 시간</div><div class="kpi-sub">전주 대비 +14.6h</div></div>
     <div class="kpi-card"><div class="kpi-icon" style="background:rgba(234,179,8,0.15);">📊</div><div class="kpi-number">66.2<span class="small">%</span></div><div class="kpi-label">Top2 카테고리</div><div class="kpi-sub">Subscription 41.4% + Refund 24.9%</div></div>
@@ -218,13 +257,13 @@
         <thead><tr><th>마켓</th><th>비중</th><th>건수</th><th>권역</th></tr></thead>
         <tbody><tr><td><span class="cat-dot" style="background:#0EA5E9"></span>EN</td><td>37.3%</td><td>147건</td><td><span class="cat-badge manual">최다 마켓</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#6366f1"></span>FR</td><td>15.5%</td><td>61건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#f97316"></span>ES</td><td>11.9%</td><td>47건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#22c55e"></span>PT</td><td>10.7%</td><td>42건</td><td><span class="cat-badge auto">남미권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#f97316"></span>ES</td><td>11.9%</td><td>47건</td><td><span class="cat-badge latam">남미권</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#22c55e"></span>PT</td><td>10.7%</td><td>42건</td><td><span class="cat-badge latam">남미권</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#eab308"></span>DE</td><td>9.6%</td><td>38건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>4.6%</td><td>18건</td><td><span class="cat-badge auto">아시아</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>CN</td><td>3.8%</td><td>15건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#ec4899"></span>TH</td><td>4.6%</td><td>18건</td><td><span class="cat-badge asia">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#8b5cf6"></span>CN</td><td>3.8%</td><td>15건</td><td><span class="cat-badge asia">아시아</span></td></tr>
 <tr><td><span class="cat-dot" style="background:#64748b"></span>IT</td><td>3.6%</td><td>14건</td><td><span class="cat-badge partial">유럽권</span></td></tr>
-<tr><td><span class="cat-dot" style="background:#14b8a6"></span>JP</td><td>3.0%</td><td>12건</td><td><span class="cat-badge auto">아시아</span></td></tr>
+<tr><td><span class="cat-dot" style="background:#14b8a6"></span>JP</td><td>3.0%</td><td>12건</td><td><span class="cat-badge asia">아시아</span></td></tr>
 </tbody>
       </table></div></div>
     </div>
@@ -237,7 +276,7 @@
       <table class="wow-table">
         <thead><tr><th>지표</th><th style="text-align:right;">이전 주</th><th style="text-align:right;">2월 3주차</th><th style="text-align:right;">변화</th><th>판정</th></tr></thead>
         <tbody>
-          <tr><td><strong>총 티켓</strong></td><td class="num">433건</td><td class="num">394건</td><td class="num">+394건</td><td><span class="trend-up">+0%</span></td></tr>
+          <tr><td><strong>총 티켓</strong></td><td class="num">433건</td><td class="num">394건</td><td class="num">39건</td><td><span class="trend-down">-9.0%</span></td></tr>
           <tr><td><strong>평균 첫 응답</strong></td><td class="num">17.8h</td><td class="num">27.0h</td><td class="num">+9.2h</td><td><span class="trend-up">모니터링</span></td></tr>
           <tr><td><strong>평균 해결 시간</strong></td><td class="num">55.5h</td><td class="num">70.1h</td><td class="num">+14.6h</td><td><span class="trend-up">모니터링</span></td></tr>
         </tbody>
@@ -299,8 +338,10 @@
   <!-- CB TREND -->
   <div class="section">
     <div class="section-title"><span class="dot" style="background:#ef4444;"></span>차지백 주간 트렌드</div>
-    <div class="chart-card"><h3>차지백 주간 트렌드 (FEB)</h3><div class="chart-wrap" style="height:auto;"><canvas id="chartCBTrend"></canvas></div></div>
+    <div class="chart-card"><h3>차지백 주간 트렌드 (4주)</h3><div class="chart-wrap"><canvas id="chartCBTrend"></canvas></div></div>
   </div>
+
+  
 
   
   <div class="section voice-section">
@@ -315,7 +356,8 @@
         </div>
         <div class="voice-quote">"ผมซื้อ อ่านหรึ่งเดือน ยังไม่ครบเดือนเลย ทำไม ผม เข้าอ่านไม้ได้ ต้องจ่าย เงินใหม่ด้วย"<br><span class="translation">— #122715 (TH)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 22건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
-        <span class="voice-action">→ 결제-VIP 동기화 실패 케이스 수집 후 패턴 분석</span>
+        
+        <span class="voice-action">→ IAP/결제 동기화 모니터링 강화</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -326,7 +368,8 @@
         </div>
         <div class="voice-quote">"Why can't I aaccess my VIP?? I paid for a year!"<br><span class="translation">— #122543 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 62% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ 미적용 티켓 즉시 수동 VIP 부여 + 재발 패턴 로그 수집</span>
+        
+        <span class="voice-action">→ VIP 상태 캐시 갱신 로직 점검</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -337,7 +380,8 @@
         </div>
         <div class="voice-quote">"Non riesco ad usare l abbonamento è sempre bloccato il filtro famiglia"<br><span class="translation">— #122474 (IT)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 82% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ 재생 오류 마켓/디바이스별 패턴 분석 후 CS 매크로 업데이트</span>
+        
+        <span class="voice-action">→ CDN/이미지 서버 성능 모니터링</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -348,7 +392,8 @@
         </div>
         <div class="voice-quote">"帳號問題: 妳好～想請問～我明明到2/20會員才到期～為何目前都不能看～網頁的客服～也只有未登入能進入～登入後都會跳回主畫面？能說明一下嗎"<br><span class="translation">— #122073 (CN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 75% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ 로그인 실패 마켓별 빈도 추적 + 임시 해결 가이드 CS 매크로 추가</span>
+        
+        <span class="voice-action">→ OAuth 안정성 모니터링</span>
       </div>
       <div class="voice-category">⚠️ 정책 오해 & UX 혼란</div>
       <div class="voice-card severity-high">
@@ -360,7 +405,8 @@
         </div>
         <div class="voice-quote">"Please cancel my subscription – no account access: Hello Toomics Support Team, I hope you are doing well. I am writing because I no longer have access to my Toomics account. The email address that was"<br><span class="translation">— #120439 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 113건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
-        <span class="voice-action">→ 갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span>
+        
+        <span class="voice-action">→ 갱신 알림(7일/3일) + 셀프 취소 UX 개선</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -371,7 +417,8 @@
         </div>
         <div class="voice-quote">"Prélèvement injustifiée: Bonjour J'avais un abonnement sur mon compte toomics associés l'e-mail suivant izukumidoria280@gmail.com et j'ai annulé ce vip pourtant à ma grande surprise et déception j'ai"<br><span class="translation">— #122470 (FR)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 58건 발생 — CS 리소스 집중 소모. 자동화/프로세스 개선 시 대폭 감소 가능.</div>
-        <span class="voice-action">→ 환불 기준(7일/미사용) 자동 심사 규칙 정의 + FAQ 업데이트</span>
+        
+        <span class="voice-action">→ 환불 조건 사전 안내 + 자동 심사 도입</span>
       </div>
       <div class="voice-card severity-high">
         <div class="voice-header">
@@ -382,7 +429,8 @@
         </div>
         <div class="voice-quote">"ไม่ได้ตั้งใจจะซื้อแพ็คเกจนี้ ตอนแรกเขียนไว้200กว่ายาทแต่หักจริง1,200"<br><span class="translation">— #122310 (TH)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 부정 감성 67% — 고객 불만 집중. 미조치 시 차지백/이탈 전이 가능.</div>
-        <span class="voice-action">→ 이중과금 케이스 증빙 수집 + 결제 재시도 패턴 데이터 분석</span>
+        
+        <span class="voice-action">→ 결제 재시도 로직 점검</span>
       </div>
       <div class="voice-category">📚 콘텐츠 & 계정</div>
       <div class="voice-card severity-high">
@@ -394,7 +442,8 @@
         </div>
         <div class="voice-quote">"How to deactivate account: Everytime I try to deactivate my account it says I have to cancel my vip membership even though I cancel it already"<br><span class="translation">— #122176 (EN)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 20건 발생 — 반복 이슈로 고객 이탈 리스크. 근본 원인 해결 필요.</div>
-        <span class="voice-action">→ GDPR 삭제 요청 SLA 준수 모니터링 + 셀프 삭제 플로우 요건 정리</span>
+        
+        <span class="voice-action">→ 셀프 삭제 UX + GDPR 파이프라인</span>
       </div>
       <div class="voice-card severity-medium">
         <div class="voice-header">
@@ -407,7 +456,8 @@
 
 회차정보 : 1"<br><span class="translation">— #121422 (TH)</span></div>
         <div class="voice-impact"><strong>비즈니스 임팩트:</strong> 주 8건 발생 — 모니터링 유지, 추세 악화 시 즉시 대응 필요.</div>
-        <span class="voice-action">→ 이미지 오류 작품/회차 리스트 취합 + QA 리포트 전달</span>
+        
+        <span class="voice-action">→ 작품별 이미지 에셋 점검</span>
       </div>
 
   </div>
@@ -430,14 +480,14 @@
     <div class="section-title"><span class="dot" style="background:var(--accent-purple);"></span>Strategic Recommendations</div>
     <div class="chart-card">
       <table class="rec-table">
-        <thead><tr><th>우선순위</th><th>조치 사항</th><th>예상 임팩트</th><th>상태</th></tr></thead>
+        <thead><tr><th>우선순위</th><th>조치 사항</th><th>담당</th><th>기한</th><th>예상 임팩트</th><th>상태</th></tr></thead>
         <tbody>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림 요건 정리 + 셀프 해지 플로우 개선안 작성</span></td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
-          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>해지 CS -65건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
-          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>셀프 구독 해지 UX</strong><br><span style="font-size:11px;color:var(--text-muted);">설정 > 구독관리 > 원클릭 해지 + 해지 사유 수집</span></td><td>해지 CS -30%, CSAT 개선</td><td><span class="cat-badge partial">백로그</span></td></tr>
-          <tr><td><span class="priority-badge p2">P2</span></td><td><strong>FR/ES 마켓 CS 템플릿 확충</strong><br><span style="font-size:11px;color:var(--text-muted);">영문 템플릿 현지화 번역 + FAQ 확대</span></td><td>유럽 마켓 FRT -20%, CSAT +5%</td><td><span class="cat-badge auto">계획</span></td></tr>
-          <tr><td><span class="priority-badge p3">P3</span></td><td><strong>CS 자동응답 파일럿 (EN)</strong><br><span style="font-size:11px;color:var(--text-muted);">FAQ 기반 자동응답 + 에이전트 에스컬레이션</span></td><td>EN 마켓 CS 처리량 +40%, FRT -70%</td><td><span class="cat-badge auto">파일럿</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 미인지 / 구독 해지 요청 긴급 대응</strong><br><span style="font-size:11px;color:var(--text-muted);">갱신 알림(7일/3일) + 셀프 취소 UX 개선</span></td><td>Engineering</td><td>2주</td><td>자동갱신 미인지 / 구독 해지 요청 CS -50건/주, 차지백 전이 방지</td><td><span class="cat-badge manual">긴급</span></td></tr>
+          <tr><td><span class="priority-badge p0">P0</span></td><td><strong>자동갱신 사전 알림 (D-7, D-3)</strong><br><span style="font-size:11px;color:var(--text-muted);">구독 갱신 7일/3일 전 푸시+이메일 알림</span></td><td>Product</td><td>3주</td><td>해지 CS -65건/주, 차지백 "미인지" 사유 -60%</td><td><span class="cat-badge manual">설계중</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>환불 자동 심사 파이프라인</strong><br><span style="font-size:11px;color:var(--text-muted);">7일 이내+미사용 → 자동 승인, 이후 수동 심사</span></td><td>BizOps</td><td>4주</td><td>환불 처리 시간 -60%, 에이전트 부담 경감</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p1">P1</span></td><td><strong>셀프 구독 해지 UX</strong><br><span style="font-size:11px;color:var(--text-muted);">설정 > 구독관리 > 원클릭 해지 + 해지 사유 수집</span></td><td>Product</td><td>4주</td><td>해지 CS -30%, CSAT 개선</td><td><span class="cat-badge partial">백로그</span></td></tr>
+          <tr><td><span class="priority-badge p2">P2</span></td><td><strong>FR/ES 마켓 CS 템플릿 확충</strong><br><span style="font-size:11px;color:var(--text-muted);">영문 템플릿 현지화 번역 + FAQ 확대</span></td><td>CS Ops</td><td>3주</td><td>유럽 마켓 FRT -20%, CSAT +5%</td><td><span class="cat-badge auto">계획</span></td></tr>
+          <tr><td><span class="priority-badge p3">P3</span></td><td><strong>CS 자동응답 파일럿 (EN)</strong><br><span style="font-size:11px;color:var(--text-muted);">FAQ 기반 자동응답 + 에이전트 에스컬레이션</span></td><td>AI Team</td><td>6주</td><td>EN 마켓 CS 처리량 +40%, FRT -70%</td><td><span class="cat-badge auto">파일럿</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -445,7 +495,7 @@
 
   <!-- FOOTER -->
   <div class="footer">
-    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-01</p>
+    <p><strong>BIZOPS WEEKLY REPORT</strong> — TOOMICS Global BizOps팀 주간 보고서 | 작성자: 유종선 | 작성일: 2026-03-04</p>
     <p>데이터 소스: Zendesk CS 394건 (solved_at KST 기준) + 차지백 접수 Google Sheet 64건</p>
     <p class="no-print" style="margin-top:8px;">Ctrl+P → PDF 저장 가능</p>
   </div>
@@ -454,110 +504,18 @@
 
 <!-- CHART.JS -->
 <script>
-
 const fontFamily = "'Malgun Gothic','Noto Sans KR',sans-serif";
 Chart.defaults.font.family = fontFamily;
 Chart.defaults.font.size = 12;
 var chartColors = ['#0ea5e9','#6366f1','#f97316','#22c55e','#eab308','#ec4899','#8b5cf6','#64748b','#14b8a6','#f43e5e'];
-
-new Chart(document.getElementById('chartCategory'), {
-  type: 'doughnut',
-  data: {
-    labels: ["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Coin", "Other", "Chargeback"],
-    datasets: [{ data: [163, 98, 57, 24, 22, 13, 9, 5, 2, 1], backgroundColor: chartColors, borderWidth: 0 }]
-  },
-  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
-});
-
-new Chart(document.getElementById('chartMarket'), {
-  type: 'doughnut',
-  data: {
-    labels: ["EN", "FR", "ES", "PT", "DE", "TH", "CN", "IT", "JP"],
-    datasets: [{ data: [147, 61, 47, 42, 38, 18, 15, 14, 12], backgroundColor: chartColors, borderWidth: 0 }]
-  },
-  options: { responsive:true, maintainAspectRatio:false, cutout:'60%', plugins:{ legend:{ display:false } } }
-});
-
-new Chart(document.getElementById('chartCBTrend'), {
-  type: 'bar',
-  data: {
-    labels: ["FEB W1", "FEB W2", "FEB W3", "FEB W4"],
-    datasets: [{
-      label: '주간 차지백',
-      data: [85, 86, 64, 59],
-      backgroundColor: ['#94a3b8','#64748b','#64748b','#2563EB'],
-      borderRadius: 8,
-      borderSkipped: false,
-      barPercentage: 0.5
-    }]
-  },
-  plugins: [{
-    afterDatasetsDraw: function(chart) {
-      var ctx = chart.ctx;
-      chart.data.datasets.forEach(function(ds, i) {
-        var meta = chart.getDatasetMeta(i);
-        meta.data.forEach(function(bar, idx) {
-          ctx.fillStyle = '#1e293b';
-          ctx.font = 'bold 12px sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(ds.data[idx] + '건', bar.x, bar.y - 8);
-        });
-      });
-    }
-  }],
-  options: {
-    responsive: true, maintainAspectRatio: true, aspectRatio: 3,
-    plugins: { legend: { display: false } },
-    scales: {
-      y: { beginAtZero: true, grid: { color: '#e2e8f0' }, ticks: { color: '#64748B' } },
-      x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 13, weight: '600' } } }
-    }
-  }
-});
-
-// --- Detailed-only charts ---
-var dOptLegend = {
-  responsive: true, maintainAspectRatio: false, cutout: '65%',
-  plugins: {
-    legend: { position: 'bottom', labels: { color: '#475569', font: { size: 13, weight: '600' }, usePointStyle: true, padding: 14 } },
-    tooltip: { callbacks: { label: function(ctx) { return ctx.label + ': ' + ctx.raw + '건 (' + (ctx.raw / ctx.dataset.data.reduce(function(a,b){return a+b},0) * 100).toFixed(1) + '%)'; } } }
-  }
-};
-
-new Chart(document.getElementById('chartWeeklyTrend'), {
-  type: 'bar',
-  data: {
-    labels: ['FEB W1', 'FEB W2', 'FEB W3', 'FEB W4'],
-    datasets: [{ label: 'Solved', data: [467, 433, 394, 476], backgroundColor: ['#0ea5e9','#6366f1','#f97316','#22c55e'], borderRadius: 8, barPercentage: 0.6 }]
-  },
-  options: {
-    responsive: true, maintainAspectRatio: false,
-    plugins: { legend: { display: false }, tooltip: { callbacks: { label: function(ctx) { return ctx.raw + '건'; } } } },
-    scales: {
-      x: { grid: { display: false }, ticks: { color: '#475569', font: { size: 13, weight: '600' } } },
-      y: { grid: { color: '#e2e8f0' }, ticks: { color: '#64748b' } }
-    }
-  }
-});
-
-new Chart(document.getElementById('chartChannel'), {
-  type: 'doughnut',
-  data: {
-    labels: ['Web', 'Email', 'API'],
-    datasets: [{ data: [182,160,52], backgroundColor: ['#0ea5e9','#6366f1','#f97316'], borderWidth: 0 }]
-  },
-  options: dOptLegend
-});
-
-new Chart(document.getElementById('chartSentiment'), {
-  type: 'doughnut',
-  data: {
-    labels: ["Neutral","Negative","Very Negative","Positive","Very Positive"],
-    datasets: [{ data: [226,157,8,2,1], backgroundColor: ['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'], borderWidth: 0 }]
-  },
-  options: dOptLegend
-});
-
+const dOpt = { responsive:true, maintainAspectRatio:true, aspectRatio:1, cutout:'60%', plugins:{ legend:{ display:false }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
+const dOptLegend = { responsive:true, maintainAspectRatio:true, aspectRatio:1.2, cutout:'65%', plugins:{ legend:{ position:'bottom', labels:{ color:'#475569', font:{size:13,weight:'600'}, usePointStyle:true, padding:14 } }, tooltip:{ callbacks:{ label: ctx => ctx.label+': '+ctx.raw+'건 ('+(ctx.raw/ctx.dataset.data.reduce((a,b)=>a+b,0)*100).toFixed(1)+'%)' } } } };
+new Chart(document.getElementById('chartCategory'),{type:'doughnut',data:{labels:["Subscription", "Refund", "Account", "Payment", "Content", "Technical", "IP", "Coin", "Other", "Chargeback"],datasets:[{data:[163, 98, 57, 24, 22, 13, 9, 5, 2, 1],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
+new Chart(document.getElementById('chartMarket'),{type:'doughnut',data:{labels:["EN", "FR", "ES", "PT", "DE", "TH", "CN", "IT", "JP"],datasets:[{data:[147, 61, 47, 42, 38, 18, 15, 14, 12],backgroundColor:chartColors,borderWidth:0}]},options:dOpt});
+new Chart(document.getElementById('chartWeeklyTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'Solved',data:[467, 433, 394, 476],backgroundColor:['#0ea5e9','#6366f1','#f97316','#22c55e'],borderRadius:8,barPercentage:0.55}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font="bold 13px "+fontFamily;ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}}],options:{responsive:true,maintainAspectRatio:true,aspectRatio:3.2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:13,weight:'600'}}},y:{grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
+new Chart(document.getElementById('chartChannel'),{type:'doughnut',data:{labels:["Web", "Email", "API"],datasets:[{data:[182, 160, 52],backgroundColor:['#0ea5e9','#6366f1','#f97316'],borderWidth:0}]},options:dOptLegend});
+new Chart(document.getElementById('chartSentiment'),{type:'doughnut',data:{labels:["Neutral", "Negative", "Very Negative", "Positive", "Very Positive"],datasets:[{data:[226, 157, 8, 2, 1],backgroundColor:['#94a3b8','#f97316','#ef4444','#22c55e','#0ea5e9'],borderWidth:0}]},options:dOptLegend});
+new Chart(document.getElementById('chartCBTrend'),{type:'bar',data:{labels:["FEB W1", "FEB W2", "FEB W3", "FEB W4"],datasets:[{label:'CB',data:[85, 86, 64, 75],backgroundColor:['#94a3b8','#94a3b8','#64748b','#2563EB'],borderRadius:8,borderSkipped:false,barPercentage:0.55}]},plugins:[{afterDatasetsDraw:function(chart){var ctx=chart.ctx;chart.data.datasets.forEach(function(ds,i){var meta=chart.getDatasetMeta(i);meta.data.forEach(function(bar,idx){ctx.fillStyle='#1e293b';ctx.font="bold 13px "+fontFamily;ctx.textAlign='center';ctx.fillText(ds.data[idx]+'건',bar.x,bar.y-8);});});}}],options:{responsive:true,maintainAspectRatio:true,aspectRatio:3.2,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.raw+'건'}}},scales:{x:{grid:{display:false},ticks:{color:'#475569',font:{size:13,weight:'600'}}},y:{beginAtZero:true,grid:{color:'#e2e8f0'},ticks:{color:'#64748b'}}}}});
 </script>
 
 <button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
