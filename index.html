@@ -924,26 +924,26 @@ var VERSION_HISTORY = {
 
     catCounts[cat] = (catCounts[cat] || 0) + 1;
     totalDocs++;
-    if (diff <= 7) newCount++;
 
     updates.push({ date: d, diff: diff, title: rawTitle, badge: badge, version: version, cat: cat, card: card });
   });
 
-  // 1) Add "Updated" badge on cards within 7 days
-  updates.forEach(function(u) {
-    var titleEl = u.card.querySelector('.lc-title');
-    if (titleEl && u.diff <= 7) {
-      titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">Updated</span>');
-    }
-  });
-
-  // 2) Sort categories by count descending
+  // 1) Sort categories by count descending
   var sortedCats = categories.map(function(c) {
     return { id: c.id, name: c.name, color: c.color, count: catCounts[c.id] || 0 };
   }).sort(function(a, b) { return b.count - a.count; });
 
-  // 3) Recent: newest 5 documents
+  // 2) Recent: newest 5 documents
   var recent = updates.slice().sort(function(a, b) { return a.diff - b.diff; }).slice(0, 5);
+
+  // 3) Add "Updated" badge on recent 5 cards
+  var recentCards = new Set(recent.map(function(u) { return u.card; }));
+  updates.forEach(function(u) {
+    var titleEl = u.card.querySelector('.lc-title');
+    if (titleEl && recentCards.has(u.card)) {
+      titleEl.insertAdjacentHTML('beforeend', '<span class="badge-updated">Updated</span>');
+    }
+  });
 
   // 4) Extract version from title
   function extractVersion(title) {
@@ -966,8 +966,8 @@ var VERSION_HISTORY = {
   h += '<div class="achievement-stats">';
   h += '<div class="achievement-stat"><div class="big-num">' + totalDocs + '</div><div class="big-label">전체 문서</div></div>';
   h += '<div class="achievement-stat"><div class="big-num">' + categories.length + '</div><div class="big-label">카테고리</div></div>';
-  if (newCount > 0) {
-    h += '<div class="achievement-stat accent"><div class="big-num">' + newCount + '</div><div class="big-label">신규 (7일)</div></div>';
+  if (recent.length > 0) {
+    h += '<div class="achievement-stat accent"><div class="big-num">' + recent.length + '</div><div class="big-label">최근 업데이트</div></div>';
   }
   h += '</div>';
 
