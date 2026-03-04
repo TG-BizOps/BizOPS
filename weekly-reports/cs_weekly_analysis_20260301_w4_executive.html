@@ -436,34 +436,6 @@
       <a href="https://tg-bizops.github.io/BizOPS/" target="_blank" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:8px;padding:6px 14px;font-size:11px;font-weight:600;color:#fff;text-decoration:none;">포탈 바로가기 →</a>
     </div>
 
-    <!-- Before / After -->
-    <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:16px;">
-      <div style="font-size:14px;font-weight:800;margin-bottom:14px;">Before → After</div>
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:0;align-items:stretch;">
-        <div style="padding:16px;border-radius:10px;background:#FEF2F2;border:1px solid #FECACA;">
-          <div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#DC2626;margin-bottom:10px;">BEFORE (Phase 1)</div>
-          <ul style="list-style:none;padding:0;margin:0;font-size:11.5px;line-height:1.8;color:var(--text-secondary);">
-            <li style="display:flex;gap:6px;"><span style="color:#DC2626;font-weight:800;font-size:10px;">✕</span> 문서 위치 파악에 30분+ 소요</li>
-            <li style="display:flex;gap:6px;"><span style="color:#DC2626;font-weight:800;font-size:10px;">✕</span> 문서 수정 요청 → 슬랙 DM / 구두 전달</li>
-            <li style="display:flex;gap:6px;"><span style="color:#DC2626;font-weight:800;font-size:10px;">✕</span> 요청 처리 여부 추적 불가</li>
-            <li style="display:flex;gap:6px;"><span style="color:#DC2626;font-weight:800;font-size:10px;">✕</span> 문서 버전 확인 → 파일명 / 히스토리 수동 확인</li>
-            <li style="display:flex;gap:6px;"><span style="color:#DC2626;font-weight:800;font-size:10px;">✕</span> 담당자 부재 시 업무 중단</li>
-          </ul>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:800;color:#2563EB;padding:0 10px;">→</div>
-        <div style="padding:16px;border-radius:10px;background:#ECFDF5;border:1px solid #A7F3D0;">
-          <div style="font-size:10px;font-weight:800;letter-spacing:1px;color:#059669;margin-bottom:10px;">AFTER (Phase 2)</div>
-          <ul style="list-style:none;padding:0;margin:0;font-size:11.5px;line-height:1.8;color:var(--text-secondary);">
-            <li style="display:flex;gap:6px;"><span style="color:#059669;font-weight:800;font-size:10px;">✓</span> 팀원 누구나 10초 내 원하는 문서 접근</li>
-            <li style="display:flex;gap:6px;"><span style="color:#059669;font-weight:800;font-size:10px;">✓</span> 포털에서 직접 요청 → Slack 자동 알림 → Sheets 자동 기록</li>
-            <li style="display:flex;gap:6px;"><span style="color:#059669;font-weight:800;font-size:10px;">✓</span> 현황판에서 대기/진행/완료 실시간 확인</li>
-            <li style="display:flex;gap:6px;"><span style="color:#059669;font-weight:800;font-size:10px;">✓</span> 버전 배지 + 히스토리 토글로 즉시 확인</li>
-            <li style="display:flex;gap:6px;"><span style="color:#059669;font-weight:800;font-size:10px;">✓</span> 매뉴얼 기반 즉시 대응, 업무 연속성 100%</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
     <!-- Phase 2 완료 상세 -->
     <div style="background:var(--bg-card);border:1px solid var(--border);border-radius:14px;padding:20px 24px;margin-bottom:16px;">
       <div style="font-size:14px;font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:8px;">
@@ -484,37 +456,7 @@
       </table>
     </div>
 
-    <!-- KPI Impact Cards — Phase 1 -->
-    <div style="font-size:11px;font-weight:700;color:#64748B;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Phase 1 — 포탈 구축 성과</div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
-      <div class="pj-kpi-card" style="background:var(--bg-card);border-radius:12px;padding:18px;text-align:center;border:1px solid var(--border);">
-        <div style="font-size:24px;margin-bottom:4px;">⚡</div>
-        <div style="font-size:28px;font-weight:900;color:#2563EB;">98%<span style="font-size:12px;font-weight:600;color:var(--text-muted);margin-left:4px;">단축</span></div>
-        <div style="font-size:12px;font-weight:700;margin:4px 0 2px;">문서 접근 시간</div>
-        <div style="font-size:11px;color:#94A3B8;text-decoration:line-through;">30분+ (슬랙/이메일 문의)</div>
-        <div style="font-size:13px;font-weight:700;color:#059669;">→ 10초 (URL 즉시 접근)</div>
-        <div style="font-size:10px;color:#64748b;margin-top:4px;">팀원 4명 실측 평균</div>
-      </div>
-      <div class="pj-kpi-card" style="background:var(--bg-card);border-radius:12px;padding:18px;text-align:center;border:1px solid var(--border);">
-        <div style="font-size:24px;margin-bottom:4px;">🎓</div>
-        <div style="font-size:28px;font-weight:900;color:#2563EB;">75%<span style="font-size:12px;font-weight:600;color:var(--text-muted);margin-left:4px;">단축</span></div>
-        <div style="font-size:12px;font-weight:700;margin:4px 0 2px;">신규 온보딩 기간</div>
-        <div style="font-size:11px;color:#94A3B8;text-decoration:line-through;">2~3주 (구두 인수인계)</div>
-        <div style="font-size:13px;font-weight:700;color:#059669;">→ 3~5일 (셀프 온보딩)</div>
-        <div style="font-size:10px;color:#64748b;margin-top:4px;">CS/차지백/IP 3개 영역 온보딩 기준</div>
-      </div>
-      <div class="pj-kpi-card" style="background:var(--bg-card);border-radius:12px;padding:18px;text-align:center;border:1px solid var(--border);">
-        <div style="font-size:24px;margin-bottom:4px;">🔄</div>
-        <div style="font-size:28px;font-weight:900;color:#2563EB;">100%</div>
-        <div style="font-size:12px;font-weight:700;margin:4px 0 2px;">업무 연속성 확보</div>
-        <div style="font-size:11px;color:#94A3B8;text-decoration:line-through;">담당자 부재 시 업무 중단</div>
-        <div style="font-size:13px;font-weight:700;color:#059669;">→ 매뉴얼 기반 즉시 대응</div>
-        <div style="font-size:10px;color:#64748b;margin-top:4px;">담당자 부재 시에도 동일 품질 업무 수행</div>
-      </div>
-    </div>
-
     <!-- KPI Impact Cards — Phase 2 -->
-    <div style="font-size:11px;font-weight:700;color:#64748B;margin-bottom:6px;text-transform:uppercase;letter-spacing:0.5px;">Phase 2 — 협업 인프라 성과</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px;">
       <div class="pj-kpi-card" style="background:var(--bg-card);border-radius:12px;padding:18px;text-align:center;border:1px solid var(--border);">
         <div style="font-size:24px;margin-bottom:4px;">📋</div>
@@ -551,11 +493,6 @@
       <div class="pj-phase-card pj-phase-future" style="background:var(--bg-card);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center;border-top:3px solid #94a3b8;"><div style="display:inline-block;padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;background:#f1f5f9;color:#64748b;margin-bottom:4px;">📋 Q4</div><div style="font-size:13px;font-weight:800;">Phase 5</div><div style="font-size:11px;color:var(--text-muted);margin-top:2px;">프로세스 변경 시 문서 자동 갱신</div></div>
     </div>
 
-    <!-- Key Message -->
-    <div style="background:linear-gradient(135deg,#EEF2FF,#E0E7FF);border:1px solid #C7D2FE;border-radius:14px;padding:18px 24px;text-align:center;">
-      <div style="font-size:13px;font-weight:600;color:#3730A3;line-height:1.6;">단독 기획/작성 · GitHub Pages · 자동 인덱싱 · Git 버전 관리 · 요청 시스템 · Slack 알림</div>
-      <div style="font-size:12px;font-weight:700;color:#6366F1;margin-top:8px;">Phase 1(지식 구조화) + Phase 2(협업 인프라)를 완료하여, 팀 누구나 문서 열람·요청·추적이 가능한 자기완결형 운영 시스템을 구축했습니다.</div>
-    </div>
   </div>
 
   
