@@ -407,14 +407,6 @@
     flex-shrink: 0; white-space: nowrap;
   }
 
-  /* Status Badge */
-  .status-badge {
-    font-size: 11px; font-weight: 700; padding: 2px 10px;
-    border-radius: 6px; margin-left: 4px;
-  }
-  .status-active { background: #DBEAFE; color: #2563EB; }
-  .status-complete { background: #DCFCE7; color: #16A34A; }
-
   .footer {
     text-align: center; padding: 24px; font-size: 12px;
     color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px;
@@ -549,7 +541,6 @@
   <div class="accordion" id="sec-cs">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-blue">CS</span> CS 운영
-      <span class="status-badge status-active">운영중</span>
       <span class="count">8건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -571,7 +562,6 @@
   <div class="accordion" id="sec-chatbot">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-purple">AI</span> AI 챗봇
-      <span class="status-badge status-complete">완료</span>
       <span class="count">13건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -598,7 +588,6 @@
   <div class="accordion" id="sec-cb">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-amber">CB</span> 차지백
-      <span class="status-badge status-active">운영중</span>
       <span class="count">4건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -616,7 +605,6 @@
   <div class="accordion" id="sec-ip">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-green">IP</span> IP 보호
-      <span class="status-badge status-complete">완료</span>
       <span class="count">1건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -631,7 +619,6 @@
   <div class="accordion" id="sec-ticket">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-red">TK</span> 티켓 대시보드
-      <span class="status-badge status-complete">완료</span>
       <span class="count">2건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -647,7 +634,6 @@
   <div class="accordion" id="sec-tpl">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon ic-slate">E</span> 기타
-      <span class="status-badge status-complete">완료</span>
       <span class="count">3건</span>
       <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
     </button>
@@ -663,10 +649,11 @@
   <!-- 변경 히스토리 (숨김 처리) -->
   <details class="history-details" id="sec-history">
     <summary class="history-summary">
-      변경 히스토리 <span class="count">전체 24건</span>
+      변경 히스토리 <span class="count">전체 25건</span>
     </summary>
     <div class="history-content">
       <ul class="history-list">
+        <li class="history-item"><span class="history-date">2026-03-04</span><span class="history-msg">카테고리 상태 배지(완료/운영중) 제거 + 최근 업데이트 버전 표시 개선</span></li>
         <li class="history-item"><span class="history-date">2026-03-04</span><span class="history-msg">포털 정리: 주간 리포트 등 성격 불일치 문서 reports/ 폴더로 분리 + 문서 버전 배지 UI 추가</span></li>
         <li class="history-item"><span class="history-date">2026-03-04</span><span class="history-msg">포탈 UX 개선: 멀티 필터 검색, 문서 상태 태그, 최근 업데이트 하이라이트, 버전 아카이브 추가</span></li>
         <li class="history-item"><span class="history-date">2026-03-03</span><span class="history-msg">골든 템플릿 v3.0 — 상세본+요약본(Executive) 듀얼 구조 통합</span></li>
@@ -923,6 +910,7 @@ var VERSION_HISTORY = {
     var diff = Math.floor((now - d) / DAY);
     var rawTitle = (card.querySelector('.lc-title')?.textContent || '').trim();
     var badge = (card.querySelector('.lc-badge')?.textContent || '').trim();
+    var version = (card.querySelector('.lc-version')?.textContent || '').trim();
     var acc = card.closest('.accordion');
     var cat = acc ? acc.id : '';
 
@@ -930,7 +918,7 @@ var VERSION_HISTORY = {
     totalDocs++;
     if (diff <= 7) newCount++;
 
-    updates.push({ date: d, diff: diff, title: rawTitle, badge: badge, cat: cat, card: card });
+    updates.push({ date: d, diff: diff, title: rawTitle, badge: badge, version: version, cat: cat, card: card });
   });
 
   // 1) Add "Updated" badge on cards within 7 days
@@ -997,7 +985,7 @@ var VERSION_HISTORY = {
     recent.forEach(function(u) {
       var catData = categories.find(function(c) { return c.id === u.cat; });
       var color = catData ? catData.color : '#94A3B8';
-      var ver = extractVersion(u.title);
+      var ver = u.version || extractVersion(u.title);
       var cleanTitle = u.title.replace(/Updated/g, '').trim();
       h += '<div class="recent-item">';
       h += '<span class="recent-dot" style="background:' + color + ';"></span>';
