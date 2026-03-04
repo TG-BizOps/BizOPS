@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="date" content="2026-03-04">
+<title>Zendesk FAQ — Italiano | BizOps</title>
+<style>
+:root {
+  --brand-primary: #3B1F8E;
+  --brand-secondary: #5B3CC4;
+  --brand-accent: #7C5CFC;
+  --brand-light: #EDE8FF;
+  --brand-bg: #F7F5FF;
+  --navy: #1A1A2E;
+  --dark: #2D2D3F;
+  --text: #333344;
+  --text-light: #666680;
+  --border: #D8D8E8;
+  --success: #28A06C;
+  --warning: #E8A020;
+  --danger: #E8320A;
+  --info: #2196F3;
+  --white: #FFFFFF;
+  --bg-light: #FAFAFE;
+  --bg-card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(59,31,142,0.06);
+}
+/* ─── Header ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--brand-primary) 100%);
+  color: var(--white);
+  padding: 64px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--danger);
+}
+.cover h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+.cover .meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; opacity: 0.85;
+}
+.cover .meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover .meta span::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(255,255,255,0.6);
+}
+/* ─── TOC ─── */
+.toc {
+  background: var(--brand-bg); border: 1px solid var(--brand-light);
+  border-radius: 8px; padding: 32px 40px; margin: 40px 32px;
+}
+.toc h2 {
+  color: var(--brand-primary); font-size: 20px; font-weight: 700;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--danger); display: inline-block;
+}
+.toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+.toc ol li {
+  counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0;
+  border-bottom: 1px solid rgba(124,92,252,0.1);
+}
+.toc ol li:last-child { border-bottom: none; }
+.toc ol li::before {
+  content: counter(toc-counter) "."; color: var(--danger);
+  font-weight: 700; margin-right: 10px; font-size: 14px;
+}
+.toc ol li a {
+  color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--brand-secondary); }
+.toc ol li .badge {
+  display: inline-block; background: var(--danger); color: var(--white);
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px; vertical-align: middle;
+}
+/* ─── Content ─── */
+.content { padding: 16px 32px 64px; }
+h1.section-heading {
+  color: var(--brand-primary); font-size: 24px; font-weight: 800;
+  margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px;
+}
+h1.section-heading .section-icon { margin-right: 8px; }
+h2.sub-section {
+  color: var(--brand-secondary); font-size: 18px; font-weight: 700;
+  margin-top: 32px; margin-bottom: 12px; padding-left: 14px;
+  border-left: 4px solid var(--danger);
+}
+/* ─── Accordion ─── */
+details {
+  margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+details[open] { box-shadow: 0 2px 8px rgba(59,31,142,0.08); }
+summary {
+  padding: 14px 20px; cursor: pointer; font-weight: 600; font-size: 15px;
+  color: var(--dark); list-style: none; display: flex; align-items: center;
+  gap: 10px; transition: background 0.15s;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: '▶'; font-size: 10px; color: var(--danger);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: var(--brand-bg); }
+summary .art-count {
+  margin-left: auto; font-size: 11px; font-weight: 700;
+  background: var(--brand-bg); color: var(--brand-primary);
+  padding: 2px 10px; border-radius: 12px;
+}
+.article-body {
+  padding: 16px 24px 20px; border-top: 1px solid var(--border);
+  font-size: 14px; line-height: 1.75; color: var(--text);
+}
+.article-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+.article-body ul, .article-body ol { margin: 8px 0 12px; padding-left: 24px; }
+.article-body li { margin-bottom: 4px; }
+.article-body p { margin-bottom: 10px; }
+.article-body a { color: var(--brand-secondary); }
+.article-link {
+  display: inline-block; margin-top: 10px; font-size: 12px;
+  color: var(--danger); text-decoration: none; font-weight: 600;
+}
+.article-link:hover { text-decoration: underline; }
+.article-date {
+  font-size: 11px; color: var(--text-light); margin-top: 4px;
+}
+.fetch-fail {
+  padding: 12px 20px; color: var(--text-light); font-style: italic; font-size: 13px;
+}
+/* ─── Footer ─── */
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+/* ─── Print ─── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { box-shadow: none; max-width: 100%; padding: 0; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 40px 32px; }
+  .toc { page-break-after: always; }
+  h1.section-heading { page-break-before: always; margin-top: 24px; }
+  h1.section-heading:first-of-type { page-break-before: avoid; }
+  details { page-break-inside: avoid; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 24px; }
+  .toc { margin: 24px 16px; padding: 20px 24px; }
+  .content { padding: 16px 16px 48px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Zendesk FAQ — Italiano (IT)</h1>
+  <p class="subtitle">TOOMICS Global Help Center FAQ Collection</p>
+  <div class="meta">
+    <span>Language: Italiano</span>
+    <span>Articles: 39</span>
+    <span>Generated: 2026-03-04</span>
+  </div>
+</div>
+
+<div class="toc"><h2>목차 / Table of Contents</h2><ol>
+<li><a href="#account-management">👤 Account Management</a><span class="badge">16</span></li>
+<li><a href="#vip-membership---coins">⭐ VIP Membership &amp; Coins</a><span class="badge">15</span></li>
+<li><a href="#toomics-store">🏪 TOOMICS STORE</a><span class="badge">7</span></li>
+<li><a href="#event---benefits">🎁 Event / Benefits</a><span class="badge">1</span></li>
+</ol></div>
+<div class="content">
+<h1 class="section-heading" id="account-management"><span class="section-icon">👤</span>Account Management</h1>
+<h2 class="sub-section">Configurazione e accesso all'account</h2>
+<details>
+<summary>Che cosa sono l'accesso via email o l'accesso via social media?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Quando ti registri su Toomics, offriamo diversi modi per creare un account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Puoi registrarti con il tuo indirizzo email (email), altrimenti, puoi registrarti tramite le nostre opzioni di social media come Facebook, Line, Yahoo, Google, X o il tuo account Apple.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se ti registri con un indirizzo email, dovrai accedere digitando il tuo indirizzo email e la password.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se ti registri tramite social media (Facebook, Line, Yahoo, Google o X), dovrai accedere tramite le icone situate nella parte inferiore della schermata di [Accesso].</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se desideri accedere all'account che è legato al tuo account social, accedere DIGITANDO il tuo indirizzo email creerà solo un altro account. Assicurati di accedere tramite l'opzione social media per accedere al tuo<strong> Abbonamento</strong> VIP.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tieni presente che è possibile creare diversi account con lo stesso indirizzo email, o anche con errori di battitura (nel caso di account di accesso tramite email), quindi ti consigliamo di essere attento quando crei il tuo account Toomics.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411499496985-Che-cosa-sono-l-accesso-via-email-o-l-accesso-via-social-media" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come registrarsi a un account Toomics?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Puoi registrarti gratuitamente sul nostro sito principale.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Clicca sul menu in alto a destra per trovare il pulsante &lt;Accedi&gt;. Clicca su &lt;Accedi&gt;, poi su &lt;Registrati&gt; per creare un account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Assicurati di accettare i nostri Termini <strong>d’Uso</strong> e la nostra Politica sulla Privacy.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Puoi anche creare un account tramite altri account social media come Facebook, Google, Yahoo, Line e X.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Ricorda che accedere con il tuo account social è diverso dall'accedere con un account regolare (email).</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se hai creato un account tramite le nostre opzioni social, per favore accedi cliccando su una delle icone appropriate nella schermata di [Accesso].</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411462978201-Come-registrarsi-a-un-account-Toomics" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come unire gli account<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Per quanto riguarda l'unione degli account, si noti che quando unisci il tuo account Web con un account App, le informazioni sull'account App che hai unito si sincronizzeranno automaticamente con l'account Web e i <strong>Coin </strong>acquistate sull'App verranno direttamente concesse all'account Web.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tuttavia, si noti che, ci sono casi in cui gli utenti potrebbero creare diversi account App e effettuare un acquisto su un account App diverso da quello <strong>a cui</strong> è stato unito, nella maggior parte dei casi<strong> questo avviene</strong> perché l'utente non ha effettuato l'accesso durante l'acquisto.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">In tal caso, dovresti contattarci e procederemo a darti accesso ai <strong>Coin </strong>che hai acquistato ma a cui non <strong>puoi</strong> accedere.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411692203033-Come-unire-gli-account" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Ho fatto un acquisto sul Sito Web, come posso leggerlo sull'App?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Se hai fatto un acquisto sul Sito Web e desideri leggere sull'App, tutto ciò che devi fare è accedere all'app usando l'account Toomics al quale hai legato <span style="background-color: #ffffff;">il tuo </span><strong><span style="background-color: #ffffff;">Abbonamento</span></strong> VIP.</p>
+<p> </p>
+<p>Si noti che, per ora, in conformità con le politiche di Google Play Store e Apple App Store, non possiamo supportare alcun tipo di contenuto per adulti all'interno della nostra app, motivo per cui non sarai in grado di accedere ai nostri <strong>Comic per adulti</strong>. Ci scusiamo sinceramente per l'inconveniente.</p>
+<p> </p>
+<p>Se vuoi disattivare il pulsante Filtro Famiglia, fallo tramite il nostro sito web <a href="http://www.toomics.com/it">www.toomics.com/it</a> sia tramite il tuo PC che tramite un browser web sul tuo <strong>smartphone</strong>.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411686159129-Ho-fatto-un-acquisto-sul-Sito-Web-come-posso-leggerlo-sull-App" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Non riesco a trovare il mio account<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Se hai difficoltà a trovare il tuo account Toomics, prova a controllare l'email di conferma dell'acquisto inviata all'indirizzo email che hai registrato al momento dell'acquisto.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><img src="https://help.toomicsglobal.com/hc/article_attachments/39411555409689" width="412" height="749"></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p>In alternativa, contattaci direttamente e fornisci le seguenti informazioni:</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<ol>
+<li>Abbiamo bisogno che tu ci fornisca uno screenshot della ricevuta (la data dell'acquisto e il nome della nostra azienda devono essere chiaramente visibili).</li>
+<li>Le ultime 4 cifre della tua carta di credito/debito.</li>
+<li>Invia anche indirizzi email alternativi che potresti aver usato per creare un account con Toomics.</li>
+</ol>
+<p class="wysiwyg-text-align-justify"> </p>
+<p>Capisco che possano essere informazioni molto personali, ma ti assicuriamo che tutte le informazioni che ci fornisci sono altamente confidenziali.</p>
+<p class="wysiwyg-text-align-justify"> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411541576729-Non-riesco-a-trovare-il-mio-account" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Non riesco ad accedere tramite il mio account social!<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Quando ti registri per Toomics, offriamo due modi per creare un account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Puoi registrarti solo con la tua email (account email), altrimenti, puoi registrarti tramite Facebook, Line, Yahoo, Google o X (sito web di terze parti).</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se ti sei registrato con un indirizzo email, dovrai continuare ad accedere con la tua email e password.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se accedi tramite un sito web di terze parti, dovrai</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">accedere tramite le icone nella parte inferiore della schermata di [Accesso].</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Nota che l'accesso con un account social E un account email regolare sono due account separati.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se sei un membro VIP tramite siti web di terze parti, avrai accesso solo al</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">contenuto VIP accedendo tramite siti web di terze parti.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se sei un membro VIP tramite un account email, avrai accesso solo al contenuto VIP accedendo con la tua email e password.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411536015385-Non-riesco-ad-accedere-tramite-il-mio-account-social" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Perché ci sono così tanti domini?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Si noti che abbiamo creato diversi domini per commercializzare e pubblicizzare i nostri contenuti su diverse piattaforme e reti di social media.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tuttavia, il nostro dominio principale è toomics.com/it, quindi ti consigliamodi continuare a utilizzare il dominio sopra indicato.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411822357785-Perch%C3%A9-ci-sono-cos%C3%AC-tanti-domini" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Perché devo selezionare un genere?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Nota che selezionando un genere, l'algoritmo del nostro sistema raccomanderà automaticamente certi tipi di <strong>Comic </strong>e generi.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se non desideri che il nostro sistema personalizzi le preferenze del tuo account in base al tuo genere, seleziona l'opzione "sconosciuto".</p>
+<p class="wysiwyg-text-align-justify"> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411458658713-Perch%C3%A9-devo-selezionare-un-genere" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Qual è la differenza tra un account Web e un account App?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Un account Web è un account creato direttamente sul sito web tramite PC o browser web.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Invece, un account App è il numero di serie dell'App che stai usando sul tuo telefono senza aver effettuato l'accesso.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tieni presente che puoi sempre collegare il tuo account Web a un account App e viceversa.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Ci sono casi in cui l'utente potrebbe creare diversi account App ogni volta che l'App viene disinstallata e reinstallata, quindi, per favore, evita di disinstallare l'app e contattaci direttamente.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411579899161-Qual-%C3%A8-la-differenza-tra-un-account-Web-e-un-account-App" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">Impostazioni dell'Account</h2>
+<details>
+<summary>Come posso cambiare la mia password?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><span class="wysiwyg-underline">Per gli utenti PC:</span></p>
+<p class="wysiwyg-text-align-justify">Vai a [Impostazioni Account] per accedere alle tue impostazioni dell'account e cambiare la tua password da lì.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><span class="wysiwyg-underline">Per gli utenti Mobile:</span></p>
+<p class="wysiwyg-text-align-justify">Vai all'icona del menu nella parte superiore giusto dello schermo e cambia la tua password attraverso [Impostazioni Account]</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Si prega di notare che un reset della password potrebbe non funzionare se è stato utilizzato un carattere speciale: ! @ # $ % ^ &amp; * ( )</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se uno dei caratteri speciali sopra menzionati è stato utilizzato durante il cambio o il reset della password, c'è una grande possibilità che la password non venga cambiata o reimpostata.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Raccomandiamo di controllare o cambiare la tua password secondo gli standard trovati su Toomics.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Inoltre, se hai problemi a reimpostare la tua password e il tuo account Toomics è legato a un account sui social media, purtroppo non possiamo reimpostare manualmente la tua password da parte nostra. Tuttavia, possiamo trasferire il tuo account a un account di accesso via email e poi reimpostare la password per te.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Una volta fatto, ogni volta che accedi al tuo account Toomics, dovrai digitare manualmente l'indirizzo email e la password nella finestra di accesso.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">In caso tu desideri che reimpostiamo manualmente la tua password, ti preghiamo di contattarci direttamente e fornirci le seguenti informazioni:</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong>Login (email):</strong></p>
+<p class="wysiwyg-text-align-justify"><strong>Nuova password:</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39412573547033-Come-posso-cambiare-la-mia-password" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come posso cambiare le mie informazioni di accesso?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">Si prega di notare che possiamo trasferire il tuo </span><strong><span style="background-color: #ffffff;">abbonamento </span></strong><span style="background-color: #ffffff;">all'indirizzo email di tua scelta e reimpostare la tua password per rendere l'accesso più comodo per te. Ti preghiamo di contattarci direttamente e fornirci le informazioni sottostanti per procedere:</span></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong><span style="background-color: #ffffff;">Login (email):</span></strong></p>
+<p class="wysiwyg-text-align-justify"><strong><span style="background-color: #ffffff;">Nuova password:</span></strong></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">Tieni presente che, nel caso di account creati tramite Apple ID, non abbiamo l'opzione di convertire l'account sui social media in un account email regolare. Pertanto, non abbiamo nemmeno l'opzione di cambiare o modificare la password dell'account. Queste restrizioni sono state applicate direttamente da Apple e, purtroppo, non abbiamo alcun controllo su queste restrizioni.</span></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">Ci scusiamo per l'inconveniente e chiediamo la tua pazienza e comprensione.</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39412844981657-Come-posso-cambiare-le-mie-informazioni-di-accesso" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come posso disattivare/riattivare/eliminare il mio account?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Disattiva Account</span></strong></p>
+<p class="wysiwyg-text-align-justify">Ci dispiace sapere che desideri disattivare il tuo account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><em>Per gli utenti PC:</em></p>
+<ol class="wysiwyg-text-align-justify">
+<li>Accedi a Toomics.</li>
+<li>Clicca &lt;Menu Impostazioni [≡]&gt; per vedere &lt;Impostazioni Account&gt; e &lt;Disattiva Account&gt;</li>
+</ol>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><em>Per gli utenti Mobile:</em></p>
+<ol class="wysiwyg-text-align-justify">
+<li>Accedi a Toomics</li>
+<li>Vai sull'icona del menu sulla destra e scegli [Impostazioni Account] e [Disattiva Account]</li>
+</ol>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tieni presente che se sei un Membro VIP su Toomics, dovrai cancellare la tua iscrizione prima, per poter disattivare il tuo account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Riattiva Account</span></strong></p>
+<p class="wysiwyg-text-align-justify">Sembra che tu desideri riattivare il tuo account Toomics.</p>
+<p class="wysiwyg-text-align-justify">Siamo felici di rivederti! :)</p>
+<p class="wysiwyg-text-align-justify">Per riattivare il tuo account Toomics, contattaci direttamente e facci sapere l'account che desideri riattivare, procederemo con la riattivazione il prima possibile!</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Elimina Account</span></strong></p>
+<p class="wysiwyg-text-align-justify">Per eliminare il tuo account Toomics ti preghiamo di contattarci direttamente e farci sapere l'account che desideri eliminare.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Inoltre, ti chiediamo gentilmente di confermare i seguenti elementi per permetterci di procedere con la tua richiesta di rimozione delle informazioni del tuo account Toomics.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<ol class="wysiwyg-text-align-justify">
+<li>Nota che è necessario che il tuo account Toomics sia disattivato prima che tutte le tue informazioni personali vengano eliminate. Sei d'accordo a disattivare il tuo account Toomics?</li>
+<li>Una volta che le tue informazioni personali saranno rimosse, Toomics non potrà ripristinare tali informazioni in nessuna circostanza.</li>
+<li>Tutti i <strong>Coin</strong> <strong>inutilizzati </strong>che rimangono sul tuo account Toomics saranno <strong>rimossi </strong>di conseguenza.</li>
+<li>L'accesso a tutti <strong>gli</strong> <strong>episodi </strong>che hai acquistato con i <strong>Coin </strong>sarà anche rimosso di conseguenza.</li>
+<li>L'<strong>abbonamento</strong> VIP legato al tuo account Toomics sarà anche rimosso di conseguenza anche se non è ancora scaduto (E non sarà rimborsato​, a meno che tu non lo chieda e tu sia idoneo per un rimborso).</li>
+</ol>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se sei d'accordo con le condizioni sopra menzionate e desideri che procediamo con la disattivazione del tuo account e la rimozione di tutte le tue informazioni personali.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411975075609-Come-posso-disattivare-riattivare-eliminare-il-mio-account" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come posso verificare il mio numero di telefono?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Prima di tutto, ci scusiamo sinceramente per gli inconvenienti che hai riscontrato mentre utilizzavi il nostro servizio.</p>
+<p> </p>
+<p>Il nostro team sta costantemente lavorando per offrire i migliori <strong>Comic </strong>e rendere la tua esperienza con Toomics il più sicura possibile.</p>
+<p> </p>
+<p>Per prevenire la distribuzione illegale dei nostri ultimi <strong>episodi </strong>premium, abbiamo recentemente aggiunto un passaggio di verifica dello <strong>smartphone </strong>al nostro sistema. Tuttavia, ci è stato notificato che questo processo di verifica sembra causare errori e, di conseguenza, causare un grande inconveniente agli utenti che visualizzano i nostri contenuti premium.</p>
+<p> </p>
+<p>Se hai problemi a verificare il tuo numero di telefono, ti preghiamo di contattarci direttamente e farci sapere l'account che desideri verificare, procederemo a verificarlo manualmente per te.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39412672601753-Come-posso-verificare-il-mio-numero-di-telefono" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Come tenere traccia dei Comic che ho letto di recente?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><strong>Vuoi ritrovare le tue ultime avventure nei Comic? </strong>Naviga semplicemente in <strong>'Lettura' </strong>e controlla la sezione 'Letto di Recente'. Qui, troverai tutti i <strong>Comic </strong>che hai <strong>visualizzato</strong> di recente. Ricorda, le voci più vecchie saranno gradualmente cancellate dal nostro sistema.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong>Mancano alcuni titoli? </strong>Potrebbe essere dovuto al <strong>Filtro</strong> Famiglia attivo o alla visualizzazione di <strong>episodi </strong>gratuiti senza essere loggato. Per assicurarti che la tua cronologia di lettura rimanga aggiornata, assicurati di essere loggato e aggiusta le tue impostazioni come necessario.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong>Vuoi pulire la tua lista? </strong>Per eliminare gli elementi dalla tua lista <strong>Lettura</strong>, clicca sull'icona del cestino. Seleziona la serie che desideri rimuovere cliccando sull’ icona, e voilà—la tua lista sarà aggiornata e pronta per il tuo prossimo viaggio nel mondo dei <strong>Comic</strong>!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411930843545-Come-tenere-traccia-dei-Comic-che-ho-letto-di-recente" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Ho raggiunto il limite di 10 volte per inserire la mia password, cosa dovrei fare?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Se hai raggiunto il limite di 10 volte per inserire la tua password, ti preghiamo di contattarci direttamente e fornirci le seguenti informazioni:</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong>Login (email):</strong></p>
+<p class="wysiwyg-text-align-justify"><strong>Nuova password:</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39412628219929-Ho-raggiunto-il-limite-di-10-volte-per-inserire-la-mia-password-cosa-dovrei-fare" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Problemi con la lista dei preferiti<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Sembra che tu stia riscontrando difficoltà a visualizzare le nostre serie dalla tua lista "<strong>Preferiti</strong>".</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se leggi i <strong>Comic </strong>sul nostro sito web, potresti aver <strong>attivato</strong> il pulsante <strong>Filtro Famiglia</strong>  situato in alto sul sito di Toomics. <strong>Disattivarlo</strong> ti permetterà di visualizzare i nostri contenuti premium per adulti e, inoltre, i tuoi contenuti per adulti selezionati verranno mostrati anche nella lista "<strong>Preferiti</strong>".</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Tuttavia, nota che nella nostra app mobile, non possiamo supportare alcun tipo di contenuto per adulti in conformità con le politiche del Google Play Store e dell'Apple App Store. Di conseguenza, se desideri leggere i nostri <strong>Comic </strong>per adulti, devi accedervi attraverso il nostro sito web <a href="http://www.toomics.com/it">www.toomics.com/it</a> tramite PC o tramite un browser web sul tuo <strong>smartphone</strong>.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39411882024857-Problemi-con-la-lista-dei-preferiti" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="vip-membership---coins"><span class="section-icon">⭐</span>VIP Membership &amp; Coins</h1>
+<h2 class="sub-section">Abbonamento VIP</h2>
+<details>
+<summary>Avrò ancora accesso al contenuto che ho letto dopo la scadenza dell'Abbonamento VIP?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Purtroppo, dopo la scadenza dell'Abbonamento VIP, non avrai più accesso al contenuto che hai letto, poiché l'Abbonamento VIP ti concede l'accesso a tutti i contenuti esclusivi per VIP solo durante il periodo che hai selezionato.</p><p>Data di scadenza:<br>Puoi sempre controllare la data di scadenza del tuo abbonamento cliccando sul Menu Impostazioni [≡] situato nell'angolo in alto a destra dello schermo.<br>In alternativa, puoi cliccare su Impostazioni account e troverai le informazioni nell'angolo in alto a destra dello schermo.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328315780761-Avr%C3%B2-ancora-accesso-al-contenuto-che-ho-letto-dopo-la-scadenza-dell-Abbonamento-VIP" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>C'è un'opzione di prova gratuita?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>No, sfortunatamente, non c'è modo di ottenere una “Prova Gratuita” senza aver acquistato almeno uno dei piani di Abbonamento VIP disponibili sulla nostra piattaforma.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328593751577-C-%C3%A8-un-opzione-di-prova-gratuita" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Che cos'è il “Mese Gratuito”?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Offriamo la possibilità di ricevere un “Mese Gratuito” invece di cancellare il tuo Abbonamento VIP, così potrai accedere a tutte le nostre serie di webtoon senza costi per 30 giorni.</p><p>Ti ricordiamo però che, al termine del “Mese Gratuito”, il tuo abbonamento si rinnoverà automaticamente a meno che tu non lo cancelli prima della data di scadenza.</p><p>Potresti aver notato che il pulsante per la cancellazione dell’abbonamento non è visibile: ricomparirà durante la seconda o terza settimana del “Mese Gratuito”.</p><p>In ogni caso, puoi sempre chiederci di cancellare manualmente il tuo abbonamento in qualsiasi momento! Se desideri che lo annulliamo direttamente per te, ti invitiamo a contattarci.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328507393689-Che-cos-%C3%A8-il-Mese-Gratuito" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Come posso annullare il mio Abbonamento VIP?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Sembra che tu voglia sapere come annullare il tuo Abbonamento VIP!<br>Per cancellare l’abbonamento, segui le istruzioni qui sotto in base al metodo con cui hai effettuato l’acquisto:</p><p>Sito web Toomics:<br>Accedi al tuo account Toomics su Toomics e clicca sull’icona con le 3 linee in alto a destra.<br>Seleziona “Impostazioni account” dal menu che compare.<br>Scorri in fondo alla pagina e clicca su “Annulla Abbonamento VIP”.<br>Indica il motivo per cui desideri annullare l’abbonamento.</p><p>Apple App Store:<br>Apri l’app “Impostazioni”.<br>Tocca “iTunes &amp; App Store”.<br>Tocca il tuo Apple ID.<br>Nella finestra pop-up, seleziona “Visualizza Apple ID”.<br>Inserisci la password dell’Apple ID o utilizza l’impronta digitale, se richiesto.<br>Tocca “Abbonamenti”.<br>Seleziona l’abbonamento che desideri annullare.</p><p>Google Play Store:<br>Apri l’app “Google Play Store”.<br>Vai su Menu → Le mie app → Abbonamenti e seleziona l’app con l’abbonamento da cancellare.<br>Tocca “Annulla” e poi “Sì” per confermare.<br>Queste istruzioni ti permetteranno di annullare il tuo abbonamento.<br>Puoi anche richiederci la cancellazione manuale del tuo Abbonamento VIP.<br>Tuttavia, se hai acquistato l’abbonamento tramite iOS, purtroppo non possiamo annullarlo manualmente a causa delle politiche dell’Apple App Store.</p><p>Se desideri che lo facciamo noi (per acquisti non iOS), contattaci fornendoci le credenziali del tuo account Toomics.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50327976795929-Come-posso-annullare-il-mio-Abbonamento-VIP" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Ho un Abbonamento VIP, mi verrà addebitato di nuovo e quando?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>L'Abbonamento VIP prevede un pagamento ricorrente che si rinnova automaticamente in base al piano che hai scelto (1 mese, 3 mesi, 6 mesi, 12 mesi).</p><p>Questo è chiaramente indicato nei nostri Termini d'Uso (nella sezione Servizio: Toomics - Servizio Clienti) e nella nostra Pagina di pagamento (.toomics.com/it/mypage/payment), come segue:</p><p>Termini d'Uso – sezione Servizio:<br>“Pagamento Ricorrente (Membro VIP) : l'abbonamento VIP viene addebitato automaticamente ogni mese tramite il Metodo di Pagamento da te scelto. L'abbonamento VIP ti permette di visionare senza limiti i contenuti esclusivi ai membri VIP.<br>A meno che non lo notifichino alla società, e seguano il processo di cancellazione dell'abbonamento prima della data mensile di rinnovo, i membri VIP autorizzano la società ad addebitare il costo dell'abbonamento mensile tramite il Metodo di Pagamento scelto.”</p><p>Pagina di pagamento:<br>“Accetti inoltre che il tuo abbonamento continuerà finché non deciderai di annullarlo.”</p><p>Pertanto, il pagamento ricorrente verrà effettuato automaticamente al termine di ogni periodo scelto al momento del primo acquisto.</p><p>Per conoscere la prossima data di rinnovo, fai riferimento alla data riportata nella ricevuta del tuo primo acquisto.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328112585497-Ho-un-Abbonamento-VIP-mi-verr%C3%A0-addebitato-di-nuovo-e-quando" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Il mio Abbonamento VIP funziona anche in altre lingue?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Ti informiamo che i servizi Toomics in coreano, cinese semplificato, cinese tradizionale, spagnolo, italiano, tedesco, portoghese, francese, giapponese e inglese sono tutti diversi tra loro.</p><p>Di conseguenza, un acquisto effettuato su un sito in una lingua specifica (come nel tuo caso) non sarà valido sugli altri siti.</p><p>In alcuni casi possiamo effettuare manualmente il cambio lingua del tuo account; tuttavia, una volta effettuato il cambio, non sarà più possibile tornare indietro.<br>Se desideri che procediamo con il cambio lingua, contattaci direttamente e ti forniremo una soluzione.</p><p>Ti ricordiamo però che non possiamo modificare la lingua degli acquisti effettuati tramite Apple App Store o Google Play Store a causa di limitazioni tecniche.</p><p>Inoltre, segnaliamo che non offriamo più servizi di abbonamento per l’italiano e il portoghese, quindi in questi casi non sarà possibile richiedere un cambio lingua.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328270957081-Il-mio-Abbonamento-VIP-funziona-anche-in-altre-lingue" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Mi sono abbonato ma non riesco ad accedere al mio Abbonamento VIP.<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Se non riesci a trovare il tuo acquisto, ti consigliamo di verificare se al momento della registrazione o dell’acquisto di Coin hai utilizzato un metodo di accesso diverso. Potresti aver effettuato il login con un account social o semplicemente con email e password. Per evitare problemi di accesso, è importante utilizzare sempre lo stesso metodo di login.</p><p>Se ti sei abbonato tramite l’app, il tuo acquisto potrebbe non essere collegato al tuo account email. Infatti, quando accedi dall’app viene creato automaticamente un account app. In questo caso, prima ripristina l’acquisto dall’app store collegato (Google Play Store per Android / App Store per iOS) e poi registra il tuo indirizzo email per collegare l’account app a quello web.</p><p>Per utenti Google Android / Apple iOS, segui questi passaggi:<br>Sul tuo smartphone o tablet Android / iPhone o iPad, apri il Google Play Store o l’App Store.<br>Assicurati di aver effettuato l’accesso con l’account Google/Apple corretto (quello con cui hai fatto l’acquisto).<br>Avvia l’app Toomics.<br>Tocca il pulsante rosso “Abbonamento VIP”.<br>Esci dalla pagina dei pagamenti tornando alla homepage.<br>Se non succede nulla, vai su “Servizio Clienti” e poi su “Ripristina Abbonamento VIP”.<br>Premi “Ripristina”.</p><p>Per collegare il tuo Abbonamento VIP a un’email:</p><p>Accedi all’app Toomics con il tuo dispositivo Android/iOS.<br>Clicca sul logo Toomics in alto a destra e seleziona “Registrati”.<br>Inserisci l’indirizzo email che desideri associare al tuo Abbonamento VIP.<br>In questo modo dovresti riuscire a recuperare l’accesso al tuo Abbonamento VIP!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50327909966489-Mi-sono-abbonato-ma-non-riesco-ad-accedere-al-mio-Abbonamento-VIP" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Qual è la differenza tra un Abbonamento VIP e i Coin?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>L'Abbonamento VIP ricorrente di Toomics è un'offerta esclusiva che ti consente di accedere senza limiti ai Comic disponibili per VIP, senza dover acquistare Coin!<br>Una volta acquistato l’Abbonamento VIP ricorrente, potrai leggere tutti i contenuti premium sia sul nostro sito web Toomics (anche da browser mobile) sia sulla nostra app, a patto di effettuare l’accesso con lo stesso account Toomics con cui hai acquistato  l’abbonamento.</p><p>Se invece non desideri acquistare un Abbonamento VIP, puoi utilizzare il nostro sistema a Coin, che ti permette di leggere solo i Comic che preferisci.<br>Questa è un’ottima opzione per gli utenti che vogliono leggere un Comic specifico, poiché i Coin ti consentono di ottenere singoli episodi che resteranno sempre accessibili, anche se in futuro non avrai più Coin disponibili.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328213390233-Qual-%C3%A8-la-differenza-tra-un-Abbonamento-VIP-e-i-Coin" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Sarò in grado di leggere tutti i Comic con il mio Abbonamento VIP?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Puoi leggere i contenuti esclusivi per VIP con il tuo Abbonamento VIP. :)</p><p>Finché il tuo Abbonamento VIP è attivo, avrai accesso a tutti i contenuti riservati ai membri VIP.</p><p>Tuttavia, per i contenuti presenti sul Coin Store, dovrai utilizzare i Coin per leggere i Comic.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50328808250393-Sar%C3%B2-in-grado-di-leggere-tutti-i-Comic-con-il-mio-Abbonamento-VIP" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<h2 class="sub-section">Coin</h2>
+<details>
+<summary>Come posso sapere quanti Coin ho o se  ne ho bisogno per un acquisto?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Per visualizzare il tuo saldo dettagliato di <strong>Coin</strong>, inizia controllando l'icona del regalo, che mostra le tue <strong>Coin </strong>Premium, Bonus e Regalo. Per un breve riassunto de<strong>i tuoi</strong> <strong>Coin</strong>, vai al Menu Impostazioni [≡].</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Per i costi dei singoli <strong>episodi</strong>, il requisito di <strong>Coin </strong>di ogni capitolo è visualizzato accanto ad esso.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Se desideri acquistare tutti <strong>gli</strong> <strong>episodi </strong>in una volta, clicca semplicemente sul pulsante "Acquista tutti gli <strong>episodi</strong>" nella homepage della serie per acquistare tutti <strong>gli episodi </strong>disponibili in una sola transazione.</p>
+<p class="wysiwyg-text-align-justify"> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413141770905-Come-posso-sapere-quanti-Coin-ho-o-se-ne-ho-bisogno-per-un-acquisto" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Cosa sono i Coin?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">I <strong>Coin </strong>ti permettono di accedere a tutti i contenuti <strong>Comic </strong>esclusivi su Toomics. Puoi acquistare <strong>questi</strong> <strong>Coin </strong>con denaro reale e usarle per sbloccare <strong>gli</strong> <strong>episodi </strong>dei tuoi <strong>Comic </strong>preferiti. Ogni capitolo costa tra 1 e 3 <strong>Coin</strong>, a seconda della sua lunghezza e del contenuto. <strong>Gli episodi </strong>acquistati con i <strong>Coin </strong>sono come possedere una copia digitale: avrai sempre accesso a loro, anche se il contenuto viene rimosso dal nostro sito web.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Coin</span></strong><span class="wysiwyg-underline"> Premium</span></p>
+<p class="wysiwyg-text-align-justify">Questi sono i <strong>Coin </strong>standard che acquisti. La parte migliore? Non scadono mai! Fai scorta e <strong>spendili</strong> quando vuoi, senza preoccupazioni.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Coin</span></strong><span class="wysiwyg-underline"> Bonus</span></p>
+<p class="wysiwyg-text-align-justify">Pensa a questi come a un piccolo extra da parte nostra. Ogni volta che fai un acquisto, aggiungiamo alcuni <strong>Coin </strong>Bonus come ringraziamento. Come i <strong>Coin</strong> Premium, non scadono, quindi puoi usarli a tuo piacimento.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413128667161-Cosa-sono-i-Coin" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Dove posso controllare i titoli che ho acquistato?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Per visualizzare i titoli che hai acquistato, vai su "<strong>Lettura</strong>" e seleziona "<strong>I Miei Acquisti Coin</strong>". Qui, puoi vedere tutte le serie da cui hai acquistato <strong>episodi</strong>, insieme a una percentuale che indica quanto hai acquistato di ogni serie.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Per una vista dettagliata, clicca s<strong>ul thumbnail </strong> della serie. Questo mostrerà una panoramica di tutti <strong>gli episodi </strong>disponibili, mostrando quali hai acquistato e quali sono ancora aperti per l'acquisto, con prezzi che variano da 1 a 3 <strong>Coin</strong>. Da questo menu, puoi anche acquistare nuovi <strong>episodi </strong>singolarmente o optare per acquistare tutti <strong>gli episodi</strong> rimanenti della serie in una sola transazione.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Questa funzionalità ti permette di gestire e migliorare facilmente la tua collezione, assicurandoti di non perdere mai i tuoi contenuti preferiti.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413158966681-Dove-posso-controllare-i-titoli-che-ho-acquistato" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Perché i prezzi dei Coin sono cambiati e ci sono sconti o promozioni per l'acquisto di Coin?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Abbiamo aggiornato i nostri prezzi e le opzioni dei <strong>Coin </strong>per migliorare la tua esperienza complessiva e offrirti scelte più flessibili. Questi cambiamenti sono progettati per adattarsi meglio alle tue esigenze e preferenze.</p>
+<p class="wysiwyg-text-align-justify"><br>Assicurati di tenere d'occhio gli sconti e le promozioni emozionanti sugli acquisti di <strong>Coin </strong>che arriveranno presto sul nostro sito web. Stiamo sempre cercando modi per rendere il tuo viaggio su Toomics ancora più piacevole!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413169167769-Perch%C3%A9-i-prezzi-dei-Coin-sono-cambiati-e-ci-sono-sconti-o-promozioni-per-l-acquisto-di-Coin" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Perché non ho ricevuto i miei Coin?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">Ci scusiamo per il ritardo nel ricevere <strong>i tuoi</strong> <strong>Coin</strong>! Il tempo necessario affinché <strong>i tuoi</strong> <strong>Coin </strong>appaiano può variare a seconda del metodo di pagamento utilizzato. I pagamenti tramite PayPal o carta di credito sono solitamente elaborati entro pochi minuti, ma a volte può volerci qualche ora. Per i pagamenti in contanti, possono essere necessari fino a 2 giorni affinché<strong>i tuoi</strong> <strong>Coin </strong>vengano accreditati sul tuo account.</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">Questi ritardi sono influenzati dai fornitori di pagamento e, purtroppo, sono al di fuori del nostro controllo.</p>
+<p class="wysiwyg-text-align-justify"><br>Apprezziamo la tua pazienza e comprensione mentre lavoriamo per garantire che <strong>i tuoi</strong> <strong>Coin </strong>vengano aggiunti il più velocemente possibile.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413235874457-Perch%C3%A9-non-ho-ricevuto-i-miei-Coin" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Quanto durano i Coin?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">I <strong>Coin </strong>sono validi a tempo indeterminato. Una volta acquistati, non scadono e rimangono disponibili per l'uso in qualsiasi momento. Puoi usarli quando desideri accedere a contenuti <strong>Comic </strong>aggiuntivi.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39413137323033-Quanto-durano-i-Coin" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="toomics-store"><span class="section-icon">🏪</span>TOOMICS STORE</h1>
+<h2 class="sub-section">TOOMICS Coin Store</h2>
+<details>
+<summary>Che cos'è il Coin Store Toomics?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Il nostro nuovo Coin Store Toomics presenta contenuti esclusivi disponibili unicamente tramite l'acquisto di Monete. <br><br>Questi contenuti premium sono il risultato di collaborazioni strategiche e accordi esclusivi con altre piattaforme, distinguendosi da ciò che viene offerto con un Abbonamento VIP standard.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50325500400537-Che-cos-%C3%A8-il-Coin-Store-Toomics" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Come posso leggere i contenuti del Coin Store?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Per leggere i contenuti esclusivi nel nostro Coin Store, dovrai acquistare dei Coin. Infatti, non è possibile accedere a queste uscite premium con l'Abbonamento VIP e si possono ottenere solo con i Coin.<br><br>Puoi acquistare i Coin qui: <a href="https://global.toomics.com/it/mypage/payment/type/payment-plan">Toomics.</a><br><br>Esplora le nostre offerte uniche e vivi un’esperienza Toomics ancora più completa!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50323971551513-Come-posso-leggere-i-contenuti-del-Coin-Store" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Dove posso controllare i titoli che ho acquistato nel Coin Store?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Per vedere i titoli che hai acquisito, vai su "I miei Comic" e clicca su "I miei Acquisti Coin". In questa pagina troverai l’elenco completo di tutti i Comic di cui hai acquistato gli episodi, con la percentuale di avanzamento che mostra quanto di ciascuna serie hai sbloccato.</p><p>Clicca sul thumbnail di un Comic per visualizzare tutti gli episodi, compresi quelli già acquistati e quelli ancora disponibili al prezzo da 1 a 3 Coin. Da questo menu puoi anche ottenere ulteriori episodi singoli o ottenere tutti gli episodi disponibili in una volta sola.</p><p>In questo modo puoi gestire facilmente la tua collezione e continuare a goderti le tue storie preferite!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50326571788313-Dove-posso-controllare-i-titoli-che-ho-acquistato-nel-Coin-Store" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Perché il Coin Store non è disponibile sull'App TOOMICS?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Il Coin Store include contenuti 18+, e a causa delle politiche delle piattaforme non possiamo offrire contenuti per adulti direttamente all’interno della nostra app. Le linee guida di Google Play Store e Apple App Store vietano l’inclusione di contenuti per adulti, motivo per cui il Coin Store non è accessibile tramite l’app.</p><p>Per esplorare i contenuti esclusivi del Coin Store, visita il nostro sito web Toomics - Leggi illimitatamente i comic VIP online dal tuo PC o tramite un browser web mobile.</p><p>Siamo consapevoli di questa limitazione e stiamo valutando aggiornamenti futuri che potrebbero permettere l’accesso tramite l’app. Grazie per la tua comprensione e pazienza mentre lavoriamo per migliorare la tua esperienza.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50326924762649-Perch%C3%A9-il-Coin-Store-non-%C3%A8-disponibile-sull-App-TOOMICS" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Posso usare i Coin per accedere ai Comic nella sezione &quot;Abbonamento&quot;, pur essendo un Abbonato VIP?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Assolutamente! Come Membro VIP, hai la possibilità di usare i Coin per acquistare i capitoli nella sezione "Abbonamento", se lo desideri.</p><p>Posso comunque leggere i Comic del Coin Store che ho acquistato con i Coin, se il mio abbonamento VIP scade?<br><br>Non preoccuparti di perdere l’accesso ai Comic acquistati con i Coin, soprattutto nel Coin Store. Anche se il tuo abbonamento VIP scade, potrai sempre tornare a leggere gli episodi che hai acquistato. I contenuti ottenuti con i Coin rimangono accessibili ogni volta che vorrai rivederli.</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50324764473497-Posso-usare-i-Coin-per-accedere-ai-Comic-nella-sezione-Abbonamento-pur-essendo-un-Abbonato-VIP" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Qual è la differenza tra la sezione &quot;Coin Store&quot; e la sezione &quot;Abbonamento&quot;?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Il tuo Abbonamento VIP ti dà accesso illimitato a una vasta raccolta di storie nella sezione "Abbonamento" per tutta la durata dell’abbonamento. È il tuo pass per accedere a una grande varietà di contenuti accessibili ai Membri VIP.<br><br>Tuttavia, il nuovo Coin Store introduce una novità speciale! Qui troverai contenuti esclusivi e ottenibili sono con i Coin. Questi Comic fanno parte di collaborazioni e accordi unici con altre piattaforme, offrendo un’esperienza diversa rispetto a quanto disponibile nell’Abbonamento VIP.<br><br>In sintesi, mentre il tuo Abbonamento VIP garantisce accesso illimitato ai contenuti VIP, il Coin Store propone contenuti selezionati e premium che richiedono acquisti separati con Coin. Esplora entrambe le sezioni per vivere l’esperienza Toomics al massimo!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50325206370201-Qual-%C3%A8-la-differenza-tra-la-sezione-Coin-Store-e-la-sezione-Abbonamento" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<details>
+<summary>Verranno aggiunti altri Comic esclusivi al Coin Store in futuro?<span class="art-count">2025-09-02</span></summary>
+<div class="article-body"><p>Sì! Lavoriamo costantemente per ampliare la nostra raccolta di contenuti esclusivi nel Coin Store. Le nostre collaborazioni e le nuove partnership entusiasmanti porteranno ancora più Comic incredibili che potrai acquistare e leggere con i Coin.</p><p>Tieniti aggiornato sulle novità e, se hai domande o hai bisogno di assistenza, non esitare a contattarci. Il meglio deve ancora venire!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/50327254672665-Verranno-aggiunti-altri-Comic-esclusivi-al-Coin-Store-in-futuro" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-02</div></div>
+</details>
+<h1 class="section-heading" id="event---benefits"><span class="section-icon">🎁</span>Event / Benefits</h1>
+<h2 class="sub-section">Evento / Benefici</h2>
+<details>
+<summary>Ci sono altre promozioni e sconti?<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Attualmente, non disponiamo di ulteriori promozioni o sconti oltre a quelli elencati sul nostro sito web:</p>
+<p> </p>
+<p>Piani di Pagamento Toomics: <a href="https://global.toomics.com/it/mypage/payment/type/payment-plan">https://global.toomics.com/it/mypage/payment/type/payment-plan</a>.  </p>
+<p> </p>
+<p>Anche se al momento non ci sono sconti specifici, stiamo pianificando di introdurre promozioni periodiche e offerte speciali in futuro. Restate sintonizzati sui nostri aggiornamenti e annunci per assicurarvi di non perdere mai opportunità eccitanti per ulteriori risparmi e vantaggi!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/it/articles/39424139006617-Ci-sono-altre-promozioni-e-sconti" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+</div>
+
+<div class="footer">
+  <strong>TOOMICS BizOps</strong> — Zendesk FAQ Documentation<br>
+  Generated: 2026-03-04 &middot; Author: 유종선 &middot; Language: Italiano<br>
+  Source: help.toomicsglobal.com
+</div>
+
+</div>
+</body>
+</html>

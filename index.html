@@ -55,7 +55,8 @@
   .stat-card:nth-child(4) { border-top-color: #0EA5E9; }
   .stat-card:nth-child(5) { border-top-color: #10B981; }
   .stat-card:nth-child(6) { border-top-color: #EF4444; }
-  .stat-card:nth-child(7) { border-top-color: #475569; }
+  .stat-card:nth-child(7) { border-top-color: #0891B2; }
+  .stat-card:nth-child(8) { border-top-color: #475569; }
 
   /* Accordion */
   .accordion { margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
@@ -489,7 +490,7 @@
   <div class="subtitle">Toomics Global &middot; BizOps Team</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>문서 33건 &middot; 6개 카테고리</span>
+    <span>문서 43건 &middot; 7개 카테고리</span>
   </div>
   <a href="portal_manual_v1_20260303.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;color:#fff;text-decoration:none;transition:.2s;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
@@ -515,6 +516,9 @@
     </div>
     <div class="stat-card" data-target="sec-ticket">
       <div class="num">2</div><div class="lbl">대시보드</div>
+    </div>
+    <div class="stat-card" data-target="sec-faq">
+      <div class="num">10</div><div class="lbl">FAQ</div>
     </div>
     <div class="stat-card" data-target="sec-tpl">
       <div class="num">3</div><div class="lbl">기타</div>
@@ -546,6 +550,7 @@
           <button class="filter-pill" data-value="sec-cb" type="button">차지백</button>
           <button class="filter-pill" data-value="sec-ip" type="button">IP 보호</button>
           <button class="filter-pill" data-value="sec-ticket" type="button">대시보드</button>
+          <button class="filter-pill" data-value="sec-faq" type="button">FAQ</button>
           <button class="filter-pill" data-value="sec-tpl" type="button">기타</button>
         </div>
       </div>
@@ -568,6 +573,7 @@
           <button class="filter-pill" data-value="Template" type="button">Template</button>
           <button class="filter-pill" data-value="Dashboard" type="button">Dashboard</button>
           <button class="filter-pill" data-value="Evidence" type="button">Evidence</button>
+          <button class="filter-pill" data-value="FAQ" type="button">FAQ</button>
           <button class="filter-pill" data-value="XLSX" type="button">XLSX</button>
         </div>
       </div>
@@ -608,6 +614,29 @@
         <a class="link-card" href="cs/cs_automation_roadmap_20260219.html" data-updated="2026-02-19"><span class="lc-icon bg-green">R</span><span class="lc-body"><span class="lc-title">CS 자동화 시스템 고도화 로드맵</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-green">Roadmap</span></a>
         <a class="link-card" href="zendesk_faq_status_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">Z</span><span class="lc-body"><span class="lc-title">Zendesk FAQ 전 언어 현황</span><span class="lc-desc">10개 언어 카테고리별 등록 현황</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">Analysis</span></a>
         <a class="link-card" href="zendesk_faq_manual_EN_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">Z</span><span class="lc-body"><span class="lc-title">TOOMICS FAQ Manual (EN)</span><span class="lc-desc">9 Categories, 90 Articles, Full Content Reference</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">Manual</span></a>
+      </div>
+    </div></div>
+  </div>
+
+  <!-- FAQ (10개 언어) -->
+  <div class="accordion" id="sec-faq">
+    <button class="accordion-header" aria-expanded="false">
+      <span class="icon" style="background:#0891B2">FAQ</span> FAQ 매뉴얼
+      <span class="count">10건</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="faq/faq_EN_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">EN</span><span class="lc-body"><span class="lc-title">FAQ — English</span><span class="lc-desc">9 Categories, 92 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_FR_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">FR</span><span class="lc-body"><span class="lc-title">FAQ — Français</span><span class="lc-desc">88 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_DE_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">DE</span><span class="lc-body"><span class="lc-title">FAQ — Deutsch</span><span class="lc-desc">88 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_ES_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">ES</span><span class="lc-body"><span class="lc-title">FAQ — Español</span><span class="lc-desc">88 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_PT_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">PT</span><span class="lc-body"><span class="lc-title">FAQ — Português</span><span class="lc-desc">77 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_JP_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">JP</span><span class="lc-body"><span class="lc-title">FAQ — 日本語</span><span class="lc-desc">78 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_CN_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">CN</span><span class="lc-body"><span class="lc-title">FAQ — 简体中文</span><span class="lc-desc">83 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_TW_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">TW</span><span class="lc-body"><span class="lc-title">FAQ — 繁體中文</span><span class="lc-desc">44 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_IT_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">IT</span><span class="lc-body"><span class="lc-title">FAQ — Italiano</span><span class="lc-desc">41 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
+        <a class="link-card" href="faq/faq_TH_20260304.html" data-updated="2026-03-04"><span class="lc-icon bg-cyan">TH</span><span class="lc-body"><span class="lc-title">FAQ — ภาษาไทย</span><span class="lc-desc">94 Articles</span></span><span class="lc-version">v1.0</span><span class="lc-badge bg-cyan">FAQ</span></a>
       </div>
     </div></div>
   </div>

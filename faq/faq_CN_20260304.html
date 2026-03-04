@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="cn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="date" content="2026-03-04">
+<title>Zendesk FAQ — 简体中文 | BizOps</title>
+<style>
+:root {
+  --brand-primary: #3B1F8E;
+  --brand-secondary: #5B3CC4;
+  --brand-accent: #7C5CFC;
+  --brand-light: #EDE8FF;
+  --brand-bg: #F7F5FF;
+  --navy: #1A1A2E;
+  --dark: #2D2D3F;
+  --text: #333344;
+  --text-light: #666680;
+  --border: #D8D8E8;
+  --success: #28A06C;
+  --warning: #E8A020;
+  --danger: #E8320A;
+  --info: #2196F3;
+  --white: #FFFFFF;
+  --bg-light: #FAFAFE;
+  --bg-card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(59,31,142,0.06);
+}
+/* ─── Header ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--brand-primary) 100%);
+  color: var(--white);
+  padding: 64px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--danger);
+}
+.cover h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+.cover .meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; opacity: 0.85;
+}
+.cover .meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover .meta span::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(255,255,255,0.6);
+}
+/* ─── TOC ─── */
+.toc {
+  background: var(--brand-bg); border: 1px solid var(--brand-light);
+  border-radius: 8px; padding: 32px 40px; margin: 40px 32px;
+}
+.toc h2 {
+  color: var(--brand-primary); font-size: 20px; font-weight: 700;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--danger); display: inline-block;
+}
+.toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+.toc ol li {
+  counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0;
+  border-bottom: 1px solid rgba(124,92,252,0.1);
+}
+.toc ol li:last-child { border-bottom: none; }
+.toc ol li::before {
+  content: counter(toc-counter) "."; color: var(--danger);
+  font-weight: 700; margin-right: 10px; font-size: 14px;
+}
+.toc ol li a {
+  color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--brand-secondary); }
+.toc ol li .badge {
+  display: inline-block; background: var(--danger); color: var(--white);
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px; vertical-align: middle;
+}
+/* ─── Content ─── */
+.content { padding: 16px 32px 64px; }
+h1.section-heading {
+  color: var(--brand-primary); font-size: 24px; font-weight: 800;
+  margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px;
+}
+h1.section-heading .section-icon { margin-right: 8px; }
+h2.sub-section {
+  color: var(--brand-secondary); font-size: 18px; font-weight: 700;
+  margin-top: 32px; margin-bottom: 12px; padding-left: 14px;
+  border-left: 4px solid var(--danger);
+}
+/* ─── Accordion ─── */
+details {
+  margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+details[open] { box-shadow: 0 2px 8px rgba(59,31,142,0.08); }
+summary {
+  padding: 14px 20px; cursor: pointer; font-weight: 600; font-size: 15px;
+  color: var(--dark); list-style: none; display: flex; align-items: center;
+  gap: 10px; transition: background 0.15s;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: '▶'; font-size: 10px; color: var(--danger);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: var(--brand-bg); }
+summary .art-count {
+  margin-left: auto; font-size: 11px; font-weight: 700;
+  background: var(--brand-bg); color: var(--brand-primary);
+  padding: 2px 10px; border-radius: 12px;
+}
+.article-body {
+  padding: 16px 24px 20px; border-top: 1px solid var(--border);
+  font-size: 14px; line-height: 1.75; color: var(--text);
+}
+.article-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+.article-body ul, .article-body ol { margin: 8px 0 12px; padding-left: 24px; }
+.article-body li { margin-bottom: 4px; }
+.article-body p { margin-bottom: 10px; }
+.article-body a { color: var(--brand-secondary); }
+.article-link {
+  display: inline-block; margin-top: 10px; font-size: 12px;
+  color: var(--danger); text-decoration: none; font-weight: 600;
+}
+.article-link:hover { text-decoration: underline; }
+.article-date {
+  font-size: 11px; color: var(--text-light); margin-top: 4px;
+}
+.fetch-fail {
+  padding: 12px 20px; color: var(--text-light); font-style: italic; font-size: 13px;
+}
+/* ─── Footer ─── */
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+/* ─── Print ─── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { box-shadow: none; max-width: 100%; padding: 0; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 40px 32px; }
+  .toc { page-break-after: always; }
+  h1.section-heading { page-break-before: always; margin-top: 24px; }
+  h1.section-heading:first-of-type { page-break-before: avoid; }
+  details { page-break-inside: avoid; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 24px; }
+  .toc { margin: 24px 16px; padding: 20px 24px; }
+  .content { padding: 16px 16px 48px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Zendesk FAQ — 简体中文 (CN)</h1>
+  <p class="subtitle">TOOMICS Global Help Center FAQ Collection</p>
+  <div class="meta">
+    <span>Language: 简体中文</span>
+    <span>Articles: 81</span>
+    <span>Generated: 2026-03-04</span>
+  </div>
+</div>
+
+<div class="toc"><h2>목차 / Table of Contents</h2><ol>
+<li><a href="#announcement">📢 Announcement</a><span class="badge">4</span></li>
+<li><a href="#beginner-s-guide">📖 Beginner's Guide</a><span class="badge">18</span></li>
+<li><a href="#terms---policy">📋 Terms &amp; Policy</a><span class="badge">2</span></li>
+<li><a href="#account-management">👤 Account Management</a><span class="badge">16</span></li>
+<li><a href="#vip-membership---coins">⭐ VIP Membership &amp; Coins</a><span class="badge">15</span></li>
+<li><a href="#payment---refunds">💳 Payment &amp; Refunds</a><span class="badge">13</span></li>
+<li><a href="#technical-issues">🔧 Technical Issues</a><span class="badge">12</span></li>
+<li><a href="#event---benefits">🎁 Event / Benefits</a><span class="badge">1</span></li>
+</ol></div>
+<div class="content">
+<h1 class="section-heading" id="announcement"><span class="section-icon">📢</span>Announcement</h1>
+<h2 class="sub-section">最新动态</h2>
+<details>
+<summary>使用条款变更公告 (02/09/2025)<span class="art-count">2025-08-05</span></summary>
+<div class="article-body"><p data-renderer-start-pos="7053">从生效日<span data-renderer-mark="true" data-text-custom-color="#ff991f">（02/09/2025）</span>起，将修订以下条款。使用本“服务”前，请您仔细阅读使用条款及隐私权政策，如果您不同意本使用条款及隐私权政策的全部内容，“使用者”将不得使用本服务。.</p><p data-renderer-start-pos="7145"> </p><ol data-indent-level="1"><li><p data-renderer-start-pos="7149"><span data-renderer-mark="true" data-text-custom-color="#ff991f">[服务]</span></p></li></ol><div data-layout="full-width" data-testid="table-container">
+<div data-testid="sticky-scrollbar-sentinel-top"> </div>
+<figure style="width: 100%;" class="wysiwyg-table"><table style="border-style: solid; border-width: 1px;" class="wysiwyg-table-resized">
+<colgroup>
+<col style="width: 49.14%;">
+<col style="width: 50.86%;">
+</colgroup>
+<tbody>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">修订 前</strong></td>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">修订 后</strong></td>
+</tr>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><span data-renderer-mark="true" data-text-custom-color="#ff991f">定期支付商品(VIP会员): 根据"使用者"填写的结算方式每月或一定期间自动进行定额扣款，"公司"将在指定的期间内为使用定期支付商品(VIP会员)的"使用者"提供VIP独家作品无限量阅览服务。 </span></td>
+<td style="border-style: solid; border-width: 1px;">
+<span data-renderer-mark="true" data-text-custom-color="#ff991f">自动续费（VIP会员）</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">VIP会员将通过您选择的支付方式每月自动续费。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">成为VIP会员后，您可无限畅享Toomics玩漫指定的VIP专属作品。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">可阅览的VIP专属作品可能因地区不同而有所差异，且内容可能随时变更。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">并非所有作品均包含在VIP会员服务中。</span>
+</td>
+</tr>
+</tbody>
+</table></figure><div data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="552746bc-694b-4f76-a05f-a295a1f28394" data-vc="table-node-wrapper"><div> </div></div>
+</div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/49366273007897" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-05</div></div>
+</details>
+<details>
+<summary>使用条款变更公告(05/06/2025)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><p>从生效日（05/06/2025, 13:00 KST）起，将修订以下条款。使用本“服务”前，请您仔细阅读使用条款及隐私权政策，如果您不同意本使用条款及隐私权政策的全部内容，“使用者”将不得使用本服务。.</p>
+<p> </p>
+<p>1. 使用条款的介绍及承诺</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修订 前</td>
+<td style="width: 50%;">修订 后</td>
+</tr>
+<tr>
+<td style="width: 50%;">公司“有权自行修改或补充使用条款和个人信息管理方针的内容，有重要的变更时，将会通过公告事项（https://help.toomicsglobal.com/hc/zh-cn/categories/39431048169753）将使用条款和个人信息管理方针的变更内容对“使用者”予以告知。</td>
+<td style="width: 50%;">公司“有权自行修改或补充使用条款和隐私权政策的内容，有重要的变更时，将会通过公告事项（https://help.toomicsglobal.com/hc/zh-cn/categories/39430124031641）将使用条款和隐私权政策的变更内容对“使用者”予以告知。</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>2. 账号联动与使用</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修订 前</td>
+<td style="width: 50%;">修订 后</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;">1.电子邮箱或社交软件账号一次只能与一个设备联动。</p>
+<p style="background-color: white;">2.通过账号联动，APP或WEB账号中留有的点券可以在其他没备中使用。但在使用时，APP上将先行扣除在其软件内购买的点券；WEB上则先扣除在其WEB内购买的点券。</p>
+<p style="background-color: white;">3.通过账号联动，无法一并使用APP或是WEB中的点券购买付费作品。</p>
+<p style="background-color: white;">4.通过联动账号收藏的使用权限，亦可在其他设备上阅览作品。然，若联动账号被解除，则无法再使用此阅览权限。</p>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">1. </span>为了阅览付费内容，需要<span style="color: black;">将电</span><span style="color: black;">子</span><span style="color: black;">邮</span><span style="color: black;">件或</span>社交软件账号联动到账号<span style="color: black;">上</span><span style="color: black;">。</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span>电子邮箱或社交软件账号一次只能与一个设备联动。</p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">联动账号将</span><span style="color: black;">在多</span><span style="color: black;">个设备</span><span style="color: black;">上以相同的方式</span><span style="color: black;">处</span><span style="color: black;">理。例如，在不同</span><span style="color: black;">设备</span><span style="color: black;">上</span><span style="color: black;">购买</span><span style="color: black;">的点</span><span style="color: black;">券可以通</span><span style="color: black;">过联动账号</span><span style="color: black;">在其他</span><span style="color: black;">设备</span><span style="color: black;">上使用。最初在一台</span><span style="color: black;">设备</span><span style="color: black;">上</span><span style="color: black;">访问</span><span style="color: black;">的</span><span style="color: black;">内</span><span style="color: black;">容可以通</span><span style="color: black;">过联动账号</span><span style="color: black;">在其他</span><span style="color: black;">设备</span><span style="color: black;">上</span><span style="color: black;">查</span><span style="color: black;">看。</span></p>
+<p style="background-color: white;"><span style="color: black;">4. </span><span style="color: black;">如果</span><span style="color: black;">您</span><span style="color: black;">注</span><span style="color: black;">销联动账号</span><span style="color: black;">，无</span><span style="color: black;">论</span><span style="color: black;">使用何</span><span style="color: black;">种设备</span><span style="color: black;">，</span><span style="color: black;">您</span><span style="color: black;">都</span><span style="color: black;">将</span><span style="color: black;">无法再使用点券或</span><span style="color: black;">访问</span><span style="color: black;">付</span><span style="color: black;">费内</span><span style="color: black;">容。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p> </p>
+<p> </p>
+<p> </p>
+<p>3. 红利点券的提供与使用</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修订 前</td>
+<td style="width: 50%;">
+<a name="OLE_LINK2"></a><a name="OLE_LINK1"></a>修订 后</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">4.</span><span style="color: black;">通</span><span style="color: black;">过账号联动</span><span style="color: black;">，欲在其他</span><span style="color: black;">设备</span><span style="color: black;">中使用</span><span style="color: black;">APP</span><span style="color: black;">或</span><span style="color: black;">WEB</span><span style="color: black;">所留有的</span><span style="color: black;">红</span><span style="color: black;">利点券</span><span style="color: black;">时</span><span style="color: black;">，</span></p>
+<p style="background-color: white;"><span style="color: black;">将</span><span style="color: black;">先行扣除完所有</span><span style="color: black;">该账号</span><span style="color: black;">留有的</span><span style="color: black;">红</span><span style="color: black;">利点券</span><span style="color: black;">与</span><span style="color: black;">一般点券，再依序扣除被</span><span style="color: black;">联动</span><span style="color: black;">的</span><span style="color: black;">账号</span><span style="color: black;">的</span><span style="color: black;">红</span><span style="color: black;">利点券、一般点券。</span></p>
+</td>
+<td style="width: 50%;">
+<span style="color: black;">4. </span><span style="color: black;">联动账号将</span><span style="color: black;">在多</span><span style="color: black;">个设备</span><span style="color: black;">上以相同的方式</span><span style="color: black;">处</span><span style="color: black;">理。例如，在不同</span><span style="color: black;">设备</span><span style="color: black;">上收到的</span><span style="color: black;">红</span><span style="color: black;">利点券</span><span style="color: black;">与</span><span style="color: black;">一般点券可以通</span><span style="color: black;">过联动账号</span><span style="color: black;">在其他</span><span style="color: black;">设备</span><span style="color: black;">上使用。 </span>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>4. 取消和退款, VIP会员购买</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修订 前</td>
+<td style="width: 50%;">修订 后</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">关</span><span style="color: black;">于</span><span style="color: black;">VIP</span><span style="color: black;">会员购买</span><span style="color: black;">，如</span><span style="color: black;">您</span><span style="color: black;">符合下列</span><span style="color: black;">条</span><span style="color: black;">件，即可申</span><span style="color: black;">请</span><span style="color: black;">取消</span><span style="color: black;">您</span><span style="color: black;">的自</span><span style="color: black;">动</span><span style="color: black;">扣款：</span></p>
+<p style="background-color: white;"><span style="color: black;">1.</span><span style="color: black;">于</span><span style="color: black;">购买</span><span style="color: black;">日后</span><span style="color: black;">14</span><span style="color: black;">天</span><span style="color: black;">内</span><span style="color: black;">提出申</span><span style="color: black;">请</span><span style="color: black;">；</span><span style="color: black;">并</span><span style="color: black;">且</span></p>
+<p style="background-color: white;"><span style="color: black;">2.</span><span style="color: black;">您</span><span style="color: black;">于</span><span style="color: black;">购买</span><span style="color: black;">后</span><span style="color: black;">1</span><span style="color: black;">天</span><span style="color: black;">内</span><span style="color: black;">（自</span><span style="color: black;">开</span><span style="color: black;">始</span><span style="color: black;">阅览</span><span style="color: black;">的</span><span style="color: black;">时间</span><span style="color: black;">点起</span><span style="color: black;">24</span><span style="color: black;">小</span><span style="color: black;">时</span><span style="color: black;">）未</span><span style="color: black;">将</span><span style="color: black;">同一部作品</span><span style="color: black;">阅览</span><span style="color: black;">至最后一</span><span style="color: black;">话</span><span style="color: black;">，此外</span></p>
+<p style="background-color: white;"><span style="color: black;">3.</span><span style="color: black;">仅</span><span style="color: black;">于</span><span style="color: black;">1</span><span style="color: black;">天</span><span style="color: black;">内阅览</span><span style="color: black;">VIP</span><span style="color: black;">专属内</span><span style="color: black;">容（自</span><span style="color: black;">开</span><span style="color: black;">始</span><span style="color: black;">阅览</span><span style="color: black;">的</span><span style="color: black;">时间</span><span style="color: black;">点起</span><span style="color: black;">24</span><span style="color: black;">小</span><span style="color: black;">时</span><span style="color: black;">，而非</span><span style="color: black;">购买时间</span><span style="color: black;">点）</span></p>
+<p style="background-color: white;"><span style="color: black;">若</span><span style="color: black;">您</span><span style="color: black;">未符合上述</span><span style="color: black;">条</span><span style="color: black;">件，</span><span style="color: black;">则</span><span style="color: black;">无法申</span><span style="color: black;">请</span><span style="color: black;">退款。</span></p>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">关</span><span style="color: black;">于</span><span style="color: black;">VIP</span><span style="color: black;">会员购买</span><span style="color: black;">，如</span><span style="color: black;">您</span><span style="color: black;">符合下列</span><span style="color: black;">条</span><span style="color: black;">件，即可申</span><span style="color: black;">请</span><span style="color: black;">取消</span><span style="color: black;">您</span><span style="color: black;">的自</span><span style="color: black;">动</span><span style="color: black;">扣款：</span></p>
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">于</span><span style="color: black;">购买</span><span style="color: black;">日后</span><span style="color: black;">14</span><span style="color: black;">天</span><span style="color: black;">内</span><span style="color: black;">提出申</span><span style="color: black;">请</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">未使用</span><span style="color: black;">该账号访问</span><span style="color: black;">任何</span><span style="color: black;">VIP</span><span style="color: black;">内</span><span style="color: black;">容</span></p>
+<p style="background-color: white;"><span style="color: black;">如果</span><span style="color: black;">您</span><span style="color: black;">不符合上述</span><span style="color: black;">条</span><span style="color: black;">件中的任何一</span><span style="color: black;">个</span><span style="color: black;">，</span><span style="color: black;">则</span><span style="color: black;">无法申</span><span style="color: black;">请</span><span style="color: black;">退款。</span></p>
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/46324097231257" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>使用条款变更公告(09/08/2025)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true" data-pm-slice="1 1 []"><div data-testid="table-alignment-container"><div><div><div data-number-column="true" data-layout="center" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="true" data-layout="center" data-autosize="false" data-table-local-id="" data-table-width="1800">
+<colgroup><col style="width: 100%;"></colgroup>
+<tbody><tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true"><td data-colwidth="1165" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">[公告事项]</strong></p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">从生效日<span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">（09/08/2025）</span>起，将修订以下条款。使用本“服务”前，请您仔细阅读使用条款及隐私权政策，如果您不同意本使用条款及隐私权政策的全部内容，“使用者”将不得使用本服务。.</p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"> </p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">取消和退款, VIP会员购买</span></li></ol>
+<div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true"><div data-testid="table-alignment-container"><div><div><div data-number-column="false" data-layout="default" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="552746bc-694b-4f76-a05f-a295a1f28394">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">修订 前</strong></td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">修订 后</strong></td>
+</tr>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">关于VIP会员购买，如您符合下列条件，即可申请取消您的自动扣款：</span></p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">于购买日后14天内提出申请</span></li></ol>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true" start="2"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">未使用该账号访问任何VIP内容</span></li></ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">如果您不符合上述条件中的任何一个，则无法申请退款。</span></p>
+</td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">关于VIP会员购买，如您符合下列条件，即可申请取消您的自动扣款：</p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true">
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">于购买日后14天内提出申请</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">未使用该账号访问任何VIP内容</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">在退款申请当月，无使用通过VIP会员购买获得或以折扣价格购买的点券（包括礼券、红利点券）的记录</span></li>
+</ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">若不符合上述三项条件中的任何一项，将无法进行退款。</span></p>
+</td>
+</tr>
+</tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div>
+</td></tr></tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/48671122637593" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>欢迎来到全新的 Toomics 客服中心<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>亲爱的 Toomics 会员们，我们的客服服务现已全面迁移至全新上线的 Toomics 客服中心，为您提供更便捷的支持体验。感谢您的理解与支持，期待继续为您提供更好的服务！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430298245017" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="beginner-s-guide"><span class="section-icon">📖</span>Beginner's Guide</h1>
+<h2 class="sub-section">共享与投稿</h2>
+<details>
+<summary>想加入我们的团队吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很抱歉，此邮件地址仅用于客户支持，因此无法进行招聘事宜。我们建议您持续关注我们的招聘公告，并按照公告中的指示进行申请。</p>
+<p> </p>
+<p>您可以在这里查看招聘信息：<a href="https://recruit.toomics.com/jobs?lang=kr" target="_blank" rel="noopener noreferrer">https://recruit.toomics.com/jobs?lang=kr </a></p>
+<p> </p>
+<p>对于无法提供您所需的服务，我们深感抱歉，并衷心祝愿您今后一切顺利！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430928733209" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我可以投稿自己的漫画吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>首先，非常感谢您对我们服务的关注和兴趣！我们非常感激您的支持！然而，由于我们目前正在重新构建投稿流程，所以暂时无法接受您的漫画投稿。对于因此带来的不便，我们深表歉意，并感谢您的理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430884687257" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>是否可以在社交媒体上分享 Toomics玩漫的漫画？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很抱歉，Toomics玩漫限制了用户在社交媒体上分享漫画的功能。Toomics玩漫上的所有内容均受著作权法保护。未经著作权持有人或Toomics玩漫的授权，任何对内容的使用、共享或复制都可能会根据相关的著作权及知识产权法受到处罚。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430882106009" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">关于Toomics</h2>
+<details>
+<summary>Toomics 玩漫是免费的吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遗憾，目前无法让用户免费阅读我们的内容，也不提供免费获得 VIP 会员或免费购买点券的机会。</p>
+<p>由于网站的运营需要一定的费用，因此我们邀请用户订阅 VIP 会员或购买点券。这不仅能让您享受更多精彩的内容，还能帮助我们的创作者创作出更多优秀的网漫作品！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430504716057" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Toomics 玩漫是合法网站吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>是的，Toomics 玩漫提供的所有内容都受版权保护，并已获得创作者们的许可后才进行连载。</p>
+<p>Toomics 玩漫的所有收益都会与我们签订合约的创作者们共享，这些合约授权我们在平台上发布他们的作品。</p>
+<p>换句话说，使用 Toomics玩漫的同时，您也支持这些创作者，并帮助他们继续创作出更多、更精彩的故事。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430455119001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>什么是Toomics？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>首先，欢迎来到Toomics玩漫！</p>
+<p> </p>
+<p>Toomics玩漫是一个合法的平台，提供多元且具有独家授权的网络漫画作品。我们建议您访问我们的网站： toomics.com（请点击此处），或下载我们的手机App（Android和iOS系统皆适用）</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430493078681" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>营业时间<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>由于我们公司位于韩国，因此我们的客服服务会依据韩国所在的时区进行，敬请谅解。</p>
+<p> </p>
+<p>我们的营业时间如下：  </p>
+<p><strong>周一至周四：上午10点至下午5点（KST）  </strong></p>
+<p><strong>周五：上午10点至下午3点（KST）</strong></p>
+<p> </p>
+<p>周末及韩国的国定假期，我们的客服中心将不提供服务。</p>
+<p> </p>
+<p>如需联系我们，请通过客服中心的 1:1客服与我们联系，  </p>
+<p>或发送电子邮件至：<a href="mailto:cs@toomicsglobal.com"><span class="wysiwyg-underline" style="color: #1155cc;">cs@toomicsglobal.com</span></a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430544941081" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<h2 class="sub-section">漫画内容</h2>
+<details>
+<summary>为什么成人内容会被审查？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很抱歉，即使您是 VIP 会员，我们的作品中的审查内容也无法解除。:(  </p>
+<p>这是因为我们必须遵守各国的相关法律规定，以及配合我们支付服务提供商的使用条款所作的调整。  </p>
+<p>我们恳请您的谅解，并对因此带来的不便致上最诚挚的歉意。如果您有任何其他问题，请随时与我们联系！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430732178969" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>内容过于暴力或露骨？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomics玩漫致力于为用户提供最佳的阅读体验，因此我们提供了丰富多样的类型和内容。</p>
+<p>如果您遇到一些内容较为露骨的作品，我们对此向您致歉。请放心，包含极端内容或可能引起不适的作品，我们都会在每话的开头加入「内容警告」提示。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430820349081" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>同一个标题被上传了两次？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>实际上，这是因为该漫画的新版是一部「家庭安全版」:)</p>
+<p>所以您会看到两个页面显示相同的标题名称。</p>
+<p>感谢您的关注与支持！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430757431193" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何报告错误，例如翻译、拼写或图片错误？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您发现某部漫画存在翻译错误或章节中的其他问题，欢迎随时向我们发送信息，我们将尽快修正问题！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430741354905" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>屏蔽 BL 内容<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>想要定制您的 Toomics玩漫阅读体验吗？只需前往设置菜单 [≡]，点击“选择您喜欢的类型！” 在这里，您可以自由选择您感兴趣的漫画类型，并取消勾选您不想看到的内容。</p>
+<p>这是专属于您的个性化入口，让您轻松进入您最爱的漫画世界！</p>
+<p> </p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/39430828026777" width="256" height="560"> <img src="https://help.toomicsglobal.com/hc/article_attachments/39430867304089" width="346" height="560"></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430867332249" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>找不到以前看的漫画？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>我们想告知您，当某些漫画在我们平台上消失时，通常是因为漫画的作者决定不再与我们续约。</p>
+<p>这是我们无法控制的情况，我们也和您一样对此感到遗憾。</p>
+<p>对于因此带来的不便，我们深表歉意，并恳请您理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430790808601" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">访问权限</h2>
+<details>
+<summary>为什么我无法阅读下一话？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>在 Toomics玩漫，我们开放前三话（部分作品可能提供更多话次）免费供您观看。然而，若要继续畅览整部作品的内容，您需要订阅 VIP 会员或购买点券。</p>
+<p> </p>
+<p><strong>已成为VIP 会员或拥有点券的用户：</strong><strong><br><br></strong></p>
+<p>Toomics 玩漫每周都会为所有作品更新最新话次。新话次在指定的上线日期到来后即可阅览。若您不想等待，也可以浏览我们的「完结作品」，这些作品的所有话次皆已全数上架，您可以随即阅览！</p>
+<p> </p>
+<p><strong>尚未订阅的用户：</strong><strong><br></strong>如果您看到下一话次已上线却无法阅览，这是因为该话次仅供 Toomics玩漫 VIP 会员阅览。只要您订阅 VIP 会员或购买点券，便可立即畅览所有已上线的话次，包括之前仅限 VIP 会员的内容。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430533343257" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何关闭安全模式并浏览18+内容？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>很抱歉，由于App发行平台的政策，我们无法在App上解除安全模式设定。我们提供的所有内容皆为全年龄可阅览的内容。依照App发行平台的规定，我们无法在App中提供18+的内容。</p>
+<p> </p>
+<p>如果您想浏览成人向内容，请使用电脑或手机浏览器访问我们的官方网站：toomics.com/cn 。在那里，您可以解除安全模式。另外，我们也建议您将Toomics玩漫网站添加到您的手机浏览器书签中，以便您随时进入我们的网站。</p>
+<p> </p>
+<p><strong>关于地区限制:</strong></p>
+<p> </p>
+<p>部分国家由于成人内容的发行政策，必须进行年龄验证。如果您居住在以下国家，请直接与我们联系。</p>
+<p> </p>
+<ul>
+<li>新加坡</li>
+<li>日本</li>
+<li>马来西亚</li>
+<li>印度尼西亚</li>
+</ul></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430570342041" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何更改语言设置？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomics玩漫 提供多种语言版本的服务，包括韩文、简体中文、繁体中文、西班牙文、意大利文、葡萄牙文、法文、英文、日文等，各语言提供的内容也有所不同。</p>
+<p> </p>
+<p>如果您想要切换语言，可以通过以下两种方式进行操作：</p>
+<p> </p>
+<p>1. 点击右上角的菜单按钮，进入「语言」设置，选择您想要的语言（例如：简体中文），然后点击「确认」。</p>
+<p> </p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/39430681567385" width="624" height="611"></p>
+<p> </p>
+<p>2. 您也可以滑动到网页底部，找到「语言」选项，选择您想要使用的语言即可。</p>
+<p> </p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/39430681568409" width="572" height="320"></p>
+<p> </p>
+<p>如此便可以轻松切换到您喜爱的语言，享受更多精彩的漫画作品！</p>
+<p> </p>
+<p><strong>特别提示：</strong>如果您订阅了简体中文 VIP 会员，就可以无限畅览简体中文和繁体中文的所有漫画呦！</p>
+<p> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430681577497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>是否可以下载漫画并离线阅读？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomics玩漫上的所有内容均受著作权法保护。因此，未经著作权拥有者或Toomics玩漫的授权，任何使用、分享或复制Toomics玩漫上连载内容的行为都可能会被追究法律责任。为了保障内容的安全性，Toomics玩漫不提供下载作品或离线阅读的功能。:(</p>
+<p>若您因此感到不便，我们深感抱歉，同时也感谢您的理解。Toomics玩漫团队始终致力于为所有用户提供最佳的阅览体验，希望您可以对我们的努力给予支持与鼓励。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430653561497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>有提供深色模式吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您想在Toomics玩漫平台上使用深色模式，无论是通过电脑还是手机上的网页浏览器，我们都建议您使用Chrome作为预设浏览器，并从Chrome线上应用商店下载「深色模式」扩充功能。</p>
+<p> </p>
+<p>您可以点击以下链接，进入 Chrome 网上应用商店，找到“深色模式”扩展程序：  <a href="https://chromewebstore.google.com/?hl=zh-CN" target="_blank" rel="noopener noreferrer">Chrome Webstore</a></p>
+<p> </p>
+<p>另外，我们也正在努力让网站的所有页面如同我们的应用程式一样可支持深色模式，敬请期待！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39430707843481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="terms---policy"><span class="section-icon">📋</span>Terms &amp; Policy</h1>
+<h2 class="sub-section">使用条款</h2>
+<details>
+<summary>使用条款<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><a href="https://global.toomics.com/sc/help/access_terms" target="_blank" rel="noopener noreferrer">https://global.toomics.com/sc/help/access_terms</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431096895257" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">隐私权政策</h2>
+<details>
+<summary>隐私权政策<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><a href="https://global.toomics.com/sc/help/private_terms" target="_blank" rel="noopener noreferrer">https://global.toomics.com/sc/help/private_terms</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431148708121" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="account-management"><span class="section-icon">👤</span>Account Management</h1>
+<h2 class="sub-section">账号设置</h2>
+<details>
+<summary>如何停用/重新激活/删除账号？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><strong>停用账号</strong></p>
+<p>我们很遗憾听到您想要停用账号。</p>
+<p>PC用户：</p>
+<ol>
+<li>登录Toomics。</li>
+<li>点击&lt;设置菜单 [≡]&gt;，找到&lt;账号设置&gt;，然后选择&lt;确定要停用当前账号吗？&gt;。</li>
+</ol>
+<p>手机用户<strong>：</strong></p>
+<ol>
+<li>登录Toomics。</li>
+<li>点击右侧菜单图标，选择[账号设置]，然后点击[确定要停用当前账号吗？]。</li>
+</ol>
+<p>请注意，如果您是VIP会员，必须先取消您的VIP会员资格才能停用账号。</p>
+<p> </p>
+<p><strong>重新激活账号</strong></p>
+<p>想要重新激活Toomics账号吗？很高兴您愿意回来！😊 如果您希望重新激活账号，请直接联系我们，并提供您想重新激活的账号信息，我们会尽快处理。</p>
+<p> </p>
+<p><strong>删除账号</strong></p>
+<p>如果您想删除Toomics账号，请直接联系我们，并告知您想删除的账号信息。我们还需要您确认以下几点才能进行账号删除：</p>
+<ol>
+<li>您需要先停用Toomics账号，才能删除所有个人信息。您同意停用账号吗？</li>
+<li>删除个人信息后，Toomics将无法在任何情况下恢复这些数据。</li>
+<li>所有未使用的点券将一并删除。</li>
+<li>您用点券购买的所有漫画章节也将无法再访问。</li>
+<li>即便VIP会员资格尚未到期，账号删除后VIP会员资格也会一并取消（除非您符合退款条件，并且申请退款）。</li>
+</ol>
+<p>如果您同意以上条件，并希望我们继续处理账号停用和个人信息删除，请告知我们。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431591211929" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何更改密码？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p><strong>PC用户：</strong> 前往[账号设置]，然后在设置中更改密码。</p>
+<p><strong>手机用户：</strong> 点击屏幕左上方的菜单图标，进入[账号设置]并更改密码。</p>
+<p>请注意，如果您在密码中使用了以下特殊字符，密码重置可能会失败：! @ # $ % ^ &amp; * ( )。建议您按照Toomics的密码标准进行设置。</p>
+<p>如果您的Toomics账号与社交媒体账号绑定，我们无法手动为您重置密码。不过，我们可以将您的账号转换为电子邮箱登录，并为您重置密码。此后，每次登录时，您需要手动输入电子邮箱和密码。</p>
+<p>如果需要我们手动重置密码，请联系我们并提供以下信息：</p>
+<ul>
+<li><strong>电子邮箱账号：</strong></li>
+<li>
+<strong>新密码</strong>：</li>
+</ul></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431598868633" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何更改登录信息？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>我们可以帮助您将订阅转移至新的电子邮箱地址，并为您重置密码，让您更方便登录。请联系我们并提供以下信息：</p>
+<ul>
+<li><strong>电子邮箱账号：</strong></li>
+<li><strong>新密码：</strong></li>
+</ul>
+<p>请注意，如果您的账号是通过Apple注册的，我们无法将其转换为普通电子邮箱账号，也无法修改该账号的密码。这是Apple的限制，我们对此无法控制。</p>
+<p>对此带来的不便，我们深感抱歉，并感谢您的理解与耐心。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431678621337" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何追踪我最近读过的漫画？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>想要快速找到您最近读过的漫画吗？只需进入“我的书架”，然后点击“最近阅览”，即可看到您最近观看的所有漫画。不过，随着时间推移，系统会逐渐清理较旧的记录。</p>
+<p>如果您发现缺少某些漫画，可能是由于安全模式未关闭，或者您在未登录的情况下查看了免费章节。为了保持阅读记录的完整性，请确保您已登录，并根据需要调整设置。</p>
+<p>如果想清理“最近阅读”列表，只需点击垃圾桶图标，选择要删除的漫画系列，列表就会更新，让您为下次漫画之旅做好准备！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431540051353" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何验证手机号？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>首先，我们对您在使用过程中遇到的不便深感抱歉。为了防止最新漫画章节的非法分发，我们最近新增了手机号验证功能。然而，这个功能可能会引发错误，给用户带来不便。</p>
+<p>如果您在验证手机号时遇到问题，请联系我们，并提供您想要验证的账号信息，我们将为您手动完成验证。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431642593817" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我已经达到10次密码输入限制，怎么办？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您已经达到10次密码输入的限制，请联系我们并提供以下信息：</p>
+<ul>
+<li>电子邮箱账号：</li>
+<li>新密码：</li>
+</ul></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431606790041" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>找不到我的最爱列表<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您是在我们的网站上阅览漫画，可能是由于您没有关闭位于Toomics网站顶部的“安全模式”按钮。关闭安全模式后，您将可以查看成人漫画，而这些内容也会重新出现在“我的最爱”列表中。</p>
+<p>然而，请注意，在我们的手机App上，由于Google Play和Apple App Store的政策限制，我们无法提供任何成人内容。如果您想继续阅读成人漫画，请通过PC或手机浏览器访问我们的网站toomics.com。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431567921305" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">账号设置与访问</h2>
+<details>
+<summary>Web 账号与 App 账号的区别是什么？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>Web 账号是通过 PC 或网页浏览器直接在 Toomics玩漫网站上创建的账号。</p>
+<p>另一方面，App 账号是您在手机上未登录的情况下使用的 App 生成的序列号。</p>
+<p>请注意，您可以随时将 Web 账号与 App 账号进行关联，反之亦然。</p>
+<p>请注意，有些用户可能会在每次卸载并重新安装 App 时创建多个 App 账号，因此请避免卸载 App ，并直接联系我们。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431344216985" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>为什么我需要选择性别？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>选择性别后，我们的系统会自动根据您的性别推荐特定类型的漫画和类别。如果您不希望系统根据性别来个性化内容推荐，请选择“未知”选项。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431296645145" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>什么是电子邮件登录或社交媒体登录？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>在注册 Toomics玩漫时，我们提供多种方式来创建账号。</p>
+<p>您可以使用电子邮件地址（电子邮件）注册，或者选择通过社交媒体账号，例如 Facebook、Line、Yahoo、Google、X 或 Apple 账号进行注册。</p>
+<p>如果您选择电子邮件地址注册，您需要通过输入电子邮件地址和密码进行登录。</p>
+<p>如果您选择通过社交媒体（例如 Facebook、Line、Yahoo、Google 或 X）注册，则需要在[登录]页面下方点击相应的图标进行登录。</p>
+<p>如果您想登录与社交媒体账号相关联的账号，通过输入电子邮件进行登录只会创建另一个账号。请确保通过社交媒体选项登录，以访问您的 VIP 会员。</p>
+<p>请注意，使用相同的电子邮件地址甚至输入错误也可以创建多个账号，因此我们建议在创建 Toomics玩漫账号时务必小心。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431365981337" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何合并账号？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>关于账号合并，请注意，当您将 Web 账号与 App 账号合并时，合并后 App 账号的信息将自动与 Web 账号同步，并且在 App 上购买的点券将会直接授予 Web 账号。</p>
+<p>然而，请注意，有些情况下，用户可能会创建多个 App 账号，并在不同的 App 账号上进行购买，这些账号未被合并，大多数情况下是因为用户在购买时没有登录。</p>
+<p>在这种情况下，请联系我们，我们将协助您访问您已购买但无法使用的点券账号。</p>
+<p>为什么有这么多不同的域名？</p>
+<p>请注意，我们创建了多个域名，以便在不同平台和社交媒体网络上进行市场推广和广告。</p>
+<p>然而，我们的主要域名是 toomics.com/sc </p>
+<p>因此，我们建议您继续使用上述域名。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431520825497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何注册 Toomics玩漫账号？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>您可以在 Toomics玩漫官方网站上免费注册账号。点击右上角的菜单，找到&lt;登录&gt;按钮。点击&lt;登录&gt;，然后点击&lt;注册&gt;来创建账号。</p>
+<p>请记得同意我们的使用条款（使用条款）和隐私权政策（隐私权政策）。</p>
+<p>您也可以通过其他社交媒体账号，例如 Facebook、Google、Yahoo、Line 和  X 来创建账号。</p>
+<p>请注意，使用社交媒体账号登录与使用普通电子邮件账号登录是不同的。如果您通过社交媒体选项创建了账号，请在[登录]页面上点击相应的图标进行登录。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431323875481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>我在 App 上进行了购买，如何在网站上阅读？<span class="art-count">2024-12-23</span></summary>
+<div class="article-body"><p>如果您希望通过 PC 或移动设备使用 Toomics玩漫网站上的 VIP 会员服务，我们建议您在 App 中创建账号或登录。</p>
+<p>这将使您购买的 VIP 会员与您的账号相关联，往后只要您使用相同的账号登录，就可以在任何设备上使用它。</p>
+<p>这是通过 App 购买的 VIP 订阅，未与任何电子邮件账号关联的情况。我们建议您按照以下步骤将 VIP 会员绑定到电子邮件账号：</p>
+<ol>
+<li>使用您进行购买的 iPhone，直接在 Toomics玩漫的英文版App中登录。</li>
+<li>然后，点击屏幕左上角的 Toomics玩漫标志，然后点击“注册”。</li>
+<li>点击“注册”后，输入您希望与 VIP 会员绑定的电子邮件。</li>
+</ol>
+<p>如果您已经创建了账号，只需点击“登录”按钮，并使用您在系统中注册的 Toomics玩漫账号进行登录。</p>
+<p>最后，如果您仍然无法访问您的应用内账号，请点击“复原”，再按“复原”按钮。<br><br></p>
+<p>请参阅以下截图：</p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41508306539673" width="624" height="605"></p>
+<p>请始终记住，如果您希望关闭安全模式（安心模式），您需要通过 PC 或手机网页浏览器访问我们的网站 toomics.com/sc </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431415764121" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-23</div></div>
+</details>
+<details>
+<summary>我在网站上进行了购买，如何在 App 上阅读？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>如果您在网站上进行了购买，并希望在 App 上阅读，只需使用与 VIP 会员绑定的 Toomics玩漫账号在 App 上登录即可。</p>
+<p>请注意，根据 Google Play 商店和 Apple App Store 的政策，我们目前无法在 App 中支持任何成人内容，因此您将无法访问我们的成人向漫画。对此造成的不便，我们深感抱歉。</p>
+<p>如果您希望关闭安全模式，请通过 PC 或手机网页浏览器访问我们的网站 toomics.com/sc。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431431146137" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>找不到我的账号<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>如果您在寻找Toomics玩漫账号时遇到困难，请尝试检查您在购买时使用的电子邮件收到的购买确认邮件。</p>
+<p>如果仍然无法解决，请直接联系我们，并提供以下信息：</p>
+<ol>
+<li><strong>请提供收据的截图（必须清晰显示购买日期和我们公司的名称）。</strong></li>
+<li><strong>提供您使用的信用卡/借记卡的最后四位数字。</strong></li>
+<li><strong>请发送您可能用来注册 Toomics玩漫账号的其他电子邮件地址。</strong></li>
+</ol>
+<p>我们理解这些信息非常私密，但请放心，您提供的所有信息都会被严格保密。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39731720209177" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>无法通过社交媒体登录账号！<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>在注册Toomics玩漫账号时，我们提供两种方式来创建账号。</p>
+<p> </p>
+<p>1. 您可以通过电子邮件注册（电子邮件账号），或者通过 Facebook、Line、Yahoo、Google 或 X（第三方网站）进行注册。</p>
+<p>如果您选择通过第三方网站登录，则需要在[登录]页面下方点击相应的图标进行登录。<br>如果您通过第三方网站成为 VIP 会员，只有通过该第三方网站登录才能访问 VIP 内容。</p>
+<p> </p>
+<p>2. 如果您使用电子邮件进行注册，您需要继续通过电子邮件和密码进行登录。<br>如果您是通过电子邮件账号成为 VIP 会员，则只有通过电子邮件和密码登录才能访问 VIP 内容。<br><br></p>
+<p>请注意，社交媒体账号与普通电子邮件账号是两个不同的账号。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431369186969" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<h1 class="section-heading" id="vip-membership---coins"><span class="section-icon">⭐</span>VIP Membership &amp; Coins</h1>
+<h2 class="sub-section">VIP会员资格</h2>
+<details>
+<summary>VIP会员资格可以在其他语言中使用吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>请注意，Toomics的服务在韩文、简体中文、繁体中文、西班牙文、意大利文、德文、葡萄牙文、法文、日文和英文中有所不同。因此，在特定语言网站上购买的商品无法在其他语言网站上使用。</p>
+<p>不过，在某些情况下，我们可以手动帮助您更改语言，但请注意，一旦您同意更改后，我们将无法逆转。如果您希望我们更改语言，请直接联系我们，我们会提供解决方案。</p>
+<p>另外，由于技术限制，我们无法更改通过Apple App Store或Google Play Store购买的语言。</p>
+<p>此外，请注意我们不再支持意大利文和葡萄牙文的订阅服务，因此无法在这些语言中进行变更。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432139734169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会员资格可以观看所有漫画吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>是的，VIP会员资格让您可以无限制地访问VIP专属内容。</p>
+<p>只要您的VIP会员资格有效，就可以继续访问这些漫画。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432237335961" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会员资格和点券有什么区别？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomics的定期支付型VIP会员资格是一项特别套餐，允许您无需单独购买点券即可无限制地访问我们所有的漫画内容！购买VIP会员资格后，只要您使用同一个Toomics账号登录，无论是在我们的网站（toomics.com）、手机浏览器，还是我们的App中，都可以享受所有的优质内容。</p>
+<p>如果您不想购买VIP会员资格，我们也提供点券购买。点券让您可以按需购买并阅读您喜欢的漫画章节。对于只想阅读特定漫画的用户来说，这是一项很好的选择，因为即使点券用完，您所购买的章节仍然可以随时再次阅览。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432032817433" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会员资格过期后，我还能继续观看内容吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遗憾，VIP会员资格过期后，您将无法再访问优质内容。VIP会员资格仅在您所选择的订阅期间内有效，过期后将无法访问VIP专属内容。</p>
+<p>查看订阅到期日期的方法：</p>
+<p>您可以在屏幕右上角的[≡]菜单中点击「账号设置」，查看VIP会员资格的有效期。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432189027993" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>什么是“免费月份”？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>我们提供一个「免费月份」作为取消VIP会员资格的替代方案，您可以在30天内免费访问所有漫画。</p>
+<p>请注意，免费月份结束后，订阅将自动续订，除非您在到期前取消订阅。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432195644313" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何取消我的VIP会员资格？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>如果您希望取消VIP会员资格，请按照以下步骤操作：</p>
+<p><strong><span class="wysiwyg-underline">Toomics网站取消步骤</span></strong>：</p>
+<ol>
+<li>登录您的Toomics账号。</li>
+<li>点击屏幕右上角的[≡]菜单，选择「账号设置」。</li>
+<li>点击底部的「取消VIP会员资格」按钮，并选择取消原因。</li>
+</ol>
+<p><strong><span class="wysiwyg-underline">Apple App Store取消步骤</span>：</strong></p>
+<ol>
+<li>打开「设置」应用程序。</li>
+<li>点击「iTunes与App Store」。</li>
+<li>点击您的Apple ID，选择「查看Apple ID」。</li>
+<li>输入Apple ID密码或使用指纹解锁。</li>
+<li>点击「订阅」并选择您想取消的订阅。</li>
+</ol>
+<p><strong><span class="wysiwyg-underline">Google Play商店取消步骤</span>：</strong></p>
+<ol>
+<li>打开Google Play商店应用程序。</li>
+<li>点击「菜单」-&gt;「付款和订阅」-&gt;「订阅」，选择您要取消的应用程序。</li>
+<li>点击「取消」并确认。</li>
+</ol>
+<p>这些步骤应该可以帮助您成功取消订阅。请注意，如果您通过iOS购买，我们无法手动取消订阅，这是由于Apple App Store的政策限制。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432175577497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>我已经订阅了VIP会员资格，会再次被收费吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>VIP会员资格是定期支付，系统会根据您选择的计划（1个月、3个月、6个月或12个月）自动续订。</p>
+<p>您可以查看首次购买时的收据，以确认下次付款日期。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432226506649" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我已订阅，但无法访问我的VIP会员资格<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您无法确认已购买的VIP会员，请检查您订阅或购买点券时使用的登录方式。可能您使用了社交软件账号或电子邮箱地址和密码登录。为了确保顺利登录，请务必使用相同的登录方式。</p>
+<p> </p>
+<p>如果您是通过App订阅，购买内容可能未关联到您的电子邮箱账号。此时，请从应用商店（Google Play或Apple App Store）恢复购买，然后注册您的电子邮箱，将App账号与网站账号关联起来。</p>
+<p> </p>
+<p>Google Android / Apple用户请按以下步骤操作：</p>
+<ol>
+<li>在您的Android或iPhone上打开Google Play商店/ App Store。</li>
+<li>确认您已登录购买时使用的Google/Apple账号。</li>
+<li>打开Toomics App。</li>
+<li>点击红色的「VIP会员资格」按钮。</li>
+<li>离开支付页面返回首页。</li>
+<li>如果没有变化，点击「客服中心」，然后选择「VIP会员复原」，再按下「复原」按钮。</li>
+</ol>
+<p>将VIP资格连接到电子邮箱的方法：</p>
+<ol>
+<li>在Android或Apple设备中登录Toomics App。</li>
+<li>点击屏幕左上角的Toomics标志，选择「注册」。</li>
+<li>输入您想绑定VIP会员资格的电子邮箱地址。</li>
+</ol>
+<p>这样，您应该就可以重新访问VIP会员资格了！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432099783321" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>有免费试用选项吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>抱歉，目前我们不提供免费试用。只有购买VIP会员资格的用户可以使用VIP服务。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432231740313" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">点券</h2>
+<details>
+<summary>为什么我的点券还没到账？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很抱歉，点券还未到账！点券到账时间可能因支付方式不同而有所差异。通过PayPal或信用卡支付的交易通常会在几分钟内完成，但有时可能需要几个小时。现金支付则可能需要最多2天的时间才能将点券存入您的账号。</p>
+<p>这些延迟通常是由于支付服务提供商造成的，我们对此无能为力。</p>
+<p>感谢您的耐心和理解，我们将努力确保您的点券尽快到账。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432343482137" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>为什么点券价格变更，是否有任何折扣或促销活动？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>我们调整了点券的价格和选项，以提升您的整体体验，并为您提供更多灵活的选择。这些变更旨在更好地满足您的需求和偏好。</p>
+<p>请随时关注我们网站上的点券购买折扣和促销活动！我们始终致力于让您的Toomics之旅更加愉快！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432349793817" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>什么是点券？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>点券让您可以解锁并享受Toomics上所有独家的漫画内容。您可以使用现金购买这些点券，并用它们来解锁您喜欢的漫画章节。每个章节的费用在1到3点券之间，视章节的长度和内容而定。通过点券购买的章节就像拥有了一个数字副本——即使内容从网站上删除，您仍然可以随时阅览点券购买过的内容。</p>
+<p> </p>
+<p><strong>普通点券</strong></p>
+<p>这些是您购买的标准点券。最棒的是，它们永不过期！您可以随时保存并使用这些点券，无需担心使用期限。</p>
+<p> </p>
+<p><strong>红利点券</strong></p>
+<p>这些是我们对您的额外感谢。每次您进行购买时，我们都会赠送一些红利点券作为回馈。和普通点券一样，红利点券也永不过期，您可以随时使用。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432258054169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何查询我的点券余额或购买所需的点券数量？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>您可以在设置菜单[≡]中查看简要余额概况。</p>
+<p>每个章节需要的点券数量会显示在该章节旁边。</p>
+<p>如果您希望一次性购买所有章节，只需点击系列主页上的「购买所有章节」按钮，即可一次性购买所有可用章节。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432270768921" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我在哪里可以查看我已购买的作品标题？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>要查看您已购买的漫画标题，请前往「我的书架」，然后选择「已购买的系列」。在这里，您可以看到所有已购买章节的漫画系列，并显示您已购买的百分比。</p>
+<p>如需详细查看，请点击系列缩略图。这将显示所有可用章节的概览，哪些章节已购买，哪些章节仍可购买，价格在1到3点券之间。您还可以选择购买新章节或一次性购买所有剩余章节。</p>
+<p>此功能让您轻松管理和丰富您的收藏，确保您不会错过任何喜爱的内容。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432334339481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>点券的有效期限是多久？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>点券有效期无限制。一旦购买，它们将不会过期，并且可以随时使用。</p>
+<p>当您想要访问额外的漫画内容时，可以随时使用它们。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432306220697" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="payment---refunds"><span class="section-icon">💳</span>Payment &amp; Refunds</h1>
+<h2 class="sub-section">付款与问题</h2>
+<details>
+<summary>为什么我无法完成付款？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>您的付款可能因为发卡行设置的国际交易限制而失败。我们建议您在再次尝试购买 VIP 会员之前，先联系您的发卡银行。</p>
+<p>此外，我们为在线支付添加了 3D Secure 验证步骤，以防止信用卡欺诈，并为信用卡和借记卡的线上支付提供额外的安全保障。如果您的 3D Secure 验证未能成功（可能是由于连接失败或密码错误），我们建议您按以下步骤尝试：</p>
+<ol>
+<li>再次尝试支付，并确保输入正确的密码或短信验证码。请不要尝试超过5次，否则我们的支付网关提供商可能会将其视为可疑活动并拒绝交易。</li>
+<li>暂时禁用弹窗拦截器，因为 3D Secure 验证通常会以弹窗形式显示，容易被拦截。</li>
+</ol></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432627161881" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>为什么看不到 PayPal 支付选项？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您希望通过 PayPal 进行支付，</p>
+<p>请使用此链接访问我们的网站：<span class="wysiwyg-underline" style="color: #1155cc;"><a href="https://toomics.com/sc" target="_blank" rel="noopener noreferrer">https://toomics.com/sc</a></span></p>
+<p>这样我们可以确保您能看到并使用 PayPal 支付选项。</p>
+<p>对于因此带来的不便，我们深感抱歉，感谢您的耐心与理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432710849177" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何在没有信用卡的情况下购买 VIP 会员？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><strong><br></strong>如果您没有信用卡，可以在 VIP 支付页面找到其他可用的支付方式。</p>
+<p>如果您不满意我们网站上的支付选项，我们建议您通过 Google Play 商店或 Apple App Store 上的 Toomics App购买 VIP 会员，因为这些平台提供更多的支付方式。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432620865561" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何更改我的付款方式或付款计划？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遗憾，我们无法直接为您更改付款信息，因为 Toomics 不保存信用卡数据。:(</p>
+<p>如果您想更换用于自动续订 VIP 会员的信用卡，我们建议您先取消当前的 VIP 会员，然后等待订阅过期。过期后，您可以使用新的信用卡重新购买。</p>
+<p>如果您希望我们帮助您取消订阅，请通过1:1客服联系我们并提供您的 Toomics 账号信息。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432642168857" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何更改我的付款方式或付款计划？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遗憾，我们无法直接为您更改付款信息，因为 Toomics 不保存信用卡数据。:(</p>
+<p>如果您想更换用于自动续订 VIP 会员的信用卡，我们建议您先取消当前的 VIP 会员，然后等待订阅过期。过期后，您可以使用新的信用卡重新购买。</p>
+<p>如果您希望我们帮助您取消订阅，请通过1:1客服联系我们并提供您的 Toomics 账号信息。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432690663577" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我的付款何时到期？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>付款到期日取决于您选择的 VIP 会员计划的周期和购买日期。<br><br></p>
+<p>您可以在付款记录中查看您购买的定期扣款商品详情。</p>
+<p>例如，如果您在10月8日购买了月额定期扣款商品，那么下一个付款日期将会是11月8日。对于3个月的定期扣款商品，付款则会在3个月后的同一天进行。此规则同样适用于6个月或1年的定期扣款商品。<br><br></p>
+<p>当您取消账号后，您也可以查看VIP会员的到期日期。</p>
+<p><br><img src="https://help.toomicsglobal.com/hc/article_attachments/39432596686361" width="603" height="389"></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432596687897" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>有哪些付款方式可以使用？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>要购买 VIP 会员资格，您需要使用信用卡。目前我们提供四种支付方式供您选择：</p>
+<ul>
+<li>PayPal</li>
+<li>Paymentwall</li>
+<li>Payletter</li>
+<li>Worldpay</li>
+</ul>
+<p>如果您不想使用信用卡，可以在 VIP 支付页面找到其他可用的支付方式。此外，我们还有点券系统，允许您购买点券来解锁并查看我们的漫画章节。该系统提供了多种支付方式。</p>
+<p>如果您不喜欢网站上的支付选项，我们建议您通过 Google Play 商店或 Apple App Store 上的 Toomics App购买 VIP 会员，这里提供更多的支付方式。</p>
+<p> </p>
+<p>支付方案链接: <a href="https://global.toomics.com/sc/mypage/payment/type/payment-plan" target="_blank" rel="noopener noreferrer">https://global.toomics.com/sc/mypage/payment/type/payment-plan</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432593458969" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">退款政策</h2>
+<details>
+<summary>Apple App Store 购买的退款<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您通过 Apple App Store 购买了 VIP 会员资格，并且不希望继续使用，我们建议您手动取消会员资格，以避免将来继续自动扣款。</p>
+<p>取消步骤如下：</p>
+<ol>
+<li>打开“设置”应用。</li>
+<li>点击“iTunes 与 App Store”。</li>
+<li>点击您的 Apple ID。</li>
+<li>当弹出窗口出现时，选择“查看 Apple ID”。</li>
+<li>输入 Apple ID 密码或使用指纹解锁。</li>
+<li>点击“订阅”，选择您想要取消的订阅。</li>
+</ol>
+<p>如果您需要退款，请直接联系 Apple 客户服务，因为根据 Apple 的退款政策，我们无法处理通过 Apple App Store 的购买退款。Apple 客户服务将协助您完成退款申请。</p>
+<p>Apple 退款步骤如下：</p>
+<ol>
+<li>前往<a href="https://reportaproblem.apple.com"> <span class="wysiwyg-underline" style="color: #1155cc;">reportaproblem.apple.com</span></a>。</li>
+<li>使用您的 Apple ID 和密码登录。</li>
+<li>在希望申请退款的项目旁边，点击“报告问题”。</li>
+<li>按照页面上的指示选择退款原因并提交申请。</li>
+</ol>
+<p>如果您有任何问题，请随时联系我们。<br>感谢您对 Toomics 的支持！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432815477273" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>为什么再次被扣款？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomics 的 VIP 会员是一个自动续订的服务。如果您没有正确取消订阅，系统将自动续订并再次扣款。对此造成的不便我们深感抱歉。</p>
+<p> </p>
+<p>我们的使用条款中明确指出：<br>“VIP 会员资格将根据您所选择的支付方式自动续订。如果您未在指定期间内取消 VIP 会员资格，我们将自动从您的支付方式中扣除月费。”</p>
+<p> </p>
+<p>支付页面上也有说明：<br>“购买 Toomics 的 VIP 会员资格即表示您同意该会员资格将自动续订，直到您手动取消为止。”</p>
+<p> </p>
+<p>如果再次被扣款，可能是由于未正确取消 VIP 会员资格，或者您停用了未绑定购买的账号。若需要进一步帮助或详细解释，请随时联系我们。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432811102617" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>为什么我的退款还没有到账？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>我们无法控制退款的处理时间和金额，具体的处理完全取决于您所使用的银行或信用卡公司。</p>
+<p>为了获取更准确的信息，建议您直接联系发卡银行或金融机构。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432741928089" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>为什么扣款金额比预期多？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>请注意，由于支付服务提供商的手续费或外汇汇率差异，实际扣款金额可能会与原始金额略有不同。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432744057881" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>关于现金支付的退款<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>对于现金支付的订单，是否可以退款取决于您所使用的支付方式。</p>
+<p>因此，我们建议在购买前，先确认所选择的支付方式是否支持退款。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432734791449" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何申请退款？<span class="art-count">2025-08-13</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">关于 VIP 会员购买</span></p>
+<p>如果符合以下条件，您可以申请 VIP 会员的退款：</p>
+<ol>
+<li>您必须在购买 VIP 会员后的 14 天内申请退款；并且</li>
+<li>未使用该账号访问任何VIP内容</li>
+<li>在退款申请当月，无使用通过VIP会员购买获得或以折扣价格购买的点券（包括礼券、红利点券）的记录</li>
+</ol>
+<p>若您未能符合上述任何一项条件，将无法提供退款。</p>
+<p> </p>
+<p><span class="wysiwyg-underline">关于点券购买</span></p>
+<p>如果您在购买后的 7 天内完全没有使用任何点券，可以申请退款。如果发现任何点券（包括普通点券或红利点券）已被使用，则无法进行退款。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432701131289" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-13</div></div>
+</details>
+<h1 class="section-heading" id="technical-issues"><span class="section-icon">🔧</span>Technical Issues</h1>
+<h2 class="sub-section">App/PC相关问题</h2>
+<details>
+<summary>为什么在App里无法阅览成人内容？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>根据 Google Play 商店和 Apple App Store 的政策，App内无法提供成人内容。因此，您无法通过App访问成人漫画。对此我们深感抱歉。 如果您想关闭“安全模式”，请通过电脑或移动设备的浏览器访问 toomics.com 进行设置。</p>
+<p>即使您在App中购买了 VIP 会员资格，仍然可以通过我们的网站使用。只需登录您在App中使用的 Toomics 账号，VIP 会员资格将自动应用于该账号。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459854402457" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>可以切换回旧版系统或界面吗？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>很遗憾，无法切换回旧版系统或界面。 我们理解界面更改可能让您需要一些时间适应，特别是当您同时关注多部漫画时。我们的团队正在收集用户反馈，力求在设计美观和功能性之间找到最佳平衡。您的意见对我们至关重要，我们会在未来的改进中加以考虑。</p>
+<p>如果您在使用过程中遇到任何困难，或需要帮助管理您的漫画系列，请随时联系我们。我们将竭诚为您提供帮助，确保您的 Toomics 体验顺畅且愉快。</p>
+<p>感谢您对 Toomics 的持续支持，我们将继续致力于为您提供更好的阅读体验。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459924277913" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>可以同时在多个设备上使用我的 VIP 会员资格吗？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>很抱歉，VIP 会员资格仅限在一台设备上使用。</p>
+<p>如果您希望在另一台设备上使用，之前设备上的会话将自动关闭，您可以在第二台设备上继续享受 VIP 内容。</p>
+<p>对此造成的不便，我们深感歉意，感谢您的理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459831243289" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>如何恢复我的购买？<span class="art-count">2024-12-23</span></summary>
+<div class="article-body"><p>请通过我们的App尝试恢复您的购买。操作步骤如下：<br><br></p>
+<ol>
+<li>在您的 Android 设备上打开 Google Play 商店。</li>
+<li>确认您登录的 Google 账号与购买时的账号一致。</li>
+<li>启动“Toomics”App。</li>
+<li>点击红色的“VIP 会员”按钮。</li>
+<li>从支付页面返回主页。</li>
+<li>最后，如果您仍然无法访问您的应用内账号，请点击“复原”，再按“复原”按钮。<br><br>
+</li>
+<li>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41508558512665" width="624" height="605"></p>
+</li>
+</ol></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459836726169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-23</div></div>
+</details>
+<details>
+<summary>如果我在 Apple App Store 购买了 VIP 会员资格，能在 Android 设备上使用吗？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>如果您在 Apple App Store 上使用 iPhone 或 iPad 进行购买，VIP 会员资格只能在 iOS 版的 Toomics App上使用。</p>
+<p>若要在 Android 设备上使用，请通过浏览器访问 VIP 内容，切勿在 Android 版 Toomics App中登录。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459849389977" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>如果我在 Google Play 商店上购买了 VIP 会员资格，能在 iPhone 上使用吗？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>如果您在 Google Play 商店上使用 Android 设备进行购买，VIP 会员资格只能在 Android 版的 Toomics App上使用。</p>
+<p>若要在 iPhone 或 iPad 上使用 VIP 会员，请通过浏览器访问，切勿在 iOS 版 Toomics App中登录。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459899995545" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>有App吗？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>是的，Toomics 的App现已上线，您可以在 Google Play 商店和 Apple App Store 下载！</p>
+<p>不过需要注意的是，按照 Google Play 商店和 Apple App Store 的政策规定，App内无法提供成人内容，因此您将无法通过App阅览成人漫画。 如果您想要阅览成人漫画，请直接访问我们的网站 toomics.com。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39459729372825" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<h2 class="sub-section">常见问题</h2>
+<details>
+<summary>为什么我的账号被限制了？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>如果您的Toomics账号被限制，这意味着系统检测到了可疑活动。我们的系统会自动封锁有以下行为的用户：</p>
+<ol>
+<li>用户只阅读每部漫画的最后几章。</li>
+<li>用户以不规律的方式阅读漫画章节。</li>
+<li>用户在极短时间内阅读多个章节，或在同一时间以不正常方式阅读章节。</li>
+<li>用户将Toomics的版权内容传播到非法网站。</li>
+<li>用户申请退款，试图取回已购买的款项。</li>
+</ol>
+<p>很抱歉，我们无法详细说明账号被限制的具体原因。不过，如果您有上述行为之一，系统可能会自动封锁您的账号。如果您需要进一步解释或指导，请随时与我们联系。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39433140463641" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>为什么网站或图片加载这么慢？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>请注意，我们服务器的地理位置可能会影响您所在地区的加载速度。此外，当同一区域有大量用户同时使用服务时，也可能导致网站加载变慢。</p>
+<p>为了提高加载速度，我们建议您关闭设备上的省电模式。此外，您可以尝试更换浏览器或网络，或者稍等片刻，看加载速度是否恢复正常。</p>
+<p>如果您持续遇到加载问题，请告知我们您所在的时区、阅读的漫画标题和章节，我们会进一步调查。</p>
+<p>同时，您可以尝试以下步骤以改善您的阅读体验：</p>
+<p> </p>
+<p><strong>清除缓存：</strong></p>
+<ol>
+<li>打开您的浏览器。</li>
+<li>同时按下“Ctrl”+“Shift”+“Del”（Windows）或“Cmd”+“Shift”+“Del”（Mac），打开清除缓存菜单。</li>
+<li>选择“缓存”和其他保存的数据。</li>
+<li>点击“删除”或“清除缓存”。</li>
+</ol>
+<p><strong>更新浏览器：</strong></p>
+<p>确保您的浏览器已更新到最新版本。旧版浏览器可能会导致加载问题。<br><br></p>
+<p><strong>使用其他浏览器：</strong></p>
+<p>尝试使用不同的浏览器打开我们的网站，查看问题是否与特定浏览器相关。</p>
+<p>如果您持续遇到问题，请联系我们，并提供您所在的时区、漫画标题和章节的详细信息。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432999474713" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何报告错误？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>非常抱歉给您带来了不便！T_T</p>
+<p><br>请通过客服与我们联系，并提供更详细的问题描述（如果能附上问题截图会非常有帮助），我们将尽快处理！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39433137456281" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>如何重置我的密码？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p><strong>PC用户：</strong></p>
+<ol>
+<li>前往 [账号设置]，并通过此处更改您的密码。</li>
+</ol>
+<p><strong>移动设备用户：</strong></p>
+<ol>
+<li>点击左上角的菜单图标，通过 [账号设置] 更改您的密码。</li>
+</ol>
+<p>请注意，如果您的密码包含以下特殊字符，重置可能会失败：! @ # $ % ^ &amp; * ( )</p>
+<p>如果您在更改或重置密码时使用了这些字符，密码可能无法成功重置。我们建议您将密码更改为符合Toomics标准的格式。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39433110544025" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>我没有收到注册确认邮件，怎么办？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>如果您在注册账号后没有收到确认邮件，请检查您的垃圾邮件或垃圾邮箱。如果依然没有收到，您可以使用相同的邮箱地址和密码再次注册，系统将重新发送确认邮件到您的收件箱。</p>
+<p>我们也建议您使用社交软件账号进行注册。只需点击注册按钮下方的社交软件图标，系统将自动为您创建账号。</p>
+<p>如果您不希望使用社交软件账号，请联系1:1客服中心，客服人员将帮助您将社交软件账号更改为常规的电子邮箱账号。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39433057227929" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<h1 class="section-heading" id="event---benefits"><span class="section-icon">🎁</span>Event / Benefits</h1>
+<h2 class="sub-section">活动 / 益处</h2>
+<details>
+<summary>有其他促销或折扣吗？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>目前，我们除了网站上列出的促销活动和折扣外，暂时没有其他优惠：</p>
+<p> </p>
+<p>Toomics 支付计划: <span class="wysiwyg-underline" style="color: #1155cc;"><a href="https://global.toomics.com/sc/mypage/payment/type/payment-plan" target="_blank" rel="noopener noreferrer">https://global.toomics.com/sc/mypage/payment/type/payment-plan</a></span></p>
+<p><a href="https://global.toomics.com/de/mypage/payment/type/payment-plan"><span class="wysiwyg-underline" style="color: #1155cc;"><br></span></a>虽然目前没有特别的折扣，但我们计划未来推出定期的促销活动和特别优惠。请随时关注我们的更新和公告，确保您不会错过任何获得更多优惠和折扣的机会！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432495088793" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+</div>
+
+<div class="footer">
+  <strong>TOOMICS BizOps</strong> — Zendesk FAQ Documentation<br>
+  Generated: 2026-03-04 &middot; Author: 유종선 &middot; Language: 简体中文<br>
+  Source: help.toomicsglobal.com
+</div>
+
+</div>
+</body>
+</html>

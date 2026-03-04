@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="tw">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="date" content="2026-03-04">
+<title>Zendesk FAQ — 繁體中文 | BizOps</title>
+<style>
+:root {
+  --brand-primary: #3B1F8E;
+  --brand-secondary: #5B3CC4;
+  --brand-accent: #7C5CFC;
+  --brand-light: #EDE8FF;
+  --brand-bg: #F7F5FF;
+  --navy: #1A1A2E;
+  --dark: #2D2D3F;
+  --text: #333344;
+  --text-light: #666680;
+  --border: #D8D8E8;
+  --success: #28A06C;
+  --warning: #E8A020;
+  --danger: #E8320A;
+  --info: #2196F3;
+  --white: #FFFFFF;
+  --bg-light: #FAFAFE;
+  --bg-card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(59,31,142,0.06);
+}
+/* ─── Header ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--brand-primary) 100%);
+  color: var(--white);
+  padding: 64px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--danger);
+}
+.cover h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+.cover .meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; opacity: 0.85;
+}
+.cover .meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover .meta span::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(255,255,255,0.6);
+}
+/* ─── TOC ─── */
+.toc {
+  background: var(--brand-bg); border: 1px solid var(--brand-light);
+  border-radius: 8px; padding: 32px 40px; margin: 40px 32px;
+}
+.toc h2 {
+  color: var(--brand-primary); font-size: 20px; font-weight: 700;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--danger); display: inline-block;
+}
+.toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+.toc ol li {
+  counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0;
+  border-bottom: 1px solid rgba(124,92,252,0.1);
+}
+.toc ol li:last-child { border-bottom: none; }
+.toc ol li::before {
+  content: counter(toc-counter) "."; color: var(--danger);
+  font-weight: 700; margin-right: 10px; font-size: 14px;
+}
+.toc ol li a {
+  color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--brand-secondary); }
+.toc ol li .badge {
+  display: inline-block; background: var(--danger); color: var(--white);
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px; vertical-align: middle;
+}
+/* ─── Content ─── */
+.content { padding: 16px 32px 64px; }
+h1.section-heading {
+  color: var(--brand-primary); font-size: 24px; font-weight: 800;
+  margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px;
+}
+h1.section-heading .section-icon { margin-right: 8px; }
+h2.sub-section {
+  color: var(--brand-secondary); font-size: 18px; font-weight: 700;
+  margin-top: 32px; margin-bottom: 12px; padding-left: 14px;
+  border-left: 4px solid var(--danger);
+}
+/* ─── Accordion ─── */
+details {
+  margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+details[open] { box-shadow: 0 2px 8px rgba(59,31,142,0.08); }
+summary {
+  padding: 14px 20px; cursor: pointer; font-weight: 600; font-size: 15px;
+  color: var(--dark); list-style: none; display: flex; align-items: center;
+  gap: 10px; transition: background 0.15s;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: '▶'; font-size: 10px; color: var(--danger);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: var(--brand-bg); }
+summary .art-count {
+  margin-left: auto; font-size: 11px; font-weight: 700;
+  background: var(--brand-bg); color: var(--brand-primary);
+  padding: 2px 10px; border-radius: 12px;
+}
+.article-body {
+  padding: 16px 24px 20px; border-top: 1px solid var(--border);
+  font-size: 14px; line-height: 1.75; color: var(--text);
+}
+.article-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+.article-body ul, .article-body ol { margin: 8px 0 12px; padding-left: 24px; }
+.article-body li { margin-bottom: 4px; }
+.article-body p { margin-bottom: 10px; }
+.article-body a { color: var(--brand-secondary); }
+.article-link {
+  display: inline-block; margin-top: 10px; font-size: 12px;
+  color: var(--danger); text-decoration: none; font-weight: 600;
+}
+.article-link:hover { text-decoration: underline; }
+.article-date {
+  font-size: 11px; color: var(--text-light); margin-top: 4px;
+}
+.fetch-fail {
+  padding: 12px 20px; color: var(--text-light); font-style: italic; font-size: 13px;
+}
+/* ─── Footer ─── */
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+/* ─── Print ─── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { box-shadow: none; max-width: 100%; padding: 0; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 40px 32px; }
+  .toc { page-break-after: always; }
+  h1.section-heading { page-break-before: always; margin-top: 24px; }
+  h1.section-heading:first-of-type { page-break-before: avoid; }
+  details { page-break-inside: avoid; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 24px; }
+  .toc { margin: 24px 16px; padding: 20px 24px; }
+  .content { padding: 16px 16px 48px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Zendesk FAQ — 繁體中文 (TW)</h1>
+  <p class="subtitle">TOOMICS Global Help Center FAQ Collection</p>
+  <div class="meta">
+    <span>Language: 繁體中文</span>
+    <span>Articles: 42</span>
+    <span>Generated: 2026-03-04</span>
+  </div>
+</div>
+
+<div class="toc"><h2>목차 / Table of Contents</h2><ol>
+<li><a href="#announcement">📢 Announcement</a><span class="badge">4</span></li>
+<li><a href="#vip-membership---coins">⭐ VIP Membership &amp; Coins</a><span class="badge">15</span></li>
+<li><a href="#payment---refunds">💳 Payment &amp; Refunds</a><span class="badge">11</span></li>
+<li><a href="#technical-issues">🔧 Technical Issues</a><span class="badge">12</span></li>
+</ol></div>
+<div class="content">
+<h1 class="section-heading" id="announcement"><span class="section-icon">📢</span>Announcement</h1>
+<h2 class="sub-section">近期公告</h2>
+<details>
+<summary>使用條款變更公告 (02/09/2025)<span class="art-count">2025-08-11</span></summary>
+<div class="article-body"><p data-renderer-start-pos="7444">自生效日<span data-renderer-mark="true" data-text-custom-color="#ff991f">(02/09/2025)</span>起，將修訂下列使用條款內容。在使用我們的服務前，請務必詳閱使用條款與隱私權政策。若您不同意本服務之使用條款與隱私權政策，恐將無法使用本服務。</p><p data-renderer-start-pos="7532"> </p><ol data-indent-level="1"><li><p data-renderer-start-pos="7536"><span data-renderer-mark="true" data-text-custom-color="#ff991f">[服務]</span></p></li></ol><div data-layout="full-width" data-testid="table-container">
+<div data-testid="sticky-scrollbar-sentinel-top"> </div>
+<figure style="width: 100%;" class="wysiwyg-table"><table style="border-style: solid; border-width: 1px;" class="wysiwyg-table-resized">
+<colgroup>
+<col style="width: 48%;">
+<col style="width: 52%;">
+</colgroup>
+<tbody>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">修訂前</strong></td>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">修訂後</strong></td>
+</tr>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><span data-renderer-mark="true" data-text-custom-color="#ff991f">定期扣款商品(VIP會員)：此使用定期扣款商品(VIP會員)時，用戶於申請終止定期扣款服務前，本公司將依據雙方之合約約定進行每個月定期扣款。</span></td>
+<td style="border-style: solid; border-width: 1px;">
+<span data-renderer-mark="true" data-text-custom-color="#ff991f">自動扣款（VIP會員）：</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">VIP會員每月將以選擇之付款方式自動扣款。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">加入VIP會員後，將可無限閱覽Toomics玩漫指定之VIP專屬作品。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">可閱覽之VIP專屬作品可能因會員所屬地區不同而有所差異，並且可能隨時更改。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">並非所有作品皆包含在VIP會員服務中。</span>
+</td>
+</tr>
+</tbody>
+</table></figure><div data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="32f4cc7f-8c44-483f-8d05-368675eb0764" data-vc="table-node-wrapper"><div> </div></div>
+</div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/49366302646041" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-11</div></div>
+</details>
+<details>
+<summary>使用條款變更公告(05/06/2025)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><p>自生效日(05/06/2025, 13:00 KST) 起，將修訂下列使用條款內容。在使用我們的服務前，請務必詳閱使用條款與隱私權政策。若您不同意本服務之使用條款與隱私權政策，恐將無法使用本服務。</p>
+<p>1. 使用條款介紹與承諾</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修訂前</td>
+<td style="width: 50%;">修訂後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p>本公司有權自行修改或補充使用條款與隱私權政策之內容，如有重大變更事項將會透過公告的方式告知用戶其變更內容。</p>
+<p>(https://help.toomicsglobal.com/hc/zh-tw/categories/39420148812313)</p>
+</td>
+<td style="width: 50%;">
+<p>本公司有權自行修改或補充使用條款與隱私權政策之內容<span style="color: black;">。</span> 如有重大變更事項將會透過公告的方式告知用戶其變更內容。</p>
+<p><a>(https://help.toomicsglobal.com/hc/zh-tw/categories/39418716253081)</a> </p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>2. 帳號連結與使用</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修訂前</td>
+<td style="width: 50%;">修訂後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">電子信箱或社群軟體帳號僅能與一個裝置連結，不得同時連結其他裝置</span><span style="color: black;">​</span><span style="color: black;">。</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">透過帳號連結，</span><span style="color: black;">APP</span><span style="color: black;">或</span><span style="color: black;">WEB</span><span style="color: black;">帳號中保有之點券可於其他裝置使用，但是使用時，在</span><span style="color: black;">APP</span><span style="color: black;">上將先行扣抵於</span><span style="color: black;">APP</span><span style="color: black;">購買之點券；在</span><span style="color: black;">WEB</span><span style="color: black;">上則將先行扣抵於</span><span style="color: black;">WEB</span><span style="color: black;">購買之點券。</span></p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">透過帳號連結，無法一</span><span style="color: black;">併</span><span style="color: black;">使用</span><span style="color: black;">APP</span><span style="color: black;">或</span><span style="color: black;">WEB</span><span style="color: black;">之點券購買付費作品。</span><span style="color: black;"> </span></p>
+<p style="background-color: white;"><span style="color: black;">4. </span><span style="color: black;">透過連結之帳號收藏中的使用權限，亦可於其他裝置閱覽作品。惟，連結之帳號解除時，則無法繼續使用閱覽權限。</span></p>
+</td>
+<td style="width: 50.4286%;">
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">為閱覽付費內容，必須連結電子信箱或社群軟體帳號。</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">電子信箱或社群軟體帳號一次只能連結一個</span><span style="color: black;">TOOMICS</span><span style="color: black;">玩漫帳號。</span></p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">已連結之</span><span style="color: black;">TOOMICS</span><span style="color: black;">玩漫帳號可在多個裝置上使用。</span><span style="color: black;">例如，</span><span style="color: black;">在不同的裝置上，可透過已連結之</span><span style="color: black;">TOOMICS</span><span style="color: black;">玩漫帳號使用已購買的點券。同時，在一個裝置上初次閱覽的內容可透過已連結之</span><span style="color: black;">TOOMICS</span><span style="color: black;">帳號，也可在其他裝置上閱覽。</span></p>
+<p style="background-color: white;"><span style="color: black;">4. </span><span style="color: black;">若已連結之TOOMICS玩漫帳號解除，無關使用何種裝置，將無法繼續使用付費點券或作品</span><span style="color: black;">。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>3. 紅利點券與使用</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td>修訂前</td>
+<td>修訂後</td>
+</tr>
+<tr>
+<td>
+<span style="color: black;">4. </span><span style="color: black;">透過帳號連結，欲在其他裝置使用於</span><span style="color: black;">APP</span><span style="color: black;">或</span><span style="color: black;">WEB</span><span style="color: black;">保有之紅利點券時，先行扣抵完所有該帳號保有之紅利點券與一般點券後，再依序扣抵被連結之帳號的紅利點券、一般點券。</span>
+</td>
+<td>
+<span style="color: black;">4. </span><span style="color: black;">已連結之</span><span style="color: black;">TOOMICS</span><span style="color: black;">玩漫帳號可在多個裝置上同步使用。</span><span style="color: black;">例如，在不同的裝置上取得之紅利與一般點券可</span><span style="color: black;">藉由已連結之</span><span style="color: black;">TOOMICS</span><span style="color: black;">玩漫帳號，在其他裝置上使用。</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>4. 取消與退款、VIP會員訂閱</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">修訂前</td>
+<td style="width: 50%;">修訂後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">關於購買</span><span style="color: black;">VIP</span><span style="color: black;">會員，如</span><span style="color: black;">您</span><span style="color: black;">符合下列條件，可申請取消</span><span style="color: black;">您</span><span style="color: black;">的自動扣款：</span></p>
+<p style="background-color: white;"><span style="color: black;"> </span></p>
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">於購買日後</span><span style="color: black;">14</span><span style="color: black;">天內提出申請，<strong>並且</strong></span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">您</span><span style="color: black;">於購買後</span><span style="color: black;">1</span><span style="color: black;">天內（自<strong>開始閱覽之時間點</strong>起</span><span style="color: black;">24</span><span style="color: black;">小時）未將同一部作品閱覽至最後一話次，<strong>此外</strong></span></p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">僅於</span><span style="color: black;">1</span><span style="color: black;">天內閱覽</span><span style="color: black;">VIP</span><span style="color: black;">專屬內容（自<strong>開始閱覽之時間點</strong>起</span><span style="color: black;">24</span><span style="color: black;">小時，而非購買時間點）</span></p>
+<p style="background-color: white;"><span style="color: black;"> </span></p>
+<p style="background-color: white;"><span style="color: black;">若</span><span style="color: black;">您</span><span style="color: black;">未符合上述條件，則無法申請退款。</span></p>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">會員符合下列<strong>所有條件</strong>時，可申請取消您的</span><span style="color: black;">VIP</span><span style="color: black;">訂閱並退款：</span></p>
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">於購買日後</span><span style="color: black;">14</span><span style="color: black;">天內提出申請</span><span style="color: black;">者</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">未曾透過訂閱</span><span style="color: black;">VIP</span><span style="color: black;">會員之帳號閱覽任何</span><span style="color: black;">VIP</span><span style="color: black;">會員專屬內容者</span></p>
+<p style="background-color: white;"><span style="color: black;"> </span></p>
+<p style="background-color: white;"><span style="color: black;">上述條件若有任何一項不符合，則無法申請退款。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/46324165450777" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>使用條款變更公告(09/08/2025)<span class="art-count">2025-08-11</span></summary>
+<div class="article-body"><div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true" data-pm-slice="1 1 []"><div data-testid="table-alignment-container"><div><div><div data-number-column="true" data-layout="center" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="true" data-layout="center" data-autosize="false" data-table-local-id="" data-table-width="1800">
+<colgroup><col style="width: 100%;"></colgroup>
+<tbody><tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true"><td data-colwidth="1165" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">[公告事項]</strong></p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">自生效日<span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">(09/08/2025)</span>起，將修訂下列使用條款內容。在使用我們的服務前，請務必詳閱使用條款與隱私權政策。若您不同意本服務之使用條款與隱私權政策，恐將無法使用本服務。</p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"> </p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">取消與退款、VIP會員訂閱</span></li></ol>
+<div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true"><div data-testid="table-alignment-container"><div><div><div data-number-column="false" data-layout="default" data-testid="table-container"><div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="32f4cc7f-8c44-483f-8d05-368675eb0764">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">修訂前</strong></td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">修訂後</strong></td>
+</tr>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p>會員符合下列<strong data-stringify-type="bold">所有條件</strong>時，可申請取消您的VIP訂閱並退款：</p>
+<p>1. 於購買日後14天內提出申請者</p>
+<p>2. 未曾透過訂閱VIP會員之帳號閱覽任何VIP會員專屬內容者</p>
+<p>上述條件若有任何一項不符合，則無法申請退款。</p>
+</td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">會員符合下列<strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">所有條件</strong>時，可申請取消您的VIP訂閱並退款：</p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true">
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">於購買日後14天內提出申請者</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">未曾透過訂閱VIP會員之帳號閱覽任何VIP會員專屬內容者</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">
+<span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">於申請退款當月內，沒有因訂閱VIP會員取得或以折扣價購買之點券（含禮券、紅利點券）的使用紀錄時</span><br> </li>
+</ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">若不符合上述三項條件之任一項，恕無法申請退款。</span></p>
+</td>
+</tr>
+</tbody>
+</table></figure></div></div></div></div></div></div>
+</td></tr></tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/48671238017945" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-11</div></div>
+</details>
+<details>
+<summary>歡迎來到全新的 Toomics 客服中心<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><br>親愛的 Toomics 會員們， 我們的客服服務現已全面遷移至全新上線的 Toomics 客服中心，為您提供更便捷的支援體驗。感謝您的理解與支持，期待持續為您提供更好的服務！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39419169598361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="vip-membership---coins"><span class="section-icon">⭐</span>VIP Membership &amp; Coins</h1>
+<h2 class="sub-section">VIP會員資格</h2>
+<details>
+<summary>VIP會員資格可以在其他語言中使用嗎？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>請注意，Toomics玩漫針對韓文、簡體中文、繁體中文、西班牙文、義大利文、德文、葡萄牙文、法文、日文和英文的服務內容各有不同。因此，在特定語言版本的網站上購買之商品無法在其他語言網站中使用。</p>
+<p>不過，在某些情況下，我們可以手動幫您變更語言。然而，一旦您同意更改後，此操作為不可逆。如果您希望我們幫您更改語言，請直接與我們聯絡。我們將提您供解決方案。</p>
+<p>請注意，由於技術限制，我們無法更改透過Apple App Store或Google Play Store訂閱之VIP會員的語言設定。</p>
+<p>此外，由於我們不再提供義大利文和葡萄牙文的VIP會員訂閱服務，因此您無法針對這些語言進行變更。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428617320857" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>VIP會員資格可以觀看所有漫畫嗎？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>是的，VIP會員資格讓您可以無限暢覽VIP會員專屬內容。</p>
+<p>只要您的VIP會員資格有效，就能繼續閱覽VIP會員的專屬作品。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428818984601" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>VIP會員資格和點券有什麼區別？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>Toomics玩漫的定期扣款型VIP會員資格是一個特別的方案，讓您可以無限暢覽我們的所有漫畫作品，且無需單獨購買點券！訂閱VIP會員資格後，只要您使用相同的Toomics玩漫帳號登入，即可在我們的網站（toomics.com/tc）或手機網頁瀏覽器，以及我們的應用程式中享受我們的所有優質內容。</p>
+<p>如果您不想訂閱VIP會員資格，我們也提供點券方案。點券讓您可以選擇性地閱覽喜愛的漫畫作品。這對於只想閱讀特定作品的用戶來說是一個很好的選擇，因為即使您的點券已經使用完畢，您先前購買的話次仍然可以隨時重複閱覽。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428526920601" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>VIP會員資格過期後，我還能繼續觀看內容嗎？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>很遺憾，當VIP會員資格過期後，您將無法繼續閱覽專屬的優質內容。VIP會員資格僅會在您選擇的訂閱期間內授予閱覽權限。</p>
+<p> </p>
+<p><strong>查看訂閱到期日的方法：</strong></p>
+<p>您可以在畫面右上角的[≡]選單中點擊「帳號設定」，查看訂閱的有效期限。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428674700441" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>免費月份是什麼？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>我們提供免費月份作為解除訂閱的替代方案。</p>
+<p>您可以在30天內免費閱覽所有漫畫。</p>
+<p>不過請注意，除非您在到期前解除，否則免費月份結束後，您的訂閱將自動續訂。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428688155161" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>如何解除我的VIP會員資格？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>如果您希望解除VIP會員資格，請按照以下步驟進行：</p>
+<p> </p>
+<p><strong>Toomics玩漫網站解除步驟：</strong></p>
+<ol>
+<li>登入您的Toomics玩漫帳號。</li>
+<li>點擊畫面右上角的[≡]選單，選擇「帳號設定」。</li>
+<li>點擊底部的「解除VIP會員資格」按鈕，並選擇取消原因。</li>
+</ol>
+<p><strong>Apple App Store解除步驟：</strong></p>
+<ol>
+<li>開啟「設定」應用程式。</li>
+<li>點擊「iTunes 與 App Store」。</li>
+<li>點擊您的 Apple ID。</li>
+<li>選擇「查看 Apple ID」。</li>
+<li>輸入Apple ID密碼或使用指紋解鎖。</li>
+<li>點擊「訂閱」並選擇您想解除的訂閱。<br><br>
+</li>
+</ol>
+<p><strong>Google Play商店解除步驟：</strong></p>
+<ol>
+<li>打開「Google Play 商店」應用程式。</li>
+<li>點擊「選單」→「我的應用程式」→「訂閱」，選擇您要解除的訂閱。</li>
+<li>點擊「解除」並確認。<br><br>
+</li>
+</ol>
+<p>這些步驟應該可以幫助您成功解除訂閱。請注意，若您是透過iOS購買，因為Apple App Store的政策限制，我們無法手動協助您解除訂閱。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428714366105" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>我已經訂閱了VIP會員資格，會再次被收費嗎？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>VIP會員資格採定期扣款，會根據您選擇的方案（1個月、3個月、6個月或12個月）自動續訂。</p>
+<p>請參考您首次購買時的收據，以查看下次付款日期。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428791498265" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>我已經訂閱，卻無法使用我的VIP會員資格<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>如果您已經訂閱VIP會員資格卻無法使用，請先檢查您訂閱VIP會員或購買點券時使用的登入方式。有可能您現在使用的是與當時不同的登入方式。為確保您可以使用您的VIP會員資格或點券，請務必使用與訂閱或購買時相同的登入方式。</p>
+<p>如果您是透過應用程式訂閱，可能是因為您的購買並未綁定您的電子郵件帳號。此時，請從應用程式商店（Google Play或Apple App Store）恢復購買，然後註冊您的電子郵件，並將應用程式帳號與WEB帳號綁定。</p>
+<p>Google Android／Apple用戶請按照以下步驟操作：</p>
+<ol>
+<li>在您的Android或iPhone開啟Google Play 商店／App Store。</li>
+<li>確認您已登入購買時使用的Google／Apple帳號。</li>
+<li>打開Toomics玩漫應用程式。</li>
+<li>點擊紅色的「VIP會員資格」按鈕。</li>
+<li>離開付款頁面返回首頁。</li>
+<li>如果沒有任何變化，請點擊「客服中心」，然後選擇「恢復VIP會員資格」並按下「恢復」。</li>
+</ol>
+<p>將VIP資格與電子信箱綁定的方法：</p>
+<ol>
+<li>在Android或Apple裝置登入Toomics玩漫應用程式。</li>
+<li>點擊畫面左上角的Toomics玩漫標誌，然後選擇「註冊」。</li>
+<li>輸入您想要綁定VIP會員資格的電子郵件。</li>
+</ol>
+<p>這樣您應該就能重新獲得VIP會員資格的使用權限！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428589833497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>有免費試用選項嗎？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>很抱歉，我們目前沒有提供免費試用方案。</p>
+<p>只有訂閱VIP會員資格的用戶可以享受VIP服務。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428773349529" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<h2 class="sub-section">點券</h2>
+<details>
+<summary>什麼是點券？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>點券讓您可以解鎖並享受Toomics玩漫上所有獨家的作品內容。您可以付款購買這些點券，然後用它們來解鎖您喜愛的作品話次。每個話次的費用介於1到3點券之間，而計價標準視話次的長度和內容而定。透過點券購買的話次就像擁有了一份數位副本，即使作品從網站上消失，您依舊可以隨時閱覽。</p>
+<p> </p>
+<p><strong>一般點券</strong></p>
+<p>您付款購買的標準點券。最棒的是，這些點券不會過期！您可以儲存並隨時使用，無需擔心使用期限。</p>
+<p> </p>
+<p><strong>紅利點券</strong></p>
+<p>這是我們給您的額外回饋。每當您付款購買點券時，我們會贈送一些紅利點券作為謝禮。就像普通點券一樣，紅利點券也不會過期，您可以隨時使用它們。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428827670297" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我在哪裡可以查看我已購買的作品？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>若想查看您已購買的作品，請前往「我的書櫃」，然後點選「已購買的作品」。在這裡，您可以看到所有您已購買的漫畫作品，並顯示您已購買的百分比。</p>
+<p>如果想要更進一步查看詳情，請點擊該作品的縮圖。您將可以看到所有可閱覽話次的概要，顯示哪些話次已購買，以及哪些話次仍可以購買。您可以選擇分別購買新的話次，也可以一口氣購買該作品的所有剩餘話次。</p>
+<p>這個功能可以讓您輕鬆管理並方便您增加收藏，確保您不會錯過任何喜愛的內容。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428914444185" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼我還沒收到我的點券？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遺憾得知您尚未收到您購買的點券！收到點券的時間可能會因為您使用的支付方式而有所不同。使用PayPal或信用卡付款的交易通常會在幾分鐘內處理，不過有時可能需要幾個小時。</p>
+<p>感謝您的耐心等候與理解，我們將更努力確保您的點券能更即時存入您的帳號。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428930573721" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼點券價格會出現變動，是否有任何折扣或促銷活動？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>為了提升用戶的整體體驗並提供更多、更靈活的選擇，我們調整了點券的價格和方案。這些變更旨在更好地滿足您的需求和偏好。</p>
+<p>請隨時關注我們網站上的點券購買折扣和促銷活動！我們一直在尋找方法讓您在Toomics的體驗更加愉快！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428939271449" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>該如何查詢我的點券餘額或需要購買的點券數量？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>點券的餘額概況可以在設定選單[≡]中查詢。</p>
+<p>每個話次需要的點券數量都會顯示在該話次旁邊。</p>
+<p>如果您想要一次購買所有話次，只需點擊作品頁面上的「購買所有話次」按鈕，就可以一次購買所有可閱覽的話次。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428901846937" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>點券的有效期限有多久？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>點券永久有效。</p>
+<p>一旦購買，它們不會過期且可以隨時使用。</p>
+<p>當您想閱覽額外的作品內容時，可以隨時使用它們。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39428890895001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="payment---refunds"><span class="section-icon">💳</span>Payment &amp; Refunds</h1>
+<h2 class="sub-section">付款與問題</h2>
+<details>
+<summary>如何在沒有信用卡的情況下購買VIP會員？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您沒有信用卡，VIP支付頁面上還有其他支付方式。請點選任一VIP會員方案，然後點擊「點此查看其他支付方式」，即可進入顯示其他支付方式的頁面。</p>
+<p>如果您不喜歡Toomics玩漫網站上提供的支付方式，我們建議您也可以透過Google Play商店或Apple App Store上的Toomics玩漫應用程式訂閱VIP會員資格。您可以在這裡找到更多支付方式的選擇。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429344307225" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何更改我的付款方式或付款計劃？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遺憾，我們無法直接更改您的付款資訊，因為Toomics玩漫並不會儲存您的信用卡數據。:(</p>
+<p>如果您想更換用於自動續訂VIP會員的信用卡，建議您先解除目前的VIP會員資格，然後等待訂閱過期。過期後，您可以使用新的信用卡重新訂閱。</p>
+<p>如果您希望我們幫助您解除訂閱，請聯絡我們並提供您的Toomics玩漫帳號資訊。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429390881433" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>我的付款到期日是哪一天？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p> </p>
+<p>付款到期日取決於您選擇的VIP會員方案的期間和購買日期。</p>
+<p> </p>
+<p>您可以在付款記錄中查看您所購買的定期扣款商品詳情。<br>例如，如果您在10月8日購買了月額定期扣款商品，則下一次的付款日期為11月8日。同樣地，若是購買了3個月的定期扣款商品，下一次的付款將在3個月後的同一日期進行。此規則同樣適用於6個月或1年的定期扣款商品。<br><br></p>
+<p>當您解除帳號時，也可以查閱您的VIP會員資格的到期日期。</p>
+<p> </p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/39429311847065" width="624" height="401"></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429311849369" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<details>
+<summary>有哪些付款方式可用？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>要購買VIP會員資格，您需要使用信用卡。我們目前有四種支付方式，方便您進行付款：</p>
+<ul>
+<li>PayPal</li>
+<li>Paymentwall</li>
+<li><span style="background-color: #f8f8f8;">Payletter</span></li>
+<li>Worldpay</li>
+</ul>
+<p>如果您不想使用信用卡，也可以在VIP會員資格訂閱頁面找到其他的支付方式。此外，我們還有點券方案。您也可以購買點券來閱覽我們的作品。點券方案也有多種支付方式可以利用。</p>
+<p>如果您不喜歡Toomics玩漫網站上提供的支付方式，我們建議您也可以透過Google Play商店或Apple App Store上的Toomics玩漫應用程式訂閱VIP會員資格。您可以在這裡找到更多支付方式的選擇。</p>
+<p>支付計劃鏈接：<a href="https://toomics.com/de/mypage/payment/type/payment-plan"><span class="wysiwyg-underline">https://toomics.com/tc/mypage/payment/type/payment-plan</span></a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429231379481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼PayPal沒有顯示？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><strong><br></strong>如果您希望使用PayPal進行付款，請點擊以下連結訪問我們的網站：<a href="https://toomics.com/en"><span class="wysiwyg-underline">https://toomics.com/tc</span><span class="wysiwyg-underline"><br></span></a>透過此路徑，您可以能看到並使用PayPal作為支付方式。</p>
+<p>對您造成的不便我們深感抱歉，並感謝您的包容與理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429403547545" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼我無法成功付款？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>您的付款可能因為發卡銀行設定的國際交易限制而失敗。在您再次嘗試付款訂閱VIP會員之前，我們建議您先聯絡您的發卡銀行。</p>
+<p> </p>
+<p>此外，我們已經增加了3D Secure驗證流程，以防止信用卡詐欺，為信用卡及簽帳卡的線上交易提供額外的安全防護。如果您的3D Secure驗證無法正常運作（原因可能是連線失敗或密碼錯誤），請按照以下步驟操作：</p>
+<ol>
+<li>再次嘗試付款，並確認您輸入了正確的密碼或SMS網絡代碼。但是，請避免嘗試超過5次，否則我們的金流系統提供商可能會將其視為可疑的活動並拒絕您的交易。</li>
+<li>暫時停用彈出視窗的阻擋程式，因為3D Secure驗證通常會以彈出式視窗顯示。</li>
+</ol></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429298277657" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">退款政策</h2>
+<details>
+<summary>在Apple App Store訂閱的退款<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您是透過Apple App Store訂閱了我們的VIP會員資格，並且不希望繼續使用，請手動解除VIP會員訂閱，以免Apple帳號繼續自動扣款。</p>
+<p> </p>
+<p><strong>解除訂閱的步驟如下：</strong></p>
+<ol>
+<li>打開「設定」應用程式。</li>
+<li>點擊「iTunes與App Store」。</li>
+<li>點擊您的Apple ID。</li>
+<li>當彈出視窗出現時，選擇「查看Apple ID」。</li>
+<li>輸入Apple ID的密碼或使用指紋解鎖。</li>
+<li>點擊「訂閱」，然後選擇您想解除的訂閱。</li>
+</ol>
+<p>若您希望獲得退款，請直接連絡Apple的客服，因為我們無法處理Apple平台的退款申請。Apple客服將協助您完成退款。</p>
+<p> </p>
+<p><strong>申請Apple Store退款的步驟：</strong></p>
+<ol>
+<li>前往<a href="https://reportaproblem.apple.com"><span class="wysiwyg-underline">reportaproblem.apple.com</span></a>。</li>
+<li>使用您的Apple ID和密碼登入。</li>
+<li>點擊「報告問題」。</li>
+<li>按照頁面上的指示，選擇退款原因並提交申請。</li>
+</ol>
+<p>如果需要更多關於退款申請的資訊，或是您無法透過上述步驟申請退款，請聯絡Apple的客戶支援服務。</p>
+<p>希望上述資訊可以幫助您。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429525045401" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何申請退款？<span class="art-count">2025-08-13</span></summary>
+<div class="article-body"><p><strong>VIP會員訂閱</strong></p>
+<p>如果您希望對VIP會員訂閱申請退款，請確認是否完全符合下列的條件：</p>
+<ol>
+<li><strong>於購買日後14天内提出申請，並且</strong></li>
+<li><strong>未曾透過訂閱VIP會員之帳號閱覽任何VIP會員專屬內容者</strong></li>
+<li><strong>於申請退款當月內，沒有因訂閱VIP會員取得或以折扣價購買之點券（含禮券、紅利點券）的使用紀錄時</strong></li>
+</ol>
+<p>若您未能符合上述任何一項條件，將無法提供退款。</p>
+<p> </p>
+<p><strong>點券購買</strong></p>
+<p>您可以在購買點券後的7天內申請退款，前提是您完全沒有使用過任何點券。如果您已經使用了任一點券（無論是一般點券或紅利點券），恕無法為您申請退款。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429422226585" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-13</div></div>
+</details>
+<details>
+<summary>為什麼我又被扣款了？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>提醒您，Toomics玩漫的VIP會員訂閱是自動續訂的。</p>
+<p> </p>
+<p>關於這一點，我們已在<strong>使用條款</strong>（服務部分）中提供詳細的說明：「VIP會員訂閱會根據您選擇的支付方式每隔一定的時間（根據您訂閱時選擇的期間）自動扣款。VIP會員可以無限暢覽我們為VIP會員提供的內容。除非您在每次續訂日期前解除訂閱，否則我們將自動從您提供的支付方式扣除每期的訂閱費用。」</p>
+<p> </p>
+<p>另外，我們的<strong>支付頁面</strong>也提到：「若您同意訂閱VIP會員，您的會員資格會自動續訂，直到您選擇解除。」</p>
+<p>因此，如果您被再次扣款，可能表示您並未正確解除VIP會員資格，或者您停用了與訂閱無關的帳號。如果您需要更詳細的說明或指引，請隨時聯絡我們。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429536580377" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼我的退款金額少於預期？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>請注意，由於支付平台的交易手續費或外匯匯差，您支付的金額可能會與原始價格略有不同。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429513291801" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼我還沒收到退款？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遺憾，我們無法控制退款入帳的具體時間和實際退還的金額，因為這些都是由您使用的發卡銀行處理的。為了獲取更準確的資訊，我們建議您直接與您的發卡銀行或信用卡公司聯絡。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429464880793" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="technical-issues"><span class="section-icon">🔧</span>Technical Issues</h1>
+<h2 class="sub-section">常見問題</h2>
+<details>
+<summary>如何回報錯誤？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>非常抱歉！T_T</p>
+<p><br>請與我們聯絡並提供更多有關該問題的詳細資訊（如果能附上與問題相關的截圖會更有幫助）。</p>
+<p> </p>
+<p>我們會盡快調查！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429795222169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何重設我的密碼？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><strong>電腦用戶：</strong></p>
+<ul>
+<li>前往「帳號設定」，並從那裡更改您的密碼。<br><br>
+</li>
+</ul>
+<p><strong>手機用戶：</strong></p>
+<ul>
+<li>點擊右上角的選單圖示，並從「帳號設定」中更改您的密碼。</li>
+</ul>
+<p>請注意，如果您的密碼中使用了以下特殊字符，可能無法成功重設：! @ # $ % ^ &amp; *（ )</p>
+<p>如果您在重設密碼時使用了上述特殊字符，密碼可能無法重設。我們建議您將密碼更改為Toomics玩漫推薦的標準格式。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429709566489" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>沒有收到註冊確認郵件怎麼辦？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您在註冊帳號後沒有收到確認郵件，請檢查您的垃圾郵件或垃圾箱。如果確定未曾收到，請嘗試使用相同的電子信箱和密碼再次註冊，系統將重新寄送確認郵件。</p>
+<p>我們也建議您使用社群媒體帳號註冊。只需點擊註冊按鈕下方的社群媒體圖示，系統將自動為您創建帳號。</p>
+<p>如果您不希望使用社群媒體帳號，請聯絡我們的1：1客服中心，我們的團隊將協助您將社群媒體帳號更改為利用電子郵件登入的帳號。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429705873817" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼我的帳號被限制了？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您的Toomics玩漫帳號被限制，這代表我們的系統檢測到可疑的活動。系統會自動封鎖進行以下行為的用戶：</p>
+<ol>
+<li>用戶只閱覽每部漫畫的最後幾話。</li>
+<li>用戶在非常不規律的時間閱覽作品話次。</li>
+<li>用戶在數秒內、同時或以不正常的方式閱覽了多個話次。</li>
+<li>用戶將Toomics玩漫的版權內容上傳到非法網站。</li>
+<li>用戶向發卡銀行或信用卡公司申請了<span style="background-color: #ffffff;">撤銷付款</span>，試圖退回已支付的款項。</li>
+</ol>
+<p>很抱歉，我們無法詳細說明您的帳號被限制的具體原因。不過，請您務必注意，上述行為可能是導致帳號被系統自動封鎖的原因。如果您需要更詳細的說明或指引，請隨時與我們聯絡。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429803705113" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼網站或圖片的載入速度這麼慢？<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>請注意，我們的伺服器位置可能會影響在您所在地區的載入速度。此外，某一地區的用戶數量過多時，也可能會導致網站載入變慢。</p>
+<p> </p>
+<p>為了幫助您改善載入速度，我們建議您關閉裝置上的省電模式。另外，您也可以嘗試更換瀏覽器或網路，或者等待一段時間，看看載入速度是否恢復正常。</p>
+<p> </p>
+<p>如果您經常遇到載入速度的問題，請告訴我們您所在的時區、欲閱覽的作品名稱和話次，我們會進一步進行調查。</p>
+<p> </p>
+<p>您也可以嘗試以下步驟來提升您的閱覽體驗：</p>
+<p><strong>清除快取：</strong></p>
+<ul>
+<li>開啟您的瀏覽器。</li>
+<li>同時按下「Ctrl」+「Shift」+「Del」（Windows）或「Cmd」+「Shift」+「Del」（Mac）以打開清除快取的選單。</li>
+<li>選擇「快取」及其他已保存的數據。</li>
+<li>點擊「刪除」或「清除快取」。</li>
+</ul>
+<p><strong>更新瀏覽器：</strong></p>
+<p>請確認您的瀏覽器已更新至最新版本。舊版本的瀏覽器可能會導致載入問題。<br><br></p>
+<p><strong>使用其他瀏覽器：</strong></p>
+<p>試著使用不同的瀏覽器打開網站，看看問題是否與瀏覽器有關。</p>
+<p>如果問題持續存在，請與我們聯絡並告訴我們您所在的時區、欲閱覽的作品名稱和話次等詳細資訊。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429693177113" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<h2 class="sub-section">應用程式／PC相關問題</h2>
+<details>
+<summary>Toomics玩漫有應用程式嗎？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>是的，Toomics玩漫的行動應用程式現在可以在Google Play商店和Apple App Store下載！</p>
+<p> </p>
+<p>但是，請您注意，根據Google Play商店和Apple App Store的政策，應用程式內無法提供成人內容。</p>
+<p> </p>
+<p>因此，您將無法在應用程式上閱覽成人作品。如果您想要閱覽我們的成人作品，請訪問我們的網站：toomics.com/tc閱覽。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429853239961" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>可以切換回舊版系統或介面嗎？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很遺憾，我們無法協助您將系統或介面切換回舊版。我們理解對於追蹤多部作品的用戶來說，新的介面可能需要時間適應。我們的團隊正在收集用戶的回饋意見，努力在設計美感與功能性之間找到最佳平衡。您的建議對我們非常重要，而我們也將在未來的更新時，積極尋找可以反映的機會。</p>
+<p>如果您在使用過程中遇到任何困難，或是需要我們提供協助管理您收藏的作品，請隨時與我們聯絡。我們將積極為您提供幫助，讓您在Toomics玩漫可以擁有順暢、愉快的閱覽體驗。</p>
+<p>感謝您長久以來對Toomics玩漫的支持。我們將繼續致力於提供更好的閱覽體驗。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39430007077401" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>可以同時在多個裝置上享受我的訂閱資格嗎？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>很抱歉，VIP會員資格只能在一台裝置上使用。如果您想要在另一台設備上使用，原先登入的裝置將自動登出，而您可以在第二台裝置上繼續閱覽VIP專屬內容。很抱歉對您造成不便，也感謝您的理解。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429949288345" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如何恢復我的購買？<span class="art-count">2024-12-23</span></summary>
+<div class="article-body"><p>我們建議您通過應用程式恢復購買。請按照以下步驟操作：</p>
+<ol>
+<li>在Android手機或平板上打開Google Play商店。</li>
+<li>確認您登入的是進行購買時使用的Google帳號。</li>
+<li>打開「Toomics」應用程式。</li>
+<li>點擊紅色的「VIP會員資格」按鈕。</li>
+<li>點擊「返回主頁」離開支付頁面。</li>
+<li>如果您仍然無法使用您的In-App帳號，請打開「復原」，然後按下「復原」按鈕。<br><br>
+</li>
+<li>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41507449824537" width="558" height="544"></p>
+</li>
+</ol></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429882175257" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-23</div></div>
+</details>
+<details>
+<summary>如果我在Apple App Store進行訂閱，可以在Android裝置使用嗎？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您使用iPhone或iPad透過Apple App Store進行訂閱，該VIP會員資格僅限在iOS版本的Toomics玩漫應用程式使用。若您想要在Android裝置上享受VIP會員資格，請使用瀏覽器訪問我們的網站，切勿登入Android版的Toomics玩漫應用程式。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429912855065" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>如果我在Google Play商店進行了訂閱，可以在iPhone使用嗎？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>如果您使用Android裝置透過Google Play商店進行訂閱，該VIP會員資格僅限在Android版本的Toomics玩漫應用程式使用。若您想要在iPhone或iPad上享受VIP會員資格，請使用瀏覽器訪問我們的網站，切勿登入iOS版Toomics玩漫應用程式。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429968135577" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>為什麼無法在應用程式中閱讀成人內容？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>根據Google Play商店和Apple App Store的政策規定，我們無法在應用程式內提供成人內容。因此，您將無法在應用程式上閱覽成人作品。很抱歉為您帶來不便。如果您想關閉「安全模式」，請透過電腦或行動裝置的瀏覽器訪問toomics.com/tc並更改設定。</p>
+<p>即使您透過應用程式訂閱了VIP會員資格，仍然可以在我們的網站享受您的VIP會員權益。您只需要使用您在應用程式訂閱會員時使用的Toomics玩漫帳號登入網站，即可享受VIP會員的專屬內容。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-tw/articles/39429871718169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+</div>
+
+<div class="footer">
+  <strong>TOOMICS BizOps</strong> — Zendesk FAQ Documentation<br>
+  Generated: 2026-03-04 &middot; Author: 유종선 &middot; Language: 繁體中文<br>
+  Source: help.toomicsglobal.com
+</div>
+
+</div>
+</body>
+</html>

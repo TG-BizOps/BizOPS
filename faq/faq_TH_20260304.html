@@ -1,0 +1,1218 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="date" content="2026-03-04">
+<title>Zendesk FAQ — ภาษาไทย | BizOps</title>
+<style>
+:root {
+  --brand-primary: #3B1F8E;
+  --brand-secondary: #5B3CC4;
+  --brand-accent: #7C5CFC;
+  --brand-light: #EDE8FF;
+  --brand-bg: #F7F5FF;
+  --navy: #1A1A2E;
+  --dark: #2D2D3F;
+  --text: #333344;
+  --text-light: #666680;
+  --border: #D8D8E8;
+  --success: #28A06C;
+  --warning: #E8A020;
+  --danger: #E8320A;
+  --info: #2196F3;
+  --white: #FFFFFF;
+  --bg-light: #FAFAFE;
+  --bg-card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(59,31,142,0.06);
+}
+/* ─── Header ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--brand-primary) 100%);
+  color: var(--white);
+  padding: 64px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--danger);
+}
+.cover h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+.cover .meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; opacity: 0.85;
+}
+.cover .meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover .meta span::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(255,255,255,0.6);
+}
+/* ─── TOC ─── */
+.toc {
+  background: var(--brand-bg); border: 1px solid var(--brand-light);
+  border-radius: 8px; padding: 32px 40px; margin: 40px 32px;
+}
+.toc h2 {
+  color: var(--brand-primary); font-size: 20px; font-weight: 700;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--danger); display: inline-block;
+}
+.toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+.toc ol li {
+  counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0;
+  border-bottom: 1px solid rgba(124,92,252,0.1);
+}
+.toc ol li:last-child { border-bottom: none; }
+.toc ol li::before {
+  content: counter(toc-counter) "."; color: var(--danger);
+  font-weight: 700; margin-right: 10px; font-size: 14px;
+}
+.toc ol li a {
+  color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--brand-secondary); }
+.toc ol li .badge {
+  display: inline-block; background: var(--danger); color: var(--white);
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px; vertical-align: middle;
+}
+/* ─── Content ─── */
+.content { padding: 16px 32px 64px; }
+h1.section-heading {
+  color: var(--brand-primary); font-size: 24px; font-weight: 800;
+  margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px;
+}
+h1.section-heading .section-icon { margin-right: 8px; }
+h2.sub-section {
+  color: var(--brand-secondary); font-size: 18px; font-weight: 700;
+  margin-top: 32px; margin-bottom: 12px; padding-left: 14px;
+  border-left: 4px solid var(--danger);
+}
+/* ─── Accordion ─── */
+details {
+  margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+details[open] { box-shadow: 0 2px 8px rgba(59,31,142,0.08); }
+summary {
+  padding: 14px 20px; cursor: pointer; font-weight: 600; font-size: 15px;
+  color: var(--dark); list-style: none; display: flex; align-items: center;
+  gap: 10px; transition: background 0.15s;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: '▶'; font-size: 10px; color: var(--danger);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: var(--brand-bg); }
+summary .art-count {
+  margin-left: auto; font-size: 11px; font-weight: 700;
+  background: var(--brand-bg); color: var(--brand-primary);
+  padding: 2px 10px; border-radius: 12px;
+}
+.article-body {
+  padding: 16px 24px 20px; border-top: 1px solid var(--border);
+  font-size: 14px; line-height: 1.75; color: var(--text);
+}
+.article-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+.article-body ul, .article-body ol { margin: 8px 0 12px; padding-left: 24px; }
+.article-body li { margin-bottom: 4px; }
+.article-body p { margin-bottom: 10px; }
+.article-body a { color: var(--brand-secondary); }
+.article-link {
+  display: inline-block; margin-top: 10px; font-size: 12px;
+  color: var(--danger); text-decoration: none; font-weight: 600;
+}
+.article-link:hover { text-decoration: underline; }
+.article-date {
+  font-size: 11px; color: var(--text-light); margin-top: 4px;
+}
+.fetch-fail {
+  padding: 12px 20px; color: var(--text-light); font-style: italic; font-size: 13px;
+}
+/* ─── Footer ─── */
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+/* ─── Print ─── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { box-shadow: none; max-width: 100%; padding: 0; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 40px 32px; }
+  .toc { page-break-after: always; }
+  h1.section-heading { page-break-before: always; margin-top: 24px; }
+  h1.section-heading:first-of-type { page-break-before: avoid; }
+  details { page-break-inside: avoid; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 24px; }
+  .toc { margin: 24px 16px; padding: 20px 24px; }
+  .content { padding: 16px 16px 48px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Zendesk FAQ — ภาษาไทย (TH)</h1>
+  <p class="subtitle">TOOMICS Global Help Center FAQ Collection</p>
+  <div class="meta">
+    <span>Language: ภาษาไทย</span>
+    <span>Articles: 92</span>
+    <span>Generated: 2026-03-04</span>
+  </div>
+</div>
+
+<div class="toc"><h2>목차 / Table of Contents</h2><ol>
+<li><a href="#announcement">📢 Announcement</a><span class="badge">4</span></li>
+<li><a href="#beginner-s-guide">📖 Beginner's Guide</a><span class="badge">20</span></li>
+<li><a href="#terms---policy">📋 Terms &amp; Policy</a><span class="badge">2</span></li>
+<li><a href="#account-management">👤 Account Management</a><span class="badge">18</span></li>
+<li><a href="#vip-membership---coins">⭐ VIP Membership &amp; Coins</a><span class="badge">16</span></li>
+<li><a href="#toomics-store">🏪 TOOMICS STORE</a><span class="badge">7</span></li>
+<li><a href="#payment---refunds">💳 Payment &amp; Refunds</a><span class="badge">12</span></li>
+<li><a href="#technical-issues">🔧 Technical Issues</a><span class="badge">12</span></li>
+<li><a href="#event---benefits">🎁 Event / Benefits</a><span class="badge">1</span></li>
+</ol></div>
+<div class="content">
+<h1 class="section-heading" id="announcement"><span class="section-icon">📢</span>Announcement</h1>
+<h2 class="sub-section">ประกาศ</h2>
+<details>
+<summary>ประกาศการเปลี่ยนแปลงข้อกำหนดในการให้บริการ (02/09/2025)<span class="art-count">2025-08-01</span></summary>
+<div class="article-body"><p data-renderer-start-pos="7870">ข้อกำหนดการให้บริการด้านล่างนี้มีการแก้ไขเนื้อหาบางส่วนและจะมีผลบังคับใช้ตั้งแต่วันที่ <span data-renderer-mark="true" data-text-custom-color="#ff991f">02-09-2025</span> โปรดอ่านข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัวก่อนใช้บริการของเรา และหากคุณไม่ยินยอมตามข้อกำหนดและนโยบายความเป็นส่วนตัวดังกล่าว กรุณาหยุดใช้งานบริการของเรา</p><p data-renderer-start-pos="8131"> </p><ol data-indent-level="1"><li><p data-renderer-start-pos="8135"><span data-renderer-mark="true" data-text-custom-color="#ff991f">[บริการ]</span></p></li></ol><div data-layout="full-width" data-testid="table-container">
+<div data-testid="sticky-scrollbar-sentinel-top"> </div>
+<figure style="width: 100%;" class="wysiwyg-table"><table style="border-style: solid; border-width: 1px;" class="wysiwyg-table-resized">
+<colgroup>
+<col style="width: 48.14%;">
+<col style="width: 51.86%;">
+</colgroup>
+<tbody>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">ก่อนแก้ไข</strong></td>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">หลังแก้ไข</strong></td>
+</tr>
+<tr>
+<td style="border-style: solid; border-width: 1px;">
+<p data-renderer-start-pos="8178"><span data-renderer-mark="true" data-text-custom-color="#ff991f">การชำระเงินแบบต่อเนื่อง (สมาชิก VIP) </span></p>
+<p data-renderer-start-pos="8217"><span data-renderer-mark="true" data-text-custom-color="#ff991f">สมาชิก VIP จะถูกเรียกเก็บค่าธรรมเนียมสมาชิกโดยอัตโนมัติทุกเดือนจากวิธีการชำระเงินของคุณ เมื่อสมัครสมาชิก VIP คุณจะได้รับสิทธิ์เข้าถึงการ์ตูนพิเศษสำหรับ VIP อย่างไม่จำกัดตามที่ Toomics กำหนด</span></p>
+</td>
+<td style="border-style: solid; border-width: 1px;">
+<span data-renderer-mark="true" data-text-custom-color="#ff991f">การต่ออายุอัตโนมัติ (สมาชิก VIP): </span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">สมาชิก VIP จะมีการต่ออายุโดยอัตโนมัติในแต่ละเดือนผ่านวิธีการชำระเงินที่เลือกไว้ </span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">เมื่อสมัครสมาชิก VIP จะสามารถเข้าถึงผลงานสำหรับ VIP ที่กำหนดไว้ใน Toomics ได้แบบไม่จำกัด </span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">รายการผลงานสำหรับ VIP ที่สามารถรับบริการได้ อาจแตกต่างกันไปตามภูมิภาคและอาจมีการเปลี่ยนแปลงได้ </span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">คอนเทนต์ทั้งหมดอาจไม่ได้รวมอยู่ในสิทธิ์ของสมาชิก VIP</span>
+</td>
+</tr>
+</tbody>
+</table></figure><div data-testid="sticky-scrollbar-sentinel-top"> </div>
+<div data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="c8849df7-8ce5-42ef-a573-5c0049f1d98e" data-vc="table-node-wrapper"><div> </div></div>
+</div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/49366392205721" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-01</div></div>
+</details>
+<details>
+<summary>ประกาศการเปลี่ยนแปลงข้อกำหนดในการให้บริการ(05-06-2025)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><p>ข้อกำหนดการให้บริการด้านล่างนี้มีการแก้ไขเนื้อหาบางส่วนและจะมีผลบังคับใช้ตั้งแต่วันที่ 05-06-2025, 13:00 KST โปรดอ่านข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัวก่อนใช้บริการของเรา และหากคุณไม่ยินยอมตามข้อกำหนดและนโยบายความเป็นส่วนตัวดังกล่าว กรุณาหยุดใช้งานบริการของเรา</p>
+<p> </p>
+<p>1. การแนะนำและการยอมรับข้อกำหนดการให้บริการ</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">ก่อนแก้ไข</td>
+<td style="width: 50%;">หลังแก้ไข</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<span style="color: black;">เราอาจแก้ไขข้อกำหนดและนโยบายความเป็นส่วนตัวได้ทุกเมื่อโดยขึ้นอยู่กับดุลยพินิจของเรา เราจะเเจ้งให้คุณทราบถึงการแก้ไขข้อกำหนดและ/หรือนโยบายความเป็นส่วนตัวที่สำคัญผ่านรายการประกาศ (https://help.toomicsglobal.com/hc/th/categories/41322988749209</span><span style="color: black;">)</span>
+</td>
+<td style="width: 50%;">
+<span style="color: black;">เราอาจแก้ไขข้อกำหนดและนโยบายความเป็นส่วนตัวได้ทุกเมื่อโดยขึ้นอยู่กับดุลยพินิจของเรา เราจะเเจ้งให้คุณทราบถึงการแก้ไขข้อกำหนดและ/หรือนโยบายความเป็นส่วนตัวที่สำคัญผ่านรายการประกาศ (https://help.toomicsglobal.com/hc/th/categories/41322828092441</span><span style="color: black;">)</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>2. บัญชีที่เชื่อมต่อและการใช้งาน</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">ก่อนแก้ไข</td>
+<td style="width: 50%;">หลังแก้ไข</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">บัญชีอีเมลหรือบัญชี </span><span style="color: black;">SNS </span><span style="color: black;">สามารถเชื่อมโยงกับบัญชีในอุปกรณ์เพียงเครื่องเดียวเท่านั้น</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">คุณสามารถใช้เหรียญที่มีอยู่ในบัญชี </span><span style="color: black;">APP </span><span style="color: black;">หรือ </span><span style="color: black;">WEB </span><span style="color: black;">บนอุปกรณ์อื่นผ่านบัญชีที่เชื่อมโยง อย่างไรก็ตาม เหรียญที่ซื้อใน </span><span style="color: black;">APP </span><span style="color: black;">จะถูกหักก่อนใน </span><span style="color: black;">APP </span><span style="color: black;">และเหรียญที่ซื้อใน </span><span style="color: black;">WEB </span><span style="color: black;">จะถูกหักก่อนใน </span><span style="color: black;">WEB</span></p>
+<p><span style="color: black;">3. </span><span style="color: black;">ผ่านบัญชีที่เชื่อมโยง คุณไม่สามารถรวมเหรียญที่ซื้อบน </span><span style="color: black;">Web </span><span style="color: black;">และ </span><span style="color: black;">APP </span><span style="color: black;">เพื่อชำระเงินสำหรับเนื้อหาที่ต้องชำระ</span></p>
+<p><span style="color: black;">4. </span><span style="color: black;">เนื้อหาสามารถดูได้ในอุปกรณ์อื่น ๆ ผ่านบัญชีที่เชื่อมโยง อย่างไรก็ตาม หากบัญชีที่เชื่อมโยงถูกยกเลิก สิทธิ์การใช้งานจะไม่สามารถใช้งานได้อีก</span></p>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">คุณต้องเชื่อมต่อบัญชีของคุณกับอีเมลหรือบัญชีโซเชียลมีเดีย (</span><span style="color: black;">SNS) </span><span style="color: black;">เพื่อใช้งานเนื้อหาที่ต้องชำระเงิน</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">อีเมลหรือบัญชีโซเชียลมีเดีย (</span><span style="color: black;">SNS) </span><span style="color: black;">หนึ่งบัญชีสามารถเชื่อมกับบัญชีผู้ใช้ได้เพียงหนึ่งบัญชีเท่านั้น</span></p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">บัญชีที่เชื่อมต่อแล้วจะสามารถใช้งานได้เหมือนกันบนหลายอุปกรณ์ เช่น เหรียญที่ซื้อจากอุปกรณ์หนึ่งสามารถใช้งานได้บนอุปกรณ์อื่นผ่านบัญชีที่เชื่อมต่อแล้ว รวมถึงเนื้อหาที่เริ่มดูในอุปกรณ์หนึ่งก็จะสามารถดูต่อในอุปกรณ์อื่นได้เช่นกัน</span></p>
+<p style="background-color: white;"><span style="color: black;">4. </span><span style="color: black;">หากคุณยกเลิกหรือปิดบัญชีที่เชื่อมต่อ คุณจะไม่สามารถเข้าถึงเหรียญหรือเนื้อหาที่ชำระเงินไว้ได้อีก ไม่ว่าจะใช้อุปกรณ์ใดก็ตาม</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>3. เหรียญโบนัสและการใช้งาน</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">ก่อนแก้ไข</td>
+<td style="width: 50%;">หลังแก้ไข</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<span style="color: black;">4. </span><span style="color: black;">หากเหรียญโบนัสที่จัดเก็บไว้ใน </span><span style="color: black;">APP </span><span style="color: black;">หรือ </span><span style="color: black;">WEB </span><span style="color: black;">ถูกใช้บนอุปกรณ์อื่นผ่านบัญชีที่เชื่อมไว้ เหรียญโบนัสและเหรียญปกติที่อยู่ในบัญชีจะถูกหักก่อน และหักตามลำดับต่อไปนี้: เหรียญโบนัสที่เชื่อมโยงและเหรียญปกติที่เชื่อมโยง</span>
+</td>
+<td style="width: 50%;">
+<span style="color: black;">4.</span> <span style="color: black;">บัญชีที่เชื่อมต่อแล้วจะสามารถใช้งานได้เหมือนกันบนหลายอุปกรณ์ เช่น เหรียญโบนัสหรือเหรียญทั่วไปที่ได้รับจากอุปกรณ์ต่างกัน จะสามารถนำมาใช้บนอุปกรณ์อื่น ๆ ได้ผ่านบัญชีที่เชื่อมต่อแล้ว</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>4. การยกเลิกและการคืนเงินสำหรับการซื้อ VIP</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">ก่อนแก้ไข</td>
+<td style="width: 50%;">หลังแก้ไข</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">คุณสามารถขอคืนเงินสำหรับการชำระเงินแบบต่อเนื่องได้หาก:</span></p>
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">คุณร้องขอภายใน </span><span style="color: black;">14</span><span style="color: black;"> วันหลังจากการซื้อ</span><span style="color: black;">; </span><span style="color: black;">และ</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">คุณยังไม่ได้อ่านจนถึงตอนสุดท้ายของซีรีส์เดียวกันที่มีอยู่ในเวลาที่คุณซื้อภายใน </span><span style="color: black;">1</span><span style="color: black;"> วัน (คำนวณเป็น </span><span style="color: black;">24</span><span style="color: black;"> ชั่วโมงนับจากเวลาที่เริ่มใช้งาน)</span><span style="color: black;">; </span><span style="color: black;">นอกจากนี้</span></p>
+<p style="background-color: white;"><span style="color: black;">3. </span><span style="color: black;">คุณอ่านเนื้อหา </span><span style="color: black;">VIP </span><span style="color: black;">เท่านั้นภายใน </span><span style="color: black;">1</span><span style="color: black;"> วัน (คำนวณเป็น </span><span style="color: black;">24</span><span style="color: black;"> ชั่วโมงนับจากเวลาที่เริ่มใช้งาน ไม่ใช่เวลาที่ซื้อ)</span></p>
+<p style="background-color: white;"><span style="color: black;">หากคุณไม่เป็นไปตามเงื่อนไขทั้งสามข้อนี้ การคืนเงินจะไม่สามารถดำเนินการได้</span></p>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">คุณสามารถขอคืนเงินสำหรับการซื้อแบบชำระเงินต่อเนื่องได้ตามเงื่อนไขนี้</span></p>
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">คุณทำเรื่องขอคืนเงินภายใน </span><span style="color: black;">14</span><span style="color: black;"> วันหลังจากทำรายการซื้อ</span></p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">คุณยังไม่ได้เข้าถึงเนื้อหา </span><span style="color: black;">VIP </span><span style="color: black;">ผ่านบัญชีดังกล่าว  </span></p>
+<p style="background-color: white;"><span style="color: black;">หากไม่เป็นไปตามเงื่อนไขทั้งสองข้อนี้ คุณจะไม่สามารถขอคืนเงินได้</span></p>
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/46324066382873" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>ประกาศการเปลี่ยนแปลงข้อกำหนดในการให้บริการ(09-08-2025)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true" data-pm-slice="1 1 []"><div data-testid="table-alignment-container"><div><div><div data-number-column="true" data-layout="center" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="true" data-layout="center" data-autosize="false" data-table-local-id="" data-table-width="1800">
+<colgroup><col style="width: 100%;"></colgroup>
+<tbody><tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true"><td data-colwidth="1185" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">[Announcement]</strong></p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">ข้อกำหนดการให้บริการด้านล่างนี้มีการแก้ไขเนื้อหาบางส่วนและจะมีผลบังคับใช้ตั้งแต่วันที่ <span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">09-08-2025</span> โปรดอ่านข้อกำหนดการให้บริการและนโยบายความเป็นส่วนตัวก่อนใช้บริการของเรา และหากคุณไม่ยินยอมตามข้อกำหนดและนโยบายความเป็นส่วนตัวดังกล่าว กรุณาหยุดใช้งานบริการของเรา</p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"> </p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">การยกเลิกและการคืนเงินสำหรับการซื้อ VIP</span></li></ol>
+<div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true"><div data-testid="table-alignment-container"><div><div><div data-number-column="false" data-layout="default" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="c8849df7-8ce5-42ef-a573-5c0049f1d98e">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">ก่อนแก้ไข</strong></td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">หลังแก้ไข</strong></td>
+</tr>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">คุณสามารถขอคืนเงินสำหรับการซื้อแบบชำระเงินต่อเนื่องได้ตามเงื่อนไขนี้</span></p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">คุณทำเรื่องขอคืนเงินภายใน 14 วันหลังจากทำรายการซื้อ</span></li></ol>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true" start="2"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">คุณยังไม่ได้เข้าถึงเนื้อหา VIP ผ่านบัญชีดังกล่าว </span></li></ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">หากไม่เป็นไปตามเงื่อนไขทั้งสองข้อนี้ คุณจะไม่สามารถขอคืนเงินได้</span></p>
+</td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">คุณสามารถขอคืนเงินสำหรับการซื้อแบบชำระเงินต่อเนื่องได้ตามเงื่อนไขนี้</p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true">
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">คุณทำเรื่องขอคืนเงินภายใน 14 วันหลังจากทำรายการซื้อ</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">คุณยังไม่ได้เข้าถึงเนื้อหา VIP ผ่านบัญชีดังกล่าว</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">ไม่มีประวัติการใช้เหรียญ (รวมถึงเหรียญของขวัญและโบนัส) ที่ได้รับจากการซื้อแบบ VIP หรือจากการซื้อในราคาพิเศษ ภายในเดือนที่ทำรายการขอคืนเงิน</span></li>
+</ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">หากไม่เป็นไปตามเงื่อนไขข้อใดข้อหนึ่งในทั้ง 3 ข้อข้างต้น คุณจะไม่สามารถคืนเงินได้</span></p>
+</td>
+</tr>
+</tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div>
+</td></tr></tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/48671274020377" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>เรามีความยินดีที่จะต้อนรับคุณเข้าสู่ศูนย์บริการลูกค้าใหม่ของเรา!<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">สวัสดีสมาชิก Toomics</p>
+<p class="wysiwyg-text-align-justify">เราขอแจ้งให้ทราบว่าศูนย์บริการลูกค้าเดิมของเราได้ย้ายไปยังศูนย์บริการลูกค้า Toomics ที่เพิ่งจัดตั้งขึ้นใหม่</p>
+<p class="wysiwyg-text-align-justify">เราหวังว่าคุณจะเข้าใจและขอขอบคุณสำหรับการสนับสนุนที่ผ่านมาของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41323319543833" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h1 class="section-heading" id="beginner-s-guide"><span class="section-icon">📖</span>Beginner's Guide</h1>
+<h2 class="sub-section">การเข้าถึง</h2>
+<details>
+<summary>ข้อจำกัดตามภูมิภาค<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ในบางประเทศจะต้องมีการยืนยันอายุเนื่องจากนโยบายการกระจายเนื้อหาสำหรับผู้ใหญ่ที่ถูกกำหนดไว้ หากคุณอาศัยอยู่ในประเทศใดประเทศหนึ่งต่อไปนี้ กรุณาติดต่อเราโดยตรง</p>
+<ul>
+<li>สิงคโปร์</li>
+<li>เกาหลี</li>
+<li>ญี่ปุ่น</li>
+<li>มาเลเซีย</li>
+<li>อินโดนีเซีย</li>
+</ul></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632086006169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะสามารถอ่านเว็บตูนทั้งหมดได้ด้วยการเป็นสมาชิก VIP หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>คุณสามารถอ่านเนื้อหาเอ็กซ์คลูซีฟสำหรับสมาชิก VIP ด้วยการสมัครเป็นสมาชิก VIP </p>
+<p>ตราบใดที่คุณยังคงสมัครสมาชิก VIP ของเราอยู่ คุณจะมีสิทธิ์เข้าถึงเนื้อหาเอ็กซ์คลูซีฟสำหรับสมาชิก VIP</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632138236313" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะเปลี่ยนภาษาของเนื้อหาได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>บริการ Toomics ของเรามีให้บริการในหลายภาษา ได้แก่ เกาหลี, จีนตัวย่อ, จีนตัวเต็ม, สเปน, อิตาลี, เยอรมัน, โปรตุเกส, ฝรั่งเศส, ญี่ปุ่น, ไทย และอังกฤษ</p>
+<p>หากคุณต้องการเปลี่ยนภาษา จะมี 2 วิธีดังนี้:</p>
+<ol>
+<li>
+<strong>ในเมนูการตั้งค่า &gt; ภาษา &gt; ไทย &gt; ตกลง</strong><strong><br></strong><strong><img src="https://help.toomicsglobal.com/hc/article_attachments/41632265616281" width="449" height="433"></strong>
+</li>
+</ol>
+<p> </p>
+<p><strong>2. ที่ด้านล่างของเว็บไซต์ &gt; ไทย</strong></p>
+<p><strong><img src="https://help.toomicsglobal.com/hc/article_attachments/41632275616921" width="602" height="308"></strong></p>
+<p> </p>
+<div id="mttContainer" class="notranslate" style="transform: translate(591px, 688px);" aria-expanded="false"> </div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632265622553" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสามารถอ่านเว็บตูนแบบออฟไลน์หรือดาวน์โหลดได้ไหม?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>โปรดทราบว่าเนื้อหาทั้งหมดบน Toomics ได้รับการคุ้มครองภายใต้กฎหมายลิขสิทธิ์ ดังนั้นการใช้งาน, การแชร์, หรือการทำซ้ำเนื้อหาของเราโดยไม่ได้รับอนุญาตจากเจ้าของลิขสิทธิ์หรือ Toomics นั้นผิดกฎหมายตามข้อบังคับที่เกี่ยวข้องกับการละเมิดลิขสิทธิ์และทรัพย์สินทางปัญญา เนื่องจากปัญหาด้านความปลอดภัย Toomics จึงไม่มีฟีเจอร์ที่อนุญาตให้ผู้ใช้ของเราดาวน์โหลดหรืออ่านเว็บตูนแบบออฟไลน์ได้ :(</p>
+<p>เราต้องขออภัยในความไม่สะดวกและหวังว่าคุณจะเข้าใจ ทีมงาน Toomics จะพยายามอย่างดีที่สุดเพื่อให้ผู้ใช้มีประสบการณ์การอ่านที่ดีที่สุด</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632366516121" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมฉันไม่สามารถอ่านตอนต่อไปได้?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>คุณจะสามารถเข้าชมได้ฟรีเพียง 3 ตอนแรกเท่านั้น (อาจมีตอนเพิ่มเติมที่ให้บริการในบางเรื่อง) หากคุณต้องการเข้าชมตอนต่อไป คุณจะต้องซื้อสมาชิก VIP หรือเหรียญ</p>
+<p>ถ้าคุณเป็นสมาชิก VIP หรือซื้อเหรียญแล้ว:</p>
+<p>โปรดทราบว่าเราอัปโหลดตอนใหม่ของทุกเรื่องในทุกสัปดาห์ ดังนั้นเราขอให้คุณรอวันที่อัปโหลดตอนต่อไป โดยคุณสามารถตรวจสอบตารางการอัปโหลดตอนใหม่ได้โดยการคลิกที่แบนเนอร์หลักของเรื่องที่คุณต้องการอ่าน แต่หากคุณไม่ต้องการรอ เราแนะนำให้คุณอ่านเรื่องที่อัปโหลดจบแล้วซึ่งจะมีป้าย “จบ” ที่มุมซ้ายบนของภาพปก</p>
+<p>ถ้าคุณยังไม่ได้สมัครสมาชิกหรือซื้อเหรียญ:</p>
+<p>ถ้าตอนต่อไปถูกอัปโหลดแล้วแต่คุณไม่สามารถเข้าถึงได้ นั่นเป็นเพราะสิทธิพิเศษดังกล่าวสงวนสำหรับสมาชิก Toomics VIP เท่านั้น โดยการเป็นสมาชิก VIP หรือการซื้อเหรียญ คุณจะได้เข้าถึงตอนทั้งหมดที่เราได้อัปโหลดรวมถึงตอนที่เคยเป็นสิทธิพิเศษสำหรับสมาชิกเท่านั้นด้วย</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631654883865" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>มีวิธียืนยันอายุและอ่านเนื้อหาสำหรับผู้ใหญ่ 18+ โดยไม่ใช้โหมดปลอดภัยหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่ไม่สามารถปิดโหมดปลอดภัยได้ เนื่องจากนโยบายของแอปสโตร์ของเรา ปุ่มนี้มีไว้เพื่อแสดงว่าเนื้อหาที่เรามีทั้งหมดเป็นเนื้อหาที่ปลอดภัยสำหรับครอบครัว โดยเราไม่สามารถรวมเนื้อหาที่ไม่เหมาะสำหรับเด็กในแอปของเราได้ตามนโยบายของแอปสโตร์ :(</p>
+<p>หากคุณต้องการปิดปุ่มปลอดภัยสำหรับครอบครัว กรุณาทำผ่านเว็บไซต์ของเรา <span style="color: #0000ff;">Toomics - อ่านการ์ตูน VIP ไม่จำกัด</span> ได้ทั้งผ่านคอมพิวเตอร์หรือผ่านเว็บเบราว์เซอร์บนโทรศัพท์มือถือของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631723182361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>มีโหมดมืดหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณต้องการใช้โหมดมืดบนแพลตฟอร์ม Toomics ไม่ว่าจะผ่านคอมพิวเตอร์หรือผ่านเว็บเบราว์เซอร์บนโทรศัพท์มือถือของคุณ เราขอแนะนำให้คุณใช้ Chrome เป็นเว็บเบราว์เซอร์หลักและดาวน์โหลดส่วนขยาย Dark Mode ใน Chrome Web Store</p>
+<p>กรุณาคลิกลิงก์ต่อไปนี้เพื่อเข้าถึงส่วนขยายต่าง ๆ ที่ Chrome ให้บริการ และคุณจะสามารถค้นหา Dark Mode ได้: https://chromewebstore.google.com/?hl=th</p>
+<p>อย่างไรก็ตาม โปรดทราบว่าเรากำลังทำงานเพื่อให้บริการโหมดมืดบนเว็บไซต์ของเราทั้งหมด เช่นเดียวกับที่เรามีให้บริการบนแอปพลิเคชัน</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41634639739929" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h2 class="sub-section">การแชร์และการส่งผลงาน</h2>
+<details>
+<summary>ฉันสามารถส่งเว็บตูนของฉันเข้าประกวดได้ไหม?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ก่อนอื่นต้องขอขอบคุณที่สนใจบริการของเรา!</p>
+<p>เราเสียใจที่ต้องแจ้งว่าเนื่องจากการปรับโครงสร้างกระบวนการส่งผลงานของเรา ขณะนี้เราจึงไม่สามารถรับผลงานของคุณได้</p>
+<p>เราขอขอบคุณสำหรับความพยายามของคุณและขออภัยที่เรายังไม่สามารถร่วมมือสร้างสรรค์ผลงานกับคุณได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41621257198361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสามารถแชร์เว็บตูนจาก Toomics ผ่านโซเชียลมีเดียได้ไหม?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่เราได้จำกัดไม่ให้ผู้ใช้แชร์เว็บตูนของเราผ่านโซเชียลมีเดีย เนื่องจากเนื้อหาทั้งหมดบน Toomics ได้รับการคุ้มครองภายใต้กฎหมายลิขสิทธิ์</p>
+<p>การนำไปใช้งาน การแชร์ หรือการทำซ้ำส่วนใดส่วนหนึ่งของเนื้อหาโดยไม่มีการอนุญาตจากเจ้าของลิขสิทธิ์หรือ Toomics อาจมีความผิดตามกฎหมายที่เกี่ยวข้องกับการละเมิดลิขสิทธิ์และทรัพย์สินทางปัญญาา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41621448145049" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>เข้าร่วมทีมกับเรา<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เราไม่สามารถดำเนินการจ้างงานผ่านอีเมลนี้ได้ เนื่องจากอีเมลดังกล่าวถูกใช้เพื่อให้บริการลูกค้าของเราเท่านั้น</p>
+<p>เราขอความกรุณาให้คุณติดตามประกาศรับสมัครงานและสมัครงานผ่านวิธีการที่ระบุในประกาศนั้น</p>
+<p>https://recruit.toomics.com/jobs?lang=en</p>
+<p>เราขออภัยในความไม่สะดวกดังกล่าวและขอให้คุณโชคดี!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41621325110937" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h2 class="sub-section">คอนเทนต์</h2>
+<details>
+<summary>จำกัดเนื้อหาเฉพาะ<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>คุณต้องการปรับแต่งประสบการณ์ Toomics ของคุณเองหรือไม่? ไปที่เมนูการตั้งค่า [≡] และคลิกที่ ‘เลือกแนวของคุณ!’ โดยคุณสามารถเลือกแนวที่คุณสนใจและยกเลิกแนวที่คุณไม่ต้องการดูได้ นี่คือประตูสู่โลกเว็บตูนที่คุณชื่นชอบในแบบของคุณเอง!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632856122393" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันหาเว็บตูนที่เคยอ่านไม่เจอ<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เราต้องการแจ้งให้ทราบว่าเมื่อบางเรื่องที่คุณเคยอ่านไม่ปรากฏบนแพลตฟอร์มของเรา นั่นเป็นเพราะผู้เขียนตัดสินใจไม่ต่ออายุสัญญากับเรา</p>
+<p>ซึ่งเป็นสิ่งที่เราควบคุมไม่ได้และเราก็รู้สึกเสียใจกับการตัดสินใจดังกล่าวของผู้เขียนเช่นกัน</p>
+<p>เราหวังว่าคุณจะเข้าใจและต้องขออภัยในความไม่สะดวกที่เกิดขึ้น</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632755209881" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ชื่อเรื่องถูกอัปโหลดซ้ำ<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>โปรดทราบว่าเวอร์ชันใหม่ของเว็บตูนนี้เป็นเวอร์ชันที่ปลอดภัยสำหรับครอบครัว :) นี่คือเหตุผลที่คุณเห็นสองหน้าที่มีชื่อเรื่องเดียวกัน</p>
+<p>ขอขอบคุณสำหรับความสนใจและการสนับสนุนของคุณ!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632674164249" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมเนื้อหาสำหรับผู้ใหญ่ถึงถูกเซ็นเซอร์?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่ไม่มีตัวเลือกในการลบเซ็นเซอร์จากเว็บตูนของเรา แม้ว่าคุณจะเป็นสมาชิก VIP ก็ตาม :( </p>
+<p>การกระทำนี้เป็นไปตามกฎหมายเกี่ยวกับความอนาจารของประเทศต่าง ๆ และยังเป็นการปฏิบัติตามเงื่อนไขการให้บริการของผู้ให้บริการชำระเงินของเรา</p>
+<p>เราหวังว่าคุณจะเข้าใจและต้องขออภัยในความไม่สะดวก กรุณาติดต่อศูนย์บริการลูกค้าหากคุณมีคำถามเพิ่มเติม</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632587165209" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>วิธีรายงานข้อผิดพลาด เช่น การแปลผิด, คำผิด, หรือข้อผิดพลาดในภาพ?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณพบเว็บตูนที่แปลผิดหรือพบข้อผิดพลาดในบทใดบทหนึ่ง กรุณาส่งข้อความมาหาเราและเราจะแก้ไขปัญหาโดยเร็วที่สุด!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632599125401" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>เนื้อหารุนแรงเกินไป<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>Toomics ต้องการมอบบริการและประสบการณ์ที่ดีที่สุดแก่ผู้ใช้ของเราและเพื่อทำเช่นนั้นเราจึงมีเนื้อหาในหลากหลายแนวให้ผู้ใช้เลือกอ่าน</p>
+<p>เราขออภัยหากคุณเคยพบกับเรื่องที่มีเนื้อหารุนแรง เราอยากให้คุณทราบว่าเรื่องที่มีเนื้อหารุนแรงมากจะมีป้ายแจ้งเตือนในตอนเริ่มต้นตอน และแม้ว่าหลาย ๆ เรื่องจะมีเนื้อหารุนแรง Toomics ไม่สนับสนุนพฤติกรรมหรือตัวละครที่มีปัญหาดังกล่าว</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632814074265" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h2 class="sub-section">เกี่ยวกับ Toomics</h2>
+<details>
+<summary>Toomics คืออะไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ขอต้อนรับเข้าสู่ Toomics!</p>
+<p>Toomics เป็นแพลตฟอร์มถูกกฎหมายที่คุณสามารถค้นหาเว็บตูนสุดเอ็กซ์คลูซีฟหลากหลายประเภทได้ เราแนะนำให้คุณเยี่ยมชมเว็บไซต์ของเรา <span style="color: #0000ff;">Toomics - อ่านเว็บตูน VIP ออนไลน์ไม่จำกัด</span> หรือดาวน์โหลดแอปมือถือของเราซึ่งมีให้บริการทั้ง Android และ iOS :)</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631052054937" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>Toomics ฟรีหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่ผู้ใช้ไม่สามารถอ่านเนื้อหาของเราได้ฟรี รวมถึงรับสถานะสมาชิก VIP หรือเหรียญแบบฟรีได้</p>
+<p>เนื่องจากเรามีค่าใช้จ่ายที่จำเป็นในการรักษาเว็บไซต์และแอปให้ทำงานได้อย่างราบรื่น เราขอให้ผู้ใช้ของเราซื้อสมาชิก VIP และเหรียญเพื่อช่วยให้ศิลปินและนักเขียนของเราสร้างเว็บตูนที่ยอดเยี่ยมต่อไป</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631381265945" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>Toomics เป็นเว็บไซต์ถูกกฎหมายหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ใช่ ทุกเนื้อหาที่แสดงบนเว็บไซต์ของเราได้รับลิขสิทธิ์และเราได้รับอนุญาตให้เผยแพร่ผลงานโดยศิลปิน</p>
+<p>กำไรทั้งหมดที่ทำได้บน Toomics จะถูกแบ่งปันกับศิลปินที่เรามีสัญญาโดยตรงในการเผยแพร่ผลงานบนแพลตฟอร์มของเรา</p>
+<p>ซึ่งการใช้ Toomics ของคุณถือเป็นการสนับสนุนศิลปินและช่วยให้พวกเขาสามารถสร้างเรื่องราวที่ยอดเยี่ยมต่อไปได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631278399001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>เวลาทำงานของเรา<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เนื่องจากสำนักงานของเราตั้งอยู่ในประเทศเกาหลีใต้ ดังนั้นเวลาทำงานของเราจึงเป็นไปตามเขตเวลา GMT+9</p>
+<p>เวลาทำงานของเรา: </p>
+<p>จันทร์ - พฤหัสบดี: เวลา 8.00 น. - 17.00 น. (GMT+9) </p>
+<p>วันศุกร์: เวลา 8.00 น. - 15.00 น. (GMT+9)</p>
+<p>ศูนย์บริการลูกค้าจะไม่สามารถให้บริการได้ในวันหยุดสุดสัปดาห์หรือวันหยุดนักขัตฤกษ์ของเกาหลี</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631549520025" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h1 class="section-heading" id="terms---policy"><span class="section-icon">📋</span>Terms &amp; Policy</h1>
+<h2 class="sub-section">นโยบายความเป็นส่วนตัว</h2>
+<details>
+<summary>นโยบายความเป็นส่วนตัว<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>https://global.toomics.com/th/help/private_terms</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41661193655065" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<h2 class="sub-section">ข้อกำหนดและนโยบาย</h2>
+<details>
+<summary>เงื่อนไขการใช้งาน<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>https://global.toomics.com/th/help/access_terms</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41661072359321" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<h1 class="section-heading" id="account-management"><span class="section-icon">👤</span>Account Management</h1>
+<h2 class="sub-section">การตั้งค่าบัญชี</h2>
+<details>
+<summary>ฉันจะตรวจสอบหมายเลขโทรศัพท์ของฉันได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">ก่อนอื่นต้องขออภัยในความไม่สะดวกที่เกิดขึ้นขณะใช้บริการของเรา </p>
+<p class="wysiwyg-text-align-justify">ทีมงานของเรากำลังทำงานอย่างหนักเพื่อให้บริการเว็บตูนที่ดีที่สุดและทำให้ประสบการณ์บน Toomics ของคุณปลอดภัยที่สุด </p>
+<p class="wysiwyg-text-align-justify">และเพื่อป้องกันการแจกจ่ายตอนพรีเมียมล่าสุดอย่างผิดกฎหมาย เราได้เพิ่มขั้นตอนการตรวจสอบหมายเลขโทรศัพท์มือถือลงในระบบของเรา อย่างไรก็ตาม เราได้รับแจ้งว่ากระบวนการตรวจสอบนี้ทำให้เกิดข้อผิดพลาดและทำให้ผู้ใช้ที่ดูเนื้อหาพรีเมียมเกิดความไม่สะดวกเป็นอย่างมาก </p>
+<p class="wysiwyg-text-align-justify">หากคุณกำลังประสบปัญหาในการตรวจสอบหมายเลขโทรศัพท์ โปรดติดต่อเราโดยตรงและแจ้งบัญชีที่คุณต้องการตรวจสอบให้เราทราบ เราจะดำเนินการตรวจสอบให้กับคุณโดยเร็วที่สุด</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660878257177" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันจะติดตามเว็บตูนที่ฉันอ่านล่าสุดได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p><strong>ต้องการกลับไปดูเว็บตูนที่อ่านล่าสุดของคุณใช่หรือไม่? </strong>เพียงไปที่ ‘ห้องสมุดของฉัน’ และตรวจสอบในส่วน ‘อ่านล่าสุด’ ที่นี่คุณจะพบเว็บตูนที่คุณได้อ่านไปล่าสุด โดยที่รายการอ่านเก่า ๆ ของคุณจะค่อย ๆ ถูกลบออกโดยระบบของเรา</p>
+<p> </p>
+<p><strong>มีบางเรื่องหายไปใช่หรือไม่? </strong>นี่อาจเป็นเพราะคุณเปิดโหมดปลอดภัยอยู่หรือดูตอนฟรีโดยไม่ได้เข้าสู่ระบบ หากต้องการให้ประวัติการอ่านของคุณอัปเดตอยู่เสมอ โปรดเข้าสู่ระบบและปรับการตั้งค่าตามที่ต้องการ</p>
+<p> </p>
+<p><strong>ต้องการลบรายการอ่านของคุณใช่หรือไม่?</strong> เพียงคลิกที่ไอคอนถังขยะและเลือกเรื่องที่ต้องการ คุณก็สามารถลบรายการอ่านในส่วน ‘อ่านล่าสุด’ ของคุณได้แล้ว เพียงเท่านี้รายการอ่านก็จะถูกจัดระเบียบ เพื่อเตรียมพร้อมสำหรับเว็บตูนออกใหม่!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660762041625" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันจะปิดใช้งาน/เปิดใช้งาน/ลบบัญชีของฉันได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">ปิดใช้งานบัญชี</span></p>
+<p>เราเสียใจที่ได้ยินว่าคุณต้องการปิดการใช้งานบัญชีของคุณ</p>
+<p> </p>
+<p>สำหรับผู้ใช้คอมพิวเตอร์: </p>
+<ol>
+<li>เข้าสู่ระบบ Toomics </li>
+<li>คลิกที่ &lt;เมนูการตั้งค่า [≡]&gt; แล้วไปที่ &lt;การตั้งค่าบัญชี&gt; และ &lt;ปิดใช้งานบัญชี&gt;</li>
+</ol>
+<p>สำหรับผู้ใช้มือถือ:</p>
+<ol>
+<li> เข้าสู่ระบบ Toomics </li>
+<li>ไปที่ไอคอนเมนูทางขวาและเลือก [การตั้งค่าบัญชี] และ [ปิดใช้งานบัญชี]</li>
+</ol>
+<p> </p>
+<p>โปรดทราบว่าหากคุณเป็นสมาชิก VIP ของ Toomics คุณจะต้องยกเลิกการเป็นสมาชิกก่อนจึงจะสามารถปิดการใช้งานบัญชีของคุณได้</p>
+<p> </p>
+<p><span class="wysiwyg-underline">เปิดใช้งานบัญชี</span></p>
+<p>ดูเหมือนว่าคุณต้องการเปิดใช้งานบัญชี Toomics ของคุณอีกครั้ง </p>
+<p>เรายินดีที่ได้เห็นคุณกลับมา! :) </p>
+<p>หากต้องการเปิดใช้งานบัญชี Toomics ของคุณอีกครั้ง โปรดติดต่อเราโดยตรงและแจ้งบัญชีที่คุณต้องการเปิดใช้งานอีกครั้ง เราจะดำเนินการเปิดใช้งานให้คุณโดยเร็วที่สุด!</p>
+<p> </p>
+<p><span class="wysiwyg-underline">ลบบัญชี</span></p>
+<p>หากต้องการลบบัญชี Toomics ของคุณ กรุณาติดต่อเราโดยตรงและแจ้งบัญชีที่คุณต้องการลบ นอกจากนี้ เราขอให้คุณยืนยันข้อมูลต่อไปนี้เพื่อให้เราดำเนินการลบข้อมูลบัญชี Toomics ของคุณ</p>
+<ol>
+<li>เนื่องจากคุณจำเป็นต้องปิดการใช้งานบัญชี Toomics ก่อนที่ข้อมูลส่วนบุคคลทั้งหมดของคุณจะถูกลบ คุณยินยอมที่จะปิดการใช้งานบัญชี Toomics ของคุณหรือไม่?</li>
+<li>เมื่อข้อมูลส่วนบุคคลของคุณถูกลบไปแล้ว Toomics จะไม่สามารถกู้คืนข้อมูลดังกล่าวได้ภายใต้สถานการณ์ใด ๆ</li>
+<li>คะแนนเหรียญที่ไม่ได้ใช้ที่เหลืออยู่ในบัญชี Toomics ของคุณจะถูกลบออกตามลำดับ</li>
+<li>การเข้าถึงเนื้อหาทั้งหมดที่คุณได้ซื้อด้วยเหรียญจะถูกลบออกตามลำดับ</li>
+<li>สถานะสมาชิก VIP ที่ผูกไว้กับบัญชี Toomics ของคุณจะถูกลบออกตามลำดับเช่นกัน แม้ว่าจะยังไม่หมดอายุ (และจะไม่ได้รับการคืนเงินเว้นแต่คุณจะขอคืนเงินและมีสิทธิ์ได้รับการคืนเงิน)</li>
+</ol>
+<p>โปรดทำการยืนยันว่าคุณยอมรับเงื่อนไขดังกล่าวข้างต้นและต้องการให้เราดำเนินการยกเลิกบัญชีและลบข้อมูลส่วนบุคคลของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660800481305" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันจะเปลี่ยนข้อมูลการเข้าสู่ระบบได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>เราสามารถโอนสถานะสมาชิกของคุณไปยังอีเมลที่คุณต้องการและรีเซ็ตรหัสผ่านเพื่อให้คุณสามารถสู่เข้าระบบได้สะดวกยิ่งขึ้น โปรดติดต่อเราโดยตรงและแจ้งข้อมูลต่อไปนี้เพื่อดำเนินการ:</p>
+<p><strong>อีเมลเพื่อใช้เข้าสู่ระบบ: </strong></p>
+<p><strong>รหัสผ่านใหม่:</strong></p>
+<p>ในกรณีของบัญชีที่สร้างผ่าน Apple เราไม่สามารถแปลงบัญชีดังกล่าวเป็นบัญชีอีเมลปกติได้ ดังนั้นเราจึงไม่สามารถเปลี่ยนหรือแก้ไขรหัสผ่านของบัญชีนั้น ๆ ซึ่งข้อจำกัดเหล่านี้เป็นนโยบายของทาง Apple โดยตรงและเราไม่สามารถควบคุมข้อจำกัดเหล่านี้ได้</p>
+<p>เราขออภัยในความไม่สะดวกดังกล่าว</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660886892185" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันจะเปลี่ยนรหัสผ่านได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">สำหรับผู้ใช้คอมพิวเตอร์: </span></p>
+<p>ไปที่ [การตั้งค่าบัญชี] เพื่อเข้าถึงการตั้งค่าบัญชีของคุณและเปลี่ยนรหัสผ่าน</p>
+<p><span class="wysiwyg-underline">สำหรับผู้ใช้มือถือ:</span></p>
+<p>ไปที่ไอคอนเมนูที่มุมขวาบนของหน้าจอและเปลี่ยนรหัสผ่านที่ [การตั้งค่าบัญชี] </p>
+<p><br>โปรดทราบว่าการรีเซ็ตรหัสผ่านอาจไม่ทำงานหากใช้อักขระพิเศษ: ! @ # $ % ^ &amp; * ( ) </p>
+<p>เราขอแนะนำให้ตรวจสอบหรือเปลี่ยนรหัสผ่านของคุณให้เป็นไปตามคำแนะนำของ Toomics </p>
+<p>นอกจากนี้ หากคุณกำลังประสบปัญหาในการรีเซ็ตรหัสผ่านบัญชี Toomics ของคุณที่เชื่อมกับโซเชียลมีเดีย เราจะไม่สามารถช่วยรีเซ็ตรหัสผ่านให้คุณได้ อย่างไรก็ตาม เราสามารถโอนบัญชีของคุณไปยังบัญชีอีเมลและรีเซ็ตรหัสผ่านให้คุณได้ </p>
+<p>และดำเนินการแล้วเสร็จ คุณจะต้องพิมพ์ที่อยู่อีเมลและรหัสผ่านเพื่อเข้าสู่ระบบด้วยตนเองทุกครั้งที่คุณเข้าสู่ระบบบัญชี Toomics ของคุณ</p>
+<p>หากคุณต้องการให้เรารีเซ็ตรหัสผ่านให้ โปรดติดต่อเราโดยตรงและแจ้งข้อมูลต่อไปนี้กับเรา:</p>
+<p><strong>อีเมลเพื่อใช้เข้าสู่ระบบ: </strong></p>
+<p><strong>รหัสผ่านใหม่:</strong></p>
+<p> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660839580569" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันพยายามป้อนรหัสผ่านไปแล้ว 10 ครั้ง ฉันควรทำอย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>หากคุณพยายามป้อนรหัสผ่านไปแล้ว 10 ครั้ง โปรดติดต่อเราโดยตรงและแจ้งข้อมูลต่อไปนี้กับเรา: <strong>อีเมลเพื่อใช้เข้าสู่ระบบ: </strong></p>
+<p><strong>รหัสผ่านใหม่:</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660890220057" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>รายการโปรดของฉันหายไป<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">หากคุณอ่านเว็บตูนบนเว็บไซต์ของเรา คุณได้ปิดโหมดปลอดภัยที่ด้านบนของเว็บไซต์ Toomics หรือยัง? เพราะการทำเช่นนี้จะทำให้คุณสามารถดูเนื้อหาพรีเมี่ยมสำหรับผู้ใหญ่และเนื้อหาสำหรับผู้ใหญ่ที่คุณเลือกจะปรากฏใน "รายการโปรดของฉัน" ด้วย</p>
+<p class="wysiwyg-text-align-justify">แต่สำหรับแอปมือถือของเรา เราไม่สามารถรองรับเนื้อหาสำหรับผู้ใหญ่ได้ตามนโยบายของ Google Play Store และ Apple App Store ดังนั้นหากคุณต้องการอ่านเว็บตูนสำหรับผู้ใหญ่ คุณต้องเข้าถึงผ่านเว็บไซต์ของเรา <a class="c-link" style="box-sizing: inherit; color: rgba(var(--sk_highlight,18,100,163),1); text-decoration: none; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f8f8f8;" href="https://global.toomics.com/th" target="_blank" rel="noopener noreferrer" data-stringify-link="https://global.toomics.com/th" data-sk="tooltip_parent">https://global.toomics.com/th</a> ผ่านคอมพิวเตอร์หรือเบราว์เซอร์บนโทรศัพท์มือถือ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41660789732889" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<h2 class="sub-section">การตั้งค่าและการเข้าถึงบัญชี</h2>
+<details>
+<summary>การรวมบัญชี<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">เมื่อคุณรวมบัญชีเว็บของคุณเข้ากับบัญชีแอป ข้อมูลในบัญชีแอปที่คุณได้ทำการรวมจะซิงโครไนซ์กับบัญชีเว็บโดยอัตโนมัติ และเหรียญที่ซื้อในแอปจะถูกโอนไปยังบัญชีเว็บโดยตรง</p>
+<p class="wysiwyg-text-align-justify">อย่างไรก็ตาม โปรดทราบว่ามีกรณีที่ผู้ใช้สร้างบัญชีแอปหลายบัญชีและทำการซื้อสินค้าในบัญชีแอปที่ไม่ใช่บัญชีที่ถูกรวม ซึ่งส่วนใหญ่เป็นเพราะผู้ใช้ไม่ได้เข้าสู่ระบบเมื่อทำการซื้อ</p>
+<p class="wysiwyg-text-align-justify">ในกรณีนั้น คุณควรติดต่อเราและเราจะดำเนินการให้คุณเข้าถึงเหรียญที่คุณซื้อได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41658468487065" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>การเข้าสู่ระบบด้วยอีเมลหรือโซเชียลมีเดียคืออะไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">เมื่อสมัคร Toomics เรามี 2 วิธีให้คุณเลือกใช้ในการสร้างบัญชี</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">คุณสามารถสมัครด้วยอีเมลของคุณ หรือสมัครผ่านตัวเลือกโซเชียลมีเดียของเรา เช่น Facebook, Line, Yahoo, Google, Twitter หรือบัญชี Apple ของคุณ</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณสมัครด้วยอีเมล คุณจะต้องเข้าสู่ระบบโดยพิมพ์ที่อยู่อีเมลและรหัสผ่านของคุณ</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณสมัครผ่านโซเชียลมีเดีย (Facebook, Line, Yahoo, Google หรือ Twitter) คุณจะต้องเข้าสู่ระบบผ่านไอคอนที่ตั้งอยู่ในส่วนล่างของหน้า [เข้าสู่ระบบ]</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณต้องการเข้าสู่ระบบที่เชื่อมกับบัญชีโซเชียลมีเดียของคุณ การเข้าสู่ระบบโดยพิมพ์ที่อยู่อีเมลจะเป็นการสร้างบัญชีใหม่ ดังนั้นโปรดเข้าสู่ระบบผ่านตัวเลือกโซเชียลมีเดียเพื่อเข้าถึงสถานะสมาชิก VIP ของคุณ</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">โปรดทราบว่าคุณสามารถสร้างบัญชีหลายบัญชีด้วยที่อยู่อีเมลเดียวกัน หรืออีเมลที่พิมผิดได้ (ในกรณีของบัญชีที่สมัครด้วยอีเมล) ดังนั้นเราขอแนะนำให้คุณระมัดระวังขณะกรอกข้อมูลเพื่อสร้างบัญชี Toomics ของคุณ</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654908284569" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ความแตกต่างระหว่างบัญชีเว็บกับบัญชีแอปคืออะไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">บัญชีเว็บคือบัญชีที่ถูกสร้างขึ้นโดยตรงบนเว็บไซต์ผ่านคอมพิวเตอร์หรือเว็บเบราว์เซอร์ของคุณ</p>
+<p class="wysiwyg-text-align-justify">ส่วนบัญชีแอปคือหมายเลขซีเรียลที่ถูกส่งให้แอปที่คุณใช้งานบนโทรศัพท์โดยไม่ต้องล็อกอิน</p>
+<p class="wysiwyg-text-align-justify">โดยคุณสามารถเชื่อมต่อบัญชีเว็บกับบัญชีแอปเข้าด้วยกันได้</p>
+<p class="wysiwyg-text-align-justify">โปรดทราบว่ามีกรณีที่ผู้ใช้สร้างบัญชีแอปหลายบัญชีทุกครั้งที่ลบแอปและติดตั้งใหม่ ดังนั้นกรุณาอย่าลบแอปและติดต่อหาเราโดยตรง</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654992942105" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันจะสมัครบัญชี Toomics ได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">คุณสามารถสมัครบัญชีฟรีได้ที่เว็บไซต์หลักของเรา </span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">คลิกที่เมนูด้านขวาบนเพื่อหาปุ่ม &lt;เข้าสู่ระบบ&gt; คลิก &lt;เข้าสู่ระบบ&gt; จากนั้นคลิก &lt;สมัครสมาชิก&gt; เพื่อสร้างบัญชี</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">โปรดตรวจสอบให้แน่ใจว่าคุณได้ยอมรับเงื่อนไขการใช้บริการและนโยบายความเป็นส่วนตัวของเรา</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">คุณยังสามารถสร้างบัญชีผ่านบัญชีโซเชียลมีเดียอื่น ๆ ได้ เช่น Facebook, Google, Yahoo, Line และ Twitter </span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">โดยการเข้าสู่ระบบด้วยบัญชีโซเชียลมีเดียนั้นแตกต่างจากการเข้าสู่ระบบด้วยบัญชีปกติ (อีเมล)</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณสร้างบัญชีผ่านโซเชียลมีเดีย โปรดเข้าสู่ระบบโดยคลิกที่ไอคอนโซเชียลมีเดียที่คุณเลือกใช้ในหน้า [เข้าสู่ระบบ]</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654793880089" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันซื้อบนเว็บไซต์ ฉันจะอ่านบนแอปได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">หากคุณได้ทำการซื้อบนเว็บไซต์และต้องการอ่านบนแอป คุณเพียงแค่ต้องเข้าสู่ระบบในแอปโดยใช้บัญชี Toomics ที่คุณผูกกับสถานะสมาชิก VIP ไว้</p>
+<p class="wysiwyg-text-align-justify">ตามนโยบายของ Google Play Store และ Apple App Store ขณะนี้เราไม่สามารถรองรับเนื้อหาสำหรับผู้ใหญ่ใด ๆ ภายในแอปของเราได้ ซึ่งเป็นเหตุผลว่าทำไมคุณจะไม่สามารถเข้าถึงเว็บตูนสำหรับผู้ใหญ่ของเราได้บนแอป เราขออภัยในความไม่สะดวกดังกล่าวมา ณ ที่นี้</p>
+<p class="wysiwyg-text-align-justify">หากคุณต้องการปิดปุ่ม Family Safe โปรดทำผ่านเว็บไซต์ของเรา <a class="c-link" style="box-sizing: inherit; color: rgba(var(--sk_highlight,18,100,163),1); text-decoration: none; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #ffffff;" href="https://global.toomics.com/th" target="_blank" rel="noopener noreferrer" data-stringify-link="https://global.toomics.com/th" data-sk="tooltip_parent">https://global.toomics.com/th</a> ผ่านทางคอมพิวเตอร์หรือเว็บเบราว์เซอร์บนโทรศัพท์มือถือของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41658413758489" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันซื้อบนแอป ฉันจะอ่านบนเว็บไซต์ได้อย่างไร?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>หากคุณต้องการใช้สิทธิ์สมาชิก VIP บนเว็บไซต์ Toomics ของเราไม่ว่าจะผ่านคอมพิวเตอร์หรือมือถือ เราขอแนะนำให้คุณสร้างบัญชีหรือเข้าสู่ระบบในแอปของเรา</p>
+<p>การดำเนินการนี้จะผูกสิทธิ์สมาชิก VIP ที่คุณซื้อเข้ากับบัญชีของคุณ เพื่อให้คุณสามารถใช้งานได้ในอุปกรณ์ใดก็ได้ต่อไป ตราบใดที่คุณเข้าสู่ระบบด้วยบัญชีเดียวกันกับที่คุณใช้เข้าสู่ระบบในแอป Toomics</p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41655477966489" alt="2024-12-27_082840.jpg" width="298" height="464"></p>
+<p>นี่คือสถานะสมาชิก VIP ที่ซื้อผ่านแอปโดยที่ไม่ได้ผูกกับอีเมลใด ๆ เราแนะนำให้คุณทำตามขั้นตอนด้านล่างเพื่อผูกสถานะสมาชิก VIP ของคุณกับอีเมล:</p>
+<ol>
+<li>ใช้อุปกรณ์ iPhone / Android ที่คุณใช้ในการซื้อเข้าสู่ระบบโดยตรงในแอปพลิเคชัน Toomics หน้าภาษาอังกฤษ</li>
+<li>จากนั้นไปที่เมนูการตั้งค่า [≡] ที่ตั้งอยู่ที่มุมขวาบนของหน้าจอและคลิกที่ "Sign up"</li>
+<li>หลังจากคลิกที่ "Sign up" กรุณากรอกอีเมลที่คุณต้องการผูกกับสถานะสมาชิก VIP</li>
+</ol>
+<p>หากคุณได้สร้างบัญชีไว้แล้ว สิ่งที่คุณต้องทำคือคลิกที่ปุ่ม "Sign in" และเข้าสู่ระบบด้วยบัญชี Toomics ที่คุณได้ลงทะเบียนไว้ในระบบ</p>
+<p>หากคุณยังไม่สามารถเข้าถึงบัญชี In-app ของคุณได้ โปรดคลิกที่ “เมนูการตั้งค่า [≡]” และคลิกที่ “Restore” จากนั้นกด "Restore"</p>
+<p>โปรดดูภาพแคปหน้าจอด้านล่าง:</p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41655477967129" width="281" height="553"></p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41655477968153" width="282" height="547"></p>
+<p>กรุณาจำไว้เสมอว่าหากคุณต้องการปิดการใช้งานโหมดปลอดภัย คุณจะต้องเข้าถึงเว็บไซต์ของเรา <a class="c-link" style="box-sizing: inherit; color: rgba(var(--sk_highlight,18,100,163),1); text-decoration: none; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #ffffff;" href="https://global.toomics.com/th" target="_blank" rel="noopener noreferrer" data-stringify-link="https://global.toomics.com/th" data-sk="tooltip_parent">https://global.toomics.com/th</a> ผ่านทางคอมพิวเตอร์หรือเว็บเบราว์เซอร์บนโทรศัพท์มือถือของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41655468854169" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันหาบัญชีของฉันไม่เจอ<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p><span style="background-color: #ffffff;">หากคุณพบปัญหาในการค้นหาบัญชี Toomics ของคุณ โปรดลองตรวจสอบอีเมลยืนยันการซื้อที่ส่งไปยังอีเมลที่คุณได้ลงทะเบียนไว้เมื่อทำการซื้อ</span></p>
+<p> </p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41654940267417" alt="2024-12-27_082300.jpg"></p>
+<p> </p>
+<p>หรือติดต่อเราโดยตรงและแจ้งข้อมูลต่อไปนี้กับเรา:</p>
+<ol>
+<li>ภาพแคปหน้าจอของใบเสร็จ (แสดงวันที่ซื้อและชื่อบริษัทของเรา)</li>
+<li>ตัวเลข 4 หลักสุดท้ายของบัตรเครดิต/บัตรเดบิตของคุณ</li>
+<li>อีเมลทางเลือกที่คุณอาจใช้ในการสร้างบัญชีกับ Toomics</li>
+</ol>
+<p>เราเข้าใจว่าข้อมูลดังกล่าวมีความเป็นส่วนตัวมาก แต่เราขอรับรองว่าข้อมูลทั้งหมดที่คุณให้กับเราจะถูกเก็บเป็นความลับสูงสุด</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654962130329" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ฉันเข้าสู่ระบบด้วยบัญชีโซเชียลมีเดียไม่ได้!<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">เมื่อสมัคร Toomics เรามี 2 วิธีให้คุณเลือกใช้ในการสร้างบัญชี</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">คุณสามารถสมัครด้วยอีเมลของคุณ หรือสมัครผ่านโซเชียลมีเดีย เช่น Facebook, Line, Yahoo, Google, Twitter (เว็บไซต์บุคคลที่สาม)</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณสมัครด้วยอีเมล คุณจะต้องเข้าสู่ระบบโดยพิมพ์ที่อยู่อีเมลและรหัสผ่านของคุณ</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณสมัครผ่านโซเชียลมีเดีย (Facebook, Line, Yahoo, Google หรือ Twitter) คุณจะต้องเข้าสู่ระบบผ่านไอคอนที่อยู่ในส่วนล่างของหน้า [เข้าสู่ระบบ]</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">โดยการเข้าสู่ระบบด้วยบัญชีโซเชียลมีเดียหรือบัญชีอีเมลธรรมดาจะเป็นสองบัญชีที่แยกจากกัน</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณเป็นสมาชิก VIP ผ่านโซเชียลมีเดีย คุณจะสามารถเข้าถึงเนื้อหา VIP ได้เฉพาะเมื่อเข้าสู่ระบบผ่านโซเชียลมีเดียเท่านั้น</span></p>
+<p class="wysiwyg-text-align-justify"><span style="background-color: #ffffff;">หากคุณเป็นสมาชิก VIP ผ่านบัญชีอีเมล คุณจะสามารถเข้าถึงเนื้อหา VIP ได้เฉพาะเมื่อเข้าสู่ระบบด้วยอีเมลและรหัสผ่านของคุณ</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654889673753" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ทำไมฉันต้องเลือกเพศ?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p><span style="background-color: #ffffff;">การเลือกเพศจะช่วยให้ระบบของเราแนะนำเว็บตูนและประเภทที่เหมาะสมอัตโนมัติ</span></p>
+<p><span style="background-color: #ffffff;">หากคุณไม่ต้องการให้ระบบของเราปรับแต่งการตั้งค่าบัญชีตามเพศของคุณ โปรดเลือกตัวเลือก "ไม่ระบุ"</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41654871793305" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>ทำไมถึงมีโดเมนหลายตัว?<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p>เราได้สร้างโดเมนหลายแห่งเพื่อการตลาดและโฆษณาเนื้อหาของเราบนแพลตฟอร์มและโซเชียลมีเดียต่าง ๆ</p>
+<p>อย่างไรก็ตาม โดเมนหลักของเราคือ <a class="c-link" style="box-sizing: inherit; color: rgba(var(--sk_highlight,18,100,163),1); text-decoration: none; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #ffffff;" href="https://global.toomics.com/th" target="_blank" rel="noopener noreferrer" data-stringify-link="https://global.toomics.com/th" data-sk="tooltip_parent">https://global.toomics.com/th</a> ดังนั้นเราขอแนะนำให้คุณใช้โดเมนที่ระบุไว้ข้างต้น</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41658638538905" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<details>
+<summary>วิธีการขอเข้าถึงประวัติคำถามที่ผ่านมา<span class="art-count">2024-12-27</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-justify">เราได้ย้ายระบบศูนย์บริการลูกค้าของเราไปยังศูนย์ช่วยเหลือแล้ว แต่น่าเสียดายที่คุณจะไม่สามารถเข้าถึงประวัติคำถามก่อนหน้าได้อีกต่อไปในส่วน ‘คำถามก่อนหน้าของฉัน’ บนเว็บไซต์ของเรา </p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">เราเข้าใจดีว่าการดูและติดตามประวัติคำถามที่ผ่านมามีความสำคัญอย่างไร และเรายินดีที่จะช่วยคุณในเรื่องนี้! </p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><strong>คุณยังสามารถเข้าถึงคำถามก่อนหน้าได้ทุกเมื่อ โดยคลิกที่ลิงก์ด้านล่างนี้ ซึ่งจะนำคุณไปยังแพลตฟอร์มเก่าของเราที่คุณสามารถตรวจสอบประวัติคำถามที่ผ่านมาได้:</strong></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify"><a class="c-link" style="box-sizing: inherit; color: rgba(var(--sk_highlight,18,100,163),1); text-decoration: none; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f8f8f8;" href="https://global.toomics.com/en/help/ask_history" target="_blank" rel="noopener noreferrer" data-stringify-link="https://global.toomics.com/en/help/ask_history" data-sk="tooltip_parent">https://global.toomics.com/th/help/ask_history</a><span style="color: #1d1c1d; font-family: Slack-Lato, Slack-Fractions, appleLogo, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: #f8f8f8; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"> </span></p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">โปรดทราบว่าลิงก์นี้ใช้เพื่อดูประวัติคำถามเก่าเท่านั้น แต่ไม่สามารถใช้ติดต่อเราได้อีก หากคุณมีคำถามเพิ่มเติมหรือต้องการความช่วยเหลือเพิ่มเติม โปรดติดต่อศูนย์ช่วยเหลือของเราโดยตรง เรามุ่งมั่นที่จะให้ความช่วยเหลือที่คุณต้องการอย่างรวดเร็วและมีประสิทธิภาพ</p>
+<p class="wysiwyg-text-align-justify"> </p>
+<p class="wysiwyg-text-align-justify">เรารู้สึกขอบคุณที่คุณเลือกใช้บริการ Toomics และขอบคุณสำหรับความไว้วางใจในบริการของเรา เราตั้งใจที่จะมอบบริการที่ยอดเยี่ยมให้คุณต่อไป</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41658596783641" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-27</div></div>
+</details>
+<h1 class="section-heading" id="vip-membership---coins"><span class="section-icon">⭐</span>VIP Membership &amp; Coins</h1>
+<h2 class="sub-section">สมาชิก VIP</h2>
+<details>
+<summary>ความแตกต่างระหว่างสมาชิก VIP และเหรียญคืออะไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>สมาชิก VIP ที่ต่ออายุได้ของ Toomics เป็นแพ็คเกจพิเศษที่ช่วยให้คุณสามารถเข้าถึงเว็บตูนทั้งหมดของเราได้ไม่จำกัดโดยไม่ต้องซื้อเหรียญ! เมื่อคุณสมัครสมาชิก VIP ที่ต่ออายุได้ของเรา คุณจะสามารถเข้าถึงเนื้อหาพรีเมียมบนเว็บไซต์ <a href="https://global.toomics.com/th"><span style="color: #0000ff;">Toomics - อ่านเว็บตูน VIP ออนไลน์ไม่จำกัด</span></a> (รวมถึงบนเบราว์เซอร์มือถือ) และแอปมือถือของเราได้ เพียงคุณเข้าสู่ระบบด้วยบัญชี Toomics เดียวกันกับที่คุณใช้ชำระเงินค่าสมาชิก</p>
+<p>แต่หากคุณไม่ต้องการสมัครสมาชิก VIP คุณสามารถใช้บริการระบบเหรียญของเราเพื่ออ่านเว็บตูนเรื่องที่คุณต้องการเท่านั้นได้ ซึ่งนี่เป็นทางเลือกที่ดีมากสำหรับผู้ใช้ที่ต้องการอ่านเว็บตูนแค่บางเรื่องเท่านั้น เนื่องจากคุณสามารถใช้เหรียญซื้อเฉพาะตอนที่คุณต้องการได้ และยังสามารถเข้าถึงได้ในอนาคตได้แม้ว่าคุณจะไม่มีเหรียญเหลืออยู่ก็ตาม</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628110513049" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะยกเลิกสมาชิก VIP ได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณต้องการยกเลิกสมาชิกของคุณ โปรดทำตามคำแนะนำด้านล่างตามวิธีการชำระเงินค่าสมาชิกของคุณ:</p>
+<p> </p>
+<p><span class="wysiwyg-underline">เว็บไซต์ Toomics:</span></p>
+<ol>
+<li>เข้าสู่บัญชี Toomics ของคุณที่ <a href="https://global.toomics.com/th"><span style="color: #0000ff;">Toomics - อ่านเว็บตูน VIP ออนไลน์ไม่จำกัด</span></a> และคลิกที่ปุ่มที่มี 3 เส้นในมุมขวาบนของหน้าจอ</li>
+<li>เลือก "การตั้งค่าบัญชี" ในเมนูที่ปรากฏขึ้น</li>
+<li>คลิกที่ปุ่ม "ยกเลิกสมาชิก VIP" ที่ด้านล่างของหน้าจอ</li>
+<li>ระบุเหตุผลที่คุณต้องการยกเลิกการสมัครสมาชิกของคุณ</li>
+</ol>
+<p><span style="background-color: #ffff00;"> </span></p>
+<p><span class="wysiwyg-underline">Apple App Store:</span></p>
+<ol>
+<li>เปิด "การตั้งค่า" บนอุปกรณ์ของคุณ</li>
+<li>แตะ "iTunes &amp; App Store"</li>
+<li>แตะที่ Apple ID ของคุณ</li>
+<li>แตะ "ดู Apple ID" เมื่อหน้าต่างปรากฏขึ้น</li>
+<li>ใส่รหัสผ่าน Apple ID หรือลายนิ้วมือ</li>
+<li>แตะ "การสมัครสมาชิก"</li>
+<li>เลือกการสมัครสมาชิกที่คุณต้องการยกเลิก</li>
+</ol>
+<p> </p>
+<p><span class="wysiwyg-underline">Google Play Store:</span></p>
+<ol>
+<li>เปิดแอป "Google Play Store"</li>
+<li>แตะ "เมนู" -&gt; "แอปของฉัน" -&gt; "การสมัครสมาชิก" แล้วคลิกที่แอปที่คุณต้องการยกเลิกการสมัครสมาชิก</li>
+<li>แตะ "ยกเลิก" และกด "ใช่" เพื่อยืนยันการยกเลิก</li>
+</ol>
+<p> </p>
+<p>คุณสามารถยกการสมัครสมาชิกของคุณได้เองเมื่อทำตามขั้นตอนข้างต้น และคุณยังสามารถขอให้เรายกเลิกสมาชิก VIP ของคุณได้ด้วยเช่นกัน แต่โปรดทราบว่าหากคุณสมัครสมาชิกผ่าน iOS เราจะไม่สามารถยกเลิกให้คุณได้เนื่องจากนโยบายของ Apple App Store :(</p>
+<p> </p>
+<p>หากต้องการให้เรายกเลิกการสมัครสมาชิกของคุณ โปรดติดต่อเราและแจ้งข้อมูลบัญชี Toomics ของคุณ</p>
+<div id="mttContainer" class="notranslate" style="transform: translate(84px, 0px);" aria-expanded="false"> </div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628491230233" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะยังสามารถเข้าถึงเนื้อหาที่ฉันอ่านหลังจาก VIP หมดอายุได้หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่หลังจากที่สมาชิก VIP หมดอายุ คุณจะไม่สามารถเข้าถึงเนื้อหาพรีเมียมได้อีก เนื่องจากสถานะสมาชิก VIP จะให้สิทธิ์คุณเข้าถึงเนื้อหาเอ็กซ์คลูซีฟสำหรับ VIP ในช่วงเวลาที่คุณเลือกเท่านั้น</p>
+<p> </p>
+<p><span class="wysiwyg-underline">วันหมดอายุ:</span></p>
+<p>คุณสามารถตรวจสอบวันหมดอายุของสถานะสมาชิกของคุณได้โดยคลิกที่เมนูการตั้งค่า [≡] ที่อยู่มุมขวาบนของหน้าจอ</p>
+<p>หรือคุณสามารถคลิกที่การตั้งค่าบัญชีและคุณจะพบข้อมูลดังกล่าวที่มุมขวาบนของหน้าจอ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628309744409" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะสามารถอ่านเว็บตูนทั้งหมดด้วยการเป็นสมาชิก VIP ได้หรือไม่?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>คุณสามารถอ่านเนื้อหาเอ็กซ์คลูซีฟสำหรับสมาชิก VIP ได้ด้วยการเป็นสมาชิก VIP :)</p>
+<p>ตราบใดที่คุณยังมีสถานะเป็นสมาชิก VIP ของเรา คุณจะสามารถเข้าถึงเนื้อหาเอ็กซ์คลูซีฟสำหรับสมาชิก VIP ได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628712728729" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>ฉันสมัครสมาชิก VIP แล้ว ฉันจะถูกเรียกเก็บเงินอีกครั้งหรือไม่และเมื่อไหร่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>การสมัครสมาชิก VIP เป็นการชำระเงินที่ต่ออายุโดยอัตโนมัติขึ้นอยู่กับแผนที่คุณเลือก (1 เดือน, 3 เดือน, 6 เดือน, 12 เดือน)</p>
+<p>โดยข้อมูลนี้ระบุอย่างชัดเจนในเงื่อนไขการใช้บริการของเรา<strong> (ภายใต้ส่วนบริการ: Toomics - ศูนย์บริการลูกค้า) และหน้าการชำระเงินของเรา (.toomics.com/th/mypage/payment)</strong> ดังนี้:</p>
+<p><strong>เงื่อนไขการใช้บริการภายใต้ส่วนบริการ: </strong>"การสมัครสมาชิก VIP จะถูกเรียกเก็บเงินจากวิธีการชำระเงินของคุณทุกเดือน โดยสถานะสมาชิก VIP จะทำให้คุณสามารถดูเนื้อหาที่เรากำหนดไว้สำหรับสมาชิก VIP ได้ไม่จำกัด และหากคุณไม่แจ้งเราและปฏิบัติตามกระบวนการยกเลิกสมาชิกก่อนวันที่ต่ออายุรายเดือน แปลว่าคุณยินยอมให้เราเรียกเก็บค่าสมาชิกรายเดือนจากวิธีการชำระเงินของคุณ"</p>
+<p><strong>หน้าการชำระเงิน:</strong> "คุณยอมรับว่าการเป็นสมาชิกของคุณจะดำเนินต่อไปจนกว่าคุณจะเลือกยกเลิก"</p>
+<p>ดังนั้นการชำระเงินที่ต่ออายุโดยอัตโนมัติจะเกิดขึ้นตามรอบเวลาที่คุณได้ทำการซื้อเป็นครั้งแรก</p>
+<p>กรุณาตรวจสอบวันที่ระบุไว้ในใบเสร็จที่คุณทำการซื้อครั้งแรกเพื่อหาวันที่การเรียกเก็บเงินครั้งถัดไปจะเกิดขึ้น</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628632777113" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสมัครสมาชิกแล้วแต่ไม่สามารถเข้าถึงสมาชิก VIP ได้<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>โปรดตรวจสอบว่าคุณใช้บัญชีในการเข้าสู่ระบบเดียวกันกับตอนที่คุณสมัครสมาชิกหรือซื้อเหรียญหรือไม่ ซึ่งบัญชีดังกล่าวอาจเป็นบัญชีโซเชียลมีเดียหรือบัญชีอีเมลปกติก็ได้ โดยคุณควรเข้าสู่ระบบด้วยบัญชีเดิมเสมอเพื่อให้กระบวนการเข้าสู่ระบบราบรื่น</p>
+<p>แต่หากคุณสมัครสมาชิกผ่านแอป รายการซื้อของคุณอาจไม่ได้ผูกกับบัญชีอีเมลของคุณ เนื่องจากระบบจะสร้างเป็นบัญชีแอปอัตโนมัติให้กับคุณเมื่อคุณเข้าสู่ระบบผ่านแอป ดังนั้นคุณต้องกู้คืนรายการซื้อของคุณจากแอปสโตร์ที่คุณใช้งานอยู่ (Google Play Store สำหรับผู้ใช้ Android / App Store สำหรับผู้ใช้ Apple) แล้วจึงลงทะเบียนอีเมลของคุณเพื่อผูกบัญชีแอปของคุณเข้ากับบัญชีเว็บ</p>
+<p> </p>
+<p><span class="wysiwyg-underline">สำหรับผู้ใช้ Google Android / Apple ให้ทำตามขั้นตอนเหล่านี้:</span></p>
+<ol>
+<li>เปิด Google Play Store / App Store ด้วยอุปกรณ์ Android / Apple ของคุณ</li>
+<li>โปรดตรวจสอบให้แน่ใจว่าคุณได้เข้าสู่ระบบด้วยบัญชี Google / Apple ที่ถูกต้อง (บัญชีที่คุณใช้ทำรายการซื้อ)</li>
+<li>เปิดแอปพลิเคชัน Toomics</li>
+<li>แตะปุ่ม "สมาชิก VIP" สีแดง</li>
+<li>ออกจากหน้าชำระเงินโดยกลับไปที่หน้าแรกของเรา</li>
+<li>ถ้ายังไม่มีอะไรเกิดขึ้น ให้กดที่ "ศูนย์บริการลูกค้า" แล้วเลือก "กู้คืนสมาชิก VIP"</li>
+<li>กด "กู้คืน"</li>
+</ol>
+<p> </p>
+<p><span class="wysiwyg-underline">วิธีผูกสถานะสมาชิก VIP ของคุณกับอีเมล:</span></p>
+<ol>
+<li>เข้าสู่แอปพลิเคชัน Toomics ด้วยอุปกรณ์ Android / Apple ของคุณ</li>
+<li>กดที่โลโก้ Toomics ที่มุมขวาบนของหน้าจอและเลือก "Sign up"</li>
+<li>กรอกอีเมลที่คุณต้องการผูกกับสถานะสมาชิก VIP</li>
+</ol>
+<p>วิธีข้างต้นจะช่วยให้คุณสามารถเข้าถึงสถานะสมาชิก VIP ของคุณได้อีกครั้ง!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628179981721" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>มีตัวเลือกทดลองใช้ฟรีหรือไม่?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>ไม่ น่าเสียดายที่จะไม่มี "การทดลองใช้ฟรี" โดยไม่ต้องซื้อแผนสมาชิก VIP อย่างน้อยหนึ่งแผนจากแพลตฟอร์มของเรา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628591960729" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>สถานะ VIP ของฉันสามารถใช้ได้กับภาษาอื่นด้วยหรือไม่?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>เนื่องจากบริการ Toomics สำหรับภาษาเกาหลี, จีนแบบย่อ, จีนแบบดั้งเดิม, สเปน, อิตาลี, เยอรมัน, โปรตุเกส, ฝรั่งเศส, ญี่ปุ่น, ไทย และอังกฤษนั้นแตกต่างกันทั้งหมด ดังนั้นการซื้อในเว็บไซต์ภาษาหนึ่งจะไม่สามารถใช้ได้กับเว็บไซต์ของภาษาอื่น ๆ ได้</p>
+<p>อย่างไรก็ตาม เราสามารถช่วยเปลี่ยนภาษาให้คุณได้ในบางกรณี แต่โปรดทราบว่าเมื่อคุณตกลงที่จะเปลี่ยนแล้ว เราจะไม่สามารถเปลี่ยนกลับให้ได้อีกในอนาคต</p>
+<p>หากคุณต้องการให้เราเปลี่ยนภาษาให้คุณ กรุณาติดต่อเราโดยตรงและเราจะให้ข้อมูลรวมถึงคำแนะนำที่เหมาะสมต่อไป</p>
+<p>แต่โปรดทราบว่าเราไม่สามารถเปลี่ยนภาษาของรายการซื้อที่ทำผ่าน Apple App Store หรือ Google Play Store ได้เนื่องจากข้อจำกัดทางเทคนิค</p>
+<p>นอกจากนี้ ปัจจุบันเราไม่ได้สนับสนุนบริการสมาชิกในภาษาอิตาลีและโปรตุเกสอีกต่อไป ดังนั้นเราจึงไม่สามารถช่วยเปลี่ยนภาษาในกรณีเหล่านั้นได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628260762777" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>อะไรคือ &quot;ฟรี 1 เดือน&quot;?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>เรามีข้อเสนอให้คุณเลือกรับ "ฟรี 1 เดือน" แทนการยกเลิกสมาชิก VIP ของคุณ ซึ่งคุณจะสามารถอ่านเว็บตูนของเราได้ฟรีเป็นเวลา 30 วัน</p>
+<p>อย่างไรก็ตาม โปรดทราบว่าสถานะสมาชิกของคุณจะต่ออายุโดยอัตโนมัติหลังจาก "ฟรี 1 เดือน" สิ้นสุดลง เว้นแต่คุณจะทำการยกเลิกก่อนวันหมดอายุ</p>
+<p>คุณอาจสังเกตเห็นว่าปุ่มยกเลิกการสมัครสมาชิกของคุณหายไป โดยปุ่มนั้นจะปรากฏขึ้นอีกครั้งในสัปดาห์ที่สองหรือสามของ "ฟรี 1 เดือน"</p>
+<p>แต่คุณยังสามารถติดต่อเราเพื่อขอให้เรายกเลิกการเป็นสมาชิก VIP ของคุณได้ทุกเมื่อ!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628546592025" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<h2 class="sub-section">เหรียญ</h2>
+<details>
+<summary>ฉันจะรู้ได้อย่างไรว่าฉันมีเหรียญเท่าไหร่หรือต้องการเหรียญเท่าไหร่สำหรับการซื้อ?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>แตะที่ไอคอนของขวัญเพื่อดูยอดคงเหลือของเหรียญพรีเมียม, เหรียญโบนัส, และเหรียญของขวัญของคุณโดยละเอียด หรือไปที่เมนูการตั้งค่า [≡] เพื่อดูสรุปยอดเหรียญโดยย่อของคุณ</p>
+<p>สำหรับราคาเหรียญของเนื้อหารายตอนจะแสดงอยู่ข้าง ๆ </p>
+<p>หากคุณต้องการซื้อตอนทั้งหมดพร้อมกัน ให้คลิกที่ปุ่ม "ซื้อตอนทั้งหมด" บนหน้าแรกของเว็บตูนเรื่องนั้น ๆ เพื่อซื้อตอนทั้งหมดที่มีอยู่ในครั้งเดียว</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628928679193" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>ฉันจะได้รับเหรียญของขวัญมากขึ้นได้อย่างไรและมันทำงานอย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เหรียญของขวัญเป็นสิทธิประโยชน์พิเศษที่มอบให้กับสมาชิก VIP ของเราทุก ๆ เดือน เพื่อแทนคำขอบคุณกับสถานะ VIP ของคุณ โปรดทราบว่าเหรียญของขวัญไม่สามารถขอคืนเป็นเงินและไม่สามารถนำไปใช้ในเดือนถัดไปได้ โดยมันจะหมดอายุทุกสิ้นเดือนนั้น ๆ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628844210713" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสามารถตรวจสอบเว็บตูนเรื่องที่ฉันซื้อได้ที่ไหน?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>ไปที่ "ห้องสมุดของฉัน" และเลือก "เรื่องที่ซื้อ" เพื่อดูเว็บตูนทั้งหมดที่คุณได้ซื้อเนื้อหารายตอนมา พร้อมทั้งเปอร์เซ็นต์ที่บ่งบอกถึงสัดส่วนที่คุณซื้อไปแล้วของแต่ละเรื่อง</p>
+<p>หรือคลิกที่ภาพขนาดย่อของเว็บตูนเรื่องนั้น ๆ เพื่อดูภาพรวมของตอนทั้งหมดที่มีอยู่ รวมถึงตอนที่คุณได้ซื้อไปแล้วและตอนที่ยังเปิดให้ซื้อได้ ซึ่งมีราคาตั้งแต่ 1 ถึง 3 เหรียญ และจากเมนูนี้ คุณยังสามารถซื้อตอนใหม่แต่ละตอนแยกหรือเลือกซื้อตอนที่เหลือของเว็บตูนเรื่องนั้น ๆ ในรายการเดียวได้</p>
+<p>ฟีเจอร์นี้จะช่วยให้คุณจัดการกับคอลเลกชันของคุณได้ง่ายยิ่งขึ้น และทำให้คุณไม่พลาดเนื้อหาของเว็บตูนที่ชื่นชอบ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628944941465" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>ทำไมฉันถึงยังไม่ได้รับเหรียญของฉัน?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>เราต้องขออภัยในความล่าช้าในการรับเหรียญของคุณ! เวลาที่ใช้กว่าเหรียญจะแสดงในบัญชีของคุณอาจแตกต่างกันไปตามวิธีการชำระเงินที่คุณเลือกใช้ การชำระเงินผ่าน PayPal หรือบัตรเครดิตมักจะดำเนินการภายในไม่กี่นาที แต่บางครั้งอาจใช้เวลา 2-3 ชั่วโมง และสำหรับการชำระเงินด้วยเงินสด ระบบอาจใช้เวลาถึง 2 วันในการเครดิตเหรียญเข้าบัญชีของคุณ </p>
+<p>ความล่าช้าเหล่านี้เป็นผลมาจากผู้ให้บริการการชำระเงินและอยู่นอกเหนือการควบคุมของเรา เราขอขอบคุณความอดทนและความเข้าใจของคุณในขณะที่เรากำลังทำงานอย่างหนักเพื่อให้แน่ใจว่าเหรียญของคุณจะถูกเครดิตเข้ามาโดยเร็วที่สุด</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41629034414233" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>ทำไมราคาเหรียญถึงเปลี่ยนและมีส่วนลดหรือโปรโมชั่นสำหรับการซื้อเหรียญไหม?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>เราได้ปรับปรุงราคาและตัวเลือกเหรียญเพื่อพัฒนาประสบการณ์โดยรวมของคุณและเสนอตัวเลือกที่ยืดหยุ่นมากขึ้น โดยการเปลี่ยนแปลงนี้ถูกออกแบบมาเพื่อให้ตอบสนองความต้องการและความชอบของคุณได้ดียิ่งขึ้น</p>
+<p>โปรดติดตามส่วนลดและโปรโมชั่นดี ๆ สำหรับการซื้อเหรียญที่หน้าเว็บไซต์ของเราเร็ว ๆ นี้ เราพยายามมองหาวิธีที่จะทำให้การเดินทางของคุณกับ Toomics สนุกยิ่งขึ้นเสมอ!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628968419865" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>เหรียญคืออะไร?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p> </p>
+<p class="p1">เหรียญจะช่วยให้คุณเข้าถึงเนื้อหาเว็บตูนสุดเอ็กซ์คลูซีฟทั้งหมดบน Toomics โดยคุณสามารถซื้อเหรียญเหล่านี้ด้วยเงินจริงและใช้เพื่อปลดล็อกตอนต่าง ๆ ของเว็บตูนที่คุณชื่นชอบได้ ซึ่งแต่ละตอนมีค่าใช้จ่ายระหว่าง 1 ถึง 3 เหรียญขึ้นอยู่กับความยาวและเนื้อหา ตอนที่ซื้อด้วยเหรียญจะเปรียบเสมือนกับการมีสำเนาดิจิทัล คุณจะสามารถเข้าถึงมันได้เสมอ แม้ว่าเนื้อหาจะถูกลบออกจากเว็บไซต์ของเราไปแล้วก็ตาม</p>
+<p class="p1"><span class="wysiwyg-underline"><span class="s1">เหรียญพรีเมี่ยม (Premium Coins)</span></span></p>
+<p class="p1">นี่คือเหรียญมาตรฐานที่คุณสามารถซื้อได้ ซึ่งมีข้อดีก็คือมันไม่มีวันหมดอายุ! คุณสามารถเก็บสะสมและใช้จ่ายได้ตามที่คุณต้องการ</p>
+<p class="p1"><span class="wysiwyg-underline"><span class="s1">เหรียญโบนัส (Bonus Coins)</span></span></p>
+<p class="p2">นี่คือเหรียญที่คุณจะได้รับทุกครั้งที่คุณทำการซื้อ แทนคำขอบคุณและความรักเล็ก ๆ น้อย ๆ จากเรา ซึ่งเหรียญโบนัสนี้ก็ไม่มีวันหมดอายุเช่นกัน ดังนั้นคุณจึงสามารถใช้จ่ายได้ตามอัธยาศัย<span class="s2">  </span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628787079321" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<details>
+<summary>เหรียญมีอายุนานแค่ไหน?<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><p>หลังจากซื้อแล้ว เหรียญจะไม่มีวันหมดอายุและยังสามารถใช้งานได้ตลอดเวลา คุณสามารถใช้มันเมื่อไหร่ก็ตามที่คุณต้องการเข้าถึงเนื้อหาเว็บตูนเพิ่มเติม</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628810701081" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<h1 class="section-heading" id="toomics-store"><span class="section-icon">🏪</span>TOOMICS STORE</h1>
+<h2 class="sub-section">Toomics ร้านเหรียญ</h2>
+<details>
+<summary>ความแตกต่างระหว่าง “ร้านเหรียญ” และ “สมาชิก” คืออะไร?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>การเป็นสมาชิกจะสามารถอ่านผลงานต่าง ๆ ได้ไม่จำกัดตลอดช่วงเวลาที่เป็นสมาชิก VIP<br>คอนเทนต์เหล่านี้เป็นคอนเทนต์ที่รวมอยู่ในสมาชิก VIP ซึ่งคุณสามารถอ่านได้ทั้งหมดอย่างอิสระ</p><p>ในขณะที่ร้านเหรียญเป็นการสมัครแบบใหม่ที่มอบประสบการณ์ที่แตกต่างออกไป!<br>โดยจะมีคอนเทนต์เอ็กซ์คลูซีฟ ซึ่งสามารถปลดล็อกได้ด้วยการซื้อเหรียญเท่านั้น<br>คอนเทนต์พรีเมียมเหล่านี้เป็นผลงานจากความร่วมมือและข้อตกลงพิเศษกับแพลตฟอร์มอื่น ๆ จึงมอบประสบการณ์ที่ต่างจากคอนเทนต์ของสมาชิก VIP ทั่วไป</p><p>กล่าวคือ<br>สมาชิก = อ่านได้ไม่จำกัดด้วยสมาชิก VIP<br>ร้านเหรียญ = เข้าถึงคอนเทนต์เอ็กซ์คลูซีฟที่ต้องซื้อด้วยเหรียญแยกต่างหาก<br>เพื่อสัมผัสผลงานของ Toomics ได้อย่างลึกซึ้งมากที่สุด ขอแนะนำให้คุณลองใช้ทั้งสองแบบควบคู่กัน!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631871863449" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>ฉันสามารถดูผลงานที่ซื้อจาก “ร้านเหรียญ” ได้ที่ไหน?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>คุณสามารถดูผลงานที่ซื้อไว้ได้ที่เมนู 'ชั้นหนังสือ' &gt; 'ผลงานที่ซื้อ'<br>ในหน้านี้ คุณจะเห็นรายชื่อผลงานที่คุณซื้อพร้อมเปอร์เซ็นต์ความคืบหน้าว่าคุณปลดล็อกแต่ละเรื่องไปมากน้อยแค่ไหน</p><p>เมื่อคลิกที่ภาพปกของแต่ละเรื่อง จะสามารถดูตอนทั้งหมดได้อย่างละเอียด ทั้งตอนที่ซื้อแล้วและตอนที่สามารถซื้อเพิ่มได้ในราคา 1-3 เหรียญ<br>และยังสามารถเลือกซื้อทีละตอน หรือซื้อทีเดียวแบบเหมาในตอนที่เหลือทั้งหมดได้เช่นกัน</p><p>นี่ช่วยให้คุณจัดการผลงานที่ชื่นชอบได้สะดวกยิ่งขึ้น และกลับมาอ่านทุกเมื่อตามที่ต้องการ!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631900975129" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>ทำไมร้านเหรียญ TOOMICS จึงไม่แสดงบนแอป?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>เนื่องจากร้านเหรียญ Toomics มีคอนเทนต์ประเภท 18+ อยู่ด้วย<br>ตามนโยบายของ Google Play Store และ Apple App Store ซึ่งไม่อนุญาตให้มีคอนเทนต์สำหรับผู้ใหญ่ภายในแอปโดยตรง<br>จึงทำให้ไม่สามารถใช้งานร้านเหรียญผ่านแอปได้</p><p>หากต้องการเข้าชมคอนเทนต์เอ็กซ์คลูซีฟที่อยู่ในร้านเหรียญ<br>โปรดเยี่ยมชมเว็บไซต์ของเราได้ผ่านทาง PC หรือเบราว์เซอร์บนมือถือ</p><p>ทีมงานกำลังพิจารณาวิธีการที่จะทำให้สามารถใช้งานฟีเจอร์เพิ่มเติมผ่านแอปได้ในอนาคต<br>จึงขออภัยในความไม่สะดวกมา ณ ที่นี้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631954370457" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>ร้านเหรียญ TOOMICS คืออะไร?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>ร้านเหรียญ เป็นการสมัครแบบใหม่ที่มีคอนเทนต์เอ็กซ์คลูซีฟ ซึ่งสามารถปลดล็อกได้ด้วยการซื้อเหรียญเท่านั้น<br>คอนเทนต์พรีเมียมเหล่านี้เป็นผลงานจากความร่วมมือเชิงกลยุทธ์และข้อตกลงกับแพลตฟอร์มอื่น ๆ ทำให้แตกต่างจากคอนเทนต์ที่รวมอยู่ในสมาชิก VIP</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631897598361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>สามารถซื้อตอนต่าง ๆ ด้วยเหรียญขณะที่เป็นสมาชิก VIP ได้ไหม?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>ได้แน่นอน! แม้ว่าจะเป็นสมาชิก VIP อยู่แล้ว คุณก็สามารถใช้เหรียญเพื่อซื้อตอนต่าง ๆ ขณะเป็นสมาชิกได้ตามต้องการ</p><p>หากสมาชิก VIP หมดอายุ จะยังอ่านผลงานจากร้านเหรียญที่ใช้เหรียญซื้อไว้ได้อยู่ไหม?</p><p>ไม่ต้องจำเป็นต้องกังวล<br>คุณสามารถอ่านตอนของผลงานจากร้านเหรียญที่ใช้เหรียญซื้อไว้ได้ตลอดเวลา แม้ว่าสมาชิก VIP จะหมดอายุแล้วก็ตาม<br>ตอนของผลงานที่ซื้อไปแล้วจะถูกเก็บไว้ในบัญชีของคุณเสมอ และสามารถกลับมาอ่านอีกเมื่อไหร่ก็ได้ตามที่ต้องการ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631864012569" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>สามารถอ่านผลงานในร้านเหรียญได้อย่างไร?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>ร้านเหรียญ TOOMICS มีคอนเทนต์เอ็กซ์คลูซีฟที่ต้องใช้เหรียญในการปลดล็อกเพื่ออ่าน<br>คอนเทนต์เอ็กซ์คลูซีฟนี้จะไม่รวมอยู่ในสมาชิก VIP และสามารถเข้าถึงได้ด้วยการซื้อเหรียญเท่านั้น</p><p>คุณสามารถซื้อเหรียญได้ที่ลิงก์นี้ :<br>Toomics - อ่านเว็บตูน VIP ออนไลน์ไม่จำกัด</p><p>เพลิดเพลินกับผลงานต่าง ๆ ของ Toomics และสัมผัสประสบการณ์การอ่านที่หลากหลายมากยิ่งขึ้น!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631725417241" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<details>
+<summary>ในอนาคตจะมีคอนเทนต์เอ็กซ์คลูซีฟเพิ่มในร้านเหรียญอีกไหม?<span class="art-count">2025-12-24</span></summary>
+<div class="article-body"><p>มีแน่นอน! ทีมงานกำลังเพิ่มคอนเทนต์อ็กซ์คลูซีฟในร้านเหรียญอย่างต่อเนื่อง<br>ขณะนี้เรากำลังเตรียมที่จะนำเสนอผลงานระดับพรีเมียมให้คุณได้เพลิดเพลินมากยิ่งขึ้น ผ่านความร่วมมือต่าง ๆ และพาร์ตเนอร์รายใหม่</p><p>โปรดติดตามการอัปเดตใหม่ ๆ ที่กำลังจะมีขึ้นในอนาคต!<br>หากมีคำถามหรือต้องการความช่วยเหลือ โปรดติดต่อเราได้ทุกเมื่อ!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/53631957107353" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-12-24</div></div>
+</details>
+<h1 class="section-heading" id="payment---refunds"><span class="section-icon">💳</span>Payment &amp; Refunds</h1>
+<h2 class="sub-section">การคืนเงิน</h2>
+<details>
+<summary>การคืนเงินใน Apple App Store Refund on Apple App Store<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ดูเหมือนว่าคุณได้สมัครสมาชิก VIP ผ่าน Apple App Store หากคุณไม่ต้องการเป็นสมาชิก VIP อีกต่อไป เราขอให้คุณยกเลิกการเป็นสมาชิก VIP ด้วยตนเองเพื่อไม่ให้มีการเรียกเก็บเงินซ้ำจากบัญชี Apple ของคุณ</p>
+<p><span class="wysiwyg-underline">หากต้องการยกเลิกสมาชิก โปรดทำตามคำแนะนำต่อไปนี้:</span></p>
+<ol>
+<li>เปิดแอปตั้งค่า</li>
+<li>แตะ iTunes &amp; App Store</li>
+<li>แตะที่ Apple ID ของคุณ</li>
+<li>แตะที่ดู Apple ID เมื่อป็อปอัปปรากฏขึ้น</li>
+<li>ใส่รหัสผ่าน Apple ID หรือลายนิ้วมือ</li>
+<li>แตะการสมัครสมาชิก</li>
+<li>เลือกการสมัครสมาชิกที่คุณต้องการยกเลิก</li>
+</ol>
+<p class="wysiwyg-indent1"> </p>
+<p>เราขอให้คุณติดต่อศูนย์บริการลูกค้าของ Apple โดยตรงเนื่องจากเราไม่สามารถดำเนินการคืนเงินที่ทำผ่าน Apple ได้เนื่องจากนโยบายการคืนเงินของ Apple ศูนย์บริการลูกค้าของ Apple จะเป็นผู้ดำเนินการในกรณีนี้</p>
+<p> </p>
+<p><span class="wysiwyg-underline">โปรดทำตามขั้นตอนต่อไปนี้เพื่อขอคืนเงินใน Apple Store:</span></p>
+<ol>
+<li>ไปที่ reportaproblem.apple.com</li>
+<li>ลงชื่อเข้าใช้ด้วย Apple ID และรหัสผ่านของคุณ</li>
+<li>คลิกที่ปุ่ม "รายงาน" หรือ "รายงานปัญหา" ข้างรายการที่คุณต้องการขอคืนเงิน</li>
+<li>ทำตามคำแนะนำบนหน้าจอเพื่อเลือกเหตุผลที่คุณต้องการคืนเงินและส่งคำขอของคุณ</li>
+</ol>
+<p>สำหรับข้อมูลเพิ่มเติมเกี่ยวกับการขอคืนเงินหรือการคืนเงินอื่น ๆ ที่คุณไม่สามารถขอคืนได้ที่ reportaproblem.apple.com โปรดติดต่อศูนย์บริการลูกค้าของ Apple โดยตรง</p>
+<p>เราหวังว่าข้อมูลข้างต้นจะเป็นประโยชน์กับคุณและเราต้องขออภัยในความไม่สะดวกที่เกิดขึ้นด้วย</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41632060095769" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะขอคืนเงินสำหรับการชำระเงินสดได้หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>สำหรับการชำระเงินสด การคืนเงินจะขึ้นอยู่กับวิธีการชำระเงินที่คุณใช้ในการทำธุรกรรม ดังนั้นเราขอแนะนำให้คุณตรวจสอบล่วงหน้าว่าวิธีการชำระเงินที่คุณเลือกสามารถขอคืนเงินได้หรือไม่</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631859772825" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะขอคืนเงินได้อย่างไร?<span class="art-count">2025-08-13</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">สำหรับการซื้อสมาชิก VIP:</span></p>
+<p>คุณสามารถขอคืนเงินสำหรับรายการซื้อที่มีการตัดเงินอัตโนมัติถ้า</p>
+<ol>
+<li>คุณขอคืนเงินภายใน 14 วันหลังจากการซื้อ</li>
+<li>คุณยังไม่ได้เข้าถึงเนื้อหา VIP ผ่านบัญชีดังกล่าว </li>
+<li><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor" data-zd-seq="6">ไม่มีประวัติการใช้เหรียญ (รวมถึงเหรียญของขวัญและโบนัส) ที่ได้รับจากการซื้อแบบ VIP หรือจากการซื้อในราคาพิเศษ ภายในเดือนที่ทำรายการขอคืนเงิน</span></li>
+</ol>
+<p>หากไม่เป็นไปตามเงื่อนไขข้อใดข้อหนึ่งที่ระบุไว้ข้างต้น จะไม่สามารถขอรับเงินคืนได้</p>
+<p> </p>
+<p><span class="wysiwyg-underline">​สำหรับการซื้อเหรียญ:</span></p>
+<p>การคืนเงินสามารถทำได้ภายใน 7 วันนับจากวันที่ซื้อ ถ้าคุณยังไม่ได้ใช้เหรียญใด ๆ เลย แต่หากมีบันทึกการใช้เหรียญใด ๆ (ไม่ว่าจะเป็นเหรียญพรีเมียมหรือเหรียญฟรี) การคืนเงินจะไม่สามารถทำได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631794631705" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-13</div></div>
+</details>
+<details>
+<summary>ทำไมฉันถึงถูกเรียกเก็บเงินเพิ่ม?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>โปรดทราบว่าอาจมีความแตกต่างเล็กน้อยระหว่างราคาดั้งเดิมกับจำนวนเงินที่คุณต้องชำระเนื่องจากค่าธรรมเนียมการทำธุรกรรมของผู้ให้บริการการชำระเงินหรือค่าธรรมเนียมการแลกเปลี่ยนเงินตรา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631961367577" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมฉันถูกเรียกเก็บเงินอีกครั้ง?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เนื่องจากการเป็นสมาชิก VIP ของ Toomics เป็นการสมัครสมาชิกที่จะต่ออายุโดยอัตโนมัติ เราต้องขออภัยในความสับสนดังกล่าว</p>
+<p>อย่างไรก็ตาม ข้อมูลนี้ระบุอย่างชัดเจนในเงื่อนไขการใช้บริการของเรา (ภายใต้ส่วนบริการ: Toomics - ศูนย์บริการลูกค้า) และหน้าการชำระเงินของเรา (.toomics.com/th/mypage/payment) ดังนี้:</p>
+<p><strong>เงื่อนไขการใช้บริการภายใต้ส่วนบริการ:</strong> "การสมัครสมาชิก VIP จะถูกเรียกเก็บเงินจากวิธีการชำระเงินของคุณทุกเดือน โดยสถานะสมาชิก VIP จะทำให้คุณสามารถดูเนื้อหาที่เรากำหนดไว้สำหรับสมาชิก VIP ได้ไม่จำกัด และหากคุณไม่แจ้งเราและปฏิบัติตามกระบวนการยกเลิกสมาชิกก่อนวันที่ต่ออายุรายเดือน แปลว่าคุณยินยอมให้เราเรียกเก็บค่าสมาชิกรายเดือนจากวิธีการชำระเงินของคุณ"</p>
+<p><strong>หน้าการชำระเงิน: </strong>"คุณยอมรับว่าการเป็นสมาชิกของคุณจะดำเนินต่อไปจนกว่าคุณจะเลือกยกเลิก"</p>
+<p>ข้อมูลนี้ระบุอยู่ทั้งในหน้าการชำระเงินและในเงื่อนไขการใช้บริการ ซึ่งการทำธุรกรรมแปลว่าคุณยอมรับตามเงื่อนไขเหล่านั้น</p>
+<p>ดังนั้นหากคุณถูกเรียกเก็บเงินอีกครั้ง นั่นหมายความว่าคุณไม่ได้ยกเลิกสมาชิก VIP อย่างถูกต้อง หรือคุณได้ปิดใช้งานบัญชีที่ไม่มีรายการซื้อผูกอยู่กับบัญชีนั้น ๆ </p>
+<p>หากคุณต้องการคำอธิบายหรือคำแนะนำเพิ่มเติม โปรดอย่าลังเลที่จะติดต่อเรา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631981710361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมฉันยังไม่ได้รับเงินคืน?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เราไม่สามารถควบคุมระยะเวลาที่ใช้ในการคืนเงินและจำนวนเงินที่จะถูกคืนได้ สิ่งนี้จะถูกจัดการโดยตรงโดยธนาคารที่คุณใช้ในการชำระเงิน </p>
+<p>เราขอแนะนำให้คุณติดต่อธนาคารผู้ออกบัตรหรือบริษัทโดยตรงเพื่อขอข้อมูลที่ถูกต้องยิ่งขึ้น เนื่องจากเราทำได้เพียงยื่นขอคืนเงินแต่ไม่สามารถควบคุมกระบวนการดังกล่าวได้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41631908384409" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h2 class="sub-section">การชำระเงินและปัญหา</h2>
+<details>
+<summary>การชำระเงินของฉันครบกำหนดเมื่อไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p><span style="background-color: #ffffff;">วันที่ครบกำหนดชำระเงินของคุณจะขึ้นอยู่กับระยะเวลาของแผนสมาชิก VIP ที่คุณเลือกและวันที่คุณทำการซื้อ</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41629516335001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะซื้อสมาชิก VIP โดยไม่ใช้บัตรเครดิตได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>การสมัครสมาชิก VIP ของเรารับแต่บัตรเครดิตเท่านั้น </p>
+<p>อย่างไรก็ตาม วิธีการชำระเงินอื่น ๆ โดยไม่ใช้บัตรเครดิตสามารถตรวจสอบได้ที่หน้าการชำระเงิน VIP โดยคลิกที่สมาชิก VIP ใดก็ได้แล้วเลือก "คลิกที่นี่เพื่อดูวิธีการชำระเงินอื่น" เพื่อไปยังหน้าที่แสดงวิธีการชำระเงินอื่น ๆ ของเรา</p>
+<p>แต่หากคุณยังไม่สะดวกกับวิธีการชำระเงินอื่น ๆ บนเว็บไซต์ของเรา เราขอแนะนำให้คุณลองซื้อสมาชิก VIP ผ่านแอป Toomics ของเราที่มีให้ดาวน์โหลดทั้งใน Google Play Store และ Apple App Store เนื่องจากพวกเขาให้บริการวิธีการชำระเงินที่หลากหลายกว่าเรา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41629980627865" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะเปลี่ยนวิธีการชำระเงินหรือแพ็กเกจชำระเงินได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่เราไม่สามารถเปลี่ยนข้อมูลการชำระเงินของคุณได้โดยตรง เนื่องจาก Toomics ไม่ได้จัดเก็บข้อมูลบัตรเครดิตของคุณ :(</p>
+<p>อย่างไรก็ตาม หากคุณต้องการเปลี่ยนบัตรเครดิตเพื่อต่ออายุสมาชิก VIP เราขอแนะนำให้คุณยกเลิกการเป็นสมาชิก VIP ของคุณก่อนและรอจนกว่าสถานะสมาชิกของคุณจะหมดอายุ หลังจากนั้นคุณสามารถซื้อใหม่อีกครั้งด้วยบัตรเครดิตใหม่ของคุณ</p>
+<p>หากคุณต้องการให้เรายกเลิกการสมัครสมาชิกของคุณ โปรดติดต่อเราและแจ้งข้อมูลบัญชี Toomics ของคุณ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41629645650585" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไม PayPal ไม่ปรากฏขึ้นมา?<span class="art-count">2025-01-02</span></summary>
+<div class="article-body"><p>หากคุณต้องการทำการซื้อผ่าน PayPal กรุณาเข้าใช้งานผ่านลิงก์นี้: [<a href="https://global.toomics.com/th">Toomics - มาลองอ่านเว็บตูนสไตล์ใหม่</a>]</p>
+<p>เราแน่ใจว่าคุณจะสามารถเห็นตัวเลือกในการซื้อผ่าน PayPal ผ่านการใช้งานลิงก์ดังกล่าว เราต้องขออภัยในความไม่สะดวกและขอขอบคุณสำหรับความเข้าใจ</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41630072035481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-01-02</div></div>
+</details>
+<details>
+<summary>ทำไมฉันถึงชำระเงินไม่ได้?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>การชำระเงินของคุณอาจล้มเหลวเนื่องจากข้อจำกัดเกี่ยวกับธุรกรรมต่างประเทศที่ธนาคารผู้ออกบัตรของคุณกำหนด </p>
+<p>เราขอแนะนำให้คุณติดต่อธนาคารผู้ออกบัตรของคุณก่อนที่จะลองซื้อสมาชิก VIP อีกครั้ง </p>
+<p>นอกจากนี้ เราขอแจ้งให้คุณทราบว่าเราได้เพิ่มขั้นตอนการตรวจสอบ 3D Secure สำหรับการชำระเงินออนไลน์เพื่อป้องกันการฉ้อโกงบัตรเครดิต โดยให้มีการตรวจสอบความปลอดภัยเพิ่มเติมสำหรับการซื้อขายออนไลน์ผ่านบัตรเครดิตและบัตรเดบิต </p>
+<p>กรณีที่การตรวจสอบ 3D Secure ของคุณทำงานไม่ราบรื่น (อาจเป็นเพราะการเชื่อมต่อล้มเหลวหรือรหัสผ่านไม่ถูกต้อง) เราขอแนะนำให้คุณทำตามขั้นตอนต่อไปนี้:</p>
+<ol>
+<li>ลองชำระเงินอีกครั้ง โดยตรวจสอบให้แน่ใจว่าคุณใส่รหัสผ่านหรือโค้ด SMS ที่ถูกต้อง เราขอแนะนำให้คุณพยายามชำระเงินไม่เกิน 5 ครั้ง มิฉะนั้นผู้ให้บริการชำระเงินของเราอาจปฏิเสธการทำธุรกรรมของคุณเนื่องจากพวกเขาอาจเชื่อมโยงการกระทำดังกล่าวไปถึงกิจกรรมที่น่าสงสัย</li>
+</ol>
+<p class="wysiwyg-indent1">แต่หากธนาคารของคุณไม่รองรับ 3D Secure หรือคุณยังไม่ได้ลงทะเบียน โปรดดูข้อมูลด้านล่าง</p>
+<p> </p>
+<p>     2. ปิดตัวบล็อกป๊อปอัปของคุณสักครู่ เนื่องจาก 3D Secure จะเปิดในหน้าต่างเพิ่มเติมที่สามารถถูกบล็อกได้โดยตัว           บล็อกป๊อปอัป</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633177195801" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>มีตัวเลือกการชำระเงินอะไรบ้าง?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p><span style="background-color: #ffff00;">คุณจำเป็นต้องใช้บัตรเครดิตเพื่อซื้อสมาชิก VIP โดยเรามีวิธีการชำระเงินทั้งหมด 5 รายการที่คุณสามารถเลือกใช้ได้ในการชำระเงิน:</span></p>
+<ol>
+<li><span style="background-color: #ffff00;">ชำระผ่านบัตรเครดิต/เดบิต</span></li>
+<li><span style="background-color: #ffff00;">Prompt Pay</span></li>
+<li><span style="background-color: #ffff00;">True Money</span></li>
+<li><span style="background-color: #ffff00;">Rabbit Line Pay </span></li>
+<li><span style="background-color: #ffff00;">โอนเงินผ่านธนาคาร</span></li>
+</ol>
+<p>นอกจากนี้ เรายังมีวิธีการชำระเงินอื่น ๆ ที่ไม่จำเป็นต้องใช้บัตรเครดิตให้บริการที่หน้าการชำระเงิน VIP และเรายังมีระบบเหรียญที่ช่วยให้คุณสามารถซื้อเหรียญเพื่อเข้าถึงเนื้อหารายตอนของเว็บตูนได้</p>
+<p>หากคุณไม่สะดวกกับวิธีการชำระเงินบนหน้าเว็บไซต์ของเรา เราขอแนะนำให้คุณซื้อสมาชิก VIP ผ่านแอป Toomics หน้าภาษาอังกฤษของเราที่มีให้ดาวน์โหลดได้ทั้งใน Google Play Store และ Apple App Store</p>
+<p><strong>ลิงก์แพ็กเกจชำระเงิน</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628749471769" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h1 class="section-heading" id="technical-issues"><span class="section-icon">🔧</span>Technical Issues</h1>
+<h2 class="sub-section">ข้อมูลเฉพาะของแอป/พีซี</h2>
+<details>
+<summary>ฉันจะผูกหรือกู้คืนรายการซื้อได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>กรุณาลองกู้คืนรายการซื้อผ่านแอปของเรา</p>
+<p>โปรดทำตามขั้นตอนด้านล่าง:</p>
+<ol>
+<li>เปิด Google Play Store/Apple App Store บนอุปกรณ์ของคุณ</li>
+<li>ตรวจสอบว่าคุณเข้าสู่ระบบด้วยบัญชี Google/Apple ที่ถูกต้องหรือไม่ (บัญชีที่คุณใช้เพื่อทำรายการซื้อ)</li>
+<li>เปิดแอป "Toomics"</li>
+<li>แตะปุ่ม "สมาชิก VIP" สีแดง</li>
+<li>ออกจากหน้าการชำระเงินโดยกลับไปที่หน้าแรกของเรา</li>
+<li>ถ้ายังไม่มีอะไรเกิดขึ้น คลิกที่ "เมนูการตั้งค่า [≡]" แล้วคลิก "กู้คืน"</li>
+<li>กด "กู้คืน"</li>
+</ol>
+<p>โปรดดูภาพหน้าจอด้านล่าง:</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633837126297" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสามารถเปลี่ยนกลับไปใช้ระบบหรือ UI แบบเดิมได้หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>น่าเสียดายที่ไม่มีวิธีใดที่จะเปลี่ยนกลับไปใช้ระบบหรือ UI แบบเดิมได้ เราเข้าใจว่าการเปลี่ยนแปลงดีไซน์บางครั้งอาจทำให้การปรับตัวเป็นเรื่องยาก โดยเฉพาะอย่างยิ่งเมื่อคุณต้องติดตามเว็บตูนหลายเรื่อง</p>
+<p>ทีมของเรากำลังเก็บรวบรวมและประเมินข้อเสนอแนะจากผู้ใช้เพื่อทำการปรับปรุงให้สมดุลระหว่างความสวยงามและฟังก์ชันการใช้งาน เราจะพิจารณาข้อเสนอแนะของคุณเมื่อเราดำเนินการปรับปรุง UI ในอนาคต</p>
+<p>ในระหว่างนี้ หากคุณมีปัญหาใด ๆ หรือต้องการความช่วยเหลือในการจัดการเว็บตูนของคุณ โปรดอย่าลังเลที่จะติดต่อเรา เราพร้อมที่จะช่วยเหลือคุณเพื่อให้ประสบการณ์ของคุณกับ Toomics เป็นไปอย่างสนุกสนานและราบรื่น</p>
+<p>ขอขอบคุณสำหรับการเป็นส่วนหนึ่งของชุมชน Toomics และการสนับสนุนของคุณเสมอมา เรามุ่งมั่นที่จะทำให้ประสบการณ์การอ่านของคุณดีที่สุด</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633958053913" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันสามารถใช้สถานะสมาชิก VIP พร้อมกันบนอุปกรณ์ต่าง ๆ ในเวลาเดียวกันได้ไหม?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>สถานะสมาชิก VIP จะสามารถใช้งานได้เพียงอุปกรณ์เดียว ณ เวลาหนึ่ง หากคุณต้องการใช้งานบนอุปกรณ์อื่นที่ไม่ใช่อุปกรณ์ที่คุณใช้ชำระเงินในการสมัครสมาชิก VIP การเชื่อมต่อบนอุปกรณ์เดิมของคุณจะถูกปิดโดยอัตโนมัติ และคุณจะสามารถดูเนื้อหา VIP บนอุปกรณ์ที่สองได้ </p>
+<p>เราหวังว่าคุณจะเข้าใจและเราต้องขออภัยในความไม่สะดวกดังกล่าว</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633880394777" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมฉันไม่สามารถอ่านเนื้อหาสำหรับผู้ใหญ่ในแอปได้?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ตามนโยบายของ Google Play Store และ Apple App Store เราไม่สามารถรองรับเนื้อหาสำหรับผู้ใหญ่ใด ๆ ภายในแอปของเราได้ ซึ่งเป็นเหตุผลว่าทำไมคุณจึงไม่สามารถเข้าถึงเว็บตูนสำหรับผู้ใหญ่ของเราได้ เราต้องขออภัยในความไม่สะดวกดังกล่าว </p>
+<p>หากคุณต้องการปิดปุ่ม Family Safe โปรดทำบนเว็บไซต์ของเรา Toomics - อ่านการ์ตูน VIP ไม่จำกัด ผ่านคอมพิวเตอร์หรือเว็บเบราเซอร์บนมือถือของคุณ</p>
+<p>หากคุณซื้อสมาชิก VIP ผ่านแอปของเรา คุณจะยังสามารถใช้สมาชิกนั้นได้บนเว็บไซต์ของเราเช่นกันโดยการเข้าสู่ระบบในแอปด้วยบัญชี Toomics ของคุณ (บัญชีที่ใช้เข้าสู่ระบบครั้งล่าสุดในแอปจะได้รับสถานะสมาชิก VIP))</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633849474841" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>มีแอปพลิเคชันหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เรามีแอปมือถือสำหรับ Toomics ซึ่งตอนนี้มีให้บริการทั้งใน Google Play Store และ Apple App Store แล้ว! </p>
+<p>แต่เราต้องแจ้งว่าเราไม่สามารถสนับสนุนเนื้อหาสำหรับผู้ใหญ่ใด ๆ ในแอปของเราได้ เนื่องจากนโยบายของทั้ง Google Play Store และ Apple App Store ซึ่งเป็นเหตุผลว่าทำไมคุณจะไม่สามารถเข้าถึงเว็บตูนสำหรับผู้ใหญ่ของเราบนแอปได้</p>
+<p>หากคุณต้องการอ่านเว็บตูนสำหรับผู้ใหญ่ของเรา โปรดเข้าผ่านเว็บไซต์ของเราที่ <span style="color: #0000ff;">Toomics - อ่านการ์ตูน VIP ไม่จำกัด</span></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633770050585" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>หากฉันทำการซื้อใน Apple App Store ฉันสามารถใช้งานบน Android ได้หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณทำการซื้อใน Apple App Store ด้วย iPhone / iPad <strong>คุณจะสามารถใช้สถานะสมาชิก VIP ดังกล่าวได้ในแอป Toomics ของ iOS เท่านั้น</strong></p>
+<p>นอกจากนี้ วิธีเดียวที่คุณจะเข้าถึงสถานะสมาชิก VIP บนอุปกรณ์ Android ได้ก็คือผ่านเว็บเบราว์เซอร์เท่านั้น คุณไม่ควรเข้าสู่ระบบผ่านแอป Toomics ของ Android</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633936723481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>หากฉันทำการซื้อใน Google Play Store ฉันสามารถใช้งานบน iPhone ได้หรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณทำการซื้อใน Google Play Store ด้วยอุปกรณ์ Android คุณจะสามารถใช้สถานะสมาชิก VIP ดังกล่าวได้ในแอป Toomics ของ Android เท่านั้น</p>
+<p>นอกจากนี้ วิธีเดียวที่คุณจะเข้าถึงสถานะสมาชิก VIP บนอุปกรณ์ iPhone/iPad ได้ก็คือผ่านเว็บเบราว์เซอร์เท่านั้น คุณไม่ควรเข้าสู่ระบบผ่านแอป Toomics ของ  iOS</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633941479193" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h2 class="sub-section">ทั่วไป</h2>
+<details>
+<summary>ฉันจะรายงานข้อผิดพลาดได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>เราต้องขออภัยในข้อผิดพลาดที่เกิดขึ้น! T^T </p>
+<p>กรุณาติดต่อเราและให้รายละเอียดเพิ่มเติมเกี่ยวกับรายงานของคุณ (ภาพแคปหน้าจอของปัญหาของคุณจะเป็นประโยชน์มาก) และเราจะทำการตรวจสอบให้เร็วที่สุด!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633641422489" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันจะรีเซ็ตรหัสผ่านได้อย่างไร?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">สำหรับผู้ใช้คอมพิวเตอร์:</span></p>
+<p>ไปที่ [การตั้งค่าบัญชี] เพื่อเข้าถึงการตั้งค่าบัญชีของคุณและเปลี่ยนรหัสผ่าน</p>
+<p><span class="wysiwyg-underline">สำหรับผู้ใช้มือถือ:</span></p>
+<p>ไปที่ไอคอนรูปเมนูที่มุมขวาบนของหน้าจอและเปลี่ยนรหัสผ่านของคุณที่ [การตั้งค่าบัญชี] </p>
+<p>การรีเซ็ตรหัสผ่านอาจไม่ทำงานหากใช้อักขระพิเศษ: ! @ # $ % ^ &amp; * ( ) </p>
+<p>โปรดหลีกเลี่ยงการใช้อักขระพิเศษดังกล่าวข้างต้นในการเปลี่ยนหรือรีเซ็ตรหัสผ่าน และตรวจสอบหรือเปลี่ยนรหัสผ่านของคุณให้ตรงกับคำแนะนำของ Toomics</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633541053081" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ฉันไม่ได้รับลิงก์ยืนยันอีเมลหลังจากลงทะเบียน<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากคุณไม่ได้รับลิงก์ยืนยันอีเมลหลังจากการลงทะเบียน โปรดตรวจสอบในกล่องจดหมายขยะ/สแปมของคุณ แต่หากยังไม่พบ โปรดลองลงทะเบียนอีกครั้งด้วยอีเมลและรหัสผ่านเดิม ลิงก์ยืนยันอีเมลอื่นจะถูกส่งไปยังกล่องจดหมายของคุณอีกครั้ง</p>
+<p>เราขอแนะนำให้คุณลองลงทะเบียนด้วยบัญชีโซเชียลมีเดีย โดยการคลิกที่ไอคอนโซเชียลมีเดียที่ต้องการซึ่งอยู่ที่ด้านล่างของปุ่มลงทะเบียน บัญชีของคุณจะถูกสร้างขึ้นโดยอัตโนมัติ </p>
+<p>และหากคุณไม่ต้องการใช้เป็นบัญชีโซเชียลมีเดีย กรุณาติดต่อศูนย์บริการลูกค้า 1:1 และทีมงานของเราจะช่วยคุณเปลี่ยนบัญชีโซเชียลมีเดียเป็นบัญชีอีเมลปกติให้</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633424433945" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมบัญชีของฉันถึงถูกจำกัด?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>หากบัญชี Toomics ของคุณถูกจำกัดการใช้งาน นั่นหมายความว่าระบบของเราได้ตรวจพบกิจกรรมที่น่าสงสัย เราขอแจ้งให้ทราบว่าระบบของเราจะปิดกั้นผู้ใช้โดยอัตโนมัติหากพบกิจกรรมที่น่าสงสัยดังต่อไปนี้:</p>
+<ol>
+<li>ผู้ใช้อ่านเฉพาะตอนสุดท้ายของแต่ละเรื่องเท่านั้น</li>
+<li>ผู้ใช้อ่านแต่ละตอนของเว็บตูนอย่างไม่ปกติเป็นอย่างมาก</li>
+<li>ผู้ใช้อ่านแต่ละตอนในเวลาเพียงไม่กี่วินาที ในเวลาเดียวกัน หรือในทางที่ไม่ปกติ</li>
+<li>ผู้ใช้ได้เผยแพร่เนื้อหาลิขสิทธิ์ของ Toomics ไปยังเว็บไซต์ผิดกฎหมายต่าง ๆ</li>
+<li>ผู้ใช้ได้ยื่นคำร้องขอ Chargeback เพื่อเรียกคืนเงินจากการรายการซื้อที่ทำไป</li>
+</ol>
+<p>เราต้องขออภัยที่เราไม่สามารถบอกรายละเอียดของเหตุผลที่บัญชีของคุณถูกจำกัดการใช้งานได้ อย่างไรก็ตาม นั่นหมายความว่าคุณได้ดำเนินการบางอย่างตามที่กล่าวมาข้างต้น และด้วยเหตุนี้ระบบของเราจึงได้ปิดกั้นบัญชีของคุณโดยอัตโนมัติ</p>
+<p>หากคุณต้องการคำอธิบายและคำแนะนำที่ละเอียดยิ่งขึ้น กรุณาอย่าลังเลที่จะติดต่อเรา</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633695014297" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<details>
+<summary>ทำไมเว็บไซต์และรูปภาพโหลดช้า?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>สถานที่ตั้งของเซิร์ฟเวอร์ของเราอาจเป็นเหตุผลที่ทำให้ความเร็วในการโหลดช้าลงในพื้นที่ของคุณ และจำนวนผู้ใช้บริการของเราในเวลาใดเวลาหนึ่งในพื้นที่ที่คล้ายกันอาจส่งผลต่อความเร็วในการโหลดเว็บไซต์ได้ </p>
+<p>เราแนะนำให้ปิดตัวเลือกการประหยัดพลังงานทั้งหมดบนอุปกรณ์ของคุณเพื่อปรับปรุงความเร็วในการโหลด นอกจากนี้เราขอแนะนำให้ลองเปลี่ยนเบราว์เซอร์หรือการเชื่อมต่ออินเทอร์เน็ตหรือรอสักครู่ให้ความเร็วกลับสู่ปกติ </p>
+<p>อย่างไรก็ตาม หากคุณพบปัญหาการโหลดอย่างต่อเนื่อง โปรดแจ้งให้เราทราบเขตเวลาของคุณ, ชื่อเรื่อง, และบทที่คุณต้องการจะอ่าน เพื่อให้เราช่วยทำการตรวจสอบเพิ่มเติม </p>
+<p>กรุณาลองทำตามขั้นตอนต่อไปนี้เพื่อปรับปรุงประสบการณ์การอ่านของคุณ:</p>
+<p> </p>
+<p><span class="wysiwyg-underline">ล้างแคช:</span></p>
+<p>เปิดเว็บเบราว์เซอร์ของคุณ</p>
+<p>กด "Ctrl" + "Shift" + "Del" (สำหรับ Windows) หรือ "Cmd" + "Shift" + "Del" (สำหรับ Mac) พร้อมกันเพื่อเปิดเมนูสำหรับการล้างแคชของเบราว์เซอร์ </p>
+<p>เลือก "แคช" และข้อมูลที่บันทึกไว้อื่น ๆ </p>
+<p>คลิกที่ "ลบ" หรือ "ล้างแคช"</p>
+<p> </p>
+<p><span class="wysiwyg-underline">อัปเดตเบราว์เซอร์:</span></p>
+<p>ตรวจสอบให้แน่ใจว่าเบราว์เซอร์ของคุณได้รับการอัปเดตเป็นเวอร์ชันล่าสุด เบราว์เซอร์ที่ล้าสมัยอาจทำให้เกิดปัญหาในการโหลดได้</p>
+<p> </p>
+<p><span class="wysiwyg-underline">ใช้เบราว์เซอร์อื่น:</span></p>
+<p>ลองเปิดเว็บไซต์ Toomics ในเบราว์เซอร์อื่นเพื่อดูว่าปัญหานั้นขึ้นอยู่กับเบราว์เซอร์หรือไม่</p>
+<p>อย่างไรก็ตาม หากคุณพบปัญหาการโหลดอย่างต่อเนื่อง โปรดติดต่อเราและแจ้งให้เราทราบเขตเวลาของคุณ, ชื่อเรื่อง, และบทที่คุณต้องการจะอ่าน เพื่อให้เราช่วยทำการตรวจสอบเพิ่มเติม</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41633199234969" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+<h1 class="section-heading" id="event---benefits"><span class="section-icon">🎁</span>Event / Benefits</h1>
+<h2 class="sub-section">กิจกรรม / สิทธิประโยชน์</h2>
+<details>
+<summary>มีโปรโมชั่นหรือส่วนลดอื่น ๆ อีกหรือไม่?<span class="art-count">2024-12-26</span></summary>
+<div class="article-body"><p>ขณะนี้เราไม่มีโปรโมชั่นหรือส่วนลดเพิ่มเติมนอกเหนือจากที่ระบุไว้ในเว็บไซต์ของเรา:</p>
+<p>แพ็กเกจชำระเงิน Toomics: [ลิงก์]</p>
+<p>แม้ว่าขณะนี้จะยังไม่มีส่วนลดใด ๆ แต่เรากำลังวางแผนที่จะนำเสนอโปรโมชั่นและข้อเสนอพิเศษในอนาคต โปรดรอติดตามการอัปเดตและประกาศจากเราเพื่อให้แน่ใจว่าคุณจะไม่พลาดโอกาสสุดคุ้มและรับสิทธิประโยชน์เพิ่มเติม!</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/th/articles/41628286209945" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-26</div></div>
+</details>
+</div>
+
+<div class="footer">
+  <strong>TOOMICS BizOps</strong> — Zendesk FAQ Documentation<br>
+  Generated: 2026-03-04 &middot; Author: 유종선 &middot; Language: ภาษาไทย<br>
+  Source: help.toomicsglobal.com
+</div>
+
+</div>
+</body>
+</html>

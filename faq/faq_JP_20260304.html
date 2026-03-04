@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="date" content="2026-03-04">
+<title>Zendesk FAQ — 日本語 | BizOps</title>
+<style>
+:root {
+  --brand-primary: #3B1F8E;
+  --brand-secondary: #5B3CC4;
+  --brand-accent: #7C5CFC;
+  --brand-light: #EDE8FF;
+  --brand-bg: #F7F5FF;
+  --navy: #1A1A2E;
+  --dark: #2D2D3F;
+  --text: #333344;
+  --text-light: #666680;
+  --border: #D8D8E8;
+  --success: #28A06C;
+  --warning: #E8A020;
+  --danger: #E8320A;
+  --info: #2196F3;
+  --white: #FFFFFF;
+  --bg-light: #FAFAFE;
+  --bg-card: #FFFFFF;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', 'Noto Sans JP', 'Noto Sans SC', Roboto, Helvetica, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg-light);
+  -webkit-font-smoothing: antialiased;
+}
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 32px;
+  background: var(--white);
+  box-shadow: 0 0 40px rgba(59,31,142,0.06);
+}
+/* ─── Header ─── */
+.cover {
+  background: linear-gradient(135deg, var(--navy) 0%, #2A1A4E 50%, var(--brand-primary) 100%);
+  color: var(--white);
+  padding: 64px 48px;
+  text-align: center;
+  border-bottom: 4px solid var(--danger);
+}
+.cover h1 {
+  font-size: 32px; font-weight: 800; letter-spacing: -0.5px;
+  margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+.cover .meta {
+  display: flex; justify-content: center; gap: 32px; flex-wrap: wrap;
+  font-size: 13px; opacity: 0.85;
+}
+.cover .meta span {
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.cover .meta span::before {
+  content: ''; display: inline-block; width: 6px; height: 6px;
+  border-radius: 50%; background: rgba(255,255,255,0.6);
+}
+/* ─── TOC ─── */
+.toc {
+  background: var(--brand-bg); border: 1px solid var(--brand-light);
+  border-radius: 8px; padding: 32px 40px; margin: 40px 32px;
+}
+.toc h2 {
+  color: var(--brand-primary); font-size: 20px; font-weight: 700;
+  margin-bottom: 16px; padding-bottom: 8px;
+  border-bottom: 2px solid var(--danger); display: inline-block;
+}
+.toc ol { list-style: none; counter-reset: toc-counter; padding: 0; }
+.toc ol li {
+  counter-increment: toc-counter; margin-bottom: 8px; padding: 6px 0;
+  border-bottom: 1px solid rgba(124,92,252,0.1);
+}
+.toc ol li:last-child { border-bottom: none; }
+.toc ol li::before {
+  content: counter(toc-counter) "."; color: var(--danger);
+  font-weight: 700; margin-right: 10px; font-size: 14px;
+}
+.toc ol li a {
+  color: var(--dark); text-decoration: none; font-weight: 500; font-size: 14.5px;
+  transition: color 0.2s;
+}
+.toc ol li a:hover { color: var(--brand-secondary); }
+.toc ol li .badge {
+  display: inline-block; background: var(--danger); color: var(--white);
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 10px;
+  margin-left: 8px; vertical-align: middle;
+}
+/* ─── Content ─── */
+.content { padding: 16px 32px 64px; }
+h1.section-heading {
+  color: var(--brand-primary); font-size: 24px; font-weight: 800;
+  margin-top: 48px; margin-bottom: 16px; padding-bottom: 10px;
+  border-bottom: 3px solid var(--brand-primary); letter-spacing: -0.3px;
+}
+h1.section-heading .section-icon { margin-right: 8px; }
+h2.sub-section {
+  color: var(--brand-secondary); font-size: 18px; font-weight: 700;
+  margin-top: 32px; margin-bottom: 12px; padding-left: 14px;
+  border-left: 4px solid var(--danger);
+}
+/* ─── Accordion ─── */
+details {
+  margin-bottom: 12px; border: 1px solid var(--border); border-radius: 8px;
+  overflow: hidden; background: var(--bg-card);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+details[open] { box-shadow: 0 2px 8px rgba(59,31,142,0.08); }
+summary {
+  padding: 14px 20px; cursor: pointer; font-weight: 600; font-size: 15px;
+  color: var(--dark); list-style: none; display: flex; align-items: center;
+  gap: 10px; transition: background 0.15s;
+}
+summary::-webkit-details-marker { display: none; }
+summary::before {
+  content: '▶'; font-size: 10px; color: var(--danger);
+  transition: transform 0.2s; flex-shrink: 0;
+}
+details[open] summary::before { transform: rotate(90deg); }
+summary:hover { background: var(--brand-bg); }
+summary .art-count {
+  margin-left: auto; font-size: 11px; font-weight: 700;
+  background: var(--brand-bg); color: var(--brand-primary);
+  padding: 2px 10px; border-radius: 12px;
+}
+.article-body {
+  padding: 16px 24px 20px; border-top: 1px solid var(--border);
+  font-size: 14px; line-height: 1.75; color: var(--text);
+}
+.article-body img { max-width: 100%; height: auto; border-radius: 6px; margin: 8px 0; }
+.article-body ul, .article-body ol { margin: 8px 0 12px; padding-left: 24px; }
+.article-body li { margin-bottom: 4px; }
+.article-body p { margin-bottom: 10px; }
+.article-body a { color: var(--brand-secondary); }
+.article-link {
+  display: inline-block; margin-top: 10px; font-size: 12px;
+  color: var(--danger); text-decoration: none; font-weight: 600;
+}
+.article-link:hover { text-decoration: underline; }
+.article-date {
+  font-size: 11px; color: var(--text-light); margin-top: 4px;
+}
+.fetch-fail {
+  padding: 12px 20px; color: var(--text-light); font-style: italic; font-size: 13px;
+}
+/* ─── Footer ─── */
+.footer {
+  background: var(--navy); color: rgba(255,255,255,0.7);
+  padding: 32px 48px; text-align: center; font-size: 13px; line-height: 1.8;
+}
+.footer strong { color: rgba(255,255,255,0.9); }
+/* ─── Print ─── */
+@media print {
+  body { background: white; font-size: 12px; }
+  .container { box-shadow: none; max-width: 100%; padding: 0; }
+  .cover { -webkit-print-color-adjust: exact; print-color-adjust: exact; padding: 40px 32px; }
+  .toc { page-break-after: always; }
+  h1.section-heading { page-break-before: always; margin-top: 24px; }
+  h1.section-heading:first-of-type { page-break-before: avoid; }
+  details { page-break-inside: avoid; }
+  .footer { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+}
+@media (max-width: 768px) {
+  .container { padding: 0 16px; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 24px; }
+  .toc { margin: 24px 16px; padding: 20px 24px; }
+  .content { padding: 16px 16px 48px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="cover">
+  <h1>Zendesk FAQ — 日本語 (JP)</h1>
+  <p class="subtitle">TOOMICS Global Help Center FAQ Collection</p>
+  <div class="meta">
+    <span>Language: 日本語</span>
+    <span>Articles: 76</span>
+    <span>Generated: 2026-03-04</span>
+  </div>
+</div>
+
+<div class="toc"><h2>목차 / Table of Contents</h2><ol>
+<li><a href="#announcement">📢 Announcement</a><span class="badge">4</span></li>
+<li><a href="#beginner-s-guide">📖 Beginner's Guide</a><span class="badge">13</span></li>
+<li><a href="#terms---policy">📋 Terms &amp; Policy</a><span class="badge">3</span></li>
+<li><a href="#account-management">👤 Account Management</a><span class="badge">17</span></li>
+<li><a href="#vip-membership---coins">⭐ VIP Membership &amp; Coins</a><span class="badge">14</span></li>
+<li><a href="#payment---refunds">💳 Payment &amp; Refunds</a><span class="badge">12</span></li>
+<li><a href="#technical-issues">🔧 Technical Issues</a><span class="badge">12</span></li>
+<li><a href="#event---benefits">🎁 Event / Benefits</a><span class="badge">1</span></li>
+</ol></div>
+<div class="content">
+<h1 class="section-heading" id="announcement"><span class="section-icon">📢</span>Announcement</h1>
+<h2 class="sub-section">最新情報</h2>
+<details>
+<summary>カスタマーサポート移行のお知らせ<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>こんにちは、Toomicsです！</p>
+<p>この度、より良いサポートを提供するために、カスタマーサポートのヘルプセンターをToomicsのウェブサイトからこちらの専用サイトへ移行いたしました。今後、すべてのお問い合わせはこのサイトを通じて対応させていただきます。</p>
+<p>ご理解とご協力に心より感謝申し上げます。今後ともどうぞよろしくお願いいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39415207853337" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>利用規約改定のお知らせ (02/09/2025)<span class="art-count">2025-08-01</span></summary>
+<div class="article-body"><p data-renderer-start-pos="4363">平素よりToomicsをご利用いただき、誠にありがとうございます。この度、<span data-renderer-mark="true" data-text-custom-color="#ff991f">2025年9月2日</span>付で以下の利用規約を改定いたします。サービスをご利用になる前に利用規約とプライバシーポリシーの内容をよくお読みいただき、もし内容に同意されない場合は、大変申し訳ございませんが、本サービスのご利用はお控えください。</p><p data-renderer-start-pos="4517"> </p><ol data-indent-level="1"><li><p data-renderer-start-pos="4521"><span data-renderer-mark="true" data-text-custom-color="#ff991f">[サービス]</span></p></li></ol><div data-layout="full-width" data-testid="table-container">
+<div data-testid="sticky-scrollbar-sentinel-top"> </div>
+<div data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="f983dbd1-de67-4b70-9119-cb964e547d35" data-vc="table-node-wrapper">
+<figure style="width: 100%;" class="wysiwyg-table"><table style="border-style: solid; border-width: 1px;" class="wysiwyg-table-resized">
+<colgroup>
+<col style="width: 48.28%;">
+<col style="width: 51.72%;">
+</colgroup>
+<tbody>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">改定前</strong></td>
+<td style="border-style: solid; border-width: 1px;"><strong data-renderer-mark="true">改定後</strong></td>
+</tr>
+<tr>
+<td style="border-style: solid; border-width: 1px;"><span data-renderer-mark="true" data-text-custom-color="#ff991f">VIP会員サービス（自動継続商品）：弊社のコンテンツを利用制限なしに、お楽しみいただけるサービスです。会員が登録したお支払い方法によって毎月の利用料金が自動的に決済されます。</span></td>
+<td style="border-style: solid; border-width: 1px;">
+<span data-renderer-mark="true" data-text-custom-color="#ff991f">自動引き落とし（VIP会員）：</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">VIP会員サービスに登録すると、毎月選択されたお支払い方法で自動的に引き落としがされます。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">VIP会員サービスにご登録いただくことで、Toomicsが指定するVIP限定コンテンツを読み放題でお楽しみいただけます。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">利用可能なVIP限定コンテンツは地域によって異なり、随時変更される場合があります。</span><br><span data-renderer-mark="true" data-text-custom-color="#ff991f">すべてのコンテンツがVIP会員サービスでご利用いただけるとは限りません。</span>
+</td>
+</tr>
+</tbody>
+</table></figure><div> </div>
+</div>
+</div></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/49365957133081" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-01</div></div>
+</details>
+<details>
+<summary>利用規約改定のお知らせ(2025年06月05日)<span class="art-count">2025-07-08</span></summary>
+<div class="article-body"><p>平素よりToomicsをご利用いただき、誠にありがとうございます。この度、2025年06月05日 13:00 KST 付で以下の利用規約を改定いたします。サービスをご利用になる前に利用規約とプライバシーポリシーの内容をよくお読みいただき、もし内容に同意されない場合は、大変申し訳ございませんが、本サービスのご利用はお控えください。</p>
+<p> </p>
+<p>1. 利用規約に関する説明及び承諾</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">改定前</td>
+<td style="width: 50%;">改定後</td>
+</tr>
+<tr>
+<td style="width: 50%;">弊社は独自の裁量で、本利用規約及びプライバシーポリシーの内容を、変更または追加することができ、重要な変更事項がある場合は、お知らせにて、変更された利用規約またはプライバシーポリシーの内容を、お客様に通知いたします。<br>(https://help.toomicsglobal.com/hc/ja/categories/39414644493209)</td>
+<td style="width: 50%;">弊社は独自の裁量で、本利用規約及びプライバシーポリシーの内容を、変更または追加することができ、重要な変更事項がある場合は、お知らせにて、変更された利用規約またはプライバシーポリシーの内容を、お客様に通知いたします。<br>(https://help.toomicsglobal.com/hc/ja/categories/39347777077401)</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>2. コインの購入方法</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">改定前</td>
+<td style="width: 50%;">改定後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<span style="color: black;">[</span><span style="color: black;">なし</span><span style="color: black;">]</span>
+</td>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">1. </span><span style="color: black;">お客様は弊社が設けた価格に応じてコインを購入することができます。コインの購入方法や購入単位、通貨、決済方法などは</span>弊社ウェブサイト内に掲載いたします。</p>
+<p style="background-color: white;"><span style="color: black;">2.</span> <span style="color: black;">ギフトコインとボーナスコインは同一のものとして扱われますが、ギフトコインには有効期限がございます。表示</span><span style="color: black;">される</span><span style="color: black;">有効期限以内にギフトコインを使用されなかった場合、コインは期限切れとなります。また、期限切れのコインは一切払い戻しができません。</span><span style="color: black;"><br>3. </span><span style="color: black;">コインの購入方法及び価格は、変更される場合がございます。</span><span style="color: black;"><br>4. </span><span style="color: black;">お客様がご購入または付与されたコインには、利息は発生しません。</span><span style="color: black;"><br>5. </span><span style="color: black;">コイン購入における決済方法は、弊社が指定する決済方法の中から選択することができます。</span><span style="color: black;"><br>6. </span><span style="color: black;">為替レートの変動により、実際の請求額がサービスのお支払いページなどで表示された金額と異なる場合がございます。</span><span style="color: black;"><br>7. </span><span style="color: black;">購入済みコインは、購入されたお客様ご本人のアカウントに付与されます。</span></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>3. 外部サービスとの連携</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">改定前</td>
+<td style="width: 50%;">改定後</td>
+</tr>
+<tr>
+<td style="width: 50%;">[<span style="color: black;">なし</span>]</td>
+<td style="width: 50%;">
+<span style="color: black;">1. </span><span style="color: black;">有料サービスをご利用いただくためにはお客様ご本人の電子メールアドレスまたはソーシャルアカウントと連携する必要がございます。</span><span style="color: black;"><br>2. </span><span style="color: black;">電子メールアドレスまたはソーシャルアカウントはひとつの</span><span style="color: black;">ID</span><span style="color: black;">につき、ひとつの会員アカウントと連携することができます。</span><span style="color: black;"><br>3. </span><span style="color: black;">連携されたお客様のアカウントは、他の端末でログインされた場合でも、同一のアカウントとして認識されます。そのため、連携済みアカウントをご利用いただくことで、別の端末で購入されたコインの使用が可能であり、また、一度ご利用いただいたコンテンツも別の端末から引き続きご利用いただけます。</span><span style="color: black;"><br>4. </span><span style="color: black;">万が一、連携済みのアカウントを解約された場合は、端末とは関係なく、有料コインやコンテンツのご利用が制限されます。</span>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>4. ボーナスコイン</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">改定前</td>
+<td style="width: 50%;">改定後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<span style="color: black;">[</span><span style="color: black;">なし</span><span style="color: black;">]</span>
+</td>
+<td style="width: 50%;">
+<p><span style="color: black;">1. </span><span style="color: black;">弊社は、イベントなどを通してお客様に無償でボーナスコインを支給したり、</span><span style="color: black;">コイン購入時におまけとしてボーナスコインを付与する場合がございます。</span></p>
+<p><span style="color: black;">2. </span><span style="color: black;">ボーナスコインの払い戻しはできかねます。</span><span style="color: black;"><br>3. </span><span style="color: black;">ボーナスコイン及びこれに類似するコインは、有料コインよりも先に消費されます。また、ボーナスコインの消費は付与日の古いものから割り当てられます。</span><span style="color: black;"><br></span><span style="color: black;">4. </span><span style="color: black;">連携されたお客様のアカウントは、他の端末でログインされた場合でも、同一のアカウントとして認識されます。そのため、連携済みアカウントをご利用いただくことで、別の端末で受け取ったボーナスコイン及びコインはどの端末からでもご使用いただけます。</span></p>
+<p><span style="color: black;">5. </span>弊社は、ボーナスコインの使用方法や条件について、制限または変更をする場合がございます。詳しい変更内容に関しましては、弊社ウェブサイト内で通知いたします。</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<p>5. キャンセル及び払い戻し、VIP会員サービス</p>
+<table style="width: 100%;" border="1" cellspacing="0" cellpadding="10px">
+<tbody>
+<tr>
+<td style="width: 50%;">改定前</td>
+<td style="width: 50%;">改定後</td>
+</tr>
+<tr>
+<td style="width: 50%;">
+<p style="background-color: white;"><span style="color: black;">VIP</span><span style="color: black;">会</span><span style="color: black;">員サ</span><span style="color: black;">ー</span><span style="color: black;">ビス</span></p>
+<p style="background-color: white;"><span style="color: black;">以下の場合</span><span style="color: black;">払</span><span style="color: black;">い</span><span style="color: black;">戻</span><span style="color: black;">しができます。</span></p>
+<p style="background-color: white;"><span style="color: black;">1 </span><span style="color: black;">ご購入後、</span><span style="color: black;">14</span><span style="color: black;">日以</span><span style="color: black;">内</span><span style="color: black;">にヘルプセンタ</span><span style="color: black;">ー</span><span style="color: black;">までお問い合わせいただき、かつ、</span></p>
+<p style="background-color: white;"><span style="color: black;">2 </span><span style="color: black;">ご購入時点で配信中の作品の最新話まで、</span><span style="color: black;"> 1</span><span style="color: black;">日</span><span style="color: black;"> (</span><span style="color: black;">利用開始時点より</span><span style="color: black;"> 24 </span><span style="color: black;">時間として計算</span><span style="color: black;">)</span><span style="color: black;">以</span><span style="color: black;">内</span><span style="color: black;">に</span><span style="color: black;">閲覧</span><span style="color: black;">していない場合</span></p>
+<p style="background-color: white;"><span style="color: black;">3.VIP</span><span style="color: black;">専</span><span style="color: black;">用コンテンツを</span><span style="color: black;">1</span><span style="color: black;">日</span><span style="color: black;">(</span><span style="color: black;">利用開始時点より</span><span style="color: black;">24</span><span style="color: black;">時間</span><span style="color: black;">)</span><span style="color: black;">以</span><span style="color: black;">内</span><span style="color: black;">しか利用していない場合</span></p>
+<p style="background-color: white;"><span style="color: black;">上記の</span><span style="color: black;">3</span><span style="color: black;">つの</span><span style="color: black;">条</span><span style="color: black;">件のいずれにも該</span><span style="color: black;">当</span><span style="color: black;">しない場合、また、</span><span style="color: black;">楽</span><span style="color: black;">天</span><span style="color: black;">Edy</span><span style="color: black;">でお支</span><span style="color: black;">払</span><span style="color: black;">いされた場合は、</span><span style="color: black;">払</span><span style="color: black;">い</span><span style="color: black;">戻</span><span style="color: black;">しができかねます。</span></p>
+</td>
+<td style="width: 50%;">
+<p>VIP会員サービス</p>
+<p>以下の場合払い戻しができます。</p>
+<p>1 ご購入後、14日以内にヘルプセンターまでお問い合わせいただいた場合</p>
+<p style="background-color: white;"><span style="color: black;">2. </span><span style="color: black;">アカウントを使用し、いかなる</span>VIP専用コンテンツも閲覧していない場合</p>
+<p>上記の2つの条件のいずれにも該当しない場合は、払い戻しができかねます。</p>
+</td>
+</tr>
+</tbody>
+</table></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/46323826278937" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-08</div></div>
+</details>
+<details>
+<summary>利用規約改定のお知らせ(2025年8月9日)<span class="art-count">2025-09-11</span></summary>
+<div class="article-body"><figure class="wysiwyg-table"><table data-pm-slice='2 5 -3 ["table",{"displayMode":null,"isNumberColumnEnabled":true,"layout":"center","localId":"3b13cac7-3d37-4c25-a99e-c4e253f06d81","width":1800,"__autoSize":false},"tableRow",null]'><tbody><tr><td data-colwidth="1216" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">[お知らせ]</strong></p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">平素よりToomicsをご利用いただき、誠にありがとうございます。この度、<span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">2025年8月9日</span>付で以下の利用規約を改定いたします。サービスをご利用になる前に利用規約とプライバシーポリシーの内容をよくお読みいただき、もし内容に同意されない場合は、大変申し訳ございませんが、本サービスのご利用はお控えください。</p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"> </p>
+<ol data-prosemirror-content-type="node" data-prosemirror-node-name="orderedList" data-prosemirror-node-block="true"><li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">キャンセル及び払い戻し、VIP会員サービス</span></li></ol>
+<div data-prosemirror-initial-todom-render="true" data-prosemirror-content-type="node" data-prosemirror-node-name="table" data-prosemirror-node-block="true"><div data-testid="table-alignment-container"><div><div><div data-number-column="false" data-layout="default" data-testid="table-container">
+<div><figure class="wysiwyg-table"><table class="wysiwyg-table-resized" data-number-column="false" data-layout="default" data-autosize="false" data-table-local-id="f983dbd1-de67-4b70-9119-cb964e547d35">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">改定前</strong></td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true"><strong data-prosemirror-content-type="mark" data-prosemirror-mark-name="strong">改定後</strong></td>
+</tr>
+<tr data-prosemirror-content-type="node" data-prosemirror-node-name="tableRow" data-prosemirror-node-block="true">
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">VIP会員サービス</span></p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">以下の場合払い戻しができます。</span></p>
+<ol>
+<li><p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">ご購入後、14日以内にヘルプセンターまでお問い合わせいただいた場合</span></p></li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">アカウントを使用し、いかなるVIP専用コンテンツも閲覧していない場合</span></li>
+</ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">上記の2つの条件のいずれにも該当しない場合は、払い戻しができかねます。</span></p>
+</td>
+<td style="border-color: #FFFFFF; border-style: solid; padding: 15px; vertical-align: top;" data-prosemirror-content-type="node" data-prosemirror-node-name="tableCell" data-prosemirror-node-block="true">
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">VIP会員サービス</p>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">以下の場合払い戻しができます。</p>
+<ol>
+<li><p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true">ご購入後、14日以内にヘルプセンターまでお問い合わせいただいた場合</p></li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true">アカウントを使用し、いかなるVIP専用コンテンツも閲覧していない場合</li>
+<li data-prosemirror-content-type="node" data-prosemirror-node-name="listItem" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">VIP購入により提供された、または割引された価格で購入したコイン（ギフトコイン、ボーナスコインを含める）に対する利用履歴が返金対象月にない場合</span></li>
+</ol>
+<p data-prosemirror-content-type="node" data-prosemirror-node-name="paragraph" data-prosemirror-node-block="true"><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor">上記の3つの条件のいずれにも該当しない場合は、払い戻しができかねます。</span></p>
+</td>
+</tr>
+</tbody>
+</table></figure></div>
+<div> </div>
+<div data-testid="sticky-sentinel-bottom"> </div>
+</div></div></div></div></div>
+</td></tr></tbody></table></figure></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/48671849449113" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-09-11</div></div>
+</details>
+<h1 class="section-heading" id="beginner-s-guide"><span class="section-icon">📖</span>Beginner's Guide</h1>
+<h2 class="sub-section">Toomicsについて</h2>
+<details>
+<summary>Toomicsとは？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>まずはToomicsへようこそ！</p>
+<p> </p>
+<p>Toomicsは、独占的なウェブトゥーンやウェブコミックを豊富に取り揃えた合法的なプラットフォームです。ぜひ、私たちのウェブサイトtoomics.com（こちら）と、Android、iOSの両方でご利用いただけるモバイルアプリをダウンロードしてみてください :)</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390064774681" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>Toomicsは合法なサイトですか？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>はい、当サイトに掲載されているすべてのコンテンツは著作権で保護されており、作家の許可を得て公開しています。</p>
+<p>Toomicsで得た収益は、当社と直接契約を結んでいる作家に分配され、彼らの作品を安心してお楽しみいただけます。</p>
+<p>つまり、Toomicsをご利用いただくことで、作家を応援し、彼らがこれからも素晴らしい作品を生み出す手助けができるのです。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390141904153" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>Toomicsは無料で利用できますか？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>残念ながら、ユーザーが当サイトのコンテンツを無料で読んだり、VIPメンバーシップやコインを無料で入手したりする方法はございません。</p>
+<p>サイトを運営し続けるために必要な費用があるため、VIPメンバーシップやコインをご購入いただき、作家たちがより素晴らしいウェブトゥーンを制作できるよう、ご支援をお願いしております。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390179793817" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>営業時間について<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>当社は韓国に拠点を置いています。<br>営業時間は以下の通りです：<br>月曜日から木曜日：午前10時～午後5時<br>金曜日：午前10時～午後3時</p>
+<p>なお、週末および韓国の祝日にはカスタマーサービスはご利用いただけません。</p>
+<p>ご連絡は以下のメールアドレスまたはお電話でどうぞ：<br>メール: jp.help@toomicsglobal.com<br>電話番号: 03-6871-8522</p>
+<p>また、<strong>1:1お問い合わせ</strong> からもご連絡いただけますので、ぜひご利用ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390201246361" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<h2 class="sub-section">アクセス</h2>
+<details>
+<summary>VIP会員になれば全ての漫画が読めますか？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>VIP会員になると、なんとVIP限定の特別な漫画が読み放題！</p>
+<p>あなたがVIP会員である限り、どのVIP限定漫画にもアクセスし放題。今すぐ好きなだけ楽しんでください！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390342436505" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>ダークモードはありますか？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>Toomicsのサイトをダークモードで利用したい場合は、PCまたはモバイルのブラウザからアクセス可能です。おすすめの方法として、Chromeを既定のブラウザに設定し、Chromeウェブストアから「ダークモード」の拡張機能をダウンロードすることを推奨します。</p>
+<p>以下のリンクからChromeが提供するさまざまな拡張機能をご覧いただけます。そこで「ダークモード」の検索が可能です：<a href="https://chromewebstore.google.com/?hl=ja">Chrome Webstore</a></p>
+<p>現在、ウェブサイト全体をアプリ同様ダークモードに対応させるための作業を進めていますので、その点ご理解いただけますと幸いです。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390557642009" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>安心モードを解除して18+のコンテンツを閲覧する方法<span class="art-count">2024-11-14</span></summary>
+<div class="article-body"><p>残念ながら、アプリのポリシーに基づき、安心モードはアプリ上で解除することができません。このボタンは、提供されるすべてのコンテンツが家族向けであることを示すものです。アプリの規定により、18+の成人向けコンテンツはアプリ内で提供することができません。 :(</p>
+<p>18+のコンテンツを閲覧したい場合は、パソコンやスマートフォンのウェブブラウザから公式サイト「toomics.com/ja」にアクセスして、安心モードを解除してください。スマートフォンのブラウザにToomicsのウェブサイトのショートカットを作成することをおすすめします。これにより、いつでも簡単にウェブサイトにアクセスできます！<br><br></p>
+<p><strong>地域制限について</strong></p>
+<p>一部の国では、成人向けコンテンツの配信ポリシーにより年齢確認が必要です。以下の国にお住まいの方は、直接ご連絡ください。</p>
+<ul>
+<li>シンガポール</li>
+<li>日本</li>
+<li>マレーシア</li>
+<li>インドネシア</li>
+</ul></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390344653593" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-14</div></div>
+</details>
+<details>
+<summary>次の話が読めない理由について<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>Toomicsでは、最初の3話（場合によってはそれ以上）を無料で提供していますが、シリーズを続けて楽しんでいただくためには、VIP会員登録またはコインの購入が必要となります。</p>
+<p>すでにVIP会員であったりコインをお持ちの方へ：</p>
+<p>Toomicsでは、すべてのシリーズに対して毎週最新話が更新されます。最新話は予定された公開日にご覧いただけます。待ちたくない場合は、すぐに全話が読める「完結シリーズ」もございますので、そちらをお楽しみください。</p>
+<p>まだVIP会員ではない方へ：</p>
+<p>次の話が表示されているにもかかわらず、アクセスできない場合は、Toomics VIP会員限定のコンテンツであるからです。VIP会員登録やコインの購入をしていただければ、公開済みのすべての話にアクセス可能になります。</p>
+<p> </p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390259417241" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>漫画をダウンロードしてオフラインで読む方法はありますか？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>Toomicsのすべてのコンテンツは著作権法によって保護されています。そのため、著作権者またはToomicsの許可なくコンテンツを使用、転載、複写することは法律で罰せられる可能性があります。セキュリティ上の理由から、Toomicsではユーザーが漫画をダウンロードしたり、オフラインで閲覧したりする機能は提供していません。:(</p>
+<p>ご不便をおかけして申し訳ございませんが、ご理解いただけますようお願い申し上げます。Toomicsは、皆様に最高のサービスを提供できるよう、常に精進してまいります。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390496703129" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<details>
+<summary>言語を変更するには？<span class="art-count">2024-10-29</span></summary>
+<div class="article-body"><p>当サイトでは、韓国語、中国語、スペイン語、イタリア語、ポルトガル語、フランス語、英語、日本語など、各言語ごとに異なるサービスを提供しています。</p>
+<p>もし言語を変更したい場合、以下の2つの方法があります：</p>
+<p>1. 設定メニューで、右上のメニューアイコンをクリックし &gt; 言語 &gt; 日本語 &gt; 確認を押してください。</p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/39390447567257" width="494" height="461"></p>
+<p>2. また、ウェブサイトの一番下にある「言語」メニューからも変更できます：言語 &gt; 日本語</p>
+<p> </p>
+<p><img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXfAumpCgi5x1c2i8tKPQf9TfCHYT6E-RKRN0WpjqHgv8xoaQrzH4n6D7GISxMHL78eXVU6B6CkJe9Krq_FK_wy2s6ZkkzCOtxGdBpNBeYNw3n0EyK0v5sdt_qO8jbjYcvfg9zfY0O_naNiMe7MkbHwTSg7y?key=GP5DUH7dkFTT8OMp5y_2Qw" width="533" height="303"></p>
+<p>これで、好きな言語でお気に入りの漫画を楽しめます！</p>
+<p>ただし、VIP会員になっている言語のみでのご利用が可能なので、ご注意ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39390458235673" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
+</details>
+<h2 class="sub-section">シェアと投稿について</h2>
+<details>
+<summary>Toomicsの一員になりたいですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>申し訳ございませんが、こちらのメールアドレスはカスタマーサポート用なので、採用プロセスには対応しておりません。</p>
+<p>採用情報は、随時公開されている求人情報をご覧いただき、その案内に従ってご応募ください。</p>
+<p>求人情報はこちらから確認できます：*<a href="https://recruit.toomics.com/jobs?lang=kr"><span class="wysiwyg-underline">https://recruit.toomics.com/jobs?lang=kr</span></a>* </p>
+<p>ご不便をおかけして申し訳ありませんが、ご理解のほどお願い申し上げます。<br>今後のご活躍を心よりお祈りしております！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410285000473" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Toomicsの漫画をSNSにシェアすることはできますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>残念ながら、Toomicsの漫画をSNSにシェアすることは禁じられています。<br>Toomicsのすべてのコンテンツは著作権法によって保護されています。</p>
+<p>著作権者やToomicsの許可なく、コンテンツの一部を使用、転載、複写する行為は、著作権侵害や知的財産に関する法律に基づいて罰せられる可能性があります。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410157036569" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>オリジナル漫画を投稿できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>まずは、Toomicsに興味を持っていただき、誠にありがとうございます！</p>
+<p>申し訳ございませんが、現在、投稿プロセスの再構築中のため、漫画の投稿は受け付けておりません。</p>
+<p>お手数をおかけして申し訳ありませんが、ご理解のほどお願い申し上げます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410213033369" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="terms---policy"><span class="section-icon">📋</span>Terms &amp; Policy</h1>
+<h2 class="sub-section">プライバシーポリシー</h2>
+<details>
+<summary>プライバシーポリシー<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-left"><a href="https://global.toomics.com/ja/help/private_terms" target="_blank" rel="noopener noreferrer">プライバシーポリシー 2021-04-16</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39417799994137" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">利用規約</h2>
+<details>
+<summary>利用規約<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p class="wysiwyg-text-align-left"><a href="https://global.toomics.com/ja/help/access_terms" target="_blank" rel="noopener noreferrer">利用規約 2019-12-02</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39416070168729" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">特定商取引法に基づく表示</h2>
+<details>
+<summary>特定商取引法に基づく表示<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><a href="https://global.toomics.com/ja/help/access_terms/term_name/special_commercial_law" target="_blank" rel="noopener noreferrer">特定商取引法に基づく表示 2024-08-02</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39417962878745" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="account-management"><span class="section-icon">👤</span>Account Management</h1>
+<h2 class="sub-section">アカウント情報</h2>
+<details>
+<summary>お気に入りリストが見つからない場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>「お気に入り」リストのシリーズが表示されないという問題が発生しているようです。</p>
+<p>もしウェブサイトで漫画を読んでいる場合は、Toomicsウェブサイトの上部にある「安心モード」ボタンをオフにしているかご確認いただけますか？ これにより、成人向けプレミアムコンテンツにアクセスでき、さらに選択した成人向けの内容も「お気に入り」リストに表示されるようになります。</p>
+<p>ただし、モバイルアプリに関しては、Google PlayストアおよびApple Appストアのポリシーに従い、成人向けコンテンツはサポートしていないため、成人向けの漫画を読みたい場合は、PCまたはモバイルブラウザを通じてToomicsのウェブサイト（toomics.com）にアクセスしてください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411142727833" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>アカウントの無効化 / 再有効化 / 削除方法<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><span class="wysiwyg-underline">アカウントの無効化</span></p>
+<p>アカウントの無効化をご希望とのこと、非常に残念です。</p>
+<p>PCユーザーの場合：</p>
+<ol>
+<li>Toomicsにサインインします。</li>
+<li>&lt;設定メニュー [≡]&gt; をクリックし、&lt;アカウント管理&gt; から &lt;アカウントを無効化しますか？&gt; を選択します。</li>
+</ol>
+<p>モバイルユーザーの場合：</p>
+<ol>
+<li>Toomicsにサインインします。</li>
+<li>右上のメニューアイコンをタップし、&lt;アカウント管理&gt; から &lt;アカウントを無効化しますか？&gt; を選択します。</li>
+</ol>
+<p>ToomicsでVIP会員の場合は、アカウントを無効化する前にVIP会員サービスを解約する必要があることをご留意ください。</p>
+<p> </p>
+<p><span class="wysiwyg-underline">アカウントの再有効化</span></p>
+<p>Toomicsアカウントの再有効化をご希望とのことですね。お帰りなさい！ :)</p>
+<p>Toomicsアカウントを再有効化するには、お問い合わせフォームに再有効化したいアカウントをお送りください。できるだけ早く手続きを進めます！</p>
+<p> </p>
+<p><span class="wysiwyg-underline">アカウントの削除</span></p>
+<p><br>Toomicsアカウントを削除する場合は、お問い合わせフォームに削除したいアカウントをお送りください。</p>
+<p>また、Toomicsアカウントの情報を削除するためには、以下の項目を確認していただく必要があります。</p>
+<ol>
+<li>アカウントを削除する前に、まずToomicsアカウントを無効化する必要があることに同意しますか？</li>
+<li>個人情報が削除された後は、Toomicsはその情報をいかなる場合でも復元できません。</li>
+<li>アカウントに残っている未使用のコインはすべて削除されます。</li>
+<li>コインで購入したすべてのエピソードへのアクセスも削除されます。</li>
+<li>Toomicsアカウントに連動したVIP会員サービスも削除されます（未使用の期間が残っている場合でも返金は行われませんが、返金の対象となる場合は、申請してください）。</li>
+</ol>
+<p>上記の条件に同意し、アカウントの無効化およびすべての個人情報の削除を希望する場合、対応いたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411171611033" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>パスワードの回数制限に達した場合、どうすればいいですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>パスワードの回数制限（10回）に達した場合は、お問い合わせフォームに次の情報をお送りください。</p>
+<p><strong>ログイン（メールアドレス）：</strong><br><strong>新しいパスワード：</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411237631385" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>パスワードの変更方法<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p><strong>PCユーザーの場合：</strong><br>[アカウント管理] からパスワードの変更ができます。</p>
+<p> </p>
+<p><strong>モバイルユーザーの場合：</strong><br>画面右上のメニューアイコンをタップ後、[アカウント管理] からパスワードの変更ができます。</p>
+<p>なお、特殊文字（! @ # $ % ^ &amp; * ( ) など）を含む場合、パスワードのリセットが正常に行われない可能性があります。これらの特殊文字が含まれている場合、パスワードが変更またはリセットされないことがあります。</p>
+<p> </p>
+<p>Toomicsのパスワードポリシーに従ってパスワードを確認、または変更することをお勧めします。</p>
+<p>また、ソーシャルメディアアカウントと連携したToomicsアカウントの場合、手動でのパスワードのリセットはできませんが、アカウントをメールログインアカウントに移行することで、パスワードをリセットすることができます。完了後、Toomicsにサインインする際には、毎回手動でメールアドレスとパスワードを入力する必要があります。</p>
+<p> </p>
+<p>パスワードの手動リセットを希望する場合は、お問い合わせフォームに次の情報をお送りください。</p>
+<p><strong>ログイン（メールアドレス）：</strong><br><strong>新しいパスワード：</strong></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411216797337" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>ログイン情報の変更方法<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>アカウントのログイン情報を変更するには、お選びいただいたメールアドレスにサブスクリプションを移行することで、パスワードのリセットが可能です。以下の情報をお問い合わせフォームにお送りください。</p>
+<p> </p>
+<p><strong>ログイン（メールアドレス）：</strong><br><strong>新しいパスワード：</strong></p>
+<p> </p>
+<p>なお、Appleアカウントを通じて作成されたアカウントの場合、ソーシャルメディアアカウントを通常のメールアカウントに変換するオプションはございません。そのため、アカウントのパスワードの変更または修正はいたしかねます。これらの制限はApple社によって適用されているため、当社では制御ができません。</p>
+<p>ご不便をおかけして申し訳ありませんが、何卒ご理解のほどよろしくお願いいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411341599001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>最近読んだ漫画をどのように確認できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>最近読んだ漫画を再度チェックしたいですか？「マイライブラリ」内の「最近読んだ」セクションに移動すれば、最近読んだ漫画がすべて確認できます。なお、古い履歴はシステムによって徐々に削除されることがあります。</p>
+<p>一部のタイトルが表示されない場合は、「安心モード」がオンになっているか、ログインせずに無料エピソードを閲覧していることが原因かもしれません。履歴をしっかりと保持するには、ログインした状態で閲覧し、必要に応じて設定を調整してください。</p>
+<p>リストを整理したいですか？「最近読んだ」リストから項目を削除するには、ゴミ箱アイコンをクリックするだけです。削除したいシリーズを選んで、すぐにリストをリフレッシュして新しい漫画の冒険を楽しんでください！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411162378009" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>電話番号はどうやって認証できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>まず、サービス利用中にご不便をおかけしたことを深くお詫び申し上げます。弊社は、Toomicsの最高な漫画を安全にお届けできるよう努めております。</p>
+<p>最新のプレミアムエピソードの不正な配布を防ぐため、電話番号によるSMS認証プロセスをシステムに追加しました。しかし、認証プロセスに問題が発生し、プレミアムコンテンツを閲覧するユーザーの皆様にご不便をおかけしているとの報告を受けています。</p>
+<p>電話番号によるSMS認証に問題がある場合は、お問い合わせフォームに認証したいアカウントをお送りください。手動で認証を行います。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411286560537" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">アカウント設定 &amp; アクセス</h2>
+<details>
+<summary>Toomicsのアカウントはどのように作成しますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsの公式ウェブサイトから無料アカウントを作成できます。<br>右上のメニューをクリックしていただくと、&lt;ログイン&gt;ボタンがございます。そのボタンをクリックしていただくと、&lt;会員登録&gt;のタブが出てきますので、そちらから作成が可能です。</p>
+<p>利用規約（使用条款）とプライバシーポリシーに同意いただけますようお願いいたします。</p>
+<p>また、Facebook、Google、Yahoo、Line、X などのソーシャルアカウントを使用してアカウントを作成することも可能です。</p>
+<p>ただし、ソーシャルアカウントでログインする場合と通常のアカウント（メールアドレス）でログインする場合は、方法が異なりますのでご留意ください。</p>
+<p>ソーシャルアカウントを通じてアカウントを作成した場合、[ログイン]画面で該当するアイコンをクリックしてログインしてください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410670199193" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Webアカウントとアプリアカウントの違いは何ですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Webアカウントは、PCまたはウェブブラウザを通じて、Toomicsのウェブサイト上で直接作成されたアカウントです。</p>
+<p>一方、アプリアカウントは、ログインせずに使用しているアプリに割り当てられるシリアル番号です。</p>
+<p>いつでもWebアカウントとアプリアカウントを連携させることが可能です。</p>
+<p>ただし、アプリをアンインストールして再インストールするたびに複数のアプリアカウントが作成されるケースもありますので、アプリのアンインストールを控え、直接お問い合わせください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410865079321" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>アカウントが見つかりません<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>Toomicsのアカウントを見つけるのに問題がある場合、まずは購入時に登録したメールアドレスに送信された購入確認メールをご確認ください。</p>
+<p>それでも解決しない場合は、以下の情報をお送りいただき、直接お問い合わせください：</p>
+<ol>
+<li><strong>領収書のスクリーンショット（購入日と当社の名前がはっきりと表示されている必要があります）。</strong></li>
+<li><strong>ご利用のクレジット/デビットカードの下4桁。</strong></li>
+<li><strong>Toomicsアカウントを作成した可能性のある他のメールアドレス。</strong></li>
+</ol>
+<p>個人情報は個人のプライバシーに関わる大切な情報ですが、お送りいただいたすべての情報は厳重に管理されますのでご安心ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410840220953" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>アカウントを統合する方法<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>アカウントの統合に関して、Webアカウントとアプリアカウントを統合すると、アプリアカウントの情報が自動的にWebアカウントと同期され、アプリで購入したコインがWebアカウントに直接付与されます。</p>
+<p>ただし、ユーザーがログインせず、統合されていない別のアプリアカウントで購入を行う場合があります。</p>
+<p>そのような場合は、お問い合わせいただければ、購入したコインへのアクセスを提供いたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410930018585" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>アプリで購入した内容をウェブサイトで読むにはどうすればいいですか？<span class="art-count">2024-12-23</span></summary>
+<div class="article-body"><p>PCやモバイルを通じてToomicsのウェブサイトでVIP会員サービスを利用したい場合、アプリにアカウントを作成またはログインすることをお勧めします。</p>
+<p>こうすることで、購入したVIP会員資格をアカウントにリンクし、その後は同じアカウントでログインすれば、どのデバイスからでもVIP会員サービスをご利用いただけます。</p>
+<p>以下の手順に従ってVIP会員資格をメールアカウントにリンクする方法をご確認ください：</p>
+<ol>
+<li>購入に使用したスマホで、Toomicsの英語版アプリに直接ログインしてください。</li>
+<li>画面の左上に表示されているToomicsのロゴをクリックし、「会員登録」をクリックします。</li>
+<li>「会員登録」をクリックした後、VIP会員資格をリンクしたいメールアドレスを入力してください。</li>
+</ol>
+<p>既にアカウントを作成している場合は、「ログイン」ボタンをクリックして、登録済みのToomicsアカウントでログインしてください。</p>
+<p>それでもアプリ内のアカウントにアクセスできない場合は、「復元」をタップして「復元」ボタンを押してください。</p>
+<p> </p>
+<p>スクリーンショットを参照してください：</p>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41505931455769"></p>
+<p> </p>
+<p>ファミリーセーフモード（安心モード）を無効にしたい場合、PCまたはモバイルのウェブブラウザを通じて、toomics.com/ja からアクセスする必要があります。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410885917977" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-23</div></div>
+</details>
+<details>
+<summary>ウェブサイトで購入した内容をアプリで読むにはどうすればいいですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>ウェブサイトで購入してアプリで読みたい場合は、VIP会員資格をリンクしたToomicsアカウントでアプリにログインするだけです。</p>
+<p>現在、Google PlayストアおよびApple App Storeのポリシーに基づき、アプリ内では成人向けコンテンツに対応できないため、成人向け漫画にはアクセスできませんのでご留意ください。この点についてはご不便をおかけしており、誠に申し訳ございません。</p>
+<p>ファミリーセーフモードをオフにしたい場合は、PCまたはモバイルのウェブブラウザを通じて、toomics.com/ja から行ってください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410926030489" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>ソーシャルアカウントでログインできません！<span class="art-count">2024-11-07</span></summary>
+<div class="article-body"><p>Toomicsに会員登録する際、2つの方法でアカウントを作成できます。<br><br></p>
+<p>1. メールアドレスを使って会員登録するか、Facebook、Line、Yahoo、Google、X（第三者のウェブサイト）を通じて会員登録することができます。<br>ソーシャルアカウントを使用してログインした場合、[ログイン]画面の下部にあるアイコンを通じてログインする必要があります。そのアカウントにログインしない限り、VIPコンテンツにアクセスできません。<br><br></p>
+<p>2. メールアドレスを使用して会員登録していただいた場合は、引き続きメールアドレスとパスワードを使用してログインする必要があります。メールアドレスとパスワードでログインしない限り、VIPコンテンツにアクセスできません。</p>
+<p> </p>
+<p>ソーシャルアカウントと通常のメールアカウントは、別々のアカウントでございますのでご注意ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410802373017" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
+</details>
+<details>
+<summary>ドメインが多いのはなぜですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>異なるプラットフォームやソーシャルメディアで当社のコンテンツをマーケティングおよび広告するために、いくつかのドメインを作成しました。</p>
+<p>しかし、当社の主なドメインは toomics.com/ja ですので、上記のドメインを引き続きご利用いただくことをお勧めします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411123413657" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>メールログインとは何ですか？またソーシャルアカウントログインとは？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsに会員登録する際、複数の方法でアカウントを作成できます。</p>
+<p>メールアドレスを使っての会員登録、もしくはFacebook、Line、Yahoo、Google、X、またはAppleアカウントを使っての会員登録がございます。</p>
+<p>メールアドレスを使用して会員登録をしていただいた場合は、メールアドレスとパスワードを入力してログインする必要がございます。</p>
+<p>ソーシャルアカウント（Facebook、Line、Yahoo、Google、または X）を使用して会員登録をしていただいた場合は、[ログイン]画面の下部にあるアイコンを使用してログインしてください。</p>
+<p>ソーシャルアカウントにリンクされているアカウントにログインしたい場合、メールアドレスを入力してログインすると新しいアカウントが作成されてしまいます。VIP会員のアクセスを行うには、必ずソーシャルアカウントのオプションを使用してログインしてください。</p>
+<p>同じメールアドレスや誤ったアドレスで複数のアカウントを作成することが可能であるため、Toomicsアカウントを作成するときは慎重に行ってください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410750464409" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>性別を選ぶ必要があるのはなぜですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>性別を選択することで、当社のシステムが自動的に特定のタイプの漫画やジャンルをおすすめいたします。</p>
+<p>性別に基づいてアカウントのおすすめをパーソナライズされたくない場合は、「わからない」を選択してください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39410711424793" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="vip-membership---coins"><span class="section-icon">⭐</span>VIP Membership &amp; Coins</h1>
+<h2 class="sub-section">VIP会員サービス</h2>
+<details>
+<summary>VIP会員に登録したのにアクセスできない場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>購入が確認できない場合は、VIP会員サービスまたはコインを購入した際に使用したログイン方法（ソーシャルメディアアカウントやメールアドレスとパスワード）を確認してください。同じログイン方法を使うことで、アクセスがスムーズになります。</p>
+<p>アプリ経由で登録した場合、購入履歴がメールアカウントと連携できていないことがあります。まずはアプリストア（Google PlayストアやApple Appストア）から購入を復元し、その後メールアドレスを登録して、アプリアカウントとウェブアカウントを連携させてください。</p>
+<p>Google Android / Appleユーザー向けの手順：</p>
+<ol>
+<li>AndroidまたはiPhoneでGoogle Playストア/ Appストアを開きます。</li>
+<li>購入する際に使用したGoogleまたはAppleアカウントでサインインしているか確認します。</li>
+<li>Toomicsアプリを開きます。</li>
+<li>赤文字になっている「VIP会員サービス」ボタンをタップします。</li>
+<li>支払いページからホームページに戻ります。</li>
+<li>何も起こらない場合は、「ヘルプセンター」をタップして、「VIP会員サービスの復元」を選択し、「復元」ボタンを押してください。</li>
+</ol>
+<p>メールアドレスにVIP会員サービスを連動する手順：</p>
+<ol>
+<li>AndroidまたはiPhoneでToomicsアプリにログインします。</li>
+<li>画面左上のToomicsロゴをタップし、「会員登録」を選択します。</li>
+<li>VIP会員サービスを連動させたいメールアドレスを入力します。</li>
+</ol>
+<p>これでVIP会員サービスをご利用いただけるはずです！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411639689497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスが期限切れになった後もコンテンツを読むことができますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>残念ながら、VIP会員サービスが期限切れになると、プレミアムコンテンツへのアクセスはできなくなります。VIP会員サービスは、選択した期間内のみVIP専用コンテンツへのアクセスを提供しております。</p>
+<p>有効期限の確認方法：</p>
+<p>画面右上にある[≡]メニューから「アカウント管理」をタップすると、サブスクリプションの有効期限が確認できます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411719553049" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスで全ての漫画を読むことができますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p> </p>
+<p>VIP会員専用コンテンツを無制限に楽しむことができます。</p>
+<p> </p>
+<p>VIP会員サービスに加入している限り、すべてのVIP専用コンテンツにアクセスできます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411823644953" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスとコインの違いは何ですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsの自動継続型のVIP会員サービスは、すべての漫画に無制限でアクセスできる特別なプランです。コインを購入せずに、VIP会員サービスを購入すれば、Toomicsのウェブサイト（toomics.com）やモバイルブラウザ、モバイルアプリからプレミアムコンテンツを利用することができます。購入したアカウントにログインすれば、どのデバイスでも利用可能です。</p>
+<p>VIP会員サービスを購入しない場合は、コインシステムを利用することもできます。コインを購入すれば特定の漫画を読むことができるため、特定の作品だけを楽しみたいユーザーには最適なプランです。コインを使って購入したエピソードは、コインがなくなっても後からいつでも閲覧が可能です。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411605123481" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスの次の請求日はいつですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p> </p>
+<p>VIP会員サービスは定期購入で、自動的に選択したプランに応じて更新されます。</p>
+<p>購入時のレシートに記載された日付を確認してください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411785421465" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスは他の言語でも利用できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsのサービスは韓国語、簡体字中国語、繁体字中国語、スペイン語、イタリア語、ドイツ語、ポルトガル語、フランス語、日本語、英語で異なります。そのため、特定の言語サイトで購入した場合、他の言語サイトでは使用できません。</p>
+<p>ただし、手動で言語を変更できる場合もありますが、一度変更を承諾すると、今後その変更を元に戻すことはできません。</p>
+<p>変更をご希望の場合は、問い合わせフォームにご連絡ください。なお、Apple App StoreやGoogle Play Storeで購入された場合の言語変更は、技術的な制限によりサポートできませんのでご了承ください。</p>
+<p>また、イタリア語とポルトガル語のサブスクリプションサービスは終了しているため、それらの言語への変更も対応できません。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411698651545" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスを解約する方法は？<span class="art-count">2024-11-06</span></summary>
+<div class="article-body"><p>VIP会員サービスの解約方法をご案内します。購入方法に応じた手順をご確認ください：</p>
+<p> </p>
+<p>Toomicsウェブサイトでの解約：</p>
+<ol>
+<li>toomics.comにサインインします。</li>
+<li>画面右上の[≡]メニューから「アカウント管理」を選択します。</li>
+<li>「VIP会員サービスの解約」をクリックします。</li>
+<li>解約理由を選択します。</li>
+</ol>
+<p>Apple App Storeでの解約：</p>
+<ol>
+<li>「設定」を開きます。</li>
+<li>「iTunes &amp; App Store」をタップします。</li>
+<li>Apple IDをタップし、「Apple IDを表示」を選択します。</li>
+<li>「サブスクリプション」をタップし、解約するサブスクリプションを選びます。<br><br>
+</li>
+</ol>
+<p>Google Playストアでの解約：</p>
+<ol>
+<li>Google Playストアアプリを開きます。</li>
+<li>「メニュー」→「マイアプリ」→「サブスクリプション」をタップし、解約するアプリを選びます。</li>
+<li>「解約」をタップし、確認します。<br><br>
+</li>
+</ol>
+<p>iOSでの購入に関しては、Appleのポリシーにより、弊社から手動でキャンセルすることはできませんのでご了承ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411753101849" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-06</div></div>
+</details>
+<details>
+<summary>無料トライアルはありますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p> </p>
+<p>いいえ、無料トライアルを提供しておりません。</p>
+<p> </p>
+<p>VIP会員サービスを購入した方のみがコンテンツを利用できます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411796231193" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>無料期間とは何ですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>解約を希望する場合、代わりに「無料期間」を提供するオプションがあります。これにより、30日間無料ですべての漫画を閲覧できます。</p>
+<p>ただし、無料期間が終了するとサブスクリプションは自動的に更新されますので、更新前に解約してください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411772664089" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">コイン</h2>
+<details>
+<summary>なぜコインの価格が変更になったのですか？また、コイン購入の割引やプロモーションはありますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsは、読者の皆様に今まで以上によりよい経験、そしてより多くの選択肢を提供するため、コインの価格及びオプションの改定を行いました。</p>
+<p>今後、コイン購入の割引やプロモーションも行っていく予定ですので、ご期待ください。これからも読者の皆様に楽しんでいただけることをToomicsは考えてまいります。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39412102096153" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>コインとは何ですか？<span class="art-count">2025-07-03</span></summary>
+<div class="article-body"><p>コインを使えば、Toomicsで提供される全ての独占漫画を閲覧することができます。コインは現金で購入でき、お気に入りの漫画の各エピソードを閲覧するために使用します。各エピソードの価格は1〜3コインで、その長さや内容に応じて異なります。コインで購入したエピソードはデジタルコピーを所有しているようなもので、たとえToomicsで掲載が終了しても、いつでも閲覧することができます。</p>
+<p> </p>
+<p><strong>プレミアムコイン</strong><strong><br></strong>お客様がご自身で購入されたコインのことです。<strong>付与された日から180日の有効期限があり</strong>、期限内にご自由にご利用いただけます。</p>
+<p> </p>
+<p><strong>ボーナスコイン</strong><strong><br></strong>購入時にToomicsからお礼として追加される特別なコインです。プレミアムコイン同様、有効期限がなく、お好きなときにご利用いただけます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39411955317657" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-07-03</div></div>
+</details>
+<details>
+<summary>コインはどれくらいの期間有効ですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>一度購入したコインに利用期限はなく、いつでも利用可能です。</p>
+<p>追加で他のエピソードもご覧になられたいと思ったとき、ご自由にご利用ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39412055362329" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>コイン残高及び購入に必要なコインの枚数はどこで確認できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>コイン残高は、設定メニュー[<strong>≡</strong>]からご確認いただけます。</p>
+<p>エピソードを閲覧するのに必要なコインの枚数は、各エピソードごとに表示されていますので、そちらよりご確認ください。</p>
+<p>全エピソードを一度に購入したい場合は、該当作品の目録ページにある「全エピソード購入」ボタンよりご購入ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39412051391129" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>購入した作品はどこで確認できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>購入した作品は、「マイライブラリ」の「コレクション作品」からご確認いただけます。そこでは、各作品の購入状況や購入した割合が表示されます。</p>
+<p>作品のサムネイルをクリックすると、各エピソードの購入状況や購入に何枚のコインが必要かなどの詳しい情報をご確認いただけます。また、そちらのページからエピソードの個別購入はもちろんのこと、残りの話を一度にご購入いただくこともできます。</p>
+<p>この機能を使って、コレクションを簡単に管理し、お気に入りの作品を見逃すことなくお楽しみいただけます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39412092642969" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="payment---refunds"><span class="section-icon">💳</span>Payment &amp; Refunds</h1>
+<h2 class="sub-section">支払い &amp; トラブルシューティング</h2>
+<details>
+<summary>どの支払い方法が利用できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>VIP会員になるには、クレジットカードが必要です。現在、以下の4つの決済プロバイダをご利用いただけます。：</p>
+<ul>
+<li>PayPal</li>
+<li>Paymentwall</li>
+<li>Payletter</li>
+<li>Worldpay</li>
+</ul>
+<p>クレジットカードを利用したくない方に向け、VIP会員決済ページにはその他の支払い方法もご提案していますので、ご参考ください。また、コインを購入して漫画の各エピソードにアクセスのできるコインシステムでは様々な支払い方法が選択できますので、こちらも併せてご検討ください。</p>
+<p> </p>
+<p>Toomicsのアプリケーション(Google PlayストアやApple App ストアにて配信中)では、より多様な支払い方法をお選びいただけます。ウェブサイトで提供されている支払い方法以外の方法をご希望の方は、一度アプリケーションをご確認いただければと思います。</p>
+<p><br>支払いプランリンク:    <a href="https://toomics.com/de/mypage/payment/type/payment-plan" target="_blank" rel="noopener noreferrer">支払いプラン</a></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413199190809" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>なぜPayPalが表示されないのですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>PayPalを通じて購入を希望する場合は、以下のリンクからアクセスしてください：</p>
+<p><span class="wysiwyg-underline"><a href="https://toomics.com/ja">https://toomics.com/ja</a></span></p>
+<p><a href="https://toomics.com/en"><br></a>ご不便をおかけして申し訳ありませんが、ご理解とご協力のほど、よろしくお願いいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413373670937" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>なぜ支払いができないのですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>カード発行会社が設定した海外取引制限が原因で、支払いに失敗している可能性があります。再度決済を行う前に、まずはカード発行会社にお問い合わせください。</p>
+<p><br>また、クレジットカード詐欺を防ぐため、3Dセキュア認証を導入しています。3Dセキュア認証が上手く機能しない場合（接続エラーやパスワードの間違いなどが原因）、以下の手順をお試しください。：</p>
+<ol>
+<li>もう一度支払いを行ってみてください。その際、パスワードやSMSネットコードを正しく入力できているか確認してください。5回以上決済に失敗すると、不審な活動とみなされ、決済システムが取引をブロックする可能性がありますので、十分お気を付けください。</li>
+<li>一時的にポップアップブロッカーを無効にしてください。3Dセキュアは新しいウィンドウで開かれるため、ポップアップブロッカーによりブロックされることがあります。</li>
+</ol></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413228259865" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>クレジットカードなしでVIP会員を購入するには？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>VIP会員は基本的にクレジットカードが必要ですが、VIP会員決済ページでは他の支払い方法もご提供しています。<br>VIP会員を選択後、「他の支払い方法はこちら」をクリックして、ご確認ください。</p>
+<p>また、ウェブサイト上で提供されている決済方法以外の方法をご希望の場合は、より多様な支払い方法をご提案しているToomicsのアプリケーション(Google PlayストアやApple App ストアにて配信中)を一度ご確認ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413265434393" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>支払い方法や支払いプランを変更するには？<span class="art-count">2024-11-06</span></summary>
+<div class="article-body"><p>VIP会員は基本的にクレジットカードが必要ですが、VIP会員決済ページでは他の支払い方法もご提供しています。<br>VIP会員を選択後、「他の支払い方法はこちら」をクリックして、ご確認ください。</p>
+<p>また、ウェブサイト上で提供されている決済方法以外の方法をご希望の場合は、より多様な支払い方法をご提案しているToomicsのアプリケーション(Google PlayストアやApple App ストアにて配信中)を一度ご確認ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413286044185" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-06</div></div>
+</details>
+<details>
+<summary>次の支払い日はいつですか？<span class="art-count">2024-10-31</span></summary>
+<div class="article-body"><p>支払い日については、選択されたVIP会員プランの期間と購入日によって異なります。</p>
+<p>請求履歴でご購入いただいた定期購入プランの詳細を確認することが可能です。</p>
+<p> </p>
+<p>例えば、10月8日に月額定期購入プランに加入された場合、次回のお支払い日は翌月の同日、つまり11月8日となります。3ヶ月定期購入の場合も、購入日から3ヶ月後の同じ日にお支払いが発生します。同様のルールが6ヶ月定期購入や年間定期購入にも適用されますので、ぜひご参考ください。</p>
+<p> </p>
+<p>アカウントを解約された際には、その終了日を確認することができます。</p>
+<p><img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXet5wNlM8YjMsSJiRzIt_Q3ShA_sU8hkXgWuODm4qekaIo3UZcQQMbhZd7J7K-10FaW_CBZUGA8F9qvYIO_N9PlEszxRN6ptuuZ2CS9t9yJGUeMyfpwgBWVt-xFUZznBGcgzkZ-EsI9mJdfb379IqmSeTg?key=GP5DUH7dkFTT8OMp5y_2Qw" width="624" height="408"></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413216904217" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-31</div></div>
+</details>
+<h2 class="sub-section">返金</h2>
+<details>
+<summary>Apple App Storeでの購入に関しての返金<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Apple App StoreでVIP会員を購入した場合、返金はAppleの方針により、Toomics側で処理することはできません。VIP会員を継続しない場合は、Appleアカウントの設定から手動で解約を行ってください。</p>
+<p> </p>
+<p>解約手順は以下の通りです：</p>
+<ol>
+<li>設定アプリを開きます。</li>
+<li>「iTunes &amp; App Store」をタップします。</li>
+<li>自分のApple IDをタップします。</li>
+<li>ポップアップが表示されたら「Apple IDを表示」を選択します。</li>
+<li>Apple IDパスワードまたは指紋認証を入力します。</li>
+<li>「サブスクリプション」をタップし、解約したいサブスクリプションを選択します。<br><br>
+</li>
+</ol>
+<p>Appleでの返金リクエストについては、Appleサポートに直接お問い合わせください。<br><br></p>
+<p>Appleでの返金手順は以下の通りです：</p>
+<ol>
+<li>
+<a href="https://reportaproblem.apple.com"><span class="wysiwyg-underline">reportaproblem.apple.com</span></a> にアクセスします。</li>
+<li>Apple IDとパスワードでサインインします。</li>
+<li>返金を希望する項目の横にある「問題を報告」を選択します。</li>
+<li>指示に従って理由を選択し、返金リクエストを提出してください。<br><br>
+</li>
+</ol>
+<p>ご不明な点がございましたら、お気軽にお問い合わせください。<br>今後ともToomicsをよろしくお願いいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413680505881" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員の購入について<span class="art-count">2025-08-13</span></summary>
+<div class="article-body"><p>VIP会員の定期購読に関して、以下の条件を<span class="wysiwyg-color-red wysiwyg-font-size-x-large" style="color: #ff0000;">すべて</span>満たす場合、返金を求めることができます：</p>
+<p> </p>
+<ol>
+<li><strong>購入日から14日以内に返金を要求すること。</strong></li>
+<li><strong>アカウントを使用し、いかなるVIP専用コンテンツも閲覧していない場合</strong></li>
+<li><strong><span data-text-custom-color="#ff991f" data-prosemirror-content-type="mark" data-prosemirror-mark-name="textColor" data-zd-seq="7">VIP購入により提供された、または割引された価格で購入したコイン（ギフトコイン、ボーナスコインを含める）に対する利用履歴が返金対象月にない場合</span></strong></li>
+</ol>
+<p>上記の条件のいずれか一つでも満たさない場合、返金は致しかねます。<br><br><br></p>
+<p><strong>コイン購入について</strong></p>
+<p><br>コインの購入については、購入日から7日以内にコインを全く使用していない場合に限り、返金が可能です。</p>
+<p>もし、プレミアムコインまたはボーナスコインを一度でも使用していた場合、返金はできません。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413556340889" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2025-08-13</div></div>
+</details>
+<details>
+<summary>現金払いの返金について<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>現金でのお支払いについては、ご利用いただいた決済方法によって返金が可能かどうかが異なります。</p>
+<p><br>ご購入前に、選択した決済方法が返金対応可能かを必ずご確認ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413530681625" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>自動更新で再度引き落としされた場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>ToomicsのVIP会員は自動更新される<span style="background-color: #ffffff;">定額制サービス</span>です。そのため、解約手続きが適切に行われなかった場合、サービスが自動的に更新され、再度引き落としされることがあります。<br>当社の利用規約には、以下の通り明示されています：</p>
+<p> </p>
+<p>「VIP会員は、選択した決済方法に基づき、自動的に更新されます。会員が指定された期間内にVIP会員を解約しない限り、月額料金が指定の決済方法から自動的に引き落とされます。」</p>
+<p> </p>
+<p>また、支払いページにも同様の説明が記載されています。<br>「VIP会員の購入に同意することで、会員資格が自動更新されることに同意したものとみなされます。」</p>
+<p> </p>
+<p>解約が正しく行われていなかった場合、VIP会員の更新が続行される可能性がありますので、詳しい説明やサポートをご希望の場合は、どうぞお気軽にお問い合わせください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413660897305" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>返金がまだ完了しない場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>返金の処理時間や金額については、ご利用の銀行やクレジットカード会社の手続きによるため、私たちには管理ができません。</p>
+<p>より詳しい情報は、カード発行会社や金融機関に直接お問い合わせください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413579026713" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>追加で請求された場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><br>お支払額が予定より多くなっている場合、決済プロバイダの手数料や為替レートの違いにより、若干の差異が生じることがありますのでご注意ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413623454105" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="technical-issues"><span class="section-icon">🔧</span>Technical Issues</h1>
+<h2 class="sub-section">アプリ/PCに関するよくある質問</h2>
+<details>
+<summary>Apple App Storeで購入したものをAndroidで利用できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Apple App StoreでiPhone/iPadを使って購入した場合、そのVIP会員権はiOS版Toomicsアプリでのみ使用できます。<br>AndroidデバイスでVIP会員を利用するには、ウェブブラウザを通してアクセスしてください。Android版Toomicsアプリにはログインしないよう、ご留意ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414216039321" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>Google Playストアで購入したものをiPhoneで利用できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Google PlayストアでAndroidデバイスを使って購入した場合、そのVIP会員権はAndroid版Toomicsアプリでのみ使用できます。<br>iPhone/iPadでVIP会員を利用するには、ウェブブラウザからアクセスしてください。iOS版Toomicsアプリにはログインしないよう、ご留意ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414269632409" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>VIP会員サービスを復元するにはどうすればいいですか？<span class="art-count">2024-12-23</span></summary>
+<div class="article-body"><p>アプリから購入を復元してみてください。<br>以下の手順をお試しください：</p>
+<ol>
+<li>AndroidデバイスでGoogle Playストアを開きます。</li>
+<li>購入したGoogleアカウントにログインしていることを確認します。</li>
+<li>「Toomics」アプリを起動します。</li>
+<li>赤い「VIP会員」ボタンをタップします。</li>
+<li>支払いページからホーム画面に戻ります。</li>
+<li>それでもアプリ内のアカウントにアクセスできない場合は、「復元」をタップして「復元」ボタンを押してください。</li>
+</ol>
+<p><img src="https://help.toomicsglobal.com/hc/article_attachments/41505801139993"></p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414166101529" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-12-23</div></div>
+</details>
+<details>
+<summary>なぜアプリで成人向けコンテンツが読めないのですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Google PlayストアとApple App Storeのポリシーに従い、アプリ内で成人向けコンテンツを提供することができません。そのため、成人向け漫画にはアプリではアクセスできない仕組みになっています。<br>ご不便をおかけして申し訳ございません。<br>「安心モード」をオフにしたい場合は、PCやモバイルのブラウザでtoomics.comにアクセスして変更してください。</p>
+<p>アプリでVIP会員を購入した場合でも、その会員権をウェブサイトで利用できます。アプリで使用したToomicsアカウントにログインすれば、VIP会員権はそのアカウントに適用されます。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414194423577" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>アプリはありますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>はい、Toomicsのモバイルアプリがあります。<br><br>Google PlayストアとApple App Storeからダウンロードできます！<br><br>ただし、Google PlayストアとApple App Storeのポリシーに従い、アプリ内では成人向けコンテンツを提供できないため、アダルト向け漫画にはアクセスできません。<br>成人向け漫画を読みたい場合は、toomics.comのウェブサイトにアクセスしてください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414148013721" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>以前のシステムやインターフェースに戻すことはできますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>残念ながら、以前のシステムやインターフェースに戻すことはできません。<br>デザイン変更に慣れない場合があることは承知しています。特に複数のシリーズを追っている場合はなおさらです。<br>現在、ユーザーからのフィードバックを収集し、デザインと機能性を両立させた改善を進めています。<br>もし操作に困ったり、シリーズの管理に関してサポートが必要な場合は、遠慮なくご連絡ください。私たちは、Toomicsでの体験を快適かつスムーズにするために、常にサポートいたします。</p>
+<p>Toomicsをご利用いただきありがとうございます。今後ともよろしくお願いいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414263283353" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>複数のデバイスで同時に利用できますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>残念ながら、VIP会員は1台のデバイスでのみ利用可能です。<br>もし別のデバイスで利用したい場合、最初のデバイスでのセッションは自動的に終了し、2台目のデバイスでVIPコンテンツを利用できるようになります。<br>ご不便をおかけしますが、ご了承ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414182102297" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h2 class="sub-section">一般的な問題</h2>
+<details>
+<summary>アカウントが制限された理由について<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>Toomicsのアカウントが制限された場合、それはシステムが不審な活動を検出した可能性があります。以下の行為が原因で、アカウントが自動的にブロックされることがあります：</p>
+<ol>
+<li>各漫画の最終章のみを読んだ場合。</li>
+<li>漫画の章を非常に不規則なタイミングで読んだ場合。</li>
+<li>章を数秒で、または同時に、不規則に読んだ場合。</li>
+<li>Toomicsの著作権で保護されたコンテンツを違法なウェブサイトに転載した場合。</li>
+<li>購入金額の返金処理（チャージバック）を申請した場合。</li>
+</ol>
+<p>詳細な理由はお伝えできませんが、上記の活動が原因でアカウントが制限されている可能性があります。追加のサポートや説明が必要な場合は、お気軽にご連絡ください。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414081100953" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>ウェブサイトや画像の読み込みが遅いのはなぜですか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>サーバーの位置や、同じ地域で同時に利用しているユーザーの数によって、ウェブサイトの読み込み速度が遅くなる可能性があります。特定の時間帯に多くのユーザーがアクセスしている場合、読み込み速度に影響が出ることがあります。<br><br></p>
+<p>読み込み速度を向上させるためには、デバイスのバッテリー節約モードをオフにすることをお勧めします。また、別のブラウザを試してみたり、ネットワークを変更したり、少し待ってみるのも良いかもしれません。</p>
+<p> </p>
+<p>それでも問題が解決しない場合は、どのタイムゾーンにいるのか、どの作品のどの章を読もうとしているのかをお知らせいただければ、詳しく調査させていただきます。<br><br></p>
+<p>以下の手順で読み込み速度の改善をお試しください：<br><br></p>
+<p><strong>キャッシュの削除：</strong></p>
+<ul>
+<li>お使いのウェブブラウザを開きます。</li>
+<li>「Ctrl」+「Shift」+「Del」（Windowsの場合）または「Cmd」+「Shift」+「Del」（Macの場合）を同時に押し、ブラウザキャッシュの削除メニューを開きます。</li>
+<li>「キャッシュ」やその他の保存されたデータを選択します。</li>
+<li>「削除」または「キャッシュをクリア」をクリックします。<br><br>
+</li>
+</ul>
+<p><strong>ブラウザの更新：</strong></p>
+<p>ブラウザが最新のバージョンに更新されているかご確認ください。古いバージョンのブラウザは、読み込み問題を引き起こす可能性があります。<br><br></p>
+<p><strong>別のブラウザを使用：</strong></p>
+<p>別のブラウザでウェブサイトを開き、問題がブラウザ依存かどうか確認してみてください。<br><br></p>
+<p>それでも読み込みに問題がある場合は、タイムゾーン、読もうとしている作品のタイトルと章をお知らせください。弊社で調査いたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413959718553" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>エラー報告方法<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>申し訳ございません！T_T<br><br>どうか問題についての詳細をお知らせください（問題のスクリーンショットも一緒に送っていただけると助かります）。できる限り早く原因追及いたします！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414050351001" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>パスワードのリセット方法<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p><strong>PCユーザーの場合：</strong></p>
+<ul>
+<li>[アカウント設定]に移動して、パスワードを変更できます。</li>
+</ul>
+<p><strong>モバイルユーザーの場合：</strong></p>
+<ul>
+<li>画面左上のメニューアイコンをタップして、[アカウント設定]からパスワードを変更してください。</li>
+</ul>
+<p>ただし、次の特殊文字が使用された場合、パスワードのリセットがうまくいかないことがあります：! @ # $ % ^ &amp; * ( )</p>
+<p>これらの特殊文字を使用した場合、パスワードが変更またはリセットされない可能性が高いです。パスワードをToomicsの基準に合わせて変更することをお勧めします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39414068012185" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<details>
+<summary>登録後にメールの確認リンクが届かない場合<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>登録後に確認メールが届かない場合、迷惑メールフォルダをご確認ください。それでも見つからない場合は、同じメールアドレスとパスワードで再度登録してみてください。新しい確認リンクが再送されます。</p>
+<p>また、ソーシャルメディアのアカウントで登録することもお勧めします。登録ボタンの下にあるソーシャルメディアのアイコンをクリックすると、自動的にアカウントが作成されます。</p>
+<p>もしソーシャルメディアのアカウントを使用したくない場合は、1:1サポートセンターに連絡していただければ、弊社でソーシャルメディアのアカウントを通常のメールアカウントに変更するサポートをいたします。</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39413976389401" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+<h1 class="section-heading" id="event---benefits"><span class="section-icon">🎁</span>Event / Benefits</h1>
+<h2 class="sub-section">イベント / 特典</h2>
+<details>
+<summary>他にプロモーションや割引はありますか？<span class="art-count">2024-10-30</span></summary>
+<div class="article-body"><p>現在、ウェブサイトに掲載されているもの以外のキャンペーンは行っておりません：</p>
+<p><br>Toomicsの支払いプラン:   <span class="wysiwyg-underline"> <a href="https://global.toomics.com/ja/mypage/payment/type/payment-plan">支払いプラン</a></span></p>
+<p><a href="https://global.toomics.com/de/mypage/payment/type/payment-plan"><span class="wysiwyg-underline"><br></span></a>現在特定の割引はありませんが、今後定期的なキャンペーンの実施を計画しています。お得な機会を見逃さないよう、更新情報やお知らせをぜひチェックしてください！</p></div>
+<div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/ja/articles/39412307037209" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
+</details>
+</div>
+
+<div class="footer">
+  <strong>TOOMICS BizOps</strong> — Zendesk FAQ Documentation<br>
+  Generated: 2026-03-04 &middot; Author: 유종선 &middot; Language: 日本語<br>
+  Source: help.toomicsglobal.com
+</div>
+
+</div>
+</body>
+</html>
