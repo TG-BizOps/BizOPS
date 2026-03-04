@@ -691,9 +691,9 @@
         <button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>
       </div>
       <table class="req-table">
-        <thead><tr><th>ID</th><th>요청자</th><th>대상 문서</th><th>유형</th><th>우선순위</th><th>상태</th><th>날짜</th></tr></thead>
+        <thead><tr><th>ID</th><th>요청자</th><th>대상 문서</th><th>유형</th><th>우선순위</th><th>상태</th><th>등록일</th><th>완료일</th></tr></thead>
         <tbody id="reqTableBody">
-          <tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>
+          <tr><td colspan="8" class="req-empty">데이터를 불러오는 중...</td></tr>
         </tbody>
       </table>
     </div>
@@ -1178,6 +1178,7 @@ var VERSION_HISTORY = {
 
   // Status color map & shared constants
   var statusClass = { '대기중': 'req-badge-wait', '진행중': 'req-badge-progress', '완료': 'req-badge-done' };
+  function fmtDate(v) { return v ? String(v).substring(0, 10) : '-'; }
   var REFRESH_BTN = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
 
   function statusBarHtml(counts) {
@@ -1192,7 +1193,7 @@ var VERSION_HISTORY = {
     var bar = document.getElementById('reqStatusBar');
     var btn = document.getElementById('reqRefreshBtn');
     if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
-    tbody.innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
+    tbody.innerHTML = '<tr><td colspan="8" class="req-empty">데이터를 불러오는 중...</td></tr>';
 
     fetch(APPS_SCRIPT_URL, { mode: 'cors', redirect: 'follow' })
       .then(function(r) { return r.json(); })
@@ -1208,20 +1209,20 @@ var VERSION_HISTORY = {
 
         var recent = rows.slice(0, 5);
         if (recent.length === 0) {
-          tbody.innerHTML = '<tr><td colspan="7" class="req-empty">등록된 요청이 없습니다.</td></tr>';
+          tbody.innerHTML = '<tr><td colspan="8" class="req-empty">등록된 요청이 없습니다.</td></tr>';
           return;
         }
         var html = '';
         recent.forEach(function(r) {
           var sc = statusClass[r.status] || 'req-badge-wait';
           var pri = r.priority === '높음' ? '🔴 높음' : r.priority === '낮음' ? '🟢 낮음' : '🟡 보통';
-          html += '<tr><td>' + (r.id || '-') + '</td><td>' + (r.requester || '-') + '</td><td>' + (r.document || '-') + '</td><td>' + (r.type || '-') + '</td><td class="td-pri">' + pri + '</td><td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td><td>' + (r.timestamp || '-') + '</td></tr>';
+          html += '<tr><td>' + (r.id || '-') + '</td><td>' + (r.requester || '-') + '</td><td>' + (r.document || '-') + '</td><td>' + (r.type || '-') + '</td><td class="td-pri">' + pri + '</td><td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td><td>' + fmtDate(r.timestamp) + '</td><td>' + fmtDate(r.completed_at) + '</td></tr>';
         });
         tbody.innerHTML = html;
       })
       .catch(function(err) {
         console.error('[BizOPS] loadRequests 에러:', err);
-        tbody.innerHTML = '<tr><td colspan="7" class="req-empty">현황 데이터를 불러올 수 없습니다.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="req-empty">현황 데이터를 불러올 수 없습니다.</td></tr>';
         bar.innerHTML = statusBarHtml({ '대기중': '-', '진행중': '-', '완료': '-' });
       });
   }
@@ -1230,7 +1231,7 @@ var VERSION_HISTORY = {
   window.refreshRequests = function() {
     var btn = document.getElementById('reqRefreshBtn');
     if (btn) { btn.disabled = true; btn.textContent = '로딩중...'; }
-    document.getElementById('reqTableBody').innerHTML = '<tr><td colspan="7" class="req-empty">데이터를 불러오는 중...</td></tr>';
+    document.getElementById('reqTableBody').innerHTML = '<tr><td colspan="8" class="req-empty">데이터를 불러오는 중...</td></tr>';
     document.getElementById('reqStatusBar').innerHTML = statusBarHtml({ '대기중': 0, '진행중': 0, '완료': 0 });
     var nb = document.getElementById('reqRefreshBtn');
     if (nb) { nb.disabled = true; nb.textContent = '로딩중...'; }
