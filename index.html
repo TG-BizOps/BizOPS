@@ -294,25 +294,26 @@
   .version-toggle:hover { background: #E2E8F0; color: #475569; }
   .version-toggle.open { background: #EFF6FF; border-color: #BFDBFE; color: #2563EB; }
   .version-dropdown {
-    display: none; margin-top: 8px; padding: 10px 14px;
+    display: none; margin-top: 4px; padding: 10px 14px;
     background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px;
-    font-size: 12px;
+    font-size: 12px; min-width: 280px; width: 100%; flex-basis: 100%;
   }
   .version-dropdown.open { display: block; }
   .version-entry {
-    display: flex; align-items: baseline; gap: 8px;
+    display: flex; align-items: baseline; gap: 10px;
     padding: 5px 0; border-bottom: 1px solid #E2E8F0;
+    white-space: nowrap;
   }
   .version-entry:last-child { border-bottom: none; }
   .version-entry .ver-tag {
     font-weight: 800; color: #2563EB; font-size: 11px;
-    min-width: 32px; flex-shrink: 0;
+    min-width: 36px; flex-shrink: 0;
   }
   .version-entry .ver-date {
-    font-size: 11px; color: #94A3B8; min-width: 78px; flex-shrink: 0;
+    font-size: 0.8rem; color: #888; min-width: 84px; flex-shrink: 0;
     font-variant-numeric: tabular-nums;
   }
-  .version-entry .ver-summary { color: #475569; }
+  .version-entry .ver-summary { color: #475569; white-space: normal; }
 
   /* NEW / UPDATED badges */
   .badge-new {
@@ -869,11 +870,9 @@ var VERSION_HISTORY = {
     });
     dropdown.innerHTML = html;
 
-    // Append dropdown to the card's body area
-    var lcBody = card.querySelector('.lc-body');
-    if (lcBody) {
-      lcBody.appendChild(dropdown);
-    }
+    // Append dropdown to card itself (not lc-body, to avoid overflow:hidden clipping)
+    card.style.flexWrap = 'wrap';
+    card.appendChild(dropdown);
 
     // Toggle behavior
     toggleBtn.addEventListener('click', function(e) {
