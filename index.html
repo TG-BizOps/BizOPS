@@ -1481,7 +1481,12 @@ var VERSION_HISTORY = {
       .then(function(r) { return r.json(); })
       .then(function(data) {
         allRequests = Array.isArray(data) ? data : [];
-        console.log('[BizOPS] 요청 데이터 수신:', allRequests.length, '건');
+        allRequests.sort(function(a, b) {
+          var da = a.timestamp ? new Date(a.timestamp) : new Date(0);
+          var db = b.timestamp ? new Date(b.timestamp) : new Date(0);
+          return db - da;
+        });
+        console.log('[BizOPS] 요청 데이터 수신:', allRequests.length, '건 (최신순)');
 
         var counts = { '대기중': 0, '진행중': 0, '완료': 0 };
         allRequests.forEach(function(r) {
