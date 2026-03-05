@@ -2,6 +2,7 @@
 secrets/
 *.json
 !package.json
+!docs.json
 
 # Python
 __pycache__/

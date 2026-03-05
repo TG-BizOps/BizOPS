@@ -50,14 +50,6 @@
   .stat-card:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.08); transform: translateY(-2px); }
   .stat-card .num { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
   .stat-card .lbl { font-size: 12px; color: #475569; margin-top: 4px; }
-  .stat-card:nth-child(2) { border-top-color: #7C3AED; }
-  .stat-card:nth-child(3) { border-top-color: #F59E0B; }
-  .stat-card:nth-child(4) { border-top-color: #0EA5E9; }
-  .stat-card:nth-child(5) { border-top-color: #10B981; }
-  .stat-card:nth-child(6) { border-top-color: #EF4444; }
-  .stat-card:nth-child(7) { border-top-color: #0891B2; }
-  .stat-card:nth-child(8) { border-top-color: #0F766E; }
-  .stat-card:nth-child(9) { border-top-color: #475569; }
 
   /* Accordion */
   .accordion { margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
@@ -503,28 +495,28 @@
 
   <!-- Stats -->
   <div class="stats">
-    <div class="stat-card" data-target="sec-cs">
-      <div class="num">8</div><div class="lbl">CS 운영</div>
+    <div class="stat-card" data-target="sec-cs" style="border-top-color:#2563EB">
+      <div class="num">10</div><div class="lbl">CS 운영</div>
     </div>
-    <div class="stat-card" data-target="sec-chatbot">
-      <div class="num">13</div><div class="lbl">AI 챗봇</div>
-    </div>
-    <div class="stat-card" data-target="sec-cb">
-      <div class="num">4</div><div class="lbl">차지백</div>
-    </div>
-    <div class="stat-card" data-target="sec-ip">
-      <div class="num">1</div><div class="lbl">IP 보호</div>
-    </div>
-    <div class="stat-card" data-target="sec-ticket">
-      <div class="num">2</div><div class="lbl">대시보드</div>
-    </div>
-    <div class="stat-card" data-target="sec-faq">
+    <div class="stat-card" data-target="sec-faq" style="border-top-color:#0891B2">
       <div class="num">10</div><div class="lbl">FAQ</div>
     </div>
-    <div class="stat-card" data-target="sec-legal">
+    <div class="stat-card" data-target="sec-chatbot" style="border-top-color:#7C3AED">
+      <div class="num">13</div><div class="lbl">AI 챗봇</div>
+    </div>
+    <div class="stat-card" data-target="sec-cb" style="border-top-color:#F59E0B">
+      <div class="num">4</div><div class="lbl">차지백</div>
+    </div>
+    <div class="stat-card" data-target="sec-ip" style="border-top-color:#10B981">
+      <div class="num">1</div><div class="lbl">IP 보호</div>
+    </div>
+    <div class="stat-card" data-target="sec-ticket" style="border-top-color:#EF4444">
+      <div class="num">2</div><div class="lbl">대시보드</div>
+    </div>
+    <div class="stat-card" data-target="sec-legal" style="border-top-color:#0F766E">
       <div class="num">10</div><div class="lbl">정책/약관</div>
     </div>
-    <div class="stat-card" data-target="sec-tpl">
+    <div class="stat-card" data-target="sec-tpl" style="border-top-color:#475569">
       <div class="num">3</div><div class="lbl">기타</div>
     </div>
   </div>
@@ -550,11 +542,11 @@
         <div class="filter-pills" data-group="cat">
           <button class="filter-pill active" data-value="all" type="button">All</button>
           <button class="filter-pill" data-value="sec-cs" type="button">CS 운영</button>
+          <button class="filter-pill" data-value="sec-faq" type="button">FAQ</button>
           <button class="filter-pill" data-value="sec-chatbot" type="button">AI 챗봇</button>
           <button class="filter-pill" data-value="sec-cb" type="button">차지백</button>
           <button class="filter-pill" data-value="sec-ip" type="button">IP 보호</button>
           <button class="filter-pill" data-value="sec-ticket" type="button">대시보드</button>
-          <button class="filter-pill" data-value="sec-faq" type="button">FAQ</button>
           <button class="filter-pill" data-value="sec-legal" type="button">정책/약관</button>
           <button class="filter-pill" data-value="sec-tpl" type="button">기타</button>
         </div>
@@ -623,8 +615,7 @@
       </div>
     </div></div>
   </div>
-
-  <!-- FAQ (10개 언어) -->
+  <!-- FAQ 매뉴얼 -->
   <div class="accordion" id="sec-faq">
     <button class="accordion-header" aria-expanded="false">
       <span class="icon" style="background:#0891B2">FAQ</span> FAQ 매뉴얼
@@ -646,7 +637,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- AI 챗봇 -->
   <div class="accordion" id="sec-chatbot">
     <button class="accordion-header" aria-expanded="false">
@@ -672,7 +662,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- 차지백 -->
   <div class="accordion" id="sec-cb">
     <button class="accordion-header" aria-expanded="false">
@@ -689,7 +678,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- IP 보호 -->
   <div class="accordion" id="sec-ip">
     <button class="accordion-header" aria-expanded="false">
@@ -703,7 +691,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- 티켓 대시보드 -->
   <div class="accordion" id="sec-ticket">
     <button class="accordion-header" aria-expanded="false">
@@ -718,7 +705,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- 정책 및 약관 -->
   <div class="accordion" id="sec-legal">
     <button class="accordion-header" aria-expanded="false">
@@ -741,7 +727,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- 기타 -->
   <div class="accordion" id="sec-tpl">
     <button class="accordion-header" aria-expanded="false">
@@ -757,7 +742,6 @@
       </div>
     </div></div>
   </div>
-
   <!-- 요청 현황 -->
   <div class="req-section">
     <div class="req-section-title" onclick="this.classList.toggle('open');this.closest('.req-section').classList.toggle('open')">📊 요청 현황<span class="chevron-req">▶</span></div>
@@ -990,134 +974,360 @@ var DOC_STATUS = {};
 // Version History Data
 var VERSION_HISTORY = {
   "cs_manual_EN_20260219.html": {
-    current: "v2.2",
-    history: [
-      { version: "v2.1", date: "2026-02-25", summary: "카테고리 비중 업데이트, 템플릿 보완" },
-      { version: "v2.0", date: "2026-02-19", summary: "전체 구조 개편, EN/KO 분리" },
-      { version: "v1.0", date: "2026-01-15", summary: "최초 작성" }
+    "current": "v2.2",
+    "history": [
+      {
+        "version": "v2.1",
+        "date": "2026-02-25",
+        "summary": "카테고리 비중 업데이트, 템플릿 보완"
+      },
+      {
+        "version": "v2.0",
+        "date": "2026-02-19",
+        "summary": "전체 구조 개편, EN/KO 분리"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-01-15",
+        "summary": "최초 작성"
+      }
     ]
   },
   "cs_manual_KO_20260219.html": {
-    current: "v2.2",
-    history: [
-      { version: "v2.1", date: "2026-02-25", summary: "카테고리 비중 업데이트, 템플릿 보완" },
-      { version: "v2.0", date: "2026-02-19", summary: "전체 구조 개편, EN/KO 분리" },
-      { version: "v1.0", date: "2026-01-15", summary: "최초 작성" }
+    "current": "v2.2",
+    "history": [
+      {
+        "version": "v2.1",
+        "date": "2026-02-25",
+        "summary": "카테고리 비중 업데이트, 템플릿 보완"
+      },
+      {
+        "version": "v2.0",
+        "date": "2026-02-19",
+        "summary": "전체 구조 개편, EN/KO 분리"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-01-15",
+        "summary": "최초 작성"
+      }
     ]
   },
   "chargeback_operation_manual_20260304.html": {
-    current: "v1.4",
-    history: [
-      { version: "v1.3", date: "2026-02-20", summary: "MyCard 회신 기한 수정, 레거시 링크 정리" },
-      { version: "v1.2", date: "2026-02-18", summary: "MyCard 프로세스 추가" },
-      { version: "v1.1", date: "2026-02-10", summary: "8개 PG사 통합" },
-      { version: "v1.0", date: "2026-01-20", summary: "최초 작성" }
+    "current": "v1.4",
+    "history": [
+      {
+        "version": "v1.3",
+        "date": "2026-02-20",
+        "summary": "MyCard 회신 기한 수정, 레거시 링크 정리"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-02-18",
+        "summary": "MyCard 프로세스 추가"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-02-10",
+        "summary": "8개 PG사 통합"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-01-20",
+        "summary": "최초 작성"
+      }
     ]
   },
   "Chargeback_Explanation_Form_v5.xlsx": {
-    current: "v5.0",
-    history: [
-      { version: "v4.0", date: "2026-02-15", summary: "자동화 수식 적용" },
-      { version: "v3.0", date: "2026-02-01", summary: "PG사별 시트 통합" },
-      { version: "v2.0", date: "2026-01-20", summary: "컬럼 구조 확장" },
-      { version: "v1.0", date: "2026-01-10", summary: "최초 작성" }
+    "current": "v5.0",
+    "history": [
+      {
+        "version": "v4.0",
+        "date": "2026-02-15",
+        "summary": "자동화 수식 적용"
+      },
+      {
+        "version": "v3.0",
+        "date": "2026-02-01",
+        "summary": "PG사별 시트 통합"
+      },
+      {
+        "version": "v2.0",
+        "date": "2026-01-20",
+        "summary": "컬럼 구조 확장"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-01-10",
+        "summary": "최초 작성"
+      }
     ]
   },
   "faq_EN_20260304.html": {
-    current: "v1.4",
-    history: [
-      { version: "v1.3", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.2", date: "2026-03-05", summary: "Payment Options FAQ PG사 목록 현행화 (4→9개)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (9 Categories, 90 Articles)" }
+    "current": "v1.4",
+    "history": [
+      {
+        "version": "v1.3",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "Payment Options FAQ PG사 목록 현행화 (4→9개)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (9 Categories, 90 Articles)"
+      }
     ]
   },
   "faq_FR_20260304.html": {
-    current: "v1.4",
-    history: [
-      { version: "v1.3", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.2", date: "2026-03-05", summary: "Payment Options FAQ PG사 목록 현행화 (4→9개)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.4",
+    "history": [
+      {
+        "version": "v1.3",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "Payment Options FAQ PG사 목록 현행화 (4→9개)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
   "faq_DE_20260304.html": {
-    current: "v1.3",
-    history: [
-      { version: "v1.2", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.3",
+    "history": [
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
   "faq_ES_20260304.html": {
-    current: "v1.6",
-    history: [
-      { version: "v1.5", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.4", date: "2026-03-05", summary: "언어 변경 안내 간소화 (두 가지 방법 → 하단 드롭다운 단일)" },
-      { version: "v1.3", date: "2026-03-05", summary: "Payment Options FAQ PG사 목록 현행화 (4→9개)" },
-      { version: "v1.2", date: "2026-03-05", summary: "VIP 언어 FAQ 구조 개편 + /es, /mx → /esp URL 일괄 변경" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.6",
+    "history": [
+      {
+        "version": "v1.5",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.4",
+        "date": "2026-03-05",
+        "summary": "언어 변경 안내 간소화 (두 가지 방법 → 하단 드롭다운 단일)"
+      },
+      {
+        "version": "v1.3",
+        "date": "2026-03-05",
+        "summary": "Payment Options FAQ PG사 목록 현행화 (4→9개)"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "VIP 언어 FAQ 구조 개편 + /es, /mx → /esp URL 일괄 변경"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
   "faq_PT_20260304.html": {
-    current: "v1.3",
-    history: [
-      { version: "v1.2", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.3",
+    "history": [
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
   "faq_IT_20260304.html": {
-    current: "v1.4",
-    history: [
-      { version: "v1.3", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.2", date: "2026-03-05", summary: "Payment Options FAQ PG사 목록 현행화 (4→9개)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.4",
+    "history": [
+      {
+        "version": "v1.3",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "Payment Options FAQ PG사 목록 현행화 (4→9개)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
   "faq_JP_20260304.html": {
-    current: "v1.2",
-    history: [
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (76 Articles)" }
+    "current": "v1.2",
+    "history": [
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (76 Articles)"
+      }
     ]
   },
   "faq_TH_20260304.html": {
-    current: "v1.4",
-    history: [
-      { version: "v1.3", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.2", date: "2026-03-05", summary: "Payment Options FAQ PG사 목록 현행화 (4→9개)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (92 Articles)" }
+    "current": "v1.4",
+    "history": [
+      {
+        "version": "v1.3",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "Payment Options FAQ PG사 목록 현행화 (4→9개)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (92 Articles)"
+      }
     ]
   },
   "faq_CN_20260304.html": {
-    current: "v1.2",
-    history: [
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (81 Articles)" }
+    "current": "v1.2",
+    "history": [
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (81 Articles)"
+      }
     ]
   },
   "faq_TW_20260304.html": {
-    current: "v1.3",
-    history: [
-      { version: "v1.2", date: "2026-03-05", summary: "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)" },
-      { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
-      { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
+    "current": "v1.3",
+    "history": [
+      {
+        "version": "v1.2",
+        "date": "2026-03-05",
+        "summary": "검열 FAQ 삭제 (Coin Store 무검열 작품 존재)"
+      },
+      {
+        "version": "v1.1",
+        "date": "2026-03-05",
+        "summary": "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)"
+      },
+      {
+        "version": "v1.0",
+        "date": "2026-03-04",
+        "summary": "최초 작성 (86 Articles)"
+      }
     ]
   },
-  "terms_of_service_EN_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_FR_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_DE_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_ES_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_PT_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_IT_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_JP_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_TH_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_CN_20260305.html": { current: "v1.0", history: [] },
-  "terms_of_service_TW_20260305.html": { current: "v1.0", history: [] }
+  "terms_of_service_EN_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_FR_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_DE_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_ES_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_PT_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_IT_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_JP_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_TH_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_CN_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  },
+  "terms_of_service_TW_20260305.html": {
+    "current": "v1.0",
+    "history": []
+  }
 };
 
 // Inject version history toggles
@@ -1136,7 +1346,7 @@ var VERSION_HISTORY = {
     var toggleBtn = document.createElement('button');
     toggleBtn.className = 'version-toggle';
     toggleBtn.type = 'button';
-    toggleBtn.textContent = '🕐';
+    toggleBtn.textContent = '\uD83D\uDD50';
     toggleBtn.title = '버전 히스토리 (' + vData.history.length + '건)';
     insertAfter.insertAdjacentElement('afterend', toggleBtn);
 
@@ -1320,14 +1530,7 @@ var VERSION_HISTORY = {
 
 // Recent Updates Panel (최근 5개 문서)
 (function() {
-  var categories = [
-    { id: 'sec-cs', name: 'CS 운영', color: '#2563EB' },
-    { id: 'sec-chatbot', name: 'AI 챗봇', color: '#7C3AED' },
-    { id: 'sec-cb', name: '차지백', color: '#F59E0B' },
-    { id: 'sec-ip', name: 'IP 보호', color: '#10B981' },
-    { id: 'sec-ticket', name: '대시보드', color: '#EF4444' },
-    { id: 'sec-tpl', name: '기타', color: '#475569' }
-  ];
+  var categories = [{"id": "sec-cs", "name": "CS 운영", "color": "#2563EB"}, {"id": "sec-faq", "name": "FAQ", "color": "#0891B2"}, {"id": "sec-chatbot", "name": "AI 챗봇", "color": "#7C3AED"}, {"id": "sec-cb", "name": "차지백", "color": "#F59E0B"}, {"id": "sec-ip", "name": "IP 보호", "color": "#10B981"}, {"id": "sec-ticket", "name": "대시보드", "color": "#EF4444"}, {"id": "sec-legal", "name": "정책/약관", "color": "#0F766E"}, {"id": "sec-tpl", "name": "기타", "color": "#475569"}];
   var DAY = 86400000;
   var now = new Date();
   var updates = [];
@@ -1393,7 +1596,7 @@ var VERSION_HISTORY = {
   // Status color map & shared constants
   var statusClass = { '대기중': 'req-badge-wait', '진행중': 'req-badge-progress', '완료': 'req-badge-done' };
   function fmtDate(v) { return v ? String(v).substring(0, 10) : '-'; }
-  var REFRESH_BTN = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">🔄 새로고침</button>';
+  var REFRESH_BTN = '<button type="button" class="req-refresh-btn" id="reqRefreshBtn" onclick="refreshRequests()">\uD83D\uDD04 새로고침</button>';
   var PER_PAGE = 5;
   var allRequests = [];
   var activeFilter = '';
@@ -1429,7 +1632,7 @@ var VERSION_HISTORY = {
     var html = '';
     page.forEach(function(r) {
       var sc = statusClass[r.status] || 'req-badge-wait';
-      var pri = r.priority === '높음' ? '🔴 높음' : r.priority === '낮음' ? '🟢 낮음' : '🟡 보통';
+      var pri = r.priority === '높음' ? '\uD83D\uDD34 높음' : r.priority === '낮음' ? '\uD83D\uDFE2 낮음' : '\uD83D\uDFE1 보통';
       html += '<tr><td>' + (r.id || '-') + '</td><td>' + (r.requester || '-') + '</td><td>' + (r.document || '-') + '</td><td>' + (r.type || '-') + '</td><td class="td-pri">' + pri + '</td><td><span class="td-status ' + sc + '">' + (r.status || '-') + '</span></td><td>' + fmtDate(r.timestamp) + '</td><td>' + fmtDate(r.completed_at) + '</td></tr>';
     });
     tbody.innerHTML = html;
