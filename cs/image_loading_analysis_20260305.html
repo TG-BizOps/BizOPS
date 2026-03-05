@@ -37,7 +37,6 @@ tr:hover { background:#f8fafc; }
 .case-card .reply { border-left-color:#2563eb;background:#eff6ff; }
 .appendix { background:#f9fafb;border:1px dashed var(--border);border-radius:8px;padding:20px;margin-top:20px; }
 .appendix h3 { color:var(--muted);font-size:14px;margin-bottom:8px; }
-.collapse-toggle { cursor:pointer;color:var(--accent);font-size:13px; }
 #search { width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:6px;font-size:13px;margin-bottom:12px; }
 @media print {
   body { background:#fff; }
@@ -59,33 +58,31 @@ tr:hover { background:#f8fafc; }
 
 <header>
   <h1>Image Loading & Server Issue Analysis</h1>
-  <div class="sub">이미지 로딩/서버 기술 이슈 분석 리포트 (콘텐츠 오류 제외)</div>
+  <div class="sub">이미지 로딩/서버 기술 이슈 분석 리포트</div>
   <div class="meta">
     <span>Period: 2026-02-05 ~ 2026-03-05 (created_at 기준)</span>
     <span>Source: Zendesk CS Tickets</span>
-    <span>Analyzed: 51 confirmed issues</span>
+    <span>Analyzed: 47 confirmed issues</span>
     <span>작성자: 유종선</span>
   </div>
 </header>
 
-<!-- KPI Strip -->
 <div class="kpi-strip">
-  <div class="kpi"><div class="v" style="color:#dc2626">51</div><div class="l">확인된 기술 이슈</div><div class="s">콘텐츠 오류 3건 제외</div></div>
-  <div class="kpi"><div class="v" style="color:#b91c1c">27</div><div class="l">로딩/서버 이슈</div><div class="s">52.9% of total</div></div>
+  <div class="kpi"><div class="v" style="color:#dc2626">47</div><div class="l">확인된 기술 이슈</div><div class="s">노이즈 48건 + 콘텐츠 오류 3건 제외</div></div>
+  <div class="kpi"><div class="v" style="color:#b91c1c">27</div><div class="l">로딩/서버 이슈</div><div class="s">57.4% of total</div></div>
   <div class="kpi"><div class="v" style="color:#ea580c">FR</div><div class="l">최다 마켓</div><div class="s">18건</div></div>
-  <div class="kpi"><div class="v" style="color:#f59e0b">10</div><div class="l">스파이크 일수</div><div class="s">≥3건/일</div></div>
+  <div class="kpi"><div class="v" style="color:#f59e0b">9</div><div class="l">스파이크 일수</div><div class="s">≥3건/일</div></div>
   <div class="kpi"><div class="v" style="color:#6366f1">37</div><div class="l">구분불가 (별도)</div><div class="s">Zendesk 폼 한계</div></div>
 </div>
 
-<!-- Key Finding -->
 <div class="highlight-card">
-  <h2>Key Finding: 로딩/서버 이슈가 전체의 53%</h2>
+  <h2>Key Finding: 로딩/서버 이슈가 전체의 57%</h2>
   <p style="font-size:15px;color:#374151;">
-    확인된 51건 중 <strong style="color:#dc2626;">로딩 무한/지연(24건) + 이미지 로딩 불가(2건) + 서버 에러(1건) = 27건(52.9%)</strong>이 
+    확인된 47건 중 <strong style="color:#dc2626;">로딩 무한/지연(24건) + 이미지 로딩 불가(2건) + 서버 에러(1건) = 27건(57.4%)</strong>이 
     서버/인프라 기반 로딩 장애입니다. 콘텐츠 미표시(18건)까지 포함하면 기술 이슈의 대부분이 이미지 전달 파이프라인 문제입니다.
   </p>
   <p style="font-size:13px;color:#64748b;margin-top:8px;">
-    * 콘텐츠 오류(잘못된 파일 업로드) 3건은 관리팀 이슈로 분석 대상에서 제외
+    * 콘텐츠 오류(잘못된 파일 업로드) 3건은 관리팀 이슈로 제외 / 기타(Family Safe Mode·환불 등) 4건은 노이즈로 제외
   </p>
 </div>
 
@@ -104,7 +101,7 @@ tr:hover { background:#f8fafc; }
   <h2>Weekly Trend</h2>
   <canvas id="weeklyChart" height="200"></canvas>
 </div>
-<div class="card"><h2>Spike Dates (≥3건/일)</h2><table><tr><th>Date</th><th>건수</th><th>비고</th></tr><tr><td>2026-02-15</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, ES, EN</td></tr><tr><td>2026-02-18</td><td style="font-weight:700;color:#dc2626">5</td><td>DE, FR</td></tr><tr><td>2026-02-19</td><td style="font-weight:700;color:#dc2626">3</td><td>ES, FR</td></tr><tr><td>2026-02-20</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, DE</td></tr><tr><td>2026-02-21</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, PT, DE</td></tr><tr><td>2026-02-22</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, DE</td></tr><tr><td>2026-02-23</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, ES</td></tr><tr><td>2026-02-26</td><td style="font-weight:700;color:#dc2626">6</td><td>FR, CN</td></tr><tr><td>2026-03-02</td><td style="font-weight:700;color:#dc2626">3</td><td>CN</td></tr><tr><td>2026-03-04</td><td style="font-weight:700;color:#dc2626">5</td><td>CN, PT, TH</td></tr></table></div><div class="card"><h2>Market × Issue Type</h2><table><tr><th>Market</th><th>기타</th><th>로딩 무한/지연</th><th>빈 화면/미표시</th><th>서버 에러</th><th>이미지 로딩 불가</th><th>콘텐츠 미표시</th><th>합계</th></tr><tr><td><strong>CN</strong></td><td>1</td><td style="font-weight:700;color:#dc2626">3</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">7</td><td style="font-weight:700">12</td></tr><tr><td><strong>DE</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">6</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">7</td></tr><tr><td><strong>EN</strong></td><td style="font-weight:700;color:#dc2626">3</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">5</td></tr><tr><td><strong>ES</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">4</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">4</td></tr><tr><td><strong>FR</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">6</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">11</td><td style="font-weight:700">18</td></tr><tr><td><strong>IT</strong></td><td>-</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">1</td></tr><tr><td><strong>PT</strong></td><td>-</td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700">2</td></tr><tr><td><strong>TH</strong></td><td>-</td><td>1</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">2</td></tr></table></div><div class="card"><h2>Representative Cases by Issue Type</h2><h3 style="margin:16px 0 8px;color:#dc2626">로딩 무한/지연 (24건)</h3><div class="case-card">
+<div class="card"><h2>Spike Dates (≥3건/일)</h2><table><tr><th>Date</th><th>건수</th><th>비고</th></tr><tr><td>2026-02-15</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, ES, EN</td></tr><tr><td>2026-02-18</td><td style="font-weight:700;color:#dc2626">5</td><td>DE, FR</td></tr><tr><td>2026-02-19</td><td style="font-weight:700;color:#dc2626">3</td><td>ES, FR</td></tr><tr><td>2026-02-20</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, DE</td></tr><tr><td>2026-02-21</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, PT, DE</td></tr><tr><td>2026-02-22</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, DE</td></tr><tr><td>2026-02-23</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, ES</td></tr><tr><td>2026-02-26</td><td style="font-weight:700;color:#dc2626">6</td><td>FR, CN</td></tr><tr><td>2026-03-04</td><td style="font-weight:700;color:#dc2626">5</td><td>CN, PT, TH</td></tr></table></div><div class="card"><h2>Market × Issue Type</h2><table><tr><th>Market</th><th>로딩 무한/지연</th><th>빈 화면/미표시</th><th>서버 에러</th><th>이미지 로딩 불가</th><th>콘텐츠 미표시</th><th>합계</th></tr><tr><td><strong>CN</strong></td><td style="font-weight:700;color:#dc2626">3</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">7</td><td style="font-weight:700">11</td></tr><tr><td><strong>DE</strong></td><td style="font-weight:700;color:#dc2626">6</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">7</td></tr><tr><td><strong>EN</strong></td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">2</td></tr><tr><td><strong>ES</strong></td><td style="font-weight:700;color:#dc2626">4</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">4</td></tr><tr><td><strong>FR</strong></td><td style="font-weight:700;color:#dc2626">6</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">11</td><td style="font-weight:700">18</td></tr><tr><td><strong>IT</strong></td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">1</td></tr><tr><td><strong>PT</strong></td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700">2</td></tr><tr><td><strong>TH</strong></td><td>1</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">2</td></tr></table></div><div class="card"><h2>Representative Cases by Issue Type</h2><h3 style="margin:16px 0 8px;color:#dc2626">로딩 무한/지연 (24건)</h3><div class="case-card">
   <div class="meta-line">Ticket #122886 · ES · Otros</div>
   <blockquote>작품정보 : Mi casa es tu casa
 
@@ -146,20 +143,6 @@ Cela peut être gênant mais si vous remarquez des erreurs spécifiques, nous vo
 Merci de nous avoir contactés. 
  
 Cela peut être gênant mais si vous remarquez des erreurs spécifiques, nous vous enverrons une capture d'écr</blockquote>
-</div><h3 style="margin:16px 0 8px;color:#6366f1">기타 (4건)</h3><div class="case-card">
-  <div class="meta-line">Ticket #120440 · EN · nan</div>
-  <blockquote>VIP subscription and family safe mode: I bought one month vip subscription and can’t access to off the family safe mode anymore. Please check this and</blockquote>
-  <blockquote class="reply">Hello, this is TOOMICS Customer Support.
-Thank you for contacting us!
- 
-We have checked our database and have found that you were able to access your </blockquote>
-</div><div class="case-card">
-  <div class="meta-line">Ticket #120438 · EN · nan</div>
-  <blockquote>I bought ViP subscription for adult series. And now I can’t remove the family safe mode in website. At first I can access only for like 2 or 3 days an</blockquote>
-  <blockquote class="reply">Hello, this is TOOMICS Customer Support.
-Thank you for contacting us!
- 
-We would like to first and foremost apologize for the confusion, it seems that</blockquote>
 </div><h3 style="margin:16px 0 8px;color:#b91c1c">이미지 로딩 불가 (2건)</h3><div class="case-card">
   <div class="meta-line">Ticket #123886 · DE · Bildfehler</div>
   <blockquote>작품정보 : Knock Knock
@@ -219,212 +202,40 @@ Demora muito de carregar as imagens</blockquote>
 Agradecemos o seu contato.
  
 A lentidão no carregamento que você está enfrentando pode ocor</blockquote>
-</div></div><div class="card"><h2>Main Data Table (51건)</h2>
+</div></div><div class="card"><h2>Main Data Table (47건)</h2>
 <input type="text" id="search" placeholder="Search tickets..." onkeyup="filterTable()">
 <div style="overflow-x:auto"><table id="mainTable">
-<tr><th>Ticket</th><th>Market</th><th>Issue Type</th><th>Subject</th><th>Created</th><th>Status</th></tr><tr>
-<td>120440</td><td>EN</td>
-<td><span class="badge" style="background:#6366f1">기타</span></td>
-<td>nan</td><td>2026-02-08</td><td>closed</td></tr><tr>
-<td>120438</td><td>EN</td>
-<td><span class="badge" style="background:#6366f1">기타</span></td>
-<td>nan</td><td>2026-02-08</td><td>closed</td></tr><tr>
-<td>122886</td><td>ES</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Otros</td><td>2026-02-15</td><td>closed</td></tr><tr>
-<td>122649</td><td>EN</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Other issues</td><td>2026-02-15</td><td>closed</td></tr><tr>
-<td>123450</td><td>EN</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-17</td><td>closed</td></tr><tr>
-<td>123761</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr>
-<td>123583</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr>
-<td>123862</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr>
-<td>123886</td><td>DE</td>
-<td><span class="badge" style="background:#b91c1c">이미지 로딩 불가</span></td>
-<td>Bildfehler</td><td>2026-02-18</td><td>closed</td></tr><tr>
-<td>124030</td><td>ES</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Otros</td><td>2026-02-19</td><td>closed</td></tr><tr>
-<td>124191</td><td>ES</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>nan</td><td>2026-02-19</td><td>closed</td></tr><tr>
-<td>124290</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-20</td><td>closed</td></tr><tr>
-<td>122870</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-15</td><td>closed</td></tr><tr>
-<td>122871</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-15</td><td>closed</td></tr><tr>
-<td>122439</td><td>CN</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>其他</td><td>2026-02-14</td><td>closed</td></tr><tr>
-<td>124563</td><td>PT</td>
-<td><span class="badge" style="background:#991b1b">서버 에러</span></td>
-<td>Outros</td><td>2026-02-21</td><td>closed</td></tr><tr>
-<td>124991</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>nan</td><td>2026-02-21</td><td>closed</td></tr><tr>
-<td>125807</td><td>ES</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Otros</td><td>2026-02-23</td><td>closed</td></tr><tr>
-<td>124918</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-21</td><td>closed</td></tr><tr>
-<td>125196</td><td>DE</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Anderes Problem</td><td>2026-02-22</td><td>closed</td></tr><tr>
-<td>126120</td><td>IT</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Altro</td><td>2026-02-24</td><td>closed</td></tr><tr>
-<td>123776</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-18</td><td>solved</td></tr><tr>
-<td>124084</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Autre problème</td><td>2026-02-19</td><td>solved</td></tr><tr>
-<td>125217</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-22</td><td>solved</td></tr><tr>
-<td>124466</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-20</td><td>solved</td></tr><tr>
-<td>124379</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-20</td><td>solved</td></tr><tr>
-<td>124587</td><td>FR</td>
-<td><span class="badge" style="background:#d97706">빈 화면/미표시</span></td>
-<td>nan</td><td>2026-02-21</td><td>solved</td></tr><tr>
-<td>125526</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-23</td><td>solved</td></tr><tr>
-<td>125552</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-23</td><td>solved</td></tr><tr>
-<td>127027</td><td>TH</td>
-<td><span class="badge" style="background:#b91c1c">이미지 로딩 불가</span></td>
-<td>nan</td><td>2026-02-27</td><td>solved</td></tr><tr>
-<td>125132</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>nan</td><td>2026-02-22</td><td>solved</td></tr><tr>
-<td>125368</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>nan</td><td>2026-02-22</td><td>solved</td></tr><tr>
-<td>128005</td><td>CN</td>
-<td><span class="badge" style="background:#6366f1">기타</span></td>
-<td>nan</td><td>2026-03-02</td><td>solved</td></tr><tr>
-<td>126149</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-24</td><td>solved</td></tr><tr>
-<td>128700</td><td>PT</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Outros</td><td>2026-03-04</td><td>solved</td></tr><tr>
-<td>128626</td><td>TH</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>อื่น ๆ</td><td>2026-03-04</td><td>solved</td></tr><tr>
-<td>128627</td><td>CN</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>其他</td><td>2026-03-04</td><td>solved</td></tr><tr>
-<td>126541</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>图片有误</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>126543</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>图片有误</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>126610</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>126615</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Autre problème</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>126614</td><td>FR</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>Autre problème</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>126690</td><td>FR</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>Il y a un problème sur l'image.</td><td>2026-02-26</td><td>pending</td></tr><tr>
-<td>127283</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>其他</td><td>2026-02-28</td><td>pending</td></tr><tr>
-<td>127370</td><td>CN</td>
-<td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td>
-<td>其他</td><td>2026-02-28</td><td>pending</td></tr><tr>
-<td>127765</td><td>EN</td>
-<td><span class="badge" style="background:#6366f1">기타</span></td>
-<td>nan</td><td>2026-03-01</td><td>pending</td></tr><tr>
-<td>127953</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>圖片有誤</td><td>2026-03-02</td><td>pending</td></tr><tr>
-<td>127991</td><td>CN</td>
-<td><span class="badge" style="background:#d97706">빈 화면/미표시</span></td>
-<td>其他</td><td>2026-03-02</td><td>pending</td></tr><tr>
-<td>128327</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>其他</td><td>2026-03-03</td><td>pending</td></tr><tr>
-<td>128623</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>圖片有誤</td><td>2026-03-04</td><td>pending</td></tr><tr>
-<td>128631</td><td>CN</td>
-<td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td>
-<td>圖片有誤</td><td>2026-03-04</td><td>pending</td></tr></table></div></div><div class="appendix">
+<tr><th>Ticket</th><th>Market</th><th>Issue Type</th><th>Subject</th><th>Created</th><th>Status</th></tr><tr><td>122886</td><td>ES</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Otros</td><td>2026-02-15</td><td>closed</td></tr><tr><td>122649</td><td>EN</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Other issues</td><td>2026-02-15</td><td>closed</td></tr><tr><td>123450</td><td>EN</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-17</td><td>closed</td></tr><tr><td>123761</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr><td>123583</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr><td>123862</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-18</td><td>closed</td></tr><tr><td>123886</td><td>DE</td><td><span class="badge" style="background:#b91c1c">이미지 로딩 불가</span></td><td>Bildfehler</td><td>2026-02-18</td><td>closed</td></tr><tr><td>124030</td><td>ES</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Otros</td><td>2026-02-19</td><td>closed</td></tr><tr><td>124191</td><td>ES</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>nan</td><td>2026-02-19</td><td>closed</td></tr><tr><td>124290</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-20</td><td>closed</td></tr><tr><td>122870</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-15</td><td>closed</td></tr><tr><td>122871</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-15</td><td>closed</td></tr><tr><td>122439</td><td>CN</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>其他</td><td>2026-02-14</td><td>closed</td></tr><tr><td>124563</td><td>PT</td><td><span class="badge" style="background:#991b1b">서버 에러</span></td><td>Outros</td><td>2026-02-21</td><td>closed</td></tr><tr><td>124991</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>nan</td><td>2026-02-21</td><td>closed</td></tr><tr><td>125807</td><td>ES</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Otros</td><td>2026-02-23</td><td>closed</td></tr><tr><td>124918</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-21</td><td>closed</td></tr><tr><td>125196</td><td>DE</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Anderes Problem</td><td>2026-02-22</td><td>closed</td></tr><tr><td>126120</td><td>IT</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Altro</td><td>2026-02-24</td><td>closed</td></tr><tr><td>123776</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-18</td><td>solved</td></tr><tr><td>124084</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Autre problème</td><td>2026-02-19</td><td>solved</td></tr><tr><td>125217</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-22</td><td>solved</td></tr><tr><td>124466</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-20</td><td>solved</td></tr><tr><td>124379</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-20</td><td>solved</td></tr><tr><td>124587</td><td>FR</td><td><span class="badge" style="background:#d97706">빈 화면/미표시</span></td><td>nan</td><td>2026-02-21</td><td>solved</td></tr><tr><td>125526</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-23</td><td>solved</td></tr><tr><td>125552</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-23</td><td>solved</td></tr><tr><td>127027</td><td>TH</td><td><span class="badge" style="background:#b91c1c">이미지 로딩 불가</span></td><td>nan</td><td>2026-02-27</td><td>solved</td></tr><tr><td>125132</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>nan</td><td>2026-02-22</td><td>solved</td></tr><tr><td>125368</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>nan</td><td>2026-02-22</td><td>solved</td></tr><tr><td>126149</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-24</td><td>solved</td></tr><tr><td>128700</td><td>PT</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Outros</td><td>2026-03-04</td><td>solved</td></tr><tr><td>128626</td><td>TH</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>อื่น ๆ</td><td>2026-03-04</td><td>solved</td></tr><tr><td>128627</td><td>CN</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>其他</td><td>2026-03-04</td><td>solved</td></tr><tr><td>126541</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>图片有误</td><td>2026-02-26</td><td>pending</td></tr><tr><td>126543</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>图片有误</td><td>2026-02-26</td><td>pending</td></tr><tr><td>126610</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-26</td><td>pending</td></tr><tr><td>126615</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Autre problème</td><td>2026-02-26</td><td>pending</td></tr><tr><td>126614</td><td>FR</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>Autre problème</td><td>2026-02-26</td><td>pending</td></tr><tr><td>126690</td><td>FR</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>Il y a un problème sur l'image.</td><td>2026-02-26</td><td>pending</td></tr><tr><td>127283</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>其他</td><td>2026-02-28</td><td>pending</td></tr><tr><td>127370</td><td>CN</td><td><span class="badge" style="background:#dc2626">로딩 무한/지연</span></td><td>其他</td><td>2026-02-28</td><td>pending</td></tr><tr><td>127953</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>圖片有誤</td><td>2026-03-02</td><td>pending</td></tr><tr><td>127991</td><td>CN</td><td><span class="badge" style="background:#d97706">빈 화면/미표시</span></td><td>其他</td><td>2026-03-02</td><td>pending</td></tr><tr><td>128327</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>其他</td><td>2026-03-03</td><td>pending</td></tr><tr><td>128623</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>圖片有誤</td><td>2026-03-04</td><td>pending</td></tr><tr><td>128631</td><td>CN</td><td><span class="badge" style="background:#ea580c">콘텐츠 미표시</span></td><td>圖片有誤</td><td>2026-03-04</td><td>pending</td></tr></table></div></div><div class="appendix">
 <h3>Appendix: 구분불가 (37건)</h3>
 <p style="font-size:12px;color:#64748b;margin-bottom:8px;">
   Zendesk 인앱 "Image Error" 폼으로 접수된 티켓. 제목/회차 정보만 있고 증상 설명이 없어 기술 이슈 유형 구분 불가.
 </p>
-<details><summary class="collapse-toggle">테이블 펼치기 (37건)</summary>
+<details><summary style="cursor:pointer;color:var(--accent);font-size:13px;">테이블 펼치기 (37건)</summary>
 <table style="margin-top:8px"><tr><th>Ticket</th><th>Market</th><th>Subject</th><th>Created</th></tr><tr><td>119036</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-05</td></tr><tr><td>119392</td><td>ES</td><td>Hay un error en la imagen.</td><td>2026-02-06</td></tr><tr><td>120363</td><td>JP</td><td>画像にエラーがあります</td><td>2026-02-08</td></tr><tr><td>119534</td><td>DE</td><td>Bildfehler</td><td>2026-02-06</td></tr><tr><td>119697</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-06</td></tr><tr><td>120232</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-08</td></tr><tr><td>121422</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-02-11</td></tr><tr><td>124986</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-02-21</td></tr><tr><td>122742</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-02-15</td></tr><tr><td>122425</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-14</td></tr><tr><td>122500</td><td>PT</td><td>Há um erro na imagem.</td><td>2026-02-14</td></tr><tr><td>122414</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-14</td></tr><tr><td>123468</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-17</td></tr><tr><td>123623</td><td>PT</td><td>Erro na imagem</td><td>2026-02-18</td></tr><tr><td>123322</td><td>JP</td><td>画像にエラーがあります</td><td>2026-02-17</td></tr><tr><td>123538</td><td>PT</td><td>Erro na imagem</td><td>2026-02-17</td></tr><tr><td>123490</td><td>PT</td><td>Erro na imagem</td><td>2026-02-17</td></tr><tr><td>123516</td><td>DE</td><td>Bildfehler</td><td>2026-02-17</td></tr><tr><td>123806</td><td>DE</td><td>Bildfehler</td><td>2026-02-18</td></tr><tr><td>123838</td><td>DE</td><td>Bildfehler</td><td>2026-02-18</td></tr><tr><td>124301</td><td>JP</td><td>画像にエラーがあります</td><td>2026-02-20</td></tr><tr><td>124618</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-21</td></tr><tr><td>125693</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-02-23</td></tr><tr><td>127013</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-27</td></tr><tr><td>127014</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-02-27</td></tr><tr><td>127047</td><td>EN</td><td>There is an error in the image.</td><td>2026-02-27</td></tr><tr><td>127682</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-01</td></tr><tr><td>127903</td><td>EN</td><td>There is an error in the image.</td><td>2026-03-02</td></tr><tr><td>128250</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-03</td></tr><tr><td>128249</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-03</td></tr><tr><td>128431</td><td>EN</td><td>There is an error in the image.</td><td>2026-03-03</td></tr><tr><td>128629</td><td>JP</td><td>画像にエラーがあります</td><td>2026-03-04</td></tr><tr><td>128621</td><td>JP</td><td>画像にエラーがあります</td><td>2026-03-04</td></tr><tr><td>128648</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-04</td></tr><tr><td>128644</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-04</td></tr><tr><td>128677</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-04</td></tr><tr><td>128818</td><td>TH</td><td>ภาพมีปัญหา</td><td>2026-03-05</td></tr></table></details></div>
 <div style="text-align:center;padding:20px;color:var(--muted);font-size:12px;">
-  Generated: 2026-03-05 07:40 · 작성자: 유종선 · TOOMICS BizOps
+  Generated: 2026-03-05 07:47 · 작성자: 유종선 · TOOMICS BizOps
 </div>
 </div>
-
 <script>
-// Market Bar Chart
 new Chart(document.getElementById('marketChart'), {
-  type: 'bar',
-  data: {
-    labels: ['FR', 'CN', 'DE', 'EN', 'ES', 'PT', 'TH', 'IT'],
-    datasets: [{ data: [18, 12, 7, 5, 4, 2, 2, 1], backgroundColor: ['#dc2626', '#ea580c', '#f59e0b', '#16a34a', '#2563eb', '#7c3aed', '#db2777', '#6366f1'], borderRadius: 4 }]
-  },
-  options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:1 } } } }
+  type:'bar',
+  data:{ labels:['FR', 'CN', 'DE', 'ES', 'EN', 'PT', 'TH', 'IT'], datasets:[{ data:[18, 11, 7, 4, 2, 2, 2, 1], backgroundColor:['#dc2626', '#ea580c', '#f59e0b', '#16a34a', '#2563eb', '#7c3aed', '#db2777', '#6366f1'], borderRadius:4 }] },
+  options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:2 } } } }
 });
-
-// Issue Donut Chart
 new Chart(document.getElementById('issueChart'), {
-  type: 'doughnut',
-  data: {
-    labels: ['로딩 무한/지연', '콘텐츠 미표시', '기타', '이미지 로딩 불가', '빈 화면/미표시', '서버 에러'],
-    datasets: [{ data: [24, 18, 4, 2, 2, 1], backgroundColor: ['#dc2626', '#ea580c', '#6366f1', '#b91c1c', '#d97706', '#991b1b'] }]
-  },
-  options: { responsive:true, plugins:{ legend:{ position:'right', labels:{ font:{ size:11 } } } } }
+  type:'doughnut',
+  data:{ labels:['로딩 무한/지연', '콘텐츠 미표시', '이미지 로딩 불가', '빈 화면/미표시', '서버 에러'], datasets:[{ data:[24, 18, 2, 2, 1], backgroundColor:['#dc2626', '#ea580c', '#b91c1c', '#d97706', '#991b1b'] }] },
+  options:{ responsive:true, plugins:{ legend:{ position:'right', labels:{ font:{ size:11 } } } } }
 });
-
-// Weekly Trend
 new Chart(document.getElementById('weeklyChart'), {
-  type: 'bar',
-  data: {
-    labels: ['W6 (02/08)', 'W7 (02/14~15)', 'W8 (02/17~22)', 'W9 (02/23~03/01)', 'W10 (03/02~04)'],
-    datasets: [{ label:'건수', data:[2, 5, 20, 15, 9], backgroundColor:['#f59e0b','#f59e0b','#dc2626','#ea580c','#f59e0b'], borderRadius:4 }]
-  },
-  options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:2 } } } }
+  type:'bar',
+  data:{ labels:['W7 (02/14~15)', 'W8 (02/17~22)', 'W9 (02/23~28)', 'W10 (03/02~04)'], datasets:[{ label:'건수', data:[5, 20, 14, 8], backgroundColor:['#f59e0b', '#dc2626', '#f59e0b', '#f59e0b'], borderRadius:4 }] },
+  options:{ responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:2 } } } }
 });
-
-// Table Search
 function filterTable() {
-  const q = document.getElementById('search').value.toLowerCase();
-  const rows = document.getElementById('mainTable').getElementsByTagName('tr');
-  for (let i = 1; i < rows.length; i++) {
-    rows[i].style.display = rows[i].textContent.toLowerCase().includes(q) ? '' : 'none';
-  }
+  const q=document.getElementById('search').value.toLowerCase();
+  const rows=document.getElementById('mainTable').getElementsByTagName('tr');
+  for(let i=1;i<rows.length;i++) rows[i].style.display=rows[i].textContent.toLowerCase().includes(q)?'':'none';
 }
 </script>
 </body></html>
