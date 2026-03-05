@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Loading Issue Analysis — 2026-02-05 ~ 03-05</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+    --primary: #1e40af; --primary-light: #dbeafe; --primary-dark: #1e3a8a;
+    --accent: #2563eb; --bg: #f8fafc; --card: #ffffff; --text: #1e293b;
+    --text-muted: #64748b; --border: #e2e8f0; --shadow: 0 1px 3px rgba(0,0,0,.08);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; }
+.container { max-width:1200px; margin:0 auto; padding:20px; }
+header { background:linear-gradient(135deg,var(--primary),var(--accent)); color:#fff; padding:32px 40px; border-radius:12px; margin-bottom:24px; }
+header h1 { font-size:24px; font-weight:700; margin-bottom:4px; }
+header .subtitle { font-size:14px; opacity:.85; }
+header .meta { display:flex; gap:24px; margin-top:12px; font-size:13px; opacity:.8; }
+.card { background:var(--card); border-radius:10px; padding:24px; margin-bottom:20px; box-shadow:var(--shadow); border:1px solid var(--border); }
+.card h2 { font-size:18px; color:var(--primary); margin-bottom:16px; padding-bottom:8px; border-bottom:2px solid var(--primary-light); }
+.card h3 { font-size:15px; color:var(--text); margin:16px 0 8px; }
+.kpi-strip { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:12px; margin-bottom:20px; }
+.kpi { background:var(--card); border-radius:8px; padding:16px; text-align:center; box-shadow:var(--shadow); border:1px solid var(--border); }
+.kpi .value { font-size:28px; font-weight:700; color:var(--primary); }
+.kpi .label { font-size:12px; color:var(--text-muted); margin-top:4px; }
+.kpi .sub { font-size:11px; color:var(--text-muted); }
+.badge { display:inline-block; padding:2px 8px; border-radius:4px; color:#fff; font-size:11px; font-weight:600; }
+.charts-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+@media(max-width:768px) { .charts-grid { grid-template-columns:1fr; } }
+.chart-box { position:relative; height:300px; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+th { background:#f1f5f9; padding:8px 12px; text-align:left; font-weight:600; border-bottom:2px solid var(--border); position:sticky; top:0; }
+td { padding:8px 12px; border-bottom:1px solid var(--border); }
+tr:hover { background:#f8fafc; }
+.case-group { margin-bottom:16px; }
+.case-card { background:#f8fafc; border-radius:6px; padding:8px 12px; margin:4px 0; display:flex; align-items:center; gap:8px; font-size:13px; }
+.case-card .tid { color:var(--accent); font-weight:600; min-width:70px; }
+.case-card .summary { color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.spike-card { background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:12px 16px; margin:8px 0; }
+.spike-date { font-weight:600; margin-bottom:4px; }
+.spike-detail { font-size:12px; margin:4px 0; }
+.same-yes { background:#dcfce7; color:#166534; padding:2px 6px; border-radius:3px; font-size:11px; }
+.same-no { background:#fef9c3; color:#854d0e; padding:2px 6px; border-radius:3px; font-size:11px; }
+.cat-tag { background:#f1f5f9; padding:2px 6px; border-radius:3px; font-size:11px; }
+.data-table-wrap { max-height:500px; overflow-y:auto; }
+.search-box { width:100%; padding:8px 12px; border:1px solid var(--border); border-radius:6px; margin-bottom:12px; font-size:13px; }
+.footer { text-align:center; padding:20px; font-size:12px; color:var(--text-muted); }
+@media print {
+    body { background:#fff; }
+    .container { max-width:100%; padding:10px; }
+    header { break-inside:avoid; }
+    .card { break-inside:avoid; box-shadow:none; border:1px solid #ddd; }
+    .data-table-wrap { max-height:none; overflow:visible; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header>
+    <h1>Image Loading Issue Analysis Report</h1>
+    <div class="subtitle">이미지 로딩/표시 관련 CS 기술 이슈 분석</div>
+    <div class="meta">
+        <span>기간: 2026-02-05 ~ 2026-03-05</span>
+        <span>분석일: 2026-03-05</span>
+        <span>작성: 유종선 (BizOps)</span>
+    </div>
+</header>
+
+<!-- Executive Summary -->
+<div class="kpi-strip">
+    <div class="kpi">
+        <div class="value">91</div>
+        <div class="label">기술 이슈 건수</div>
+        <div class="sub">전체 135건 중 노이즈 44건 제거</div>
+    </div>
+    <div class="kpi">
+        <div class="value">5.0%</div>
+        <div class="label">전체 CS 대비 비중</div>
+        <div class="sub">전체 1,815건 기준</div>
+    </div>
+    <div class="kpi">
+        <div class="value">FR</div>
+        <div class="label">최다 발생 마켓</div>
+        <div class="sub">18건 (19.8%)</div>
+    </div>
+    <div class="kpi">
+        <div class="value">이미지 깨짐</div>
+        <div class="label">최다 이슈 유형</div>
+        <div class="sub">42건 (46.2%)</div>
+    </div>
+    <div class="kpi">
+        <div class="value">7</div>
+        <div class="label">Spike 날짜</div>
+        <div class="sub">일 5건 이상 집중</div>
+    </div>
+</div>
+
+<!-- Charts -->
+<div class="charts-grid">
+    <div class="card">
+        <h2>마켓별 이슈 건수</h2>
+        <div class="chart-box"><canvas id="marketChart"></canvas></div>
+    </div>
+    <div class="card">
+        <h2>이슈 유형별 분포</h2>
+        <div class="chart-box"><canvas id="issueChart"></canvas></div>
+    </div>
+</div>
+
+<div class="card">
+    <h2>날짜별 트렌드</h2>
+    <div style="height:280px"><canvas id="trendChart"></canvas></div>
+</div>
+
+<div class="charts-grid">
+    <div class="card">
+        <h2>주차별 분포</h2>
+        <div class="chart-box"><canvas id="weekChart"></canvas></div>
+    </div>
+    <div class="card">
+        <h2>요일별 분포</h2>
+        <div class="chart-box"><canvas id="weekdayChart"></canvas></div>
+    </div>
+</div>
+
+<!-- Spike -->
+<div class="card">
+    <h2>Spike 날짜 상세</h2>
+    <p style='color:var(--text-muted)'>일 5건 이상 접수된 날짜를 하이라이트합니다.</p>
+    <div class="spike-card">
+        <div class="spike-date">2026-02-08 (Sunday) — <strong>6건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#2563eb">EN (3)</span> <span class="badge" style="background:#d97706">ES (2)</span> <span class="badge" style="background:#4f46e5">JP (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (4)</span> <span class="cat-tag">Technical (1)</span> <span class="cat-tag">Refund (1)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-02-15 (Sunday) — <strong>5건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#7c3aed">FR (2)</span> <span class="badge" style="background:#d97706">ES (1)</span> <span class="badge" style="background:#2563eb">EN (1)</span> <span class="badge" style="background:#0891b2">TH (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (3)</span> <span class="cat-tag">Technical (2)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-02-17 (Tuesday) — <strong>6건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#2563eb">EN (2)</span> <span class="badge" style="background:#dc2626">PT (2)</span> <span class="badge" style="background:#4f46e5">JP (1)</span> <span class="badge" style="background:#059669">DE (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (6)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-02-18 (Wednesday) — <strong>8건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#059669">DE (6)</span> <span class="badge" style="background:#dc2626">PT (1)</span> <span class="badge" style="background:#7c3aed">FR (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (5)</span> <span class="cat-tag">Technical (2)</span> <span class="cat-tag">Coin (1)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-02-21 (Saturday) — <strong>6건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#7c3aed">FR (2)</span> <span class="badge" style="background:#0891b2">TH (1)</span> <span class="badge" style="background:#dc2626">PT (1)</span> <span class="badge" style="background:#059669">DE (1)</span> <span class="badge" style="background:#2563eb">EN (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Technical (3)</span> <span class="cat-tag">Content (2)</span> <span class="cat-tag">Refund (1)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-02-26 (Thursday) — <strong>6건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#7c3aed">FR (4)</span> <span class="badge" style="background:#be185d">CN (2)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (3)</span> <span class="cat-tag">Technical (2)</span> <span class="cat-tag">Coin (1)</span></div>
+    </div><div class="spike-card">
+        <div class="spike-date">2026-03-04 (Wednesday) — <strong>10건</strong> <span class="same-no">복합 이슈</span></div>
+        <div class="spike-detail">마켓: <span class="badge" style="background:#0891b2">TH (4)</span> <span class="badge" style="background:#be185d">CN (3)</span> <span class="badge" style="background:#4f46e5">JP (2)</span> <span class="badge" style="background:#dc2626">PT (1)</span></div>
+        <div class="spike-detail">카테고리: <span class="cat-tag">Content (8)</span> <span class="cat-tag">Technical (1)</span> <span class="cat-tag">Subscription (1)</span></div>
+    </div>
+</div>
+
+<!-- Cross Table -->
+<div class="card">
+    <h2>마켓 × 이슈 유형 크로스 집계</h2>
+    <table>
+        <thead><tr><th>Market</th><th style="text-align:center;color:#e74c3c">이미지 깨짐</th><th style="text-align:center;color:#f39c12">로딩 무한/지연</th><th style="text-align:center;color:#9b59b6">서버 에러</th><th style="text-align:center;color:#3498db">빈 화면</th><th style="text-align:center;color:#1abc9c">콘텐츠 미표시</th><th style="text-align:center;color:#95a5a6">기타</th><th style="text-align:center">Total</th></tr></thead>
+        <tbody><tr><td style="font-weight:600">FR</td><td style="text-align:center">-</td><td style="background:#f39c1215;text-align:center">6</td><td style="text-align:center">-</td><td style="background:#3498db15;text-align:center">1</td><td style="background:#1abc9c15;text-align:center">11</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">18</td></tr>
+<tr><td style="font-weight:600">EN</td><td style="background:#e74c3c15;text-align:center">11</td><td style="background:#f39c1215;text-align:center">2</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="background:#95a5a615;text-align:center">3</td><td style="font-weight:700;text-align:center">16</td></tr>
+<tr><td style="font-weight:600">TH</td><td style="background:#e74c3c15;text-align:center">13</td><td style="background:#f39c1215;text-align:center">1</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">14</td></tr>
+<tr><td style="font-weight:600">CN</td><td style="text-align:center">-</td><td style="background:#f39c1215;text-align:center">3</td><td style="text-align:center">-</td><td style="background:#3498db15;text-align:center">1</td><td style="background:#1abc9c15;text-align:center">7</td><td style="background:#95a5a615;text-align:center">1</td><td style="font-weight:700;text-align:center">12</td></tr>
+<tr><td style="font-weight:600">DE</td><td style="background:#e74c3c15;text-align:center">5</td><td style="background:#f39c1215;text-align:center">6</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">11</td></tr>
+<tr><td style="font-weight:600">ES</td><td style="background:#e74c3c15;text-align:center">4</td><td style="background:#f39c1215;text-align:center">4</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">8</td></tr>
+<tr><td style="font-weight:600">PT</td><td style="background:#e74c3c15;text-align:center">4</td><td style="background:#f39c1215;text-align:center">1</td><td style="background:#9b59b615;text-align:center">1</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">6</td></tr>
+<tr><td style="font-weight:600">JP</td><td style="background:#e74c3c15;text-align:center">5</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">5</td></tr>
+<tr><td style="font-weight:600">IT</td><td style="text-align:center">-</td><td style="background:#f39c1215;text-align:center">1</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="text-align:center">-</td><td style="font-weight:700;text-align:center">1</td></tr>
+<tr style="border-top:2px solid #333"><td style="font-weight:700">Total</td><td style="font-weight:700;text-align:center">42</td><td style="font-weight:700;text-align:center">24</td><td style="font-weight:700;text-align:center">1</td><td style="font-weight:700;text-align:center">2</td><td style="font-weight:700;text-align:center">18</td><td style="font-weight:700;text-align:center">4</td><td style="font-weight:700;text-align:center">91</td></tr></tbody>
+    </table>
+</div>
+
+<!-- Dev Cases -->
+<div class="card">
+    <h2>개발팀 전달용 — 이슈 유형별 대표 사례</h2>
+    <div class="case-group"><h4 style="color:#e74c3c;margin:0 0 8px">이미지 깨짐</h4><div class="case-card">
+            <span class="badge" style="background:#d97706">ES</span>
+            <span class="tid">#119907</span>
+            <span class="summary">작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#d97706">ES</span>
+            <span class="tid">#120376</span>
+            <span class="summary">작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#d97706">ES</span>
+            <span class="tid">#120215</span>
+            <span class="summary">작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81</span>
+        </div></div><div class="case-group"><h4 style="color:#f39c12;margin:0 0 8px">로딩 무한/지연</h4><div class="case-card">
+            <span class="badge" style="background:#d97706">ES</span>
+            <span class="tid">#122886</span>
+            <span class="summary">작품정보 : Mi casa es tu casa
+
+회차정보 : 6
+
+No me cargan las imágenes, así no puedo disfrutar del producto. Los capítulos se de</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#2563eb">EN</span>
+            <span class="tid">#122649</span>
+            <span class="summary">작품정보 : The Lord of the Harem
+
+회차정보 : 9
+
+Loading of comic episodes is taking a long time</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#2563eb">EN</span>
+            <span class="tid">#123450</span>
+            <span class="summary">작품정보 : Versau meine Freundin
+
+회차정보 : 2
+
+No matter what comic I try to see every Comics isn't loading</span>
+        </div></div><div class="case-group"><h4 style="color:#9b59b6;margin:0 0 8px">서버 에러</h4><div class="case-card">
+            <span class="badge" style="background:#dc2626">PT</span>
+            <span class="tid">#124563</span>
+            <span class="summary">작품정보 : A Porta de Entrada do Excluído
+
+회차정보 : 1
+
+Demora muito de carregar as imagens</span>
+        </div></div><div class="case-group"><h4 style="color:#3498db;margin:0 0 8px">빈 화면</h4><div class="case-card">
+            <span class="badge" style="background:#7c3aed">FR</span>
+            <span class="tid">#124587</span>
+            <span class="summary">Les images ne s'affichent plus par moment.</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#be185d">CN</span>
+            <span class="tid">#127991</span>
+            <span class="summary">작품정보 : 兩個老婆
+
+회차정보 : 28
+
+看不到</span>
+        </div></div><div class="case-group"><h4 style="color:#1abc9c;margin:0 0 8px">콘텐츠 미표시</h4><div class="case-card">
+            <span class="badge" style="background:#7c3aed">FR</span>
+            <span class="tid">#122870</span>
+            <span class="summary">작품정보 : Quelle vie de chien !
+
+회차정보 : 44</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#7c3aed">FR</span>
+            <span class="tid">#122871</span>
+            <span class="summary">작품정보 : Quelle vie de chien !
+
+회차정보 : 44</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#7c3aed">FR</span>
+            <span class="tid">#123776</span>
+            <span class="summary">작품정보 : Séduction à la Porte d’à Côté
+
+회차정보 : 2</span>
+        </div></div><div class="case-group"><h4 style="color:#95a5a6;margin:0 0 8px">기타</h4><div class="case-card">
+            <span class="badge" style="background:#2563eb">EN</span>
+            <span class="tid">#120440</span>
+            <span class="summary">VIP subscription and family safe mode: I bought one month vip subscription and can’t access to off the family safe mode </span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#2563eb">EN</span>
+            <span class="tid">#120438</span>
+            <span class="summary">I bought ViP subscription for adult series. And now I can’t remove the family safe mode in website. At first I can acces</span>
+        </div><div class="case-card">
+            <span class="badge" style="background:#be185d">CN</span>
+            <span class="tid">#128005</span>
+            <span class="summary">Request to Cancel Subscription and Issue Refund (No Cancellation Option Available): Dear Customer Support Team, I am wri</span>
+        </div></div>
+</div>
+
+<!-- Data Table -->
+<div class="card">
+    <h2>원본 데이터 (91건)</h2>
+    <input type="text" class="search-box" id="searchInput" placeholder="검색: ticket ID, market, issue type..." onkeyup="filterTable()">
+    <div class="data-table-wrap">
+        <table id="dataTable">
+            <thead><tr><th>Ticket</th><th>Date</th><th>Market</th><th>Issue Type</th><th>Category</th><th>Subject / Inquiry</th></tr></thead>
+            <tbody><tr>
+        <td>128818</td>
+        <td>2026-03-05</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : เปิดคลาส ศิลปะสุดแซ่บ
+
+회차정보 : 10">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128677</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : เทคนิคเพิ่มคะแนน
+
+회차정보 : 5">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128644</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : เปิดคลาส ศิลปะสุดแซ่บ
+
+회차정보 : 9">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128648</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : หัวหน้าหน่วยอัศวินเสี้ยวมังกร
+
+회차정보 : 19">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128621</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#4f46e5">JP</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 突いて世界を救え！ ～目を覚ましたら異世界でした～
+
+회차정보 : 21">画像にエラーがあります</td>
+    </tr><tr>
+        <td>128631</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 分身術讓我每天加倍變強
+
+회차정보 : 15">圖片有誤</td>
+    </tr><tr>
+        <td>128629</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#4f46e5">JP</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 結理のアルバイト
+
+회차정보 : 16">画像にエラーがあります</td>
+    </tr><tr>
+        <td>128623</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 脫序人妻
+
+회차정보 : 68">圖片有誤</td>
+    </tr><tr>
+        <td>128627</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Subscription</td>
+        <td title="작품정보 : 放任誘惑
+
+회차정보 : 5
+
+圖片一直載不出來">其他</td>
+    </tr><tr>
+        <td>128626</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Content</td>
+        <td title="작품정보 : รักตามสั่ง
+
+회차정보 : 37
+
+เสียเงินมาดูอะไรว่ะ แพงงก็เเพง ภาพ มีก็ไม่คบให้กดแต่่โหลดใหม่ ตอนนึงแม">อื่น ๆ</td>
+    </tr><tr>
+        <td>128700</td>
+        <td>2026-03-04</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Minha Coroa Preferida
+
+회차정보 : 2
+
+Carregamento das imagens tá lento">Outros</td>
+    </tr><tr>
+        <td>128431</td>
+        <td>2026-03-03</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Summer Snow
+
+회차정보 : 48">There is an error in the image.</td>
+    </tr><tr>
+        <td>128327</td>
+        <td>2026-03-03</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 調教開關
+
+회차정보 : 9
+
+無法載入圖片內容">其他</td>
+    </tr><tr>
+        <td>128249</td>
+        <td>2026-03-03</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : ออฟฟิศร้อนรัก
+
+회차정보 : 9">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128250</td>
+        <td>2026-03-03</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : ฉันอยาก xx เธอ!
+
+회차정보 : 5">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>128005</td>
+        <td>2026-03-02</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#95a5a6;font-weight:600">기타</span></td>
+        <td>Refund</td>
+        <td title="Request to Cancel Subscription and Issue Refund (No Cancellation Option Available): Dear Customer Su">Request to Cancel Subscription and Issue Refund (N</td>
+    </tr><tr>
+        <td>127953</td>
+        <td>2026-03-02</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 小姐由我來守護
+
+회차정보 : 7">圖片有誤</td>
+    </tr><tr>
+        <td>127903</td>
+        <td>2026-03-02</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : XX Dungeon
+
+회차정보 : 7">There is an error in the image.</td>
+    </tr><tr>
+        <td>127991</td>
+        <td>2026-03-02</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#3498db;font-weight:600">빈 화면</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 兩個老婆
+
+회차정보 : 28
+
+看不到">其他</td>
+    </tr><tr>
+        <td>127682</td>
+        <td>2026-03-01</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Extreme Revenge
+
+회차정보 : 57">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>127765</td>
+        <td>2026-03-01</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#95a5a6;font-weight:600">기타</span></td>
+        <td>Subscription</td>
+        <td title="Money has left my account but this sites saying I don't have my membership anymore I have picture ev">Money has left my account but this sites saying I </td>
+    </tr><tr>
+        <td>127370</td>
+        <td>2026-02-28</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 衝刺重考班
+
+회차정보 : 9
+
+根本跑不出來…
+一直載入不進去">其他</td>
+    </tr><tr>
+        <td>127283</td>
+        <td>2026-02-28</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : 強制催眠
+
+회차정보 : 39
+
+一直有圖片沒辦法跑出來 有時候整章都沒有">其他</td>
+    </tr><tr>
+        <td>127047</td>
+        <td>2026-02-27</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Someone Stop Her!
+
+회차정보 : 6">There is an error in the image.</td>
+    </tr><tr>
+        <td>127027</td>
+        <td>2026-02-27</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Refund</td>
+        <td title="ขอคืนเงินครับ ภาพดูไม่ได้หลายตอนสะดุดมาก แค่เรื่องเดียวยังเสียอารมขนาดนี้ อยากขอคืนเงินครับ">ขอคืนเงินครับ ภาพดูไม่ได้หลายตอนสะดุดมาก แค่เรื่อง</td>
+    </tr><tr>
+        <td>127014</td>
+        <td>2026-02-27</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Milk Therapy
+
+회차정보 : 35">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>127013</td>
+        <td>2026-02-27</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Knock Knock
+
+회차정보 : 36">There is an error in the image.</td>
+    </tr><tr>
+        <td>126543</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 渴望占有她
+
+회차정보 : 21">图片有误</td>
+    </tr><tr>
+        <td>126541</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 渴望占有她
+
+회차정보 : 18">图片有误</td>
+    </tr><tr>
+        <td>126614</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Tentation Tropicale
+
+회차정보 : 3
+
+chargement infini d'une image">Autre problème</td>
+    </tr><tr>
+        <td>126690</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Pluie d'Automne
+
+회차정보 : 2">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>126615</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Tentation Tropicale
+
+회차정보 : 3
+
+chargement infini d'une image">Autre problème</td>
+    </tr><tr>
+        <td>126610</td>
+        <td>2026-02-26</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Coin</td>
+        <td title="작품정보 : Nouvelle Famille
+
+회차정보 : 51">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>126149</td>
+        <td>2026-02-24</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Jeux Sensuels
+
+회차정보 : 111">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>126120</td>
+        <td>2026-02-24</td>
+        <td><span class="badge" style="background:#65a30d">IT</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Content</td>
+        <td title="작품정보 : #Followami
+
+회차정보 : 48
+
+Non carica le immagini">Altro</td>
+    </tr><tr>
+        <td>125693</td>
+        <td>2026-02-23</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : จู่โจมหัวใจด้วยร่างนี้
+
+회차정보 : 9">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>125552</td>
+        <td>2026-02-23</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Les filles du proprio
+
+회차정보 : 3">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>125526</td>
+        <td>2026-02-23</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Colossal
+
+회차정보 : 11">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>125807</td>
+        <td>2026-02-23</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Ella me hacía bullying
+
+회차정보 : 260
+
+No carga la web">Otros</td>
+    </tr><tr>
+        <td>125196</td>
+        <td>2026-02-22</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Dubiose Lieferung
+
+회차정보 : 49
+
+das letzte Fünftel aller Kapitel jeder story laden nicht richti">Anderes Problem</td>
+    </tr><tr>
+        <td>125368</td>
+        <td>2026-02-22</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Other</td>
+        <td title="Bonjour il y a un probleme au niveau des chargement des contenu , plus rien ne marche on ne peux plu">Bonjour il y a un probleme au niveau des chargemen</td>
+    </tr><tr>
+        <td>125132</td>
+        <td>2026-02-22</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="Bonjour, Cela fait plusieurs jours que les images ne veulent plus ce charger , avez-vous actuellemen">Bonjour, Cela fait plusieurs jours que les images </td>
+    </tr><tr>
+        <td>125217</td>
+        <td>2026-02-22</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Nouvelle Famille
+
+회차정보 : 1">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>124986</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : แขกไม่รับเชิญ
+
+회차정보 : 1">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>124918</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Wieder unter einem Dach
+
+회차정보 : 5
+
+Das vollständige laden eurer Seiten dauert zu lange.">Anderes Problem</td>
+    </tr><tr>
+        <td>124991</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Refund</td>
+        <td title="Votre application bug tout le temps et ele nest absolument pas reactive et ele nest pas fluide vous ">Votre application bug tout le temps et ele nest ab</td>
+    </tr><tr>
+        <td>124618</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : BIG GUY
+
+회차정보 : 2">There is an error in the image.</td>
+    </tr><tr>
+        <td>124587</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#3498db;font-weight:600">빈 화면</span></td>
+        <td>Technical</td>
+        <td title="Les images ne s'affichent plus par moment.">Les images ne s'affichent plus par moment.</td>
+    </tr><tr>
+        <td>124563</td>
+        <td>2026-02-21</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#9b59b6;font-weight:600">서버 에러</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : A Porta de Entrada do Excluído
+
+회차정보 : 1
+
+Demora muito de carregar as imagens">Outros</td>
+    </tr><tr>
+        <td>124290</td>
+        <td>2026-02-20</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Haltet sie auf!
+
+회차정보 : 71
+
+Ständiges nicht laden des Comics, trotz stabiler vorhandener Verb">Anderes Problem</td>
+    </tr><tr>
+        <td>124301</td>
+        <td>2026-02-20</td>
+        <td><span class="badge" style="background:#4f46e5">JP</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 落ちこぼれをキャリーして
+
+회차정보 : 67">画像にエラーがあります</td>
+    </tr><tr>
+        <td>124466</td>
+        <td>2026-02-20</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Ground and Pound
+
+회차정보 : 33">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>124379</td>
+        <td>2026-02-20</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Au Lieu d'Elle
+
+회차정보 : 1">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>124084</td>
+        <td>2026-02-19</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Ma Femme l'Enseignante
+
+회차정보 : 21
+
+Sa me marque à tout les images chargement en cours.">Autre problème</td>
+    </tr><tr>
+        <td>124030</td>
+        <td>2026-02-19</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Coin</td>
+        <td title="작품정보 : Clases S
+
+회차정보 : 10
+
+No se cargan las imágenes">Otros</td>
+    </tr><tr>
+        <td>124191</td>
+        <td>2026-02-19</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="Mal funcionamiento: Porque me taran tanto en cambiar un numero al siguiente? Por ejemplo pasas del 2">Mal funcionamiento: Porque me taran tanto en cambi</td>
+    </tr><tr>
+        <td>123806</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Coin</td>
+        <td title="작품정보 : Harte Runde
+
+회차정보 : 27">Bildfehler</td>
+    </tr><tr>
+        <td>123776</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Séduction à la Porte d’à Côté
+
+회차정보 : 2">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>123623</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Ô de Casa
+
+회차정보 : 0">Erro na imagem</td>
+    </tr><tr>
+        <td>123838</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Maji Kang: Hengst der Uni
+
+회차정보 : 3">Bildfehler</td>
+    </tr><tr>
+        <td>123761</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Haltet sie auf!
+
+회차정보 : 19
+
+Bilder laden nicht alles">Anderes Problem</td>
+    </tr><tr>
+        <td>123583</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Achtung! Nutzlose Kollegen
+
+회차정보 : 3
+
+Der Comic lädt lange oder lässt sich hat nicht laden.">Anderes Problem</td>
+    </tr><tr>
+        <td>123862</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Gefangen im Wohnheim
+
+회차정보 : 33
+
+Folgen der Serie laden nicht in deutscher Toomics Seite beso">Anderes Problem</td>
+    </tr><tr>
+        <td>123886</td>
+        <td>2026-02-18</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Knock Knock
+
+회차정보 : 4
+
+Die bilder laden nicht">Bildfehler</td>
+    </tr><tr>
+        <td>123516</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Meine Schulzeit mit Rang F
+
+회차정보 : 53">Bildfehler</td>
+    </tr><tr>
+        <td>123490</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Hipnose do Amor
+
+회차정보 : 73">Erro na imagem</td>
+    </tr><tr>
+        <td>123538</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Mulher à Beça
+
+회차정보 : 17">Erro na imagem</td>
+    </tr><tr>
+        <td>123322</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#4f46e5">JP</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : マグネットラブ～磁石のように惹きつける男～
+
+회차정보 : 12">画像にエラーがあります</td>
+    </tr><tr>
+        <td>123450</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Versau meine Freundin
+
+회차정보 : 2
+
+No matter what comic I try to see every Comics isn't loading">Anderes Problem</td>
+    </tr><tr>
+        <td>123468</td>
+        <td>2026-02-17</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Paws on Campus
+
+회차정보 : 1">There is an error in the image.</td>
+    </tr><tr>
+        <td>122886</td>
+        <td>2026-02-15</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : Mi casa es tu casa
+
+회차정보 : 6
+
+No me cargan las imágenes, así no puedo disfrutar del producto.">Otros</td>
+    </tr><tr>
+        <td>122649</td>
+        <td>2026-02-15</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : The Lord of the Harem
+
+회차정보 : 9
+
+Loading of comic episodes is taking a long time">Other issues</td>
+    </tr><tr>
+        <td>122871</td>
+        <td>2026-02-15</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Quelle vie de chien !
+
+회차정보 : 44">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>122870</td>
+        <td>2026-02-15</td>
+        <td><span class="badge" style="background:#7c3aed">FR</span></td>
+        <td><span style="color:#1abc9c;font-weight:600">콘텐츠 미표시</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Quelle vie de chien !
+
+회차정보 : 44">Il y a un problème sur l'image.</td>
+    </tr><tr>
+        <td>122742</td>
+        <td>2026-02-15</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : สายสัมพันธ์อันพังทลาย
+
+회차정보 : 11">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>122439</td>
+        <td>2026-02-14</td>
+        <td><span class="badge" style="background:#be185d">CN</span></td>
+        <td><span style="color:#f39c12;font-weight:600">로딩 무한/지연</span></td>
+        <td>Technical</td>
+        <td title="작품정보 : 危險同學會
+
+회차정보 : 65
+
+圖片一直跑不出來，重新整理很多次都沒有用。">其他</td>
+    </tr><tr>
+        <td>122425</td>
+        <td>2026-02-14</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 1 Day, 1 Girl
+
+회차정보 : 3">There is an error in the image.</td>
+    </tr><tr>
+        <td>122500</td>
+        <td>2026-02-14</td>
+        <td><span class="badge" style="background:#dc2626">PT</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Someone Stop Her!
+
+회차정보 : 2">Há um erro na imagem.</td>
+    </tr><tr>
+        <td>122414</td>
+        <td>2026-02-14</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Knock Knock
+
+회차정보 : 2">There is an error in the image.</td>
+    </tr><tr>
+        <td>121422</td>
+        <td>2026-02-11</td>
+        <td><span class="badge" style="background:#0891b2">TH</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : แขกไม่รับเชิญ
+
+회차정보 : 1">ภาพมีปัญหา</td>
+    </tr><tr>
+        <td>120363</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#4f46e5">JP</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : 給料泥棒注意報
+
+회차정보 : 31">画像にエラーがあります</td>
+    </tr><tr>
+        <td>120215</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81">Hay un error en la imagen.</td>
+    </tr><tr>
+        <td>120440</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#95a5a6;font-weight:600">기타</span></td>
+        <td>Technical</td>
+        <td title="VIP subscription and family safe mode: I bought one month vip subscription and can’t access to off t">VIP subscription and family safe mode: I bought on</td>
+    </tr><tr>
+        <td>120438</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#95a5a6;font-weight:600">기타</span></td>
+        <td>Refund</td>
+        <td title="I bought ViP subscription for adult series. And now I can’t remove the family safe mode in website. ">I bought ViP subscription for adult series. And no</td>
+    </tr><tr>
+        <td>120376</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81">Hay un error en la imagen.</td>
+    </tr><tr>
+        <td>120232</td>
+        <td>2026-02-08</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : The Messiah and His Followers
+
+회차정보 : 33">There is an error in the image.</td>
+    </tr><tr>
+        <td>119907</td>
+        <td>2026-02-07</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : ¡Alerta, problemas en la empresa! 
+
+회차정보 : 81">Hay un error en la imagen.</td>
+    </tr><tr>
+        <td>119392</td>
+        <td>2026-02-06</td>
+        <td><span class="badge" style="background:#d97706">ES</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Hipnotízame
+
+회차정보 : 2">Hay un error en la imagen.</td>
+    </tr><tr>
+        <td>119534</td>
+        <td>2026-02-06</td>
+        <td><span class="badge" style="background:#059669">DE</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Der Lieferant
+
+회차정보 : 0">Bildfehler</td>
+    </tr><tr>
+        <td>119697</td>
+        <td>2026-02-06</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Broken Boy
+
+회차정보 : 3">There is an error in the image.</td>
+    </tr><tr>
+        <td>119036</td>
+        <td>2026-02-05</td>
+        <td><span class="badge" style="background:#2563eb">EN</span></td>
+        <td><span style="color:#e74c3c;font-weight:600">이미지 깨짐</span></td>
+        <td>Content</td>
+        <td title="작품정보 : Someone Stop Her!
+
+회차정보 : 0">There is an error in the image.</td>
+    </tr></tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Noise Summary -->
+<div class="card">
+    <h2>노이즈 제거 요약 (44건)</h2>
+    <p style="color:var(--text-muted);font-size:13px;margin-bottom:12px">이미지/로딩 키워드에 매칭되었으나, 실제로는 기술 이슈가 아닌 건입니다. 상세: <code>removed_noise.csv</code></p>
+    <table>
+        <thead><tr><th>제거 사유</th><th>건수</th></tr></thead>
+        <tbody><tr><td>VIP 표시 안 됨 — 다른 언어 버전 구매 (계정 문제)</td><td style="text-align:center">3</td></tr><tr><td>JP 구독해지/계정 확인 — 기술 이슈 아님</td><td style="text-align:center">2</td></tr><tr><td>VIP 복원 불가 — App Store/계정 연동 문제</td><td style="text-align:center">2</td></tr><tr><td>해지 버튼 미표시 — UI 안내 이슈 (이미지 로딩 아님)</td><td style="text-align:center">2</td></tr><tr><td>DE 구독해지 — Bild는 고객번호 사진 첨부</td><td style="text-align:center">1</td></tr><tr><td>DE 자동 연장 환불 — 기술 이슈 아님</td><td style="text-align:center">1</td></tr><tr><td>TH 환불+구독해지 — 기술 이슈 아님</td><td style="text-align:center">1</td></tr><tr><td>DE 환불 요청 — 기술 이슈 언급 없음</td><td style="text-align:center">1</td></tr><tr><td>VIP 미표시 — 다른 언어 버전 구매 (계정 문제)</td><td style="text-align:center">1</td></tr><tr><td>계정 삭제 요청 — picture는 계정 정보 증빙</td><td style="text-align:center">1</td></tr><tr><td>구매 시리즈 사라짐 + VIP 미표시 — 계정 문제</td><td style="text-align:center">1</td></tr><tr><td>FR 구독해지 — image는 구독 증빙 첨부</td><td style="text-align:center">1</td></tr><tr><td>순수 환불 요청 — 이미지는 결제 영수증/증빙 첨부</td><td style="text-align:center">1</td></tr><tr><td>미사용 구독 청구 문의 — photos는 증빙</td><td style="text-align:center">1</td></tr><tr><td>JP 계정 문의 — 画像는 영수증 첨부 언급</td><td style="text-align:center">1</td></tr><tr><td>VIP 접근 불가 — 구매 확인/계정 문제</td><td style="text-align:center">1</td></tr><tr><td>DE 구독해지 — Bild는 은행 명세서 첨부</td><td style="text-align:center">1</td></tr><tr><td>ES 환불 — imagen은 은행 계좌 증빙</td><td style="text-align:center">1</td></tr><tr><td>결제 영수증 첨부 — 구독 확인 문의</td><td style="text-align:center">1</td></tr><tr><td>에피소드 접근 불가 — VIP 미구독 (기술 아님)</td><td style="text-align:center">1</td></tr><tr><td>인라인 이미지만 첨부 — 계정 구매 확인 문의</td><td style="text-align:center">1</td></tr><tr><td>JP 구독해지 — 해지 버튼 미표시 (계정 UI)</td><td style="text-align:center">1</td></tr><tr><td>ES 구독해지 — imagen은 해지 확인 스크린샷</td><td style="text-align:center">1</td></tr><tr><td>VIP 계정 통합 요청 — 기술 아님</td><td style="text-align:center">1</td></tr><tr><td>채용 문의 — 기술 이슈 아님</td><td style="text-align:center">1</td></tr><tr><td>VIP 콘텐츠 접근 불가 — 구독 계정 문제</td><td style="text-align:center">1</td></tr><tr><td>코인 구매 이력 문의 — 이미지/로딩 아님</td><td style="text-align:center">1</td></tr><tr><td>환불 요청 — image는 결제 증빙 첨부</td><td style="text-align:center">1</td></tr><tr><td>순수 구독해지 — 이미지는 증빙 스크린샷 첨부</td><td style="text-align:center">1</td></tr><tr><td>TH 구독해지 — รูป는 증빙 스크린샷 첨부</td><td style="text-align:center">1</td></tr><tr><td>결제 후 VIP 미표시 — 계정 불일치</td><td style="text-align:center">1</td></tr><tr><td>비활성 계정 충전 지속 문의 — 기술 이슈 아님</td><td style="text-align:center">1</td></tr><tr><td>VIP 미표시 — App Store 연동/플랫폼 문제</td><td style="text-align:center">1</td></tr><tr><td>코인 시스템 불만 — 이미지/로딩 이슈 아님</td><td style="text-align:center">1</td></tr><tr><td>구독 요금 지속 청구 문의 — 기술 아님</td><td style="text-align:center">1</td></tr><tr><td>크로스 플랫폼 결제 문제 — 기술 아님</td><td style="text-align:center">1</td></tr><tr><td>결제 후 VIP 미표시 — 계정 조회 이슈 (기술 아님)</td><td style="text-align:center">1</td></tr><tr><td>비밀번호 변경 후 접근 불가 — 계정 문제</td><td style="text-align:center">1</td></tr><tr><td>VIP 만료 확인 — picture는 결제 이력 증빙</td><td style="text-align:center">1</td></tr></tbody>
+    </table>
+</div>
+
+<div class="footer">
+    TOOMICS BizOps — Image Loading Analysis Report | Generated: 2026-03-05 | 작성: 유종선
+</div>
+
+</div>
+
+<script>
+// ── Market Bar Chart ──
+new Chart(document.getElementById("marketChart"), {
+    type: "bar",
+    data: {
+        labels: ["FR", "EN", "TH", "CN", "DE", "ES", "PT", "JP", "IT"],
+        datasets: [{
+            data: [18, 16, 14, 12, 11, 8, 6, 5, 1],
+            backgroundColor: ["#7c3aed", "#2563eb", "#0891b2", "#be185d", "#059669", "#d97706", "#dc2626", "#4f46e5", "#65a30d"],
+            borderRadius: 4,
+        }]
+    },
+    options: {
+        indexAxis: "y",
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { x: { beginAtZero: true, ticks: { stepSize: 1 } } }
+    }
+});
+
+// ── Issue Donut ──
+new Chart(document.getElementById("issueChart"), {
+    type: "doughnut",
+    data: {
+        labels: ["\uc774\ubbf8\uc9c0 \uae68\uc9d0", "\ub85c\ub529 \ubb34\ud55c/\uc9c0\uc5f0", "\ucf58\ud150\uce20 \ubbf8\ud45c\uc2dc", "\uae30\ud0c0", "\ube48 \ud654\uba74", "\uc11c\ubc84 \uc5d0\ub7ec"],
+        datasets: [{
+            data: [42, 24, 18, 4, 2, 1],
+            backgroundColor: ["#e74c3c", "#f39c12", "#1abc9c", "#95a5a6", "#3498db", "#9b59b6"],
+            borderWidth: 2, borderColor: "#fff"
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+            legend: { position: "right", labels: { font: { size: 11 } } }
+        }
+    }
+});
+
+// ── Daily Trend ──
+const spikeSet = new Set(["2026-02-08", "2026-02-15", "2026-02-17", "2026-02-18", "2026-02-21", "2026-02-26", "2026-03-04"]);
+const trendLabels = ["02/05", "02/06", "02/07", "02/08", "02/11", "02/14", "02/15", "02/17", "02/18", "02/19", "02/20", "02/21", "02/22", "02/23", "02/24", "02/26", "02/27", "02/28", "03/01", "03/02", "03/03", "03/04", "03/05"];
+const trendData = [1, 3, 1, 6, 1, 4, 5, 6, 8, 3, 4, 6, 4, 4, 2, 6, 4, 2, 2, 4, 4, 10, 1];
+const fullDates = ["2026-02-05", "2026-02-06", "2026-02-07", "2026-02-08", "2026-02-11", "2026-02-14", "2026-02-15", "2026-02-17", "2026-02-18", "2026-02-19", "2026-02-20", "2026-02-21", "2026-02-22", "2026-02-23", "2026-02-24", "2026-02-26", "2026-02-27", "2026-02-28", "2026-03-01", "2026-03-02", "2026-03-03", "2026-03-04", "2026-03-05"];
+const pointColors = fullDates.map(d => spikeSet.has(d) ? "#ef4444" : "#2563eb");
+const pointSizes = fullDates.map(d => spikeSet.has(d) ? 6 : 3);
+
+new Chart(document.getElementById("trendChart"), {
+    type: "line",
+    data: {
+        labels: trendLabels,
+        datasets: [{
+            label: "이슈 건수",
+            data: trendData,
+            borderColor: "#2563eb", backgroundColor: "#dbeafe80",
+            fill: true, tension: .3,
+            pointBackgroundColor: pointColors,
+            pointRadius: pointSizes,
+            pointHoverRadius: 7,
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: {
+            x: { ticks: { maxRotation: 45 } },
+            y: { beginAtZero: true, ticks: { stepSize: 1 } }
+        }
+    }
+});
+
+// ── Week Chart ──
+new Chart(document.getElementById("weekChart"), {
+    type: "bar",
+    data: {
+        labels: ["W1 (01/31~02/06)", "W2 (02/07~02/13)", "W3 (02/14~02/20)", "W4 (02/21~02/27)", "W5 (02/28~03/06)"],
+        datasets: [{
+            data: [4, 8, 30, 26, 23],
+            backgroundColor: ["#93c5fd","#60a5fa","#3b82f6","#2563eb","#1d4ed8"],
+            borderRadius: 4,
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 5 } } }
+    }
+});
+
+// ── Weekday Chart ──
+new Chart(document.getElementById("weekdayChart"), {
+    type: "bar",
+    data: {
+        labels: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        datasets: [{
+            data: [8, 12, 19, 11, 11, 13, 17],
+            backgroundColor: "#60a5fa",
+            borderRadius: 4,
+        }]
+    },
+    options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 2 } } }
+    }
+});
+
+// ── Table Search ──
+function filterTable() {
+    const q = document.getElementById("searchInput").value.toLowerCase();
+    const rows = document.querySelectorAll("#dataTable tbody tr");
+    rows.forEach(r => {
+        r.style.display = r.textContent.toLowerCase().includes(q) ? "" : "none";
+    });
+}
+</script>
+</body>
+</html>
