@@ -100,15 +100,9 @@ tr:hover { background:#f8fafc; }
   </div>
 </div>
 
-<div class="chart-row">
-  <div class="chart-box">
-    <h3>Daily Trend</h3>
-    <canvas id="dailyChart" height="200"></canvas>
-  </div>
-  <div class="chart-box">
-    <h3>Weekly & Weekday</h3>
-    <canvas id="weeklyChart" height="200"></canvas>
-  </div>
+<div class="card">
+  <h2>Weekly Trend</h2>
+  <canvas id="weeklyChart" height="200"></canvas>
 </div>
 <div class="card"><h2>Spike Dates (≥3건/일)</h2><table><tr><th>Date</th><th>건수</th><th>비고</th></tr><tr><td>2026-02-15</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, ES, EN</td></tr><tr><td>2026-02-18</td><td style="font-weight:700;color:#dc2626">5</td><td>DE, FR</td></tr><tr><td>2026-02-19</td><td style="font-weight:700;color:#dc2626">3</td><td>ES, FR</td></tr><tr><td>2026-02-20</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, DE</td></tr><tr><td>2026-02-21</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, PT, DE</td></tr><tr><td>2026-02-22</td><td style="font-weight:700;color:#dc2626">4</td><td>FR, DE</td></tr><tr><td>2026-02-23</td><td style="font-weight:700;color:#dc2626">3</td><td>FR, ES</td></tr><tr><td>2026-02-26</td><td style="font-weight:700;color:#dc2626">6</td><td>FR, CN</td></tr><tr><td>2026-03-02</td><td style="font-weight:700;color:#dc2626">3</td><td>CN</td></tr><tr><td>2026-03-04</td><td style="font-weight:700;color:#dc2626">5</td><td>CN, PT, TH</td></tr></table></div><div class="card"><h2>Market × Issue Type</h2><table><tr><th>Market</th><th>기타</th><th>로딩 무한/지연</th><th>빈 화면/미표시</th><th>서버 에러</th><th>이미지 로딩 불가</th><th>콘텐츠 미표시</th><th>합계</th></tr><tr><td><strong>CN</strong></td><td>1</td><td style="font-weight:700;color:#dc2626">3</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">7</td><td style="font-weight:700">12</td></tr><tr><td><strong>DE</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">6</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">7</td></tr><tr><td><strong>EN</strong></td><td style="font-weight:700;color:#dc2626">3</td><td>2</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">5</td></tr><tr><td><strong>ES</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">4</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">4</td></tr><tr><td><strong>FR</strong></td><td>-</td><td style="font-weight:700;color:#dc2626">6</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700;color:#dc2626">11</td><td style="font-weight:700">18</td></tr><tr><td><strong>IT</strong></td><td>-</td><td>1</td><td>-</td><td>-</td><td>-</td><td>-</td><td style="font-weight:700">1</td></tr><tr><td><strong>PT</strong></td><td>-</td><td>1</td><td>-</td><td>1</td><td>-</td><td>-</td><td style="font-weight:700">2</td></tr><tr><td><strong>TH</strong></td><td>-</td><td>1</td><td>-</td><td>-</td><td>1</td><td>-</td><td style="font-weight:700">2</td></tr></table></div><div class="card"><h2>Representative Cases by Issue Type</h2><h3 style="margin:16px 0 8px;color:#dc2626">로딩 무한/지연 (24건)</h3><div class="case-card">
   <div class="meta-line">Ticket #122886 · ES · Otros</div>
@@ -414,24 +408,14 @@ new Chart(document.getElementById('issueChart'), {
   options: { responsive:true, plugins:{ legend:{ position:'right', labels:{ font:{ size:11 } } } } }
 });
 
-// Daily Trend
-new Chart(document.getElementById('dailyChart'), {
-  type: 'line',
-  data: {
-    labels: ['2026-02-08', '2026-02-09', '2026-02-10', '2026-02-11', '2026-02-12', '2026-02-13', '2026-02-14', '2026-02-15', '2026-02-16', '2026-02-17', '2026-02-18', '2026-02-19', '2026-02-20', '2026-02-21', '2026-02-22', '2026-02-23', '2026-02-24', '2026-02-25', '2026-02-26', '2026-02-27', '2026-02-28', '2026-03-01', '2026-03-02', '2026-03-03', '2026-03-04'],
-    datasets: [{ label:'건수', data:[2, 0, 0, 0, 0, 0, 1, 4, 0, 1, 5, 3, 3, 4, 4, 3, 2, 0, 6, 1, 2, 1, 3, 1, 5], borderColor:'#dc2626', backgroundColor:'rgba(220,38,38,0.1)', fill:true, tension:0.3, pointRadius:2 }]
-  },
-  options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ x:{ ticks:{ maxRotation:45, autoSkip:true, maxTicksLimit:10 } }, y:{ beginAtZero:true, ticks:{ stepSize:1 } } } }
-});
-
-// Weekly Bar
+// Weekly Trend
 new Chart(document.getElementById('weeklyChart'), {
   type: 'bar',
   data: {
-    labels: ['W6', 'W7', 'W8', 'W9', 'W10'],
-    datasets: [{ label:'건수', data:[2, 5, 20, 15, 9], backgroundColor:'#f59e0b', borderRadius:4 }]
+    labels: ['W6 (02/08)', 'W7 (02/14~15)', 'W8 (02/17~22)', 'W9 (02/23~03/01)', 'W10 (03/02~04)'],
+    datasets: [{ label:'건수', data:[2, 5, 20, 15, 9], backgroundColor:['#f59e0b','#f59e0b','#dc2626','#ea580c','#f59e0b'], borderRadius:4 }]
   },
-  options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:1 } } } }
+  options: { responsive:true, plugins:{ legend:{ display:false } }, scales:{ y:{ beginAtZero:true, ticks:{ stepSize:2 } } } }
 });
 
 // Table Search
