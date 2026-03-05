@@ -56,7 +56,8 @@
   .stat-card:nth-child(5) { border-top-color: #10B981; }
   .stat-card:nth-child(6) { border-top-color: #EF4444; }
   .stat-card:nth-child(7) { border-top-color: #0891B2; }
-  .stat-card:nth-child(8) { border-top-color: #475569; }
+  .stat-card:nth-child(8) { border-top-color: #0F766E; }
+  .stat-card:nth-child(9) { border-top-color: #475569; }
 
   /* Accordion */
   .accordion { margin-bottom: 16px; border-radius: 12px; overflow: hidden; border: 1px solid #E2E8F0; }
@@ -490,7 +491,7 @@
   <div class="subtitle">Toomics Global &middot; BizOps Team</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>문서 43건 &middot; 7개 카테고리</span>
+    <span>문서 53건 &middot; 8개 카테고리</span>
   </div>
   <a href="portal_manual_v1_20260303.html" style="display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:6px 14px;font-size:12px;font-weight:600;color:#fff;text-decoration:none;transition:.2s;" onmouseover="this.style.background='rgba(255,255,255,0.22)'" onmouseout="this.style.background='rgba(255,255,255,0.12)'">
     <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
@@ -519,6 +520,9 @@
     </div>
     <div class="stat-card" data-target="sec-faq">
       <div class="num">10</div><div class="lbl">FAQ</div>
+    </div>
+    <div class="stat-card" data-target="sec-legal">
+      <div class="num">10</div><div class="lbl">정책/약관</div>
     </div>
     <div class="stat-card" data-target="sec-tpl">
       <div class="num">3</div><div class="lbl">기타</div>
@@ -551,6 +555,7 @@
           <button class="filter-pill" data-value="sec-ip" type="button">IP 보호</button>
           <button class="filter-pill" data-value="sec-ticket" type="button">대시보드</button>
           <button class="filter-pill" data-value="sec-faq" type="button">FAQ</button>
+          <button class="filter-pill" data-value="sec-legal" type="button">정책/약관</button>
           <button class="filter-pill" data-value="sec-tpl" type="button">기타</button>
         </div>
       </div>
@@ -574,6 +579,7 @@
           <button class="filter-pill" data-value="Dashboard" type="button">Dashboard</button>
           <button class="filter-pill" data-value="Evidence" type="button">Evidence</button>
           <button class="filter-pill" data-value="FAQ" type="button">FAQ</button>
+          <button class="filter-pill" data-value="Legal" type="button">Legal</button>
           <button class="filter-pill" data-value="XLSX" type="button">XLSX</button>
         </div>
       </div>
@@ -713,6 +719,29 @@
     </div></div>
   </div>
 
+  <!-- 정책 및 약관 -->
+  <div class="accordion" id="sec-legal">
+    <button class="accordion-header" aria-expanded="false">
+      <span class="icon" style="background:#0F766E">ToS</span> 정책 및 약관
+      <span class="count">10건</span>
+      <svg class="chevron" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"/></svg>
+    </button>
+    <div class="accordion-body"><div class="accordion-body-inner">
+      <div class="link-grid">
+        <a class="link-card" href="legal/terms_of_service_EN_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">EN</span><span class="lc-body"><span class="lc-title">Terms of Service — English</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_FR_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">FR</span><span class="lc-body"><span class="lc-title">Conditions d'utilisation — Français</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_DE_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">DE</span><span class="lc-body"><span class="lc-title">Nutzungsbedingungen — Deutsch</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_ES_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">ES</span><span class="lc-body"><span class="lc-title">Términos de Servicio — Español</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_PT_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">PT</span><span class="lc-body"><span class="lc-title">Termos de Uso — Português</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_IT_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">IT</span><span class="lc-body"><span class="lc-title">Termini di Servizio — Italiano</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_JP_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">JP</span><span class="lc-body"><span class="lc-title">利用規約 — 日本語</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_TH_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">TH</span><span class="lc-body"><span class="lc-title">ข้อกำหนดการใช้บริการ — ภาษาไทย</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_CN_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">CN</span><span class="lc-body"><span class="lc-title">服务条款 — 简体中文</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+        <a class="link-card" href="legal/terms_of_service_TW_20260305.html" data-updated="2026-03-05"><span class="lc-icon" style="background:#0F766E;color:#fff">TW</span><span class="lc-body"><span class="lc-title">服務條款 — 繁體中文</span><span class="lc-desc">Effective: 2025-09-02</span></span><span class="lc-version">v1.0</span><span class="lc-badge" style="background:#CCFBF1;color:#0F766E">Legal</span></a>
+      </div>
+    </div></div>
+  </div>
+
   <!-- 기타 -->
   <div class="accordion" id="sec-tpl">
     <button class="accordion-header" aria-expanded="false">
@@ -813,6 +842,18 @@
               <option>CS Ticket Dashboard</option>
               <option>Ticket Dashboard 운영 매뉴얼</option>
             </optgroup>
+            <optgroup label="정책 및 약관">
+              <option>Terms of Service (EN)</option>
+              <option>Conditions d'utilisation (FR)</option>
+              <option>Nutzungsbedingungen (DE)</option>
+              <option>Términos de Servicio (ES)</option>
+              <option>Termos de Uso (PT)</option>
+              <option>Termini di Servizio (IT)</option>
+              <option>利用規約 (JP)</option>
+              <option>ข้อกำหนดการใช้บริการ (TH)</option>
+              <option>服务条款 (CN)</option>
+              <option>服務條款 (TW)</option>
+            </optgroup>
             <optgroup label="기타">
               <option>BizOps 산출물 포탈 사용 매뉴얼</option>
               <option>개인정보 증빙</option>
@@ -852,10 +893,11 @@
   <!-- 변경 히스토리 -->
   <div class="history-details" id="sec-history" style="display:block;">
     <div class="history-summary" style="cursor:default;">
-      변경 히스토리 <span class="count">전체 38건</span>
+      변경 히스토리 <span class="count">전체 39건</span>
     </div>
     <div class="history-content" style="display:block;">
       <ul class="history-list">
+        <li class="history-item"><span class="history-date">2026-03-05</span><span class="history-msg">이용약관(ToS) 10개 언어 포탈 추가 — 정책 및 약관 카테고리 신설</span></li>
         <li class="history-item"><span class="history-date">2026-03-05</span><span class="history-msg">FAQ Revision Log v1.1 엔트리 수정 — 내용 보정 + 인라인 스타일 제거 (10개 언어)</span></li>
         <li class="history-item"><span class="history-date">2026-03-05</span><span class="history-msg">CS 운영 매뉴얼 v2.1 → v2.2 (파일 내부 버전 반영)</span></li>
         <li class="history-item"><span class="history-date">2026-03-05</span><span class="history-msg">검열 FAQ 삭제 (8개 언어, Coin Store 보유 마켓)</span></li>
@@ -1066,7 +1108,17 @@ var VERSION_HISTORY = {
       { version: "v1.1", date: "2026-03-05", summary: "Phone Verification FAQ: Q/A 전면 교체 (apologetic tone 제거, 인증+트러블슈팅+프라이버시 통합)" },
       { version: "v1.0", date: "2026-03-04", summary: "최초 작성 (86 Articles)" }
     ]
-  }
+  },
+  "terms_of_service_EN_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_FR_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_DE_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_ES_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_PT_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_IT_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_JP_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_TH_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_CN_20260305.html": { current: "v1.0", history: [] },
+  "terms_of_service_TW_20260305.html": { current: "v1.0", history: [] }
 };
 
 // Inject version history toggles
