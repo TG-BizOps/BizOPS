@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BizOps 산출물 포탈 사용 매뉴얼 v1.0</title>
+    <title>BizOps 산출물 포탈 사용 매뉴얼 v1.1</title>
     <style>
         :root {
             --brand-primary: #3B1F8E;
@@ -83,7 +83,7 @@
 
     <!-- ===== Cover ===== -->
     <div class="cover">
-        <h1>📂 BizOps 산출물 포탈<br>사용 매뉴얼 v1.0</h1>
+        <h1>📂 BizOps 산출물 포탈<br>사용 매뉴얼 v1.1</h1>
         <div class="subtitle">Toomics Global · BizOps팀</div>
         <div class="meta">
             <span>작성: 유종선</span>
@@ -138,11 +138,14 @@
         <table>
             <thead><tr><th>카테고리</th><th>건수</th><th>주요 산출물</th></tr></thead>
             <tbody>
-                <tr><td>🎧 CS 운영</td><td>9건</td><td>운영 매뉴얼(EN/KO), 반복문의 대응, 티켓 분석, 인포그래픽</td></tr>
-                <tr><td>🤖 AI 챗봇</td><td>13건</td><td>아키텍처, 로드맵, 비용분석, 운영매뉴얼, 교육자료, 시연 시나리오</td></tr>
-                <tr><td>💳 차지백</td><td>4건</td><td>운영 매뉴얼, 플로우 다이어그램, 소명 폼, 증빙 템플릿</td></tr>
+                <tr><td>🎧 CS 운영</td><td>9건</td><td>운영 매뉴얼 v2.3(EN/KO), 반복 클레임 매뉴얼, Fraud 분석, 인포그래픽, L1/L2/L3 분석, CS 플로우, 자동화 로드맵, 이미지 로딩 분석</td></tr>
+                <tr><td>🤖 AI 챗봇</td><td>13건</td><td>아키텍처, 로드맵, 비용분석, 운영매뉴얼, 교육자료, 시연 시나리오, 에스컬레이션, 플로우(상세/간략)</td></tr>
+                <tr><td>💳 차지백</td><td>6건</td><td>운영 매뉴얼 v1.4, 플로우 다이어그램, 증빙 샘플(v1/v2), 증빙 템플릿(XLSX), Explanation Form v5</td></tr>
+                <tr><td>📝 FAQ</td><td>10건</td><td>EN/FR/DE/ES/PT/JP/CN/TW/IT/TH (10개 언어 Zendesk FAQ 아카이브)</td></tr>
+                <tr><td>📜 이용약관</td><td>10건</td><td>EN/FR/DE/ES/PT/JP/CN/TW/IT/TH (10개 언어 ToS 아카이브)</td></tr>
+                <tr><td>📊 주간 리포트</td><td>11건</td><td>W1~W4 상세+Executive, W2W3 합산 (2월 CS+차지백 분석)</td></tr>
                 <tr><td>🛡️ IP 보호</td><td>1건</td><td>IP 보호 운영 매뉴얼</td></tr>
-                <tr><td>📈 대시보드</td><td>2건</td><td>CS Ticket Dashboard, 대시보드 운영 매뉴얼</td></tr>
+                <tr><td>📁 기타</td><td>1건</td><td>개인정보 증빙</td></tr>
             </tbody>
         </table>
 
@@ -194,7 +197,7 @@
             <thead><tr><th>영역</th><th>설명</th></tr></thead>
             <tbody>
                 <tr><td><strong>헤더</strong></td><td>포탈 제목, 총 문서 수, 마지막 업데이트 날짜</td></tr>
-                <tr><td><strong>카테고리 탭</strong></td><td>CS 운영 / AI 챗봇 / 차지백 / IP 보호 / 대시보드 / 주간 리포트</td></tr>
+                <tr><td><strong>카테고리 탭</strong></td><td>CS 운영 / AI 챗봇 / 차지백 / FAQ / 이용약관 / 주간 리포트 / IP 보호 / 기타</td></tr>
                 <tr><td><strong>문서 카드</strong></td><td>각 산출물의 제목, 설명, 날짜, 파일 형식 아이콘</td></tr>
                 <tr><td><strong>푸터</strong></td><td>버전 정보, 관리자 연락처</td></tr>
             </tbody>
@@ -202,28 +205,31 @@
 
         <h2>3.2 카테고리별 폴더 구조</h2>
         <pre><code>BizOPS/
-├── cs/                  🎧 CS 운영 산출물
+├── cs/                  🎧 CS 운영 산출물 (9건)
 │   ├── cs_manual_EN_*.html
 │   ├── cs_manual_KO_*.html
 │   ├── cs_infographic_*.html
-│   ├── cs_ticket_analysis_*.html
+│   ├── image_loading_analysis_*.html
 │   └── ...
-├── chatbot/             🤖 AI 챗봇 산출물
-│   ├── chatbot_architecture_*.html
+├── chatbot/             🤖 AI 챗봇 산출물 (13건)
+│   ├── chatbot_one_pager_*.html
 │   ├── chatbot_roadmap_*.html
-│   ├── chatbot_cost_analysis_*.html
 │   └── ...
-├── chargeback/          💳 차지백 산출물
-│   ├── chargeback_manual_*.html
-│   ├── chargeback_flow_*.html
+├── chargeback/          💳 차지백 산출물 (6건)
+│   ├── chargeback_operation_manual_*.html
+│   ├── chargeback_flow_diagram_*.html
+│   ├── chargeback_template.xlsx
 │   └── ...
+├── faq/                 📝 FAQ (10개 언어)
+│   └── faq_{LANG}_*.html
+├── legal/               📜 이용약관 (10개 언어)
+│   └── terms_of_service_{LANG}_*.html
+├── weekly-reports/      📊 주간 리포트 아카이브 (11건)
+│   └── cs_weekly_analysis_*.html
 ├── ip/                  🛡️ IP 보호 산출물
-│   └── ip_protection_manual_*.html
-├── dashboard/           📈 대시보드
-│   ├── cs_ticket_dashboard.html
-│   └── dashboard_manual_*.html
-├── weekly/              📊 주간 리포트 아카이브
-│   └── weekly_report_w*.html
+│   └── ip_ops_manual.html
+├── 기타/                📁 기타 증빙 자료
+│   └── personal_info_evidence_*.html
 └── index.html           🏠 포탈 메인 페이지</code></pre>
 
         <h2>3.3 파일 형식</h2>
@@ -351,9 +357,9 @@
             </tbody>
         </table>
 
-        <h2>6.4 CS Ticket Dashboard</h2>
-        <p>대시보드는 <strong>인터랙티브 HTML</strong>로, 필터/차트를 직접 조작하여 데이터를 확인할 수 있습니다.</p>
-        <p>상세 사용법은 <strong>대시보드 운영 매뉴얼</strong>을 참고하세요.</p>
+        <h2>6.4 FAQ / 이용약관 열람</h2>
+        <p>FAQ와 이용약관은 각각 <strong>10개 언어</strong>로 제공됩니다. 포탈에서 해당 카테고리를 클릭하면 언어별 문서 목록이 표시됩니다.</p>
+        <p>FAQ는 Zendesk 아티클을 HTML로 아카이빙한 것이며, 이용약관은 <code>global.toomics.com</code> 원본을 HTML로 보존한 것입니다.</p>
 
         <hr>
 
@@ -390,7 +396,7 @@
         <p>새로운 산출물이 필요한 경우 아래 정보를 포함하여 팀 리드에게 요청하세요:</p>
         <ul>
             <li><strong>문서 제목</strong> (예: "DE 마켓 특이 케이스 대응 가이드")</li>
-            <li><strong>카테고리</strong> (CS/차지백/AI/IP/대시보드/기타)</li>
+            <li><strong>카테고리</strong> (CS/차지백/AI/FAQ/이용약관/주간리포트/IP/기타)</li>
             <li><strong>목적 및 대상</strong> (누가, 언제, 왜 사용하는지)</li>
             <li><strong>우선순위</strong> (높음/보통/낮음)</li>
         </ul>
@@ -419,6 +425,7 @@
         <table>
             <thead><tr><th>버전</th><th>날짜</th><th>변경 내용</th></tr></thead>
             <tbody>
+                <tr><td>v1.1</td><td>2026-03-06</td><td>카테고리 현행화 (FAQ/ToS/주간리포트 추가, 대시보드 제거), CS v2.3·차지백 v1.4 반영, 폴더 구조 업데이트</td></tr>
                 <tr><td>v1.0</td><td>2026-03-03</td><td>초판 작성 — 포탈 사용 매뉴얼</td></tr>
             </tbody>
         </table>
