@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOOMICS CS AI Dashboard — Operation Manual v1.0</title>
+    <style>
+        /* ===== Base & Typography ===== */
+        :root {
+            --brand-primary: #3B1F8E;
+            --brand-secondary: #5B3CC4;
+            --brand-accent: #7C5CFC;
+            --brand-light: #EDE8FF;
+            --brand-bg: #F7F5FF;
+            --navy: #1A1A3E;
+            --dark: #2D2D3F;
+            --text: #333344;
+            --text-light: #666680;
+            --border: #D8D8E8;
+            --success: #28A06C;
+            --warning: #E8A020;
+            --danger: #D94052;
+            --info: #2196F3;
+            --white: #FFFFFF;
+            --bg-light: #FAFAFE;
+            --bg-card: #FFFFFF;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans KR', Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--bg-light);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 32px;
+            background: var(--white);
+            box-shadow: 0 0 40px rgba(59, 31, 142, 0.06);
+        }
+
+        /* ===== Cover ===== */
+        .cover {
+            background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-secondary) 50%, var(--brand-accent) 100%);
+            color: var(--white);
+            padding: 64px 48px;
+            text-align: center;
+            border-bottom: 4px solid var(--brand-accent);
+        }
+        .cover h1 { font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.15); }
+        .cover .subtitle { font-size: 18px; font-weight: 500; opacity: 0.92; margin-bottom: 24px; }
+        .cover .meta { display: flex; justify-content: center; gap: 32px; font-size: 13px; opacity: 0.85; }
+        .cover .meta span { display: flex; align-items: center; gap: 6px; }
+
+        /* ===== TOC ===== */
+        .toc { padding: 32px 48px; background: var(--brand-bg); border-bottom: 1px solid var(--border); }
+        .toc h2 { font-size: 18px; color: var(--brand-primary); margin-bottom: 16px; }
+        .toc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px 32px; }
+        .toc a { color: var(--text); text-decoration: none; font-size: 14px; padding: 4px 0; display: block; border-bottom: 1px dotted var(--border); }
+        .toc a:hover { color: var(--brand-primary); }
+        .toc a .num { color: var(--brand-accent); font-weight: 700; margin-right: 8px; }
+
+        /* ===== Sections ===== */
+        .section { padding: 36px 48px; border-bottom: 1px solid var(--border); }
+        .section:last-child { border-bottom: none; }
+        .section h2 { font-size: 22px; color: var(--brand-primary); margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid var(--brand-light); }
+        .section h3 { font-size: 17px; color: var(--dark); margin: 24px 0 12px; }
+        .section h4 { font-size: 15px; color: var(--text-light); margin: 16px 0 8px; font-weight: 600; }
+        .section p { margin-bottom: 12px; }
+        .section ul, .section ol { margin: 8px 0 16px 24px; }
+        .section li { margin-bottom: 6px; }
+
+        /* ===== Cards ===== */
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin: 16px 0; }
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            border-top: 3px solid var(--brand-accent);
+        }
+        .card h4 { margin: 0 0 8px; font-size: 14px; color: var(--brand-primary); }
+        .card p { font-size: 13px; margin: 0; color: var(--text-light); }
+        .card.success { border-top-color: var(--success); }
+        .card.warning { border-top-color: var(--warning); }
+        .card.danger { border-top-color: var(--danger); }
+        .card.info { border-top-color: var(--info); }
+
+        /* ===== Tables ===== */
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 13px; }
+        th { background: var(--brand-bg); color: var(--brand-primary); font-weight: 700; text-align: left; padding: 10px 14px; border: 1px solid var(--border); }
+        td { padding: 10px 14px; border: 1px solid var(--border); vertical-align: top; }
+        tr:nth-child(even) td { background: var(--bg-light); }
+
+        /* ===== Code ===== */
+        code { background: var(--brand-bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; color: var(--brand-primary); font-family: 'SF Mono', 'Fira Code', monospace; }
+        pre { background: var(--navy); color: #E0E0F0; padding: 16px 20px; border-radius: 8px; overflow-x: auto; font-size: 13px; line-height: 1.6; margin: 12px 0; }
+        pre code { background: none; color: inherit; padding: 0; }
+
+        /* ===== Callouts ===== */
+        .callout { padding: 16px 20px; border-radius: 8px; margin: 16px 0; font-size: 14px; }
+        .callout-info { background: #E3F2FD; border-left: 4px solid var(--info); }
+        .callout-warning { background: #FFF8E1; border-left: 4px solid var(--warning); }
+        .callout-danger { background: #FFEBEE; border-left: 4px solid var(--danger); }
+        .callout-success { background: #E8F5E9; border-left: 4px solid var(--success); }
+        .callout strong { display: block; margin-bottom: 4px; }
+
+        /* ===== Badges ===== */
+        .badge { display: inline-block; padding: 2px 10px; border-radius: 10px; font-size: 11px; font-weight: 700; }
+        .badge-new { background: #DBEAFE; color: #1D4ED8; }
+        .badge-open { background: #FEF3C7; color: #92400E; }
+        .badge-pending { background: #EDE9FE; color: #5B21B6; }
+        .badge-progress { background: #FFF7ED; color: #C2410C; }
+        .badge-solved { background: #D1FAE5; color: #065F46; }
+        .badge-spam { background: #FEE2E2; color: #991B1B; }
+
+        /* ===== Flow diagrams ===== */
+        .flow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin: 16px 0; }
+        .flow-step { background: var(--brand-bg); border: 1px solid var(--brand-light); border-radius: 8px; padding: 10px 16px; font-size: 13px; font-weight: 600; color: var(--brand-primary); }
+        .flow-arrow { color: var(--brand-accent); font-size: 18px; }
+
+        /* ===== Kbd ===== */
+        kbd { background: #F3F4F6; border: 1px solid #D1D5DB; border-radius: 4px; padding: 2px 6px; font-size: 12px; box-shadow: 0 1px 0 #D1D5DB; }
+
+        /* ===== Screenshot placeholder ===== */
+        .screenshot { background: var(--bg-light); border: 2px dashed var(--border); border-radius: 8px; padding: 24px; text-align: center; color: var(--text-light); font-size: 13px; margin: 16px 0; }
+
+        /* ===== Print ===== */
+        @media print {
+            body { background: white; font-size: 12px; }
+            .container { box-shadow: none; max-width: 100%; }
+            .cover { padding: 32px; }
+            .section { padding: 20px 32px; }
+            pre { white-space: pre-wrap; }
+            .toc { break-after: page; }
+        }
+
+        /* ===== Revision ===== */
+        .revision-table { margin-top: 24px; }
+        .revision-table th { font-size: 12px; }
+        .revision-table td { font-size: 12px; }
+    </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ========== COVER ========== -->
+<header class="cover">
+    <h1>CS AI Dashboard</h1>
+    <div class="subtitle">Operation Manual &amp; Policy Guide</div>
+    <div class="meta">
+        <span>v1.0</span>
+        <span>Author: 유종선</span>
+        <span>Last Updated: 2026-03-06</span>
+        <span>Classification: Internal</span>
+    </div>
+</header>
+
+<!-- ========== TOC ========== -->
+<nav class="toc" id="toc">
+    <h2>Table of Contents</h2>
+    <div class="toc-grid">
+        <a href="#s1"><span class="num">1</span>System Overview</a>
+        <a href="#s2"><span class="num">2</span>Architecture &amp; Tech Stack</a>
+        <a href="#s3"><span class="num">3</span>Environment Setup</a>
+        <a href="#s4"><span class="num">4</span>Authentication &amp; Access Control</a>
+        <a href="#s5"><span class="num">5</span>Dashboard UI Guide</a>
+        <a href="#s6"><span class="num">6</span>Ticket Workflow &amp; Actions</a>
+        <a href="#s7"><span class="num">7</span>AI Draft Generation</a>
+        <a href="#s8"><span class="num">8</span>RAG Knowledge Base</a>
+        <a href="#s9"><span class="num">9</span>Quality Scoring System</a>
+        <a href="#s10"><span class="num">10</span>Spam/Phishing Detection</a>
+        <a href="#s11"><span class="num">11</span>API Reference</a>
+        <a href="#s12"><span class="num">12</span>Zendesk Integration</a>
+        <a href="#s13"><span class="num">13</span>Operational Policies</a>
+        <a href="#s14"><span class="num">14</span>Troubleshooting</a>
+        <a href="#s15"><span class="num">15</span>Revision History</a>
+    </div>
+</nav>
+
+<!-- ========== 1. SYSTEM OVERVIEW ========== -->
+<section class="section" id="s1">
+    <h2>1. System Overview</h2>
+    <p>CS AI Dashboard는 투믹스(Toomics) 글로벌 플랫폼의 고객 지원 상담원을 위한 AI 보조 도구입니다. Zendesk 티켓 조회부터 AI 기반 답변 초안 생성, 품질 채점, 스팸 감지, 에스컬레이션까지 CS 워크플로우 전체를 단일 인터페이스에서 처리합니다.</p>
+
+    <h3>1.1 핵심 기능</h3>
+    <div class="card-grid">
+        <div class="card">
+            <h4>Ticket Management</h4>
+            <p>Zendesk 티켓 실시간 조회, 상태별/마켓별/카테고리별 필터링, KPI 대시보드</p>
+        </div>
+        <div class="card success">
+            <h4>AI Draft Generation</h4>
+            <p>Claude AI + RAG 기반 다국어 답변 초안 자동 생성 (11개 언어 지원)</p>
+        </div>
+        <div class="card warning">
+            <h4>Quality Scoring</h4>
+            <p>4차원 품질 점수 (템플릿 매칭, 완성도, 안전성, 길이) 실시간 채점</p>
+        </div>
+        <div class="card danger">
+            <h4>Spam/Phishing Detection</h4>
+            <p>법률사무소 사칭, 해시 문자열, 외부 링크 등 4개 패턴 자동 감지</p>
+        </div>
+    </div>
+
+    <h3>1.2 대상 사용자</h3>
+    <table>
+        <tr><th>역할</th><th>접근 범위</th><th>주요 기능</th></tr>
+        <tr><td>CS 상담원</td><td>전체</td><td>티켓 조회, AI Draft 생성, Reply &amp; Pending/Solved, Escalate</td></tr>
+        <tr><td>팀 리드</td><td>전체</td><td>에스컬레이션 리뷰, 스팸 처리, KPI 모니터링</td></tr>
+        <tr><td>BizOps PM</td><td>전체</td><td>운영 현황 모니터링, 정책 수립</td></tr>
+    </table>
+
+    <h3>1.3 지원 언어 (마켓)</h3>
+    <p>
+        <span class="badge badge-new">EN</span>
+        <span class="badge badge-open">FR</span>
+        <span class="badge badge-pending">DE</span>
+        <span class="badge badge-progress">ES</span>
+        <span class="badge badge-solved">PT</span>
+        <span class="badge badge-new">IT</span>
+        <span class="badge badge-open">JP</span>
+        <span class="badge badge-pending">TH</span>
+        <span class="badge badge-progress">CN</span>
+        <span class="badge badge-solved">TW</span>
+        <span class="badge badge-new">KR</span>
+    </p>
+</section>
+
+<!-- ========== 2. ARCHITECTURE ========== -->
+<section class="section" id="s2">
+    <h2>2. Architecture &amp; Tech Stack</h2>
+
+    <h3>2.1 System Architecture</h3>
+    <div class="flow">
+        <div class="flow-step">Browser (SPA)</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">FastAPI Backend</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">Zendesk API</div>
+    </div>
+    <div class="flow">
+        <div class="flow-step">FastAPI Backend</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">RAG Service</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">Claude AI (SDK / Proxy)</div>
+    </div>
+
+    <h3>2.2 Tech Stack</h3>
+    <table>
+        <tr><th>Layer</th><th>Technology</th><th>Version</th></tr>
+        <tr><td>Backend</td><td>FastAPI + Uvicorn</td><td>0.134+ / 0.41+</td></tr>
+        <tr><td>Frontend</td><td>Vanilla JS + CSS (SPA, no build step)</td><td>-</td></tr>
+        <tr><td>AI Engine</td><td>Claude Sonnet via Anthropic SDK or Proxy</td><td>claude-sonnet-4</td></tr>
+        <tr><td>RAG</td><td>Section-based (CS Manual mapping, no vector DB)</td><td>-</td></tr>
+        <tr><td>Auth</td><td>JWT (HS256, python-jose)</td><td>8h expiry</td></tr>
+        <tr><td>HTTP Client</td><td>httpx (async) + tenacity (retry)</td><td>0.28+ / 9.0+</td></tr>
+        <tr><td>Config</td><td>pydantic-settings (.env)</td><td>2.7+</td></tr>
+        <tr><td>Ticketing</td><td>Zendesk REST API v2</td><td>-</td></tr>
+    </table>
+
+    <h3>2.3 디렉토리 구조</h3>
+    <pre><code>dashboard/
+├── main.py                # FastAPI 앱 엔트리포인트
+├── config.py              # pydantic-settings (부모 .env 읽기)
+├── requirements.txt       # Python 의존성
+├── routers/
+│   ├── auth.py            # JWT 로그인/인증
+│   ├── tickets.py         # 티켓 목록/상세/통계
+│   ├── actions.py         # 상태변경/답변/메모/에스컬/스팸
+│   └── drafts.py          # AI Draft 생성/재채점
+├── services/
+│   ├── zendesk_client.py  # Zendesk API 비동기 클라이언트
+│   ├── claude_client.py   # Claude AI 이중모드 클라이언트
+│   ├── rag_service.py     # RAG 지식베이스 서비스
+│   ├── draft_generator.py # Draft 오케스트레이터
+│   ├── quality_scorer.py  # 4차원 품질 채점
+│   ├── spam_detector.py   # 스팸/피싱 패턴 감지
+│   └── template_data.py   # 다국어 템플릿/매핑 데이터
+├── models/
+│   ├── auth.py            # LoginRequest, TokenResponse
+│   ├── ticket.py          # Ticket 모델
+│   └── draft.py           # DraftRequest/Response, QualityScore
+├── knowledge/
+│   └── cs_manual_sections.json  # RAG 지식베이스 (빌드 산출물)
+├── scripts/
+│   └── build_knowledge.py # 지식베이스 빌드 스크립트
+├── static/
+│   ├── css/dashboard.css  # 전체 스타일시트
+│   └── js/
+│       ├── app.js         # SPA 컨트롤러, JWT 관리, 라우팅
+│       ├── tickets.js     # 티켓 목록, KPI, 필터, 페이지네이션
+│       ├── detail.js      # 티켓 상세, 대화 스레드, 액션 버튼
+│       └── draft.js       # AI Draft 생성, 품질 표시, 스팸 배너
+└── templates/
+    └── index.html         # SPA 셸 (단일 페이지)</code></pre>
+</section>
+
+<!-- ========== 3. ENVIRONMENT SETUP ========== -->
+<section class="section" id="s3">
+    <h2>3. Environment Setup</h2>
+
+    <h3>3.1 필수 환경변수 (.env)</h3>
+    <table>
+        <tr><th>변수</th><th>필수</th><th>기본값</th><th>설명</th></tr>
+        <tr><td><code>ZENDESK_SUBDOMAIN</code></td><td>Yes</td><td>toomicsglobal</td><td>Zendesk 서브도메인</td></tr>
+        <tr><td><code>ZENDESK_EMAIL</code></td><td>Yes</td><td>-</td><td>Zendesk API 인증 이메일</td></tr>
+        <tr><td><code>ZENDESK_API_TOKEN</code></td><td>Yes</td><td>-</td><td>Zendesk API 토큰</td></tr>
+        <tr><td><code>ANTHROPIC_API_KEY</code></td><td>No</td><td>-</td><td>Claude SDK 직접 호출 키 (미설정 시 프록시 fallback)</td></tr>
+        <tr><td><code>CLAUDE_PROXY_URL</code></td><td>Cond.</td><td>http://127.0.0.1:3456/v1</td><td>Claude 프록시 URL (API키 미설정 시 필수)</td></tr>
+        <tr><td><code>CLAUDE_MODEL</code></td><td>No</td><td>claude-sonnet-4-20250514</td><td>사용할 Claude 모델 ID</td></tr>
+        <tr><td><code>CLAUDE_MAX_TOKENS</code></td><td>No</td><td>2048</td><td>AI 응답 최대 토큰</td></tr>
+        <tr><td><code>DASHBOARD_SECRET_KEY</code></td><td><strong>Yes</strong></td><td>change-me-in-production</td><td>JWT 서명 비밀키 (반드시 변경)</td></tr>
+        <tr><td><code>DASHBOARD_USERNAME</code></td><td>No</td><td>admin</td><td>로그인 사용자명</td></tr>
+        <tr><td><code>DASHBOARD_PASSWORD</code></td><td>No</td><td>admin</td><td>로그인 비밀번호 (반드시 변경)</td></tr>
+        <tr><td><code>DASHBOARD_PORT</code></td><td>No</td><td>8100</td><td>서버 포트</td></tr>
+    </table>
+
+    <div class="callout callout-danger">
+        <strong>Security Notice</strong>
+        <code>DASHBOARD_SECRET_KEY</code>, <code>DASHBOARD_USERNAME</code>, <code>DASHBOARD_PASSWORD</code>는 운영 환경에서 반드시 강력한 값으로 변경해야 합니다. 기본값(admin/admin)으로 운영하면 무단 접근 위험이 있습니다.
+    </div>
+
+    <h3>3.2 설치 &amp; 실행</h3>
+    <pre><code># 1. 의존성 설치
+pip install -r dashboard/requirements.txt
+
+# 2. 지식베이스 빌드 (최초 1회)
+python3 dashboard/scripts/build_knowledge.py
+
+# 3. 서버 실행
+uvicorn dashboard.main:app --host 0.0.0.0 --port 8100
+
+# 4. 브라우저 접속
+open http://localhost:8100</code></pre>
+
+    <h3>3.3 tmux 백그라운드 실행 (권장)</h3>
+    <pre><code># 세션 생성 + 서버 시작
+tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --port 8100"
+
+# 로그 확인
+tmux attach -t dashboard
+
+# 서버 재시작
+tmux kill-session -t dashboard
+tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --port 8100"</code></pre>
+
+    <h3>3.4 Health Check</h3>
+    <pre><code>curl http://localhost:8100/health
+# 응답: {"status":"ok","zendesk":"connected","claude_mode":"proxy"}</code></pre>
+    <table>
+        <tr><th>필드</th><th>값</th><th>설명</th></tr>
+        <tr><td><code>status</code></td><td>ok / degraded</td><td>Zendesk 연결 상태</td></tr>
+        <tr><td><code>zendesk</code></td><td>connected / disconnected</td><td>Zendesk API 인증 결과</td></tr>
+        <tr><td><code>claude_mode</code></td><td>sdk / proxy</td><td>Claude 연동 모드</td></tr>
+    </table>
+</section>
+
+<!-- ========== 4. AUTHENTICATION ========== -->
+<section class="section" id="s4">
+    <h2>4. Authentication &amp; Access Control</h2>
+
+    <h3>4.1 인증 방식</h3>
+    <p>JWT (JSON Web Token) 기반 Stateless 인증을 사용합니다.</p>
+    <table>
+        <tr><th>항목</th><th>사양</th></tr>
+        <tr><td>알고리즘</td><td>HS256 (HMAC-SHA256)</td></tr>
+        <tr><td>토큰 유효기간</td><td>8시간</td></tr>
+        <tr><td>저장 위치</td><td>브라우저 sessionStorage (탭 닫으면 삭제)</td></tr>
+        <tr><td>전송 방식</td><td><code>Authorization: Bearer {token}</code> 헤더</td></tr>
+    </table>
+
+    <h3>4.2 로그인 플로우</h3>
+    <div class="flow">
+        <div class="flow-step">Username/Password 입력</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">POST /api/auth/login</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">JWT 토큰 발급</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">sessionStorage 저장</div>
+    </div>
+
+    <h3>4.3 세션 만료 처리</h3>
+    <p>API 호출 시 401 응답이 오면 자동으로 로그인 화면으로 리다이렉트됩니다. 토큰 만료(8시간) 후 재로그인이 필요합니다.</p>
+
+    <div class="callout callout-info">
+        <strong>Policy</strong>
+        현재는 단일 계정(settings 기반)만 지원합니다. 다중 사용자가 필요한 경우 DB 기반 인증으로 확장이 필요합니다.
+    </div>
+</section>
+
+<!-- ========== 5. DASHBOARD UI ========== -->
+<section class="section" id="s5">
+    <h2>5. Dashboard UI Guide</h2>
+
+    <h3>5.1 화면 구성</h3>
+    <p>SPA(Single Page Application) 구조로, 빌드 없이 바닐라 JS + CSS로 구현되었습니다.</p>
+
+    <h4>A. Header</h4>
+    <p>TOOMICS 로고, CS Dashboard 타이틀, 사용자 뱃지, Logout 버튼</p>
+
+    <h4>B. KPI Strip (5개 카드)</h4>
+    <table>
+        <tr><th>순서</th><th>카드</th><th>Zendesk 상태</th><th>색상</th><th>설명</th></tr>
+        <tr><td>1</td><td><span class="badge badge-new">NEW</span></td><td>new</td><td>Blue</td><td>신규 미배정 티켓</td></tr>
+        <tr><td>2</td><td><span class="badge badge-open">OPEN</span></td><td>open</td><td>Amber</td><td>상담원 작업 중</td></tr>
+        <tr><td>3</td><td><span class="badge badge-pending">PENDING</span></td><td>pending</td><td>Purple</td><td>고객 응답 대기</td></tr>
+        <tr><td>4</td><td><span class="badge badge-progress">IN PROGRESS</span></td><td>custom_status_id: 34798055933209</td><td>Orange</td><td>에스컬레이션 처리 중</td></tr>
+        <tr><td>5</td><td><span class="badge badge-solved">SOLVED TODAY</span></td><td>solved (KST 08:00~)</td><td>Green</td><td>오늘(KST 08:00 기준) 해결 건수</td></tr>
+    </table>
+    <div class="callout callout-info">
+        <strong>Solved Today 기준 시간</strong>
+        매일 KST 08:00에 리셋됩니다. KST 08:00 이전에는 전일 08:00부터의 건수를 표시합니다.
+    </div>
+    <p>KPI 카드를 클릭하면 해당 상태로 티켓 목록이 필터링됩니다.</p>
+
+    <h4>C. Filter Bar</h4>
+    <table>
+        <tr><th>필터</th><th>옵션</th></tr>
+        <tr><td>Status</td><td>All / New / In Progress / Open / Pending / Solved</td></tr>
+        <tr><td>Market</td><td>All / EN / FR / DE / ES / PT / IT / JP / TH / CN / TW</td></tr>
+        <tr><td>Category</td><td>All / Subscription / Refund / Account / Payment / Content / Technical / Fraud / Other</td></tr>
+        <tr><td>Search</td><td>자유 텍스트 검색 (Enter 또는 Search 버튼)</td></tr>
+    </table>
+
+    <h4>D. Ticket List (좌측 패널)</h4>
+    <p>필터 조건에 맞는 티켓 목록 (25건/페이지). 각 항목에 ID, Subject, Status, Market, Category, 날짜가 표시됩니다. 클릭 시 우측 상세 패널이 로드됩니다.</p>
+
+    <h4>E. Panel Resizer</h4>
+    <p>좌측 목록과 우측 상세 사이의 구분선을 마우스 드래그로 너비 조절할 수 있습니다.</p>
+    <ul>
+        <li>좌측 최소 너비: 300px</li>
+        <li>우측 최소 너비: 400px</li>
+        <li>드래그 중 커서가 <code>col-resize</code>로 변경됩니다</li>
+    </ul>
+
+    <h4>F. Ticket Detail (우측 패널)</h4>
+    <p>선택된 티켓의 상세 정보 + 대화 스레드 + AI Draft + 액션 버튼이 표시됩니다.</p>
+</section>
+
+<!-- ========== 6. TICKET WORKFLOW ========== -->
+<section class="section" id="s6">
+    <h2>6. Ticket Workflow &amp; Actions</h2>
+
+    <h3>6.1 상태 흐름</h3>
+    <div class="flow">
+        <div class="flow-step">NEW</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">OPEN</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">PENDING / IN PROGRESS</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">SOLVED</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">CLOSED (auto 24h)</div>
+    </div>
+
+    <h3>6.2 액션 버튼 (3개)</h3>
+    <table>
+        <tr><th>버튼</th><th>유형</th><th>동작</th><th>Zendesk 상태</th><th>사용 시점</th></tr>
+        <tr>
+            <td><strong>Reply &amp; Pending</strong></td>
+            <td>Public Reply</td>
+            <td>고객에게 공개 답변 발송 + 상태 변경</td>
+            <td>pending</td>
+            <td>추가 정보/확인이 필요할 때 (고객 응답 대기)</td>
+        </tr>
+        <tr>
+            <td><strong>Reply &amp; Solved</strong></td>
+            <td>Public Reply</td>
+            <td>고객에게 공개 답변 발송 + 상태 변경</td>
+            <td>solved</td>
+            <td>문의가 완전히 해결되었을 때</td>
+        </tr>
+        <tr>
+            <td><strong>Escalate</strong></td>
+            <td>Internal Note</td>
+            <td>내부 메모 추가 + 상태 변경 + 태그 추가</td>
+            <td>In Progress (custom) + tag: <code>escalated</code></td>
+            <td>팀 리드 확인이 필요한 복잡/민감 건</td>
+        </tr>
+    </table>
+
+    <h3>6.3 에스컬레이션 정책</h3>
+    <div class="callout callout-warning">
+        <strong>Escalation Policy</strong>
+        Escalate 버튼 클릭 시 티켓은 "In Progress" 상태 + "escalated" 태그가 부여됩니다. 팀 리드가 Zendesk 또는 대시보드에서 에스컬레이션된 티켓을 확인하고, 처리 방향을 결정한 뒤 답변합니다.
+    </div>
+
+    <h4>에스컬레이션 기준</h4>
+    <ul>
+        <li>환불 금액 $100 이상 또는 다건 환불 요청</li>
+        <li>Fraud/악의적 이용 의심 건</li>
+        <li>법적 조치 언급 또는 외부 기관 민원</li>
+        <li>기술적 버그 (개발팀 확인 필요)</li>
+        <li>VIP 고객 또는 인플루언서 관련 민원</li>
+    </ul>
+
+    <h3>6.4 Status Change (수동)</h3>
+    <p>상세 패널 상단의 Status 드롭다운에서 직접 상태를 변경할 수 있습니다: Open, In Progress, Pending, Solved.</p>
+
+    <h3>6.5 대화 스레드</h3>
+    <p>티켓의 모든 댓글이 시간순으로 표시됩니다.</p>
+    <table>
+        <tr><th>유형</th><th>표시</th><th>색상</th></tr>
+        <tr><td>Customer</td><td>고객 아이콘 + 이름</td><td>파란색 (좌측 보더)</td></tr>
+        <tr><td>Agent</td><td>상담원 아이콘</td><td>초록색 (좌측 보더)</td></tr>
+        <tr><td>Internal Note</td><td>이탤릭 + 노란 배경</td><td>주황색 (좌측 보더)</td></tr>
+    </table>
+</section>
+
+<!-- ========== 7. AI DRAFT ========== -->
+<section class="section" id="s7">
+    <h2>7. AI Draft Generation</h2>
+
+    <h3>7.1 생성 플로우</h3>
+    <div class="flow">
+        <div class="flow-step">1. Ticket 선택</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">2. Generate AI Draft 클릭</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">3. 스팸 체크</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">4. RAG 참조</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">5. Claude 생성</div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step">6. 품질 채점</div>
+    </div>
+
+    <h3>7.2 상세 단계</h3>
+    <ol>
+        <li><strong>Ticket Fetch</strong> — Zendesk API로 티켓 상세 + 댓글 스레드 조회</li>
+        <li><strong>Customer Text 추출</strong> — 고객 최근 3개 공개 메시지를 결합</li>
+        <li><strong>Spam Check</strong> — 스팸/피싱 패턴 탐지 (§10 참조). 스팸이면 경고 배너 표시, Draft 미생성</li>
+        <li><strong>RAG Lookup</strong> — 티켓 카테고리 → CS 매뉴얼 섹션 매핑 → 최대 4,000자 컨텍스트 추출</li>
+        <li><strong>Claude Generation</strong> — System Prompt (매뉴얼 컨텍스트 + 다국어 인사/맺음말) + User Message (티켓 정보) → Claude Sonnet 호출</li>
+        <li><strong>Quality Score</strong> — 생성된 텍스트를 4차원 채점 (§9 참조)</li>
+    </ol>
+
+    <h3>7.3 Claude AI 이중 모드</h3>
+    <table>
+        <tr><th>모드</th><th>조건</th><th>동작</th></tr>
+        <tr><td><strong>SDK Direct</strong></td><td><code>ANTHROPIC_API_KEY</code> 설정됨</td><td>Anthropic Python SDK로 직접 호출</td></tr>
+        <tr><td><strong>Proxy Fallback</strong></td><td>API Key 미설정 또는 SDK 실패</td><td>OpenAI-compatible proxy 경유 (/chat/completions)</td></tr>
+    </table>
+
+    <h3>7.4 생성 파라미터</h3>
+    <table>
+        <tr><th>파라미터</th><th>값</th><th>설명</th></tr>
+        <tr><td>Model</td><td>claude-sonnet-4 (설정 가능)</td><td>균형 잡힌 품질/속도</td></tr>
+        <tr><td>Max Tokens</td><td>2,048</td><td>답변 길이 상한</td></tr>
+        <tr><td>Temperature</td><td>0.3</td><td>낮은 값으로 일관성 확보</td></tr>
+        <tr><td>Retry</td><td>3회, exponential backoff (2~30s)</td><td>연결 오류 시 재시도</td></tr>
+    </table>
+
+    <h3>7.5 System Prompt 구조</h3>
+    <p>Claude에게 전달되는 System Prompt는 다음 요소로 구성됩니다:</p>
+    <ul>
+        <li>역할 정의 (Toomics 전문 CS 상담원)</li>
+        <li>CS Manual Reference (RAG에서 추출한 관련 섹션, 최대 4,000자)</li>
+        <li>응답 가이드라인 (7개 규칙)</li>
+        <li>표준 인사말 / 맺음말 (마켓 언어별)</li>
+    </ul>
+
+    <h3>7.6 Fallback 응답</h3>
+    <p>Claude 호출이 실패하면 템플릿 기반 기본 응답이 생성됩니다:</p>
+    <pre><code>{greeting}
+
+Thank you for your inquiry regarding {category}.
+We are looking into your request and will get back to you shortly.
+
+{closing}</code></pre>
+
+    <h3>7.7 Draft 편집 &amp; Re-score</h3>
+    <p>AI가 생성한 초안은 textarea에서 자유롭게 편집할 수 있습니다. 편집 후 <strong>Re-score</strong> 버튼을 눌러 수정된 텍스트의 품질 점수를 재계산할 수 있습니다.</p>
+</section>
+
+<!-- ========== 8. RAG ========== -->
+<section class="section" id="s8">
+    <h2>8. RAG Knowledge Base</h2>
+
+    <h3>8.1 설계 원칙</h3>
+    <p>벡터 DB 없이 <strong>섹션 기반 결정론적 RAG</strong>를 사용합니다. 티켓 카테고리를 CS 매뉴얼 챕터에 직접 매핑하여 정확한 참조 자료를 제공합니다.</p>
+
+    <h3>8.2 카테고리 → 매뉴얼 매핑</h3>
+    <table>
+        <tr><th>Ticket Category</th><th>CS Manual Chapter</th><th>Section ID</th></tr>
+        <tr><td>Subscription</td><td>Ch.2 — 구독 관리</td><td>section-2</td></tr>
+        <tr><td>Refund</td><td>Ch.3 — 환불 정책</td><td>section-3</td></tr>
+        <tr><td>Account / Login</td><td>Ch.4 — 계정 관리</td><td>section-4</td></tr>
+        <tr><td>Payment</td><td>Ch.5 — 결제 이슈</td><td>section-5</td></tr>
+        <tr><td>Content / Technical</td><td>Ch.6 — 콘텐츠/기술</td><td>section-6</td></tr>
+        <tr><td>Fraud</td><td>Ch.7 — 부정 이용</td><td>section-7</td></tr>
+        <tr><td>Other</td><td>Ch.1 — 일반 안내</td><td>section-1</td></tr>
+    </table>
+
+    <h3>8.3 지식베이스 빌드</h3>
+    <pre><code>python3 dashboard/scripts/build_knowledge.py</code></pre>
+    <p>CS 매뉴얼 HTML에서 섹션을 추출하여 <code>dashboard/knowledge/cs_manual_sections.json</code>을 생성합니다. 매뉴얼 업데이트 시 재빌드가 필요합니다.</p>
+
+    <h3>8.4 컨텍스트 주입</h3>
+    <ul>
+        <li>최대 <strong>4,000자</strong>까지 매뉴얼 텍스트를 Claude prompt에 주입</li>
+        <li>초과 시 마지막 섹션을 절삭하여 토큰 한도 내 유지</li>
+        <li>매칭 섹션이 없으면 일반 가이드라인 메시지로 대체</li>
+    </ul>
+</section>
+
+<!-- ========== 9. QUALITY SCORING ========== -->
+<section class="section" id="s9">
+    <h2>9. Quality Scoring System</h2>
+
+    <h3>9.1 4차원 채점</h3>
+    <p>각 차원 0.0~1.0 점, 가중 평균(x0.25)으로 총점 산출</p>
+    <table>
+        <tr><th>차원</th><th>가중치</th><th>채점 기준</th></tr>
+        <tr>
+            <td><strong>Template Match</strong></td>
+            <td>25%</td>
+            <td>매뉴얼 템플릿 사용 여부: 사용=1.0, 미사용=0.3, Fallback=0.5</td>
+        </tr>
+        <tr>
+            <td><strong>Completeness</strong></td>
+            <td>25%</td>
+            <td>인사말(0.33) + 본문 80자+(0.34) + 맺음말(0.33) 유무</td>
+        </tr>
+        <tr>
+            <td><strong>Safety</strong></td>
+            <td>25%</td>
+            <td>금지 패턴 감지: 위반당 -0.25 (최소 0.0)</td>
+        </tr>
+        <tr>
+            <td><strong>Length</strong></td>
+            <td>25%</td>
+            <td>100~2,000자 최적 (1.0), 미달/초과 시 감점</td>
+        </tr>
+    </table>
+
+    <h3>9.2 Safety 금지 패턴</h3>
+    <table>
+        <tr><th>패턴</th><th>감지 대상</th><th>감점</th></tr>
+        <tr><td>잘못된 도메인</td><td><code>en.toomics.com</code> (언어별 도메인 사용 필요)</td><td>-0.25</td></tr>
+        <tr><td>경쟁사 언급</td><td>Webtoon, Tapas, Tappytoon, Lezhin</td><td>-0.25</td></tr>
+        <tr><td>미치환 변수</td><td><code>{variable_name}</code> 형태 잔존</td><td>-0.25</td></tr>
+        <tr><td>내부 정보 노출</td><td>"internal note" 문구</td><td>-0.25</td></tr>
+    </table>
+
+    <h3>9.3 점수 해석</h3>
+    <table>
+        <tr><th>점수</th><th>등급</th><th>색상</th><th>조치</th></tr>
+        <tr><td>80%+</td><td>Good</td><td style="color:#28A06C;">Green</td><td>검토 후 바로 발송 가능</td></tr>
+        <tr><td>60~79%</td><td>Fair</td><td style="color:#E8A020;">Amber</td><td>일부 수정 필요 (금지 패턴/누락 확인)</td></tr>
+        <tr><td>&lt;60%</td><td>Poor</td><td style="color:#D94052;">Red</td><td>전면 재작성 권장</td></tr>
+    </table>
+</section>
+
+<!-- ========== 10. SPAM DETECTION ========== -->
+<section class="section" id="s10">
+    <h2>10. Spam/Phishing Detection</h2>
+
+    <h3>10.1 감지 패턴 (4개 그룹)</h3>
+    <table>
+        <tr><th>#</th><th>패턴</th><th>감지 대상</th><th>예시</th></tr>
+        <tr>
+            <td>P1</td>
+            <td><strong>법률사무소 사칭</strong></td>
+            <td>유명 로펌 이름 + DMCA/저작권 키워드 + 첨부파일 유도</td>
+            <td>"Mayer Brown LLP", "DMCA Takedown", "Evidence_Record"</td>
+        </tr>
+        <tr>
+            <td>P2</td>
+            <td><strong>랜덤 해시 문자열</strong></td>
+            <td>32자+ hex 또는 28자+ 알파뉴메릭 랜덤 토큰</td>
+            <td>"huidjgxogdaeh33ibn9srp..."</td>
+        </tr>
+        <tr>
+            <td>P3</td>
+            <td><strong>외부 링크/다운로드 유도</strong></td>
+            <td>위험 파일 확장자 URL, URL 단축기, 다운로드 유도 문구</td>
+            <td>"bit.ly/...", ".exe", "click here to download"</td>
+        </tr>
+        <tr>
+            <td>P4</td>
+            <td><strong>긴급성 압박</strong></td>
+            <td>"urgent action required" + 짧은 기한</td>
+            <td>"within 48 hours", "legal action will be taken"</td>
+        </tr>
+    </table>
+
+    <h3>10.2 판정 기준</h3>
+    <div class="callout callout-danger">
+        <strong>Spam 판정 조건</strong>
+        <strong>2개 이상</strong>의 패턴 그룹이 매칭되면 스팸으로 판정합니다. 단, P1(법률사무소) + 첨부파일 유도 패턴이 동시 매칭되면 단독으로도 스팸 판정됩니다.
+    </div>
+
+    <h3>10.3 스팸 감지 시 동작</h3>
+    <ol>
+        <li>AI Draft 생성 <strong>중단</strong> (Claude 호출하지 않음)</li>
+        <li><span class="badge badge-spam">SPAM WARNING</span> 경고 배너 표시</li>
+        <li>감지 사유 목록 표시 (어떤 패턴이 매칭되었는지)</li>
+        <li><strong>Mark as Spam</strong> 버튼 제공</li>
+    </ol>
+
+    <h3>10.4 Mark as Spam 처리</h3>
+    <p>"Mark as Spam" 버튼 클릭 시 Zendesk API로 아래 동작이 실행됩니다:</p>
+    <ol>
+        <li>확인 다이얼로그 (실수 방지)</li>
+        <li><code>PUT /tickets/{id}/mark_as_spam.json</code> — 티켓 삭제 + 요청자(requester) 계정 정지</li>
+    </ol>
+    <div class="callout callout-danger">
+        <strong>Warning: 비가역적 동작</strong>
+        Mark as Spam은 티켓을 영구 삭제하고 해당 고객의 Zendesk 계정을 정지합니다. 오판 시 복구가 어려우므로, 확실한 스팸에만 사용해야 합니다. 불확실한 경우 Escalate로 팀 리드에게 전달하세요.
+    </div>
+
+    <h3>10.5 티켓 전환 시 초기화</h3>
+    <p>다른 티켓을 선택하면 스팸 배너, Draft 텍스트, Quality 점수 등이 모두 리셋됩니다.</p>
+</section>
+
+<!-- ========== 11. API REFERENCE ========== -->
+<section class="section" id="s11">
+    <h2>11. API Reference</h2>
+
+    <h3>11.1 Authentication</h3>
+    <table>
+        <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+        <tr><td>POST</td><td><code>/api/auth/login</code></td><td>No</td><td>JWT 토큰 발급 (username + password)</td></tr>
+        <tr><td>GET</td><td><code>/api/auth/me</code></td><td>Bearer</td><td>토큰 유효성 확인</td></tr>
+    </table>
+
+    <h3>11.2 Tickets</h3>
+    <table>
+        <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+        <tr><td>GET</td><td><code>/api/tickets</code></td><td>Bearer</td><td>티켓 목록 (status, market, category, q, page, per_page)</td></tr>
+        <tr><td>GET</td><td><code>/api/tickets/stats</code></td><td>Bearer</td><td>KPI 건수 (new, open, pending, in_progress, solved_today)</td></tr>
+        <tr><td>GET</td><td><code>/api/tickets/{id}</code></td><td>Bearer</td><td>티켓 상세 + 대화 스레드</td></tr>
+    </table>
+
+    <h3>11.3 Actions</h3>
+    <table>
+        <tr><th>Method</th><th>Path</th><th>Auth</th><th>Body</th><th>Description</th></tr>
+        <tr><td>PUT</td><td><code>/api/tickets/{id}/status</code></td><td>Bearer</td><td><code>{"status": "open"}</code></td><td>상태 변경</td></tr>
+        <tr><td>POST</td><td><code>/api/tickets/{id}/reply</code></td><td>Bearer</td><td><code>{"body": "...", "status": "pending"}</code></td><td>공개 답변 + 상태</td></tr>
+        <tr><td>POST</td><td><code>/api/tickets/{id}/note</code></td><td>Bearer</td><td><code>{"body": "..."}</code></td><td>내부 메모</td></tr>
+        <tr><td>POST</td><td><code>/api/tickets/{id}/escalate</code></td><td>Bearer</td><td><code>{"body": "..."}</code></td><td>에스컬레이션 (In Progress + tag)</td></tr>
+        <tr><td>POST</td><td><code>/api/tickets/{id}/spam</code></td><td>Bearer</td><td>-</td><td>스팸 처리 (삭제 + 계정 정지)</td></tr>
+    </table>
+
+    <h3>11.4 AI Drafts</h3>
+    <table>
+        <tr><th>Method</th><th>Path</th><th>Auth</th><th>Body</th><th>Description</th></tr>
+        <tr><td>POST</td><td><code>/api/drafts/generate</code></td><td>Bearer</td><td><code>{"ticket_id": 123, "language": "EN"}</code></td><td>AI 초안 생성</td></tr>
+        <tr><td>POST</td><td><code>/api/drafts/score</code></td><td>Bearer</td><td><code>{"text": "...", "language": "EN"}</code></td><td>품질 재채점</td></tr>
+    </table>
+
+    <h3>11.5 System</h3>
+    <table>
+        <tr><th>Method</th><th>Path</th><th>Auth</th><th>Description</th></tr>
+        <tr><td>GET</td><td><code>/health</code></td><td>No</td><td>서비스 상태 확인 (Zendesk + Claude)</td></tr>
+        <tr><td>GET</td><td><code>/</code></td><td>No</td><td>SPA 메인 페이지</td></tr>
+    </table>
+</section>
+
+<!-- ========== 12. ZENDESK INTEGRATION ========== -->
+<section class="section" id="s12">
+    <h2>12. Zendesk Integration</h2>
+
+    <h3>12.1 인증</h3>
+    <p>Zendesk API Token 인증 (<code>email/token:api_token</code>) + Basic Auth (Base64).</p>
+
+    <h3>12.2 커스텀 상태</h3>
+    <table>
+        <tr><th>Agent Label</th><th>Status Category</th><th>Custom Status ID</th><th>Active</th></tr>
+        <tr><td>New</td><td>new</td><td>34798050839577</td><td>Yes</td></tr>
+        <tr><td>Open</td><td>open</td><td>34798055918489</td><td>Yes</td></tr>
+        <tr><td><strong>In Progress</strong></td><td><strong>open</strong></td><td><strong>34798055933209</strong></td><td><strong>Yes</strong></td></tr>
+        <tr><td>Pending</td><td>pending</td><td>34798055922713</td><td>Yes</td></tr>
+        <tr><td>On-hold</td><td>hold</td><td>34798050861465</td><td>No (비활성)</td></tr>
+        <tr><td>Solved</td><td>solved</td><td>34798050866969</td><td>Yes</td></tr>
+    </table>
+    <div class="callout callout-info">
+        <strong>Important</strong>
+        "In Progress"는 <code>hold</code>가 아닌 <code>open</code> 카테고리의 커스텀 상태입니다. API에서 <code>custom_status_id</code> 필드를 사용해야 합니다.
+    </div>
+
+    <h3>12.3 마켓 태그 매핑</h3>
+    <p>Zendesk 티켓의 마켓은 <code>language__</code> 접두사 태그로 식별됩니다:</p>
+    <table>
+        <tr><th>Market</th><th>Zendesk Tag</th><th>Market</th><th>Zendesk Tag</th></tr>
+        <tr><td>EN</td><td><code>language__en</code></td><td>IT</td><td><code>language__it</code></td></tr>
+        <tr><td>FR</td><td><code>language__fr</code></td><td>JP</td><td><code>language__ja</code></td></tr>
+        <tr><td>DE</td><td><code>language__de</code></td><td>TH</td><td><code>language__th</code></td></tr>
+        <tr><td>ES</td><td><code>language__es</code></td><td>CN</td><td><code>language__zh</code></td></tr>
+        <tr><td>PT</td><td><code>language__pt</code></td><td>KR</td><td><code>language__ko</code></td></tr>
+    </table>
+
+    <h3>12.4 Rate Limit 처리</h3>
+    <p>Zendesk 429 응답 시 <code>Retry-After</code> 헤더 값만큼 대기 후 자동 재시도합니다. 추가로 연결 오류/타임아웃 시 exponential backoff (1~10s, 최대 3회)로 재시도합니다.</p>
+
+    <h3>12.5 카테고리 분류</h3>
+    <p>티켓의 <code>tags</code> 배열에서 키워드를 추출하여 카테고리를 결정합니다:</p>
+    <table>
+        <tr><th>Tag Keyword</th><th>Category</th><th>Tag Keyword</th><th>Category</th></tr>
+        <tr><td>subscription</td><td>Subscription</td><td>content</td><td>Content</td></tr>
+        <tr><td>refund</td><td>Refund</td><td>technical</td><td>Technical</td></tr>
+        <tr><td>account</td><td>Account</td><td>fraud</td><td>Fraud</td></tr>
+        <tr><td>payment</td><td>Payment</td><td>login</td><td>Login</td></tr>
+    </table>
+</section>
+
+<!-- ========== 13. OPERATIONAL POLICIES ========== -->
+<section class="section" id="s13">
+    <h2>13. Operational Policies</h2>
+
+    <h3>13.1 AI Draft 사용 정책</h3>
+    <ul>
+        <li>AI Draft는 <strong>참고용 초안</strong>입니다. 반드시 상담원이 내용을 검토하고 필요 시 수정한 후 발송해야 합니다.</li>
+        <li>AI 생성 텍스트를 <strong>무검토 발송하는 것은 금지</strong>합니다.</li>
+        <li>품질 점수 60% 미만인 Draft는 전면 재작성을 권장합니다.</li>
+        <li>Safety 위반(경쟁사 언급, 내부 정보 노출 등)이 있는 Draft는 해당 부분을 반드시 제거/수정해야 합니다.</li>
+    </ul>
+
+    <h3>13.2 스팸 처리 정책</h3>
+    <ul>
+        <li>스팸 감지 경고가 뜬 티켓은 반드시 내용을 확인합니다.</li>
+        <li><strong>확실한 스팸</strong>만 "Mark as Spam"으로 처리합니다.</li>
+        <li><strong>불확실한 경우</strong> Escalate로 팀 리드에게 전달합니다.</li>
+        <li>정상 고객 티켓을 스팸 처리하면 고객 계정이 정지되므로 주의가 필요합니다.</li>
+    </ul>
+
+    <h3>13.3 에스컬레이션 정책</h3>
+    <ul>
+        <li>Escalate 시 내부 메모에 <strong>에스컬레이션 사유</strong>를 반드시 기재합니다.</li>
+        <li>에스컬레이션된 티켓은 팀 리드가 <strong>24시간 이내</strong> 확인해야 합니다.</li>
+        <li>처리 완료 후 Reply &amp; Solved로 마감합니다.</li>
+    </ul>
+
+    <h3>13.4 데이터 보안 정책</h3>
+    <ul>
+        <li>고객 PII(이메일, 이름, 결제 정보)는 대시보드 외부로 복사/저장 금지</li>
+        <li>JWT 토큰은 sessionStorage에만 저장 (탭 닫으면 자동 삭제)</li>
+        <li><code>DASHBOARD_SECRET_KEY</code>는 최소 32자의 랜덤 문자열 사용</li>
+        <li>기본 비밀번호(admin/admin)로 운영 환경 접속 금지</li>
+    </ul>
+
+    <h3>13.5 응답 금지 사항</h3>
+    <ul>
+        <li>경쟁사 이름 언급 (Webtoon, Tapas, Tappytoon, Lezhin)</li>
+        <li>내부 시스템/프로세스 노출 ("internal note", "escalation process" 등)</li>
+        <li><code>en.toomics.com</code> 대신 마켓별 도메인 사용 (예: <code>fr.toomics.com</code>)</li>
+        <li>미치환 템플릿 변수 (<code>{customer_name}</code> 등) 발송</li>
+    </ul>
+</section>
+
+<!-- ========== 14. TROUBLESHOOTING ========== -->
+<section class="section" id="s14">
+    <h2>14. Troubleshooting</h2>
+
+    <table>
+        <tr><th>증상</th><th>원인</th><th>해결</th></tr>
+        <tr>
+            <td>로그인 실패</td>
+            <td>잘못된 username/password</td>
+            <td><code>.env</code>의 <code>DASHBOARD_USERNAME</code>/<code>DASHBOARD_PASSWORD</code> 확인</td>
+        </tr>
+        <tr>
+            <td>Health check "degraded"</td>
+            <td>Zendesk API 인증 실패</td>
+            <td><code>ZENDESK_EMAIL</code>, <code>ZENDESK_API_TOKEN</code> 확인. <code>/token:</code> 접미사 불필요</td>
+        </tr>
+        <tr>
+            <td>AI Draft 생성 실패</td>
+            <td>Claude proxy/SDK 연결 오류</td>
+            <td><code>/health</code>에서 claude_mode 확인. Proxy URL 또는 API Key 점검</td>
+        </tr>
+        <tr>
+            <td>마켓 필터 "No tickets"</td>
+            <td>Zendesk 태그 매핑 불일치</td>
+            <td>Zendesk에 <code>language__en</code> 형식 태그가 있는지 확인</td>
+        </tr>
+        <tr>
+            <td>스팸 배너 미표시</td>
+            <td>브라우저 캐시</td>
+            <td><kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>R</kbd> (강제 새로고침). 서버에 NoCacheMiddleware 적용됨</td>
+        </tr>
+        <tr>
+            <td>Quality 점수 0%</td>
+            <td>빈 텍스트 또는 로드 실패</td>
+            <td>draft-text 영역에 텍스트가 있는지 확인. 콘솔 에러 점검</td>
+        </tr>
+        <tr>
+            <td>"In Progress" 건수 0</td>
+            <td>custom_status_id 미사용</td>
+            <td>Zendesk Admin에서 커스텀 상태 활성화 확인</td>
+        </tr>
+        <tr>
+            <td>429 Too Many Requests</td>
+            <td>Zendesk rate limit</td>
+            <td>자동 재시도 (Retry-After). 반복 시 요청 빈도 조절</td>
+        </tr>
+    </table>
+
+    <h3>서버 로그 확인</h3>
+    <pre><code># tmux 세션 로그 실시간 확인
+tmux attach -t dashboard
+
+# 최근 로그 캡처
+tmux capture-pane -t dashboard -p | tail -50
+
+# 스팸 로그만 필터
+tmux capture-pane -t dashboard -p | grep -i spam</code></pre>
+</section>
+
+<!-- ========== 15. REVISION HISTORY ========== -->
+<section class="section" id="s15">
+    <h2>15. Revision History</h2>
+    <table class="revision-table">
+        <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
+        <tr><td>v1.0</td><td>2026-03-06</td><td>유종선</td><td>Initial release — System overview, architecture, authentication, UI guide, ticket workflow, AI draft generation, RAG knowledge base, quality scoring, spam detection, API reference, Zendesk integration, operational policies, troubleshooting</td></tr>
+    </table>
+</section>
+
+</div><!-- .container -->
+</body>
+</html>
