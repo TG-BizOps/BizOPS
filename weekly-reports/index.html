@@ -4,286 +4,124 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="유종선">
-<meta name="description" content="BizOps 주간 CS 분석 리포트 아카이브">
-<title>Weekly Reports Archive | BizOps Portal</title>
+<title>주간 리포트 | BizOps Portal</title>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif;
-    background: #F8FAFC; color: #1E293B;
-    font-size: 14px; line-height: 1.7;
-    word-break: keep-all; overflow-wrap: break-word;
-  }
-  .hero {
-    background: linear-gradient(135deg, #1E3A5F 0%, #2563EB 50%, #0EA5E9 100%);
-    color: #fff; padding: 40px 24px; text-align: center;
-  }
-  .hero-badge {
-    display: inline-block; background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25); border-radius: 20px;
-    padding: 4px 14px; font-size: 12px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 12px;
-  }
-  .hero h1 { font-size: 28px; font-weight: 800; margin-bottom: 6px; }
-  .hero .subtitle { font-size: 15px; opacity: 0.85; }
-  .hero-meta {
-    display: flex; justify-content: center; gap: 24px;
-    margin-top: 16px; font-size: 12px; opacity: 0.75;
-  }
-  .back-link {
-    display: inline-flex; align-items: center; gap: 6px;
-    color: rgba(255,255,255,0.85); text-decoration: none;
-    font-size: 13px; margin-bottom: 16px;
-    transition: color 0.15s;
-  }
-  .back-link:hover { color: #fff; }
+  body { font-family: 'Malgun Gothic','Apple SD Gothic Neo','Noto Sans KR',-apple-system,sans-serif; background: #F8FAFC; color: #1E293B; font-size: 14px; line-height: 1.7; }
+  .header { background: linear-gradient(135deg, #0C4A6E 0%, #0EA5E9 100%); color: #fff; padding: 32px 24px; }
+  .header .back { color: rgba(255,255,255,0.7); text-decoration: none; font-size: 13px; display: inline-block; margin-bottom: 12px; }
+  .header .back:hover { color: #fff; }
+  .header h1 { font-size: 26px; font-weight: 800; }
+  .header .sub { font-size: 14px; opacity: 0.8; margin-top: 4px; }
   .container { max-width: 960px; margin: 0 auto; padding: 32px 24px 64px; }
-
-  .stats {
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 16px; margin-bottom: 32px;
-  }
-  .stat-card {
-    background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 12px; padding: 20px; text-align: center;
-    border-top: 3px solid #2563EB;
-  }
-  .stat-card .num { font-size: 28px; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .stat-card .lbl { font-size: 12px; color: #475569; margin-top: 4px; }
-
-  .month-section { margin-bottom: 28px; }
-  .month-header {
-    display: flex; align-items: center; gap: 10px;
-    padding: 12px 0; font-size: 18px; font-weight: 800;
-    color: #1E3A5F; border-bottom: 2px solid #E2E8F0; margin-bottom: 12px;
-  }
-  .month-header .badge {
-    font-size: 11px; font-weight: 600; color: #2563EB;
-    background: #EFF6FF; padding: 2px 10px; border-radius: 12px;
-  }
-
-  .report-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
-    gap: 10px;
-  }
-  .report-card {
-    display: flex; align-items: center; gap: 14px;
-    background: #fff; border: 1px solid #E2E8F0;
-    border-radius: 10px; padding: 14px 16px;
-    text-decoration: none; color: #1E293B;
-    transition: border-color 0.15s, box-shadow 0.15s;
-    border-left: 4px solid transparent;
-  }
-  .report-card:hover {
-    border-color: #2563EB; box-shadow: 0 2px 8px rgba(37,99,235,0.1);
-    border-left-color: #2563EB;
-  }
-  .report-card .icon {
-    width: 36px; height: 36px; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px; flex-shrink: 0;
-  }
-  .report-card .info { flex: 1; min-width: 0; }
-  .report-card .title { font-weight: 700; font-size: 13px; }
-  .report-card .meta { font-size: 11px; color: #64748B; margin-top: 2px; }
-  .report-card .arrow { color: #94A3B8; font-size: 14px; flex-shrink: 0; }
-
-  .tag {
-    display: inline-block; font-size: 10px; font-weight: 700;
-    padding: 1px 8px; border-radius: 10px; margin-left: 6px;
-    vertical-align: middle;
-  }
-  .tag-detail { background: #DBEAFE; color: #1E40AF; }
-  .tag-exec { background: #FEF3C7; color: #92400E; }
-  .tag-combined { background: #E0E7FF; color: #3730A3; }
-  .tag-latest { background: #D1FAE5; color: #065F46; }
-
-  .footer {
-    text-align: center; padding: 24px; font-size: 12px; color: #94A3B8;
-    border-top: 1px solid #E2E8F0;
-  }
-  .footer a { color: #2563EB; text-decoration: none; }
-  .footer a:hover { text-decoration: underline; }
-
-  @media (max-width: 600px) {
-    .report-grid { grid-template-columns: 1fr; }
-    .stats { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media print {
-    .hero { padding: 20px; }
-    .report-card { break-inside: avoid; }
-  }
+  .group-title { font-size: 15px; font-weight: 800; color: #0369A1; margin: 28px 0 12px; padding-bottom: 8px; border-bottom: 2px solid #E0F2FE; }
+  .group-title:first-child { margin-top: 0; }
+  .link-list { display: flex; flex-direction: column; gap: 10px; margin-bottom: 8px; }
+  .link-card { display: flex; align-items: center; gap: 14px; background: #fff; border: 1px solid #E2E8F0; border-radius: 12px; padding: 14px 18px; text-decoration: none; color: #1E293B; transition: border-color 0.15s, box-shadow 0.15s; border-left: 4px solid transparent; }
+  .link-card:hover { border-color: #0EA5E9; box-shadow: 0 4px 12px rgba(0,0,0,0.06); border-left-color: #0EA5E9; }
+  .link-card.latest { border-left-color: #0EA5E9; background: #F0F9FF; }
+  .lc-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; background: #ECFEFF; color: #0891B2; }
+  .lc-icon.exec { background: #EFF6FF; color: #2563EB; }
+  .lc-body { flex: 1; min-width: 0; }
+  .lc-title { font-size: 14px; font-weight: 700; }
+  .lc-desc { font-size: 12px; color: #475569; margin-top: 2px; }
+  .lc-badge { font-size: 10.5px; font-weight: 700; padding: 2px 8px; border-radius: 6px; white-space: nowrap; }
+  .bg-cyan { background: #ECFEFF; color: #0891B2; }
+  .bg-blue { background: #EFF6FF; color: #2563EB; }
+  .bg-slate { background: #F1F5F9; color: #475569; }
+  .footer { text-align: center; padding: 24px; font-size: 12px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px; }
 </style>
 </head>
 <body>
-
-<div class="hero">
-  <a href="https://tg-bizops.github.io/BizOPS/" class="back-link">
-    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M10 12L6 8l4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    BizOps Portal
-  </a>
-  <div class="hero-badge">Weekly Reports Archive</div>
-  <h1>CS 주간 분석 리포트</h1>
-  <div class="subtitle">TOOMICS BizOps팀 주간 CS/차지백 분석 아카이브</div>
-  <div class="hero-meta">
-    <span>작성자: 유종선</span>
-    <span>최종 업데이트: 2026-03-06</span>
-  </div>
+<div class="header">
+  <a class="back" href="../">&larr; BizOps Portal</a>
+  <h1>주간 리포트 아카이브</h1>
+  <div class="sub">2026년 2월 CS + 차지백 주간 분석 HTML 리포트 &middot; 13건</div>
 </div>
-
 <div class="container">
 
-  <div class="stats" id="stats"></div>
+  <div class="group-title">2월 4주차 (02.21 ~ 02.27)</div>
+  <div class="link-list">
+    <a class="link-card latest" href="cs_weekly_analysis_20260306_w4.html">
+      <span class="lc-icon">W4</span>
+      <span class="lc-body"><span class="lc-title">W4 상세 분석</span><span class="lc-desc">CS 476건 + CB 59건 | 2026-03-06 생성</span></span>
+      <span class="lc-badge bg-cyan">Latest</span>
+    </a>
+    <a class="link-card latest" href="cs_weekly_analysis_20260306_w4_executive.html">
+      <span class="lc-icon exec">E4</span>
+      <span class="lc-body"><span class="lc-title">W4 Executive Summary</span><span class="lc-desc">CS 476건 + CB 59건 | 2026-03-06 생성</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260303_w4.html">
+      <span class="lc-icon">W4</span>
+      <span class="lc-body"><span class="lc-title">W4 상세 분석 (이전)</span><span class="lc-desc">2026-03-03 생성</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260303_w4_executive.html">
+      <span class="lc-icon exec">E4</span>
+      <span class="lc-body"><span class="lc-title">W4 Executive (이전)</span><span class="lc-desc">2026-03-03 생성</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w4.html">
+      <span class="lc-icon">W4</span>
+      <span class="lc-body"><span class="lc-title">W4 상세 분석 (초기)</span><span class="lc-desc">2026-03-01 생성</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w4_executive.html">
+      <span class="lc-icon exec">E4</span>
+      <span class="lc-body"><span class="lc-title">W4 Executive (초기)</span><span class="lc-desc">2026-03-01 생성</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
+    </a>
+  </div>
 
-  <div id="report-list"></div>
+  <div class="group-title">2월 3주차 (02.14 ~ 02.20)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w3.html">
+      <span class="lc-icon">W3</span>
+      <span class="lc-body"><span class="lc-title">W3 상세 분석</span><span class="lc-desc">CS 394건 + CB 64건 | 라이트 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w3_executive.html">
+      <span class="lc-icon exec">E3</span>
+      <span class="lc-body"><span class="lc-title">W3 Executive Summary</span><span class="lc-desc">CS 394건 + CB 64건 | 요약본</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
+
+  <div class="group-title">2월 2주차 (02.07 ~ 02.13)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w2.html">
+      <span class="lc-icon">W2</span>
+      <span class="lc-body"><span class="lc-title">W2 상세 분석</span><span class="lc-desc">CS 433건 + CB 86건 | 라이트 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w2_executive.html">
+      <span class="lc-icon exec">E2</span>
+      <span class="lc-body"><span class="lc-title">W2 Executive Summary</span><span class="lc-desc">CS 433건 + CB 86건 | 요약본</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260222_w2w3.html">
+      <span class="lc-icon">W2W3</span>
+      <span class="lc-body"><span class="lc-title">W2+W3 합산 분석</span><span class="lc-desc">2026-02-22 생성 | 합산본</span></span>
+      <span class="lc-badge bg-slate">Archive</span>
+    </a>
+  </div>
+
+  <div class="group-title">2월 1주차 (01.31 ~ 02.06)</div>
+  <div class="link-list">
+    <a class="link-card" href="cs_weekly_analysis_20260301_w1.html">
+      <span class="lc-icon">W1</span>
+      <span class="lc-body"><span class="lc-title">W1 상세 분석</span><span class="lc-desc">CS 467건 + CB 85건 | 라이트 테마</span></span>
+      <span class="lc-badge bg-cyan">Report</span>
+    </a>
+    <a class="link-card" href="cs_weekly_analysis_20260301_w1_executive.html">
+      <span class="lc-icon exec">E1</span>
+      <span class="lc-body"><span class="lc-title">W1 Executive Summary</span><span class="lc-desc">CS 467건 + CB 85건 | 요약본</span></span>
+      <span class="lc-badge bg-blue">Executive</span>
+    </a>
+  </div>
 
 </div>
-
-<div class="footer">
-  <a href="https://tg-bizops.github.io/BizOPS/">BizOps Portal</a> &middot; Toomics Global BizOps Team
-</div>
-
-<script>
-(function() {
-  var reports = [
-    {
-      file: 'cs_weekly_analysis_20260306_w4.html',
-      title: '2월 W4 상세 리포트',
-      week: 'W4', month: '2026-02', date: '2026-03-06',
-      type: 'detail', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260306_w4_executive.html',
-      title: '2월 W4 요약 리포트',
-      week: 'W4', month: '2026-02', date: '2026-03-06',
-      type: 'executive', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w3.html',
-      title: '2월 W3 상세 리포트',
-      week: 'W3', month: '2026-02', date: '2026-03-01',
-      type: 'detail', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w3_executive.html',
-      title: '2월 W3 요약 리포트',
-      week: 'W3', month: '2026-02', date: '2026-03-01',
-      type: 'executive', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w2.html',
-      title: '2월 W2 상세 리포트',
-      week: 'W2', month: '2026-02', date: '2026-03-01',
-      type: 'detail', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w2_executive.html',
-      title: '2월 W2 요약 리포트',
-      week: 'W2', month: '2026-02', date: '2026-03-01',
-      type: 'executive', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w1.html',
-      title: '2월 W1 상세 리포트',
-      week: 'W1', month: '2026-02', date: '2026-03-01',
-      type: 'detail', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w1_executive.html',
-      title: '2월 W1 요약 리포트',
-      week: 'W1', month: '2026-02', date: '2026-03-01',
-      type: 'executive', latest: true
-    },
-    {
-      file: 'cs_weekly_analysis_20260222_w2w3.html',
-      title: '2월 W2+W3 합산 리포트',
-      week: 'W2W3', month: '2026-02', date: '2026-02-22',
-      type: 'combined', latest: false
-    },
-    {
-      file: 'cs_weekly_analysis_20260303_w4.html',
-      title: '2월 W4 상세 리포트 (이전 버전)',
-      week: 'W4', month: '2026-02', date: '2026-03-03',
-      type: 'detail', latest: false
-    },
-    {
-      file: 'cs_weekly_analysis_20260303_w4_executive.html',
-      title: '2월 W4 요약 리포트 (이전 버전)',
-      week: 'W4', month: '2026-02', date: '2026-03-03',
-      type: 'executive', latest: false
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w4.html',
-      title: '2월 W4 상세 리포트 (이전 버전)',
-      week: 'W4', month: '2026-02', date: '2026-03-01',
-      type: 'detail', latest: false
-    },
-    {
-      file: 'cs_weekly_analysis_20260301_w4_executive.html',
-      title: '2월 W4 요약 리포트 (이전 버전)',
-      week: 'W4', month: '2026-02', date: '2026-03-01',
-      type: 'executive', latest: false
-    }
-  ];
-
-  // Stats
-  var totalReports = reports.length;
-  var latestCount = reports.filter(function(r){ return r.latest; }).length;
-  var weeks = {};
-  reports.forEach(function(r){ weeks[r.week] = true; });
-  var weekCount = Object.keys(weeks).length;
-
-  var statsEl = document.getElementById('stats');
-  statsEl.innerHTML =
-    '<div class="stat-card"><div class="num">' + totalReports + '</div><div class="lbl">전체 리포트</div></div>' +
-    '<div class="stat-card"><div class="num">' + latestCount + '</div><div class="lbl">최신 버전</div></div>' +
-    '<div class="stat-card"><div class="num">' + weekCount + '</div><div class="lbl">주차 커버리지</div></div>' +
-    '<div class="stat-card"><div class="num">2026-02</div><div class="lbl">분석 기간</div></div>';
-
-  // Separate latest vs archive
-  var latestReports = reports.filter(function(r){ return r.latest; });
-  var archiveReports = reports.filter(function(r){ return !r.latest; });
-
-  function renderCard(r) {
-    var tagHTML = '';
-    if (r.type === 'detail') tagHTML = '<span class="tag tag-detail">상세</span>';
-    else if (r.type === 'executive') tagHTML = '<span class="tag tag-exec">요약</span>';
-    else if (r.type === 'combined') tagHTML = '<span class="tag tag-combined">합산</span>';
-    if (r.latest) tagHTML += '<span class="tag tag-latest">Latest</span>';
-
-    var iconBg = r.type === 'executive' ? '#F59E0B' : r.type === 'combined' ? '#6366F1' : '#2563EB';
-    var iconChar = r.type === 'executive' ? '&#9733;' : r.type === 'combined' ? '&#8853;' : '&#9744;';
-
-    return '<a href="' + r.file + '" class="report-card">' +
-      '<div class="icon" style="background:' + iconBg + ';color:#fff;">' + iconChar + '</div>' +
-      '<div class="info">' +
-      '<div class="title">' + r.title + tagHTML + '</div>' +
-      '<div class="meta">' + r.week + ' &middot; ' + r.date + '</div>' +
-      '</div>' +
-      '<div class="arrow">&#8250;</div></a>';
-  }
-
-  var html = '';
-
-  // Latest section
-  html += '<div class="month-section">';
-  html += '<div class="month-header">최신 리포트 <span class="badge">' + latestReports.length + '건</span></div>';
-  html += '<div class="report-grid">';
-  latestReports.forEach(function(r){ html += renderCard(r); });
-  html += '</div></div>';
-
-  // Archive section
-  if (archiveReports.length > 0) {
-    html += '<div class="month-section">';
-    html += '<div class="month-header">이전 버전 <span class="badge">' + archiveReports.length + '건</span></div>';
-    html += '<div class="report-grid">';
-    archiveReports.forEach(function(r){ html += renderCard(r); });
-    html += '</div></div>';
-  }
-
-  document.getElementById('report-list').innerHTML = html;
-})();
-</script>
-
+<footer class="footer">Toomics Global &middot; BizOps &middot; 유종선</footer>
 </body>
 </html>
