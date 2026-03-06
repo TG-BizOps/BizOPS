@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS Operations Manual v2.3</title>
+    <title>TOOMICS Global CS Operations Manual v2.4</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -940,6 +940,7 @@ Customer Ticket Received
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>After reviewing your account, we found that your VIP subscription was purchased on the <strong>_____ (language) version</strong> of Toomics.</p>
             <p>Please note that Toomics operates separate services for each language, and a subscription purchased on one language version cannot be used on another.</p>
+            <p><strong>Exception:</strong> Simplified Chinese (CN) and Traditional Chinese (TW) share the same VIP membership — a purchase on either site will work on both.</p>
             <p><strong>Available options:</strong></p>
             <ol>
                 <li><strong>Continue using the _____ version</strong>: You can access all VIP content on the _____ site/app</li>
@@ -968,7 +969,7 @@ Customer Ticket Received
             <tbody>
                 <tr><td>1</td><td>Requested within <strong>14 days</strong> of purchase</td><td>Check <code>created_at</code> vs payment date</td></tr>
                 <tr><td>2</td><td><strong>No VIP content</strong> has been accessed</td><td>Check content access log</td></tr>
-                <tr><td>3</td><td><strong>No coins</strong> (including Gift/Bonus coins) have been used</td><td>Check coin usage history</td></tr>
+                <tr><td>3</td><td>There is no record of any coins, given or purchased at a discounted price through <strong>VIP Purchase (including Gift, Bonus Coins)</strong> in the specific month of refund, being used</td><td>Check coin usage history for the refund month</td></tr>
             </tbody>
         </table>
 
@@ -2343,6 +2344,7 @@ Customer Ticket Received
                     <tr><td>2.0</td><td>2026-02-19</td><td>Enhanced edition with data-driven insights, multilingual templates, market-specific guidelines, fraud detection, SLA standards (Chongsun Yu)</td></tr>
                     <tr><td>2.1</td><td>2026-03-05</td><td>Added Section 3.7: Aggressive/Hostile Refund Demands — escalation triage (Level 1~3), de-escalation templates, chargeback prevention checklist (Chongsun Yu)</td></tr>
                     <tr><td>2.3</td><td>2026-03-06</td><td>Added Section 11.4: Zendesk Automation Rules — auto-solve (pending→solved 24h) and auto-close (solved→closed 24h) ticket lifecycle (Chongsun Yu)</td></tr>
+                    <tr><td>2.4</td><td>2026-03-07</td><td>FAQ sync: VIP refund coin condition detail (Section 3.1), CN/TW VIP sharing exception (Section 2.6) (Chongsun Yu)</td></tr>
                 </tbody>
             </table>
         </div>

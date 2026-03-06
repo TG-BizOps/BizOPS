@@ -218,6 +218,7 @@ summary .art-count {
 <tr><td>v1.2</td><td>2026-03-05</td><td>FAQ VIP Langues (Toutes les langues)</td><td>Contenu restructuré: ajout thaï, note VIP partagé CN/TW, suppression note IT/PT obsolète</td><td>유종선</td></tr>
 <tr><td>v1.3</td><td>2026-03-05</td><td>Options de paiement (EN/FR/ES/IT/TH)</td><td>Mise à jour des fournisseurs de paiement 4→9, restructuration</td><td>유종선</td></tr>
 <tr><td>v1.4</td><td>2026-03-05</td><td>FAQ Censure contenu adulte</td><td>Article supprimé: Coin Store propose du contenu non censuré, rendant cette FAQ inexacte</td><td>유종선</td></tr>
+<tr><td>v1.5</td><td>2026-03-07</td><td>Supprimer le compte, Annuler VIP, Remboursement</td><td>CS Manual sync: account deletion VIP policy, Google Play/Apple cancel steps, refund processing time table</td><td>유종선</td></tr>
 </tbody>
 </table>
 </div>
@@ -763,7 +764,7 @@ summary .art-count {
 </ol>
 <p class="wysiwyg-text-align-justify"> </p>
 <ol class="wysiwyg-text-align-justify" start="4">
-<li>L'Abonnement VIP lié à votre compte Toomics sera annulé même si la date d’expiration n’a pas été atteinte (et ne sera pas remboursée, sauf si vous en faites la demande et que vous êtes éligible à un remboursement).</li>
+<li>Tout abonnement VIP restant ou tout coin sera définitivement perdu et ne pourra être récupéré.</li>
 </ol>
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify">Si vous acceptez les conditions mentionnées ci-dessus, nous procéderons à la désactivation de votre compte et à la suppression de toutes vos informations personnelles.</p>
@@ -850,21 +851,22 @@ summary .art-count {
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><span class="wysiwyg-underline">Apple App Store</span></p>
 <ol class="wysiwyg-text-align-justify">
-<li>Ouvrez votre application "Paramètres".</li>
-<li>Tapez sur "iTunes &amp; App Store".</li>
-<li>Tapez sur votre identifiant Apple.</li>
-<li>Tapez sur "Afficher l'identifiant Apple" lorsque la fenêtre pop-up apparaît.</li>
-<li>Entrez votre mot de passe Apple ID ou le verrouillage digital lorsqu'il vous est demandé.</li>
-<li>Tapez sur "Abonnements".</li>
-<li>Choisissez l'abonnement que vous souhaitez annuler.</li>
+<li>Ouvrez <strong>Réglages</strong> sur votre appareil.</li>
+<li>Appuyez sur votre nom en haut.</li>
+<li>Appuyez sur <strong>Abonnements</strong>.</li>
+<li>Recherchez « Toomics » et appuyez dessus.</li>
+<li>Appuyez sur <strong>Résilier l'abonnement</strong>.</li>
 </ol>
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><span class="wysiwyg-underline">Google Play Store:</span></p>
 <p class="wysiwyg-text-align-justify"> </p>
 <ol class="wysiwyg-text-align-justify">
-<li>Lancez l'application "Google Play Store".</li>
-<li>Tapez sur "Menu" -&gt; "Mes applications" -&gt; "Abonnements" et cliquez sur l'application dont vous souhaitez annuler l'abonnement.</li>
-<li>Tapez sur "Annuler" puis sur "Oui" pour confirmer l'annulation.</li>
+<li>Ouvrez l'application Google Play Store.</li>
+<li>Appuyez sur votre icône de profil (en haut à droite).</li>
+<li>Appuyez sur <strong>Paiements et abonnements</strong> → <strong>Abonnements</strong>.</li>
+<li>Recherchez « Toomics » et appuyez dessus.</li>
+<li>Appuyez sur <strong>Résilier l'abonnement</strong>.</li>
+<li>Suivez les instructions à l'écran.</li>
 </ol>
 <p class="wysiwyg-text-align-justify">Ces instructions devraient annuler votre abonnement. Vous pouvez également nous demander d'annuler manuellement votre abonnement VIP si nécessaire. Cependant, veuillez noter que si vous avez acheté votre abonnement sur iOS, nous ne pouvons malheureusement pas effectuer la démarche pour vous en raison de la politique de l'Apple App Store :(</p>
 <p class="wysiwyg-text-align-justify">Sinon, si vous souhaitez que nous annulions votre abonnement, veuillez nous contacter et nous indiquer vos identifiants Toomics.</p></div>
@@ -1165,9 +1167,16 @@ summary .art-count {
 </details>
 <details>
 <summary>Pourquoi n'ai-je pas encore reçu mon remboursement ?<span class="art-count">2024-10-29</span></summary>
-<div class="article-body"><p class="wysiwyg-text-align-justify">Malheureusement, nous n'avons aucun contrôle sur le délai que le remboursement pourrait prendre pour vous parvenir, ni sur le montant qui sera retourné ; ceci étant directement géré par la banque que vous avez utilisée pour effectuer le paiement.</p>
-<p class="wysiwyg-text-align-justify"> </p>
-<p class="wysiwyg-text-align-justify">Nous vous recommandons de contacter directement l’agence de votre banque pour des informations plus précises.</p></div>
+<div class="article-body"><p>Le délai de traitement de votre remboursement dépend du mode de paiement utilisé :</p>
+<table style="border-collapse:collapse;width:100%;margin:12px 0;">
+<thead><tr><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">Mode de paiement</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">Délai estimé</th></tr></thead>
+<tbody>
+<tr><td style="border:1px solid #ddd;padding:8px;">PayPal</td><td style="border:1px solid #ddd;padding:8px;">3 à 5 jours ouvrables</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Carte bancaire</td><td style="border:1px solid #ddd;padding:8px;">2 semaines à 1 mois</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Google Play</td><td style="border:1px solid #ddd;padding:8px;">3 à 5 jours ouvrables</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Apple App Store</td><td style="border:1px solid #ddd;padding:8px;">2 à 5 jours ouvrables</td></tr>
+</tbody></table>
+<p>Si le remboursement n'est pas arrivé après le délai indiqué, veuillez contacter votre banque ou l'émetteur de votre carte pour obtenir des informations plus précises.</p></div>
 <div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/fr-001/articles/39408882062617-Pourquoi-n-ai-je-pas-encore-re%C3%A7u-mon-remboursement" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-29</div></div>
 </details>
 <details>
@@ -1181,13 +1190,11 @@ summary .art-count {
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Pour annuler, veuillez suivre les instructions ci-dessous :</span></strong></p>
 <ol class="wysiwyg-text-align-justify">
-<li>Lancez l'application Paramètres. </li>
-<li>Appuyez sur iTunes &amp; App Store. </li>
-<li>Appuyez sur votre identifiant Apple. </li>
-<li>Appuyez sur Afficher l'identifiant Apple lorsque la fenêtre pop-up apparaît. </li>
-<li>Entrez votre mot de passe d'identifiant Apple ou votre ID digital lorsque cela vous est demandé. </li>
-<li>Appuyez sur Abonnements. </li>
-<li>Appuyez sur l'abonnement que vous souhaitez annuler.</li>
+<li>Ouvrez <strong>Réglages</strong> sur votre appareil.</li>
+<li>Appuyez sur votre nom en haut.</li>
+<li>Appuyez sur <strong>Abonnements</strong>.</li>
+<li>Recherchez « Toomics » et appuyez dessus.</li>
+<li>Appuyez sur <strong>Résilier l'abonnement</strong>.</li>
 </ol>
 <p class="wysiwyg-text-align-justify">Si vous souhaitez recevoir un remboursement, nous vous demandons de contacter directement le service clientèle d'Apple car, malheureusement, en raison de la politique de remboursement d'Apple, nous ne pouvons pas traiter les remboursements effectués depuis leur plateforme de notre côté. Le service clientèle d'Apple vous assistera avec votre demande.</p>
 <p class="wysiwyg-text-align-justify"> </p>

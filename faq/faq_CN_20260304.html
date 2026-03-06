@@ -215,6 +215,7 @@ summary .art-count {
 <tbody>
 <tr><td>v1.1</td><td>2026-03-05</td><td>Phone Verification FAQ</td><td>Q revised: 'How can I verify...' → 'I can't verify my phone number' / A rewritten: removed apologetic tone, added verification steps, troubleshooting, privacy notice</td><td>유종선</td></tr>
 <tr><td>v1.2</td><td>2026-03-05</td><td>VIP语言FAQ（所有语言）</td><td>内容重组：添加泰语、CN/TW VIP共享说明、删除过时IT/PT说明</td><td>유종선</td></tr>
+<tr><td>v1.3</td><td>2026-03-07</td><td>删除账号、取消VIP、退款</td><td>CS Manual sync: account deletion VIP policy, Google Play/Apple cancel steps, refund processing time table</td><td>유종선</td></tr>
 </tbody>
 </table>
 </div>
@@ -594,7 +595,7 @@ summary .art-count {
 <li>删除个人信息后，Toomics将无法在任何情况下恢复这些数据。</li>
 <li>所有未使用的点券将一并删除。</li>
 <li>您用点券购买的所有漫画章节也将无法再访问。</li>
-<li>即便VIP会员资格尚未到期，账号删除后VIP会员资格也会一并取消（除非您符合退款条件，并且申请退款）。</li>
+<li>剩余的VIP会员资格或硬币将被没收，且无法恢复。</li>
 </ol>
 <p>如果您同意以上条件，并希望我们继续处理账号停用和个人信息删除，请告知我们。</p></div>
 <div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39431591211929" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
@@ -802,17 +803,20 @@ summary .art-count {
 </ol>
 <p><strong><span class="wysiwyg-underline">Apple App Store取消步骤</span>：</strong></p>
 <ol>
-<li>打开「设置」应用程序。</li>
-<li>点击「iTunes与App Store」。</li>
-<li>点击您的Apple ID，选择「查看Apple ID」。</li>
-<li>输入Apple ID密码或使用指纹解锁。</li>
-<li>点击「订阅」并选择您想取消的订阅。</li>
+<li>打开<strong>设置</strong>。</li>
+<li>点击顶部的您的名字。</li>
+<li>点击<strong>订阅</strong>。</li>
+<li>找到「Toomics」并点击。</li>
+<li>点击<strong>取消订阅</strong>。</li>
 </ol>
 <p><strong><span class="wysiwyg-underline">Google Play商店取消步骤</span>：</strong></p>
 <ol>
 <li>打开Google Play商店应用程序。</li>
-<li>点击「菜单」-&gt;「付款和订阅」-&gt;「订阅」，选择您要取消的应用程序。</li>
-<li>点击「取消」并确认。</li>
+<li>点击右上角的个人资料图标。</li>
+<li>点击<strong>付款和订阅</strong> → <strong>订阅</strong>。</li>
+<li>找到「Toomics」并点击。</li>
+<li>点击<strong>取消订阅</strong>。</li>
+<li>按照屏幕上的指示操作。</li>
 </ol>
 <p>这些步骤应该可以帮助您成功取消订阅。请注意，如果您通过iOS购买，我们无法手动取消订阅，这是由于Apple App Store的政策限制。</p></div>
 <div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432175577497" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-11-07</div></div>
@@ -967,12 +971,11 @@ summary .art-count {
 <div class="article-body"><p>如果您通过 Apple App Store 购买了 VIP 会员资格，并且不希望继续使用，我们建议您手动取消会员资格，以避免将来继续自动扣款。</p>
 <p>取消步骤如下：</p>
 <ol>
-<li>打开“设置”应用。</li>
-<li>点击“iTunes 与 App Store”。</li>
-<li>点击您的 Apple ID。</li>
-<li>当弹出窗口出现时，选择“查看 Apple ID”。</li>
-<li>输入 Apple ID 密码或使用指纹解锁。</li>
-<li>点击“订阅”，选择您想要取消的订阅。</li>
+<li>打开<strong>设置</strong>。</li>
+<li>点击顶部的您的名字。</li>
+<li>点击<strong>订阅</strong>。</li>
+<li>找到「Toomics」并点击。</li>
+<li>点击<strong>取消订阅</strong>。</li>
 </ol>
 <p>如果您需要退款，请直接联系 Apple 客户服务，因为根据 Apple 的退款政策，我们无法处理通过 Apple App Store 的购买退款。Apple 客户服务将协助您完成退款申请。</p>
 <p>Apple 退款步骤如下：</p>
@@ -998,8 +1001,16 @@ summary .art-count {
 </details>
 <details>
 <summary>为什么我的退款还没有到账？<span class="art-count">2024-10-30</span></summary>
-<div class="article-body"><p>我们无法控制退款的处理时间和金额，具体的处理完全取决于您所使用的银行或信用卡公司。</p>
-<p>为了获取更准确的信息，建议您直接联系发卡银行或金融机构。</p></div>
+<div class="article-body"><p>退款处理时间取决于您使用的支付方式：</p>
+<table style="border-collapse:collapse;width:100%;margin:12px 0;">
+<thead><tr><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">支付方式</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">预计时间</th></tr></thead>
+<tbody>
+<tr><td style="border:1px solid #ddd;padding:8px;">PayPal</td><td style="border:1px solid #ddd;padding:8px;">3–5个工作日</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">信用卡</td><td style="border:1px solid #ddd;padding:8px;">2周至1个月</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Google Play</td><td style="border:1px solid #ddd;padding:8px;">3–5个工作日</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Apple App Store</td><td style="border:1px solid #ddd;padding:8px;">2–5个工作日</td></tr>
+</tbody></table>
+<p>如果超过上述时间仍未收到退款，请联系您的银行或发卡机构获取更准确的信息。</p></div>
 <div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/zh-cn/articles/39432741928089" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
 </details>
 <details>

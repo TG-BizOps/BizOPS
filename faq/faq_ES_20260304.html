@@ -220,6 +220,7 @@ summary .art-count {
 <tr><td>v1.4</td><td>2026-03-05</td><td>Métodos de pago (EN/FR/ES/IT/TH)</td><td>Proveedores de pago 4→9 actualización, reestructuración</td><td>유종선</td></tr>
 <tr><td>v1.5</td><td>2026-03-05</td><td>VIP Suscripción - Cambio de idioma</td><td>Idioma dropdown simplificado: "dos maneras" → dropdown único Español, tailandés añadido a lista</td><td>유종선</td></tr>
 <tr><td>v1.6</td><td>2026-03-05</td><td>FAQ Censura contenido adulto</td><td>Artículo eliminado: Coin Store ofrece contenido sin censura, haciendo esta FAQ inexacta</td><td>유종선</td></tr>
+<tr><td>v1.7</td><td>2026-03-07</td><td>Eliminar cuenta, Cancelar VIP, Reembolso</td><td>CS Manual sync: account deletion VIP policy, Google Play/Apple cancel steps, refund processing time table</td><td>유종선</td></tr>
 </tbody>
 </table>
 </div>
@@ -686,7 +687,7 @@ summary .art-count {
 <li>Una vez que tu información personal sea eliminada, Toomics no podrá restaurar dicha información bajo ninguna circunstancia.</li>
 <li>Todas las monedas no utilizadas que queden en tu cuenta de Toomics se eliminarán en consecuencia.</li>
 <li>El acceso a todos los capítulos que hayas comprado con monedas también se eliminará en consecuencia.</li>
-<li>La suscripción VIP vinculada a tu cuenta de Toomics también se eliminará en consecuencia, incluso si aún no ha expirado (y no será reembolsada, a menos que lo solicites y seas apto para un reembolso).</li>
+<li>Cualquier membresía VIP restante o monedas se perderán definitivamente y no podrán ser recuperadas.</li>
 </ol>
 <p> </p>
 <p>Si estás de acuerdo con las condiciones mencionadas anteriormente y deseas que procedamos con la desactivación de tu cuenta y la eliminación de toda tu información personal, por favor contáctanos directamente.</p></div>
@@ -940,20 +941,21 @@ summary .art-count {
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Apple App Store:</span></strong></p>
 <ol class="wysiwyg-text-align-justify">
-<li>Diríjase a configuración.</li>
-<li>Haga clic en iTunes y App Store.</li>
-<li>Haga clic en su ID de Apple.</li>
-<li>Haga clic en Ver ID de Apple cuando aparezca la ventana emergente.</li>
-<li>Ingrese su contraseña de ID de Apple o su huella digital cuando se le solicite.</li>
-<li>Haga clic en Suscripciones.</li>
-<li>Haga clic en la suscripción que desea cancelar.</li>
+<li>Abra <strong>Ajustes</strong> en su dispositivo.</li>
+<li>Toque su nombre en la parte superior.</li>
+<li>Toque <strong>Suscripciones</strong>.</li>
+<li>Busque "Toomics" y tóquelo.</li>
+<li>Toque <strong>Cancelar suscripción</strong>.</li>
 </ol>
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Google Play Store:</span></strong></p>
 <ol class="wysiwyg-text-align-justify">
-<li>Inicie la aplicación Google Play Store.</li>
-<li>Haga clic en Menú -&gt; Mis aplicaciones -&gt; Suscripciones y haga clic en la aplicación de la suscripción que desea cancelar.</li>
-<li>Haga clic en "Cancelar" y "Sí" para confirmar la cancelación.</li>
+<li>Abra la aplicación Google Play Store.</li>
+<li>Toque su icono de perfil (arriba a la derecha).</li>
+<li>Toque <strong>Pagos y suscripciones</strong> → <strong>Suscripciones</strong>.</li>
+<li>Busque "Toomics" y tóquelo.</li>
+<li>Toque <strong>Cancelar suscripción</strong>.</li>
+<li>Siga las instrucciones en pantalla.</li>
 </ol>
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify">Estas instrucciones deberían cancelar tu suscripción VIP. También puedes solicitarnos que cancelemos manualmente tu suscripción VIP si es necesario. Sin embargo, ten en cuenta que si compraste tu suscripción por medio de iOS, lamentablemente no podemos cancelarla manualmente debido a las políticas de Apple App Store :(</p>
@@ -1136,13 +1138,11 @@ summary .art-count {
 <p class="wysiwyg-text-align-justify"> </p>
 <p class="wysiwyg-text-align-justify"><strong><span class="wysiwyg-underline">Para cancelar, sigue las instrucciones a continuación:</span></strong></p>
 <ol class="wysiwyg-text-align-justify">
-<li>Inicia la aplicación de Configuración.</li>
-<li>Abre  iTunes &amp; App Store.</li>
-<li>Selecciona tu ID de Apple.</li>
-<li>Has click en Ver ID de Apple cuando aparezca la ventana emergente.</li>
-<li>Ingresa tu contraseña de ID de Apple o la identificación por huella digital cuando se te solicite.</li>
-<li>Has click en Suscripciones.</li>
-<li>Selecciona la suscripción que deseas cancelar.</li>
+<li>Abre <strong>Ajustes</strong> en tu dispositivo.</li>
+<li>Toca tu nombre en la parte superior.</li>
+<li>Toca <strong>Suscripciones</strong>.</li>
+<li>Busca "Toomics" y tócalo.</li>
+<li>Toca <strong>Cancelar suscripción</strong>.</li>
 </ol>
 <p class="wysiwyg-text-align-justify">Si deseas recibir un reembolso, te pedimos amablemente que contactes directamente al Servicio al Cliente de Apple, ya que, lamentablemente, debido a la política de reembolsos de Apple, no podemos procesar reembolsos realizados desde Apple por nuestra parte. El Servicio al Cliente de Apple te ayudará con tu solicitud.</p>
 <p class="wysiwyg-text-align-justify"> </p>
@@ -1178,9 +1178,16 @@ summary .art-count {
 </details>
 <details>
 <summary>¿Por qué aún no he recibido mi reembolso?<span class="art-count">2024-10-30</span></summary>
-<div class="article-body"><p class="wysiwyg-text-align-justify">Lamentablemente, no tenemos control sobre el período de tiempo que el reembolso podría tardar en llegarte, tampoco sobre la cantidad de dinero que se te devolverá; esto es manejado directamente por el banco que utilizaste para realizar el pago.</p>
-<p class="wysiwyg-text-align-justify"> </p>
-<p class="wysiwyg-text-align-justify">Te recomendamos contactar directamente a tu banco emisor de la tarjeta para obtener información más precisa, ya que, como hemos mencionado anteriormente, solo aplicamos a los reembolsos pero no tenemos ningún control sobre ellos.</p></div>
+<div class="article-body"><p>El tiempo de procesamiento de tu reembolso depende del método de pago utilizado:</p>
+<table style="border-collapse:collapse;width:100%;margin:12px 0;">
+<thead><tr><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">Método de pago</th><th style="border:1px solid #ddd;padding:8px;background:#f5f5f5;text-align:left;">Tiempo estimado</th></tr></thead>
+<tbody>
+<tr><td style="border:1px solid #ddd;padding:8px;">PayPal</td><td style="border:1px solid #ddd;padding:8px;">3–5 días hábiles</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Tarjeta de crédito</td><td style="border:1px solid #ddd;padding:8px;">2 semanas a 1 mes</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Google Play</td><td style="border:1px solid #ddd;padding:8px;">3–5 días hábiles</td></tr>
+<tr><td style="border:1px solid #ddd;padding:8px;">Apple App Store</td><td style="border:1px solid #ddd;padding:8px;">2–5 días hábiles</td></tr>
+</tbody></table>
+<p>Si el reembolso no ha llegado después del período indicado, contacta a tu banco o emisor de tarjeta para obtener información más precisa.</p></div>
 <div style="padding:0 24px 16px;"><a class="article-link" href="https://help.toomicsglobal.com/hc/es-001/articles/39429858803993--Por-qu%C3%A9-a%C3%BAn-no-he-recibido-mi-reembolso" target="_blank">🔗 원본 보기 / View Original</a><div class="article-date">Last updated: 2024-10-30</div></div>
 </details>
 <details>
