@@ -255,8 +255,7 @@
       <li><span class="tag tag-info">INSIGHT</span> Top2 카테고리 <strong>Subscription 39.2% + Refund 26.5%</strong> → 전체의 <strong>65.7%</strong> 차지.</li>
       <li><span class="tag tag-info">GROWTH</span> FR 마켓 점유율 <strong>15.0% → 17.5%</strong> (+2.4%p 상승).</li>
       <li><span class="tag tag-warn">WATCH</span> 자동갱신 미인지 / 구독 해지 요청 <strong>118건</strong> — 갱신 알림(7일/3일) + 셀프 취소 UX 개선.</li>
-      <li><span class="tag tag-up">CB</span> 차지백 <strong>75건</strong>(~$793) (팀 보고: 75건) — 전주 대비 <strong>+17.2%</strong>. Paypal 64.0% 지배적.</li>
-      <li><span class="tag tag-info">IP</span> 🛡️ 마크비전 AI Generated Content 침해 대응 성과: AI 캐릭터 챗봇 탐지 총 35건, 담배피지마세요 27건 최다, Zeta 플랫폼 27건 1위. AI Content Takedown 탐지 0건. 1월부터 탐지량 대폭 감소</li>
+      <li><span class="tag tag-up">CB</span> 차지백 <strong>75건</strong>(~$793) — 전주 대비 <strong>+17.2%</strong>. Paypal 64.0% 지배적.</li>
       <li><span class="tag tag-project">PROJECT</span> BizOps Portal 산출물 <strong>총 29건</strong> 배포 완료 (CS 운영 9건, 차지백 4건, 주간리포트 12건, IP·대시보드·기타 4건). CS 매뉴얼 EN/KO v2.1, 차지백 매뉴얼 v1.3, 포탈 사용 매뉴얼 등 <strong>5개 카테고리</strong> 체계화.</li>
     </ul>
   </div>
@@ -393,7 +392,6 @@
           <div style="font-size:12px; color:#64748b;">WoW 변화</div>
         </div>
       </div>
-      <div class="team-blockquote">📋 팀 리포트: W4 총 75건 유입 (전주 대비 11건 증가), PaymentWall 주 7건 집중 인입, 대만 달러(TWD) 유입 증가, 1개월 상품 차지백 소폭 증가</div>
     </div>
 
     <!-- CB WoW -->
@@ -507,9 +505,9 @@
         <colgroup><col style="width:10%"><col style="width:25%"><col style="width:10%"><col style="width:10%"><col style="width:25%"><col style="width:20%"></colgroup>
         <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·EN·ES·TH·CN</td><td>15</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Hallo ich habe bezahlt für ein Abo, aber habe es nicht erhal" #124444<br><span style="font-size:10px;color:#0369a1;">📋 팀(3건): [EN] 결제 에러코드 422 확인 요청 / [TH] 트루머니 결제 완료 불가 / [CN] 구글 인앱결제 관리자 지급 누락</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 결제 후 미적용 (결제-VIP 동기화 실패)</td><td>PT·EN·ES</td><td>15</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Hallo ich habe bezahlt für ein Abo, aber habe es nicht erhalten!" <span style="font-size:10px;color:var(--text-muted);">#124444</span></td><td>IAP/결제 동기화 모니터링 강화</td></tr>
           <tr><td><span class="sev sev-high">HIGH</span></td><td>VIP 구독 미표시 (프리미엄 상태 미반영)</td><td>EN·ES·FR</td><td>20</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Não acesso outros capítulos mas já fiz a assinatura" <span style="font-size:10px;color:var(--text-muted);">#124495</span></td><td>VIP 상태 캐시 갱신 로직 점검</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 접근 불가 (VIP 미적용·에피소드 열림 실패)</td><td>FR·DE·IT·ES</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"bonjour auriez vous des problèmes en ce moment sur votre sit" #124957<br><span style="font-size:10px;color:#0369a1;">📋 팀(4건): [IT] 에피소드를 불러올 수 없습니다 (로딩 오류) / [ES] 웹사이트가 로드되지 않음 / [FR] 로딩 이슈 (5건+), 무한 로딩 포함 외 1건</span></td><td>VIP 상태 동기화 + 에피소드 접근 권한 로직 점검</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>콘텐츠 접근 불가 (VIP 미적용·에피소드 열림 실패)</td><td>FR·DE·IT</td><td>11</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"bonjour auriez vous des problèmes en ce moment sur votre site ? j'ai de grande difficultés à ouvrir " <span style="font-size:10px;color:var(--text-muted);">#124957</span></td><td>VIP 상태 동기화 + 에피소드 접근 권한 로직 점검</td></tr>
           <tr><td><span class="sev sev-high">HIGH</span></td><td>로그인/계정 접근 실패</td><td>JP·CN·EN</td><td>4</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"有訂購無法進入使用" <span style="font-size:10px;color:var(--text-muted);">#126244</span></td><td>OAuth 안정성 모니터링</td></tr>
         </tbody>
       </table>
@@ -518,8 +516,8 @@
         <colgroup><col style="width:10%"><col style="width:25%"><col style="width:10%"><col style="width:10%"><col style="width:25%"><col style="width:20%"></colgroup>
         <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR·IT</td><td>118</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I am still getting billed for a VIP subscription even though" #124471<br><span style="font-size:10px;color:#0369a1;">📋 팀(2건): [IT] 코인 작품이 구독(멤버십)으로 전환되는 기간  / [EN] 결제 수단 변경 관련 확인 요청</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
-          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·FR·ES·PT</td><td>74</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I would love a refund: Please i cant login to my account any" #124632<br><span style="font-size:10px;color:#0369a1;">📋 팀(2건): [PT] 브라질 소비자보호법 언급 환불 요청 / [ES] 원치 않은 고액 결제 자동 처리, 환불 요청</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>자동갱신 미인지 / 구독 해지 요청</td><td>EN·ES·FR</td><td>118</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I am still getting billed for a VIP subscription even though I’ve cancelled it. Can I cancel it now " <span style="font-size:10px;color:var(--text-muted);">#124471</span></td><td>갱신 알림(7일/3일) + 셀프 취소 UX 개선</td></tr>
+          <tr><td><span class="sev sev-high">HIGH</span></td><td>환불 요청 (서비스 기대 불일치 포함)</td><td>EN·FR·ES</td><td>74</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I would love a refund: Please i cant login to my account anymore but i was just charged over 50$ i d" <span style="font-size:10px;color:var(--text-muted);">#124632</span></td><td>환불 조건 사전 안내 + 자동 심사 도입</td></tr>
           <tr><td><span class="sev sev-high">HIGH</span></td><td>이중/오과금 클레임</td><td>EN·FR·TH</td><td>8</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"Cancel my membership DOUBLE CHARGE: hello, This is the second time I’m writing you with this subject" <span style="font-size:10px;color:var(--text-muted);">#125252</span></td><td>결제 재시도 로직 점검</td></tr>
         </tbody>
       </table>
@@ -529,9 +527,9 @@
         <thead><tr><th>심각도</th><th>이슈</th><th>마켓</th><th>건수</th><th>고객 원문 (대표)</th><th>권장 조치</th></tr></thead>
         <tbody>
           <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>계정 삭제/GDPR 요청</td><td>EN·JP·PT</td><td>9</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"I am charged for my old account every month. I want to delte these old account, so i would not be ch" <span style="font-size:10px;color:var(--text-muted);">#125452</span></td><td>셀프 삭제 UX + GDPR 파이프라인</td></tr>
-          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>이미지 로딩 실패 (리로드 버튼 노출·이미지 깨짐)</td><td>FR·TH·EN·IT·PT·DE·CN</td><td>17</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
+          <tr><td><span class="sev sev-medium">MEDIUM</span></td><td>이미지 로딩 실패 (리로드 버튼 노출·이미지 깨짐)</td><td>FR·TH·EN</td><td>17</td><td style="font-size:11px;font-style:italic;color:var(--text-secondary);">"작품정보 : แขกไม่รับเชิญ
 
-회차정보 : 1" #124986<br><span style="font-size:10px;color:#0369a1;">📋 팀(8건): [IT] 이미지가 로드되지 않습니다 / [PT] 이미지 로딩 시간이 오래 걸림 / [EN] Never Just Friends 주인공 이름 외 5건</span></td><td>CDN 이미지 서빙 장애 모니터링 + 작품별 에셋 점검</td></tr>
+회차정보 : 1" <span style="font-size:10px;color:var(--text-muted);">#124986</span></td><td>CDN 이미지 서빙 장애 모니터링 + 작품별 에셋 점검</td></tr>
         </tbody>
       </table>
 
