@@ -130,7 +130,27 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
       <div class="sub">W2(8) → W3(21)</div>
     </div>
   </div>
-  <div style="background:#FEF2F2; border-left:4px solid #EF4444; border-radius:8px; padding:16px 20px; margin-top:8px;">
+  <div style="background:#F0F4FF; border:2px solid #2563EB; border-radius:10px; padding:16px 20px; margin-top:12px;">
+    <p style="font-size:13px; font-weight:700; color:#1D4ED8; margin-bottom:8px;">분석 대상 정의</p>
+    <div style="display:grid; grid-template-columns:1fr auto 1fr; gap:12px; align-items:center;">
+      <div style="background:#fff; border-radius:8px; padding:12px 16px; border:1px solid #DBEAFE;">
+        <div style="font-size:11px; color:#2563EB; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">본 리포트 분석 대상</div>
+        <div style="font-size:20px; font-weight:800; color:#1D4ED8; margin:4px 0;">78건</div>
+        <div style="font-size:12px; color:#475569;">이미지 로딩 이슈 (CDN/서버)</div>
+        <div style="font-size:11px; color:#64748B; margin-top:2px;">리로드 버튼·빈 이미지·무한 스피너 등<br><strong>기술적 로딩 장애만</strong> 포함</div>
+      </div>
+      <div style="font-size:20px; color:#94A3B8; font-weight:300;">|</div>
+      <div style="background:#fff; border-radius:8px; padding:12px 16px; border:1px solid #E2E8F0;">
+        <div style="font-size:11px; color:#94A3B8; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">제외 항목</div>
+        <div style="font-size:12px; color:#64748B; margin-top:6px; line-height:1.7;">
+          <span style="text-decoration:line-through; color:#94A3B8;">콘텐츠 품질 이슈</span> — 번역 오류, 잘못된 작품 업로드, 에셋 오류<br>
+          <span style="text-decoration:line-through; color:#94A3B8;">VIP 접근 불가</span> — 결제 후 에피소드 열리지 않음<br>
+          <span style="text-decoration:line-through; color:#94A3B8;">화질 변경 문의</span> — 그림체/화질 관련 문의
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="background:#FEF2F2; border-left:4px solid #EF4444; border-radius:8px; padding:16px 20px; margin-top:12px;">
     <p style="font-size:13px; color:#991B1B; font-weight:600; margin-bottom:6px;">핵심 발견</p>
     <ul style="font-size:13px; color:#475569; padding-left:18px; line-height:1.8;">
       <li><strong>W3 이후 구조적 증가</strong> — W1(13)·W2(8) 평균 10.5건 → W3(21)·W4(19)·W5(17) 평균 19.0건으로 <strong>81% 증가 후 고착</strong></li>
