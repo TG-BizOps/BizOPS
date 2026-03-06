@@ -1684,19 +1684,45 @@
 
         <p><span class="volume-badge">~620건 / 7개월</span> <span class="volume-badge">전체의 5%</span></p>
 
-        <h2>6.1 콘텐츠 로딩 이슈</h2>
+        <h2>6.1 이미지 로딩 이슈</h2>
 
-        <h3 class="template-title">Template 6.1.1: 일반 로딩 문제</h3>
-        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 로딩/표시 오류</p>
+        <div class="info-box" style="background:#fff3cd; border-left:4px solid #ffc107; padding:12px 16px; margin-bottom:16px;">
+            <p><strong>핵심 구분:</strong> 이미지 <em>로딩 실패</em>(리로드 버튼 노출, 이미지 깨짐/누락)는 CDN/서버 측 이슈입니다. 느린 로딩(버퍼 재생)은 사용자 환경·서버 지역에 따라 다르므로 별개 문제로 대응합니다.</p>
+        </div>
+
+        <h3 class="template-title">Template 6.1.1: 이미지 로딩 실패 (리로드 버튼 / 이미지 깨짐)</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 이미지를 아예 불러오지 못하는 경우 (리로드 버튼 표시, 이미지 깨짐/빈 화면). 서버/CDN 장애 가능성 → 기술팀 에스컬레이션 필요.</p>
         <blockquote>
-            <p>Hello, this is Toomics.<br>Thank you for contacting us, and we apologize for the inconvenience.</p>
-            <p>If you're experiencing loading issues, please try the following:</p>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>We're sorry to hear that images are not loading properly. This type of issue (reload button appearing, broken/missing images) is typically related to our image server, and we take it very seriously.</p>
+            <p>Could you please provide the following so we can investigate:</p>
+            <ul>
+                <li><strong>Title name</strong> and <strong>episode number</strong> where the issue occurs</li>
+                <li>A <strong>screenshot</strong> showing the error (reload button or broken image)</li>
+                <li>Your <strong>device type</strong> (phone, tablet, PC) and <strong>browser/app version</strong></li>
+            </ul>
+            <p>In the meantime, please try:</p>
+            <ol>
+                <li>Hard refresh the page (Ctrl+Shift+R / Cmd+Shift+R)</li>
+                <li>Clear your browser cache</li>
+                <li>Try a different network (e.g., switch from Wi-Fi to mobile data)</li>
+            </ol>
+            <p>We will forward this to our technical team for immediate review.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 6.1.2: 느린 로딩 / 버퍼링 (사용자 환경)</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 이미지는 나오지만 느리게 로딩되는 경우. 사용자 네트워크/지역/디바이스 환경 차이 — 서버 장애와 별개.</p>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>We understand you're experiencing slow loading times. Loading speed can vary depending on your internet connection, device, and distance from our content servers.</p>
+            <p>Please try the following:</p>
             <p><strong>For Web/Browser:</strong></p>
             <ol>
                 <li>Clear your browser cache and cookies</li>
                 <li>Try a different browser (Chrome, Firefox, Edge, Safari)</li>
                 <li>Disable any ad blockers or browser extensions</li>
-                <li>Check your internet connection</li>
+                <li>Check your internet connection speed</li>
                 <li>Try using an incognito/private browsing window</li>
             </ol>
             <p><strong>For App:</strong></p>
@@ -1705,15 +1731,9 @@
                 <li>Clear the app cache (Settings &rarr; Apps &rarr; Toomics &rarr; Clear Cache)</li>
                 <li>Check for app updates in your app store</li>
                 <li>Restart your device</li>
-                <li>Reinstall the app</li>
+                <li>Switch between Wi-Fi and mobile data to test</li>
             </ol>
-            <p>If the issue persists, please provide:</p>
-            <ul>
-                <li>Device type (phone, tablet, PC)</li>
-                <li>Browser/App version</li>
-                <li>Screenshot of the error</li>
-            </ul>
-            <p>We will investigate and resolve this as quickly as possible.</p>
+            <p>If the issue persists after trying these steps, please let us know your location/region so we can check if there are any regional server issues.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
