@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Toomics 이미지 로딩 이슈 분석 | 2026-02 | v1.0</title>
+<title>Toomics 이미지 로딩 이슈 분석 | 5주 트렌드 | v2.0</title>
 <style>
 @page { size: A4; margin: 15mm 18mm; }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -48,17 +48,18 @@ body {
 }
 
 /* ── KPI Strip ── */
-.kpi-strip { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
+.kpi-strip { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-bottom: 24px; }
 .kpi-card {
   background: linear-gradient(145deg, #fff 0%, #F8FAFC 100%); border-radius: 14px;
-  padding: 20px 16px; text-align: center; border: 1px solid #E2E8F0;
+  padding: 18px 14px; text-align: center; border: 1px solid #E2E8F0;
 }
-.kpi-card .value { font-size: 26px; font-weight: 800; color: #1E293B; }
+.kpi-card .value { font-size: 24px; font-weight: 800; color: #1E293B; }
 .kpi-card .label { font-size: 11px; color: #64748B; margin-top: 4px; }
 .kpi-card .sub { font-size: 11px; color: #94A3B8; margin-top: 2px; }
 .kpi-card.alert { border-left: 3px solid #EF4444; }
 .kpi-card.warn { border-left: 3px solid #F59E0B; }
 .kpi-card.ok { border-left: 3px solid #10B981; }
+.kpi-card.info { border-left: 3px solid #2563EB; }
 
 /* ── Table ── */
 table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
@@ -69,56 +70,37 @@ tr:nth-child(even) td { background: #F9FAFB; }
 tr:nth-child(even):hover td { background: #F0F4FF; }
 
 /* ── Distinction Box ── */
-.distinction-box {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0;
-}
-.dist-card {
-  border-radius: 12px; padding: 20px; border: 1px solid;
-}
-.dist-card.failure {
-  background: #FEF2F2; border-color: #FECACA; border-left: 4px solid #EF4444;
-}
-.dist-card.slow {
-  background: #FFFBEB; border-color: #FDE68A; border-left: 4px solid #F59E0B;
-}
+.distinction-box { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
+.dist-card { border-radius: 12px; padding: 20px; border: 1px solid; }
+.dist-card.failure { background: #FEF2F2; border-color: #FECACA; border-left: 4px solid #EF4444; }
+.dist-card.slow { background: #FFFBEB; border-color: #FDE68A; border-left: 4px solid #F59E0B; }
 .dist-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
 .dist-card ul { padding-left: 18px; font-size: 13px; color: #475569; }
 .dist-card ul li { margin-bottom: 4px; }
-.dist-card .tag {
-  display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px;
-  margin-left: 4px;
-}
+.tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 10px; margin-left: 4px; }
 .tag-server { background: #FEE2E2; color: #DC2626; }
 .tag-client { background: #FEF3C7; color: #D97706; }
 
 /* ── Screenshot ── */
 .screenshot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 16px 0; }
-.screenshot-card {
-  background: #F8FAFC; border-radius: 12px; padding: 16px; text-align: center;
-  border: 1px solid #E2E8F0;
-}
+.screenshot-card { background: #F8FAFC; border-radius: 12px; padding: 16px; text-align: center; border: 1px solid #E2E8F0; }
 .screenshot-card img { max-width: 100%; border-radius: 8px; margin-bottom: 10px; border: 1px solid #E2E8F0; }
 .screenshot-card .caption { font-size: 12px; color: #475569; font-weight: 600; }
 .screenshot-card .sub-caption { font-size: 11px; color: #94A3B8; margin-top: 2px; }
 
 /* ── Chart area ── */
-.chart-container { position: relative; height: 240px; margin: 16px 0; }
 .bar-visual { display: flex; align-items: flex-end; gap: 8px; height: 180px; padding: 0 8px; margin: 16px 0; }
 .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.bar-col .bar {
-  width: 100%; border-radius: 6px 6px 0 0; transition: height 0.3s;
-  min-height: 2px; position: relative;
-}
-.bar-col .bar-label {
-  font-size: 11px; font-weight: 700; color: #1E293B; margin-bottom: 4px;
-}
+.bar-col .bar { width: 100%; border-radius: 6px 6px 0 0; min-height: 2px; position: relative; }
+.bar-col .bar-label { font-size: 11px; font-weight: 700; color: #1E293B; margin-bottom: 4px; }
 .bar-col .bar-bottom { font-size: 11px; color: #64748B; margin-top: 6px; }
+.bar-stacked { display: flex; flex-direction: column; width: 100%; }
+.bar-stacked .seg { width: 100%; }
+.bar-stacked .seg:first-child { border-radius: 6px 6px 0 0; }
 
 /* ── Insight cards ── */
 .insight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-.insight-card {
-  background: #F8FAFC; border-radius: 12px; padding: 18px; border: 1px solid #E2E8F0;
-}
+.insight-card { background: #F8FAFC; border-radius: 12px; padding: 18px; border: 1px solid #E2E8F0; }
 .insight-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 8px; }
 .insight-card p { font-size: 12px; color: #475569; line-height: 1.6; }
 .insight-card .metric { font-size: 20px; font-weight: 800; color: #EF4444; }
@@ -133,11 +115,13 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
 .progress-bar { background: #E2E8F0; border-radius: 6px; height: 8px; overflow: hidden; }
 .progress-fill { height: 100%; border-radius: 6px; }
 
+/* ── WoW arrow ── */
+.wow-up { color: #DC2626; font-weight: 700; }
+.wow-down { color: #10B981; font-weight: 700; }
+.wow-flat { color: #94A3B8; font-weight: 700; }
+
 /* ── Footer ── */
-.footer {
-  text-align: center; padding: 20px; font-size: 11px; color: #94A3B8;
-  border-top: 1px solid #E2E8F0; margin-top: 40px;
-}
+.footer { text-align: center; padding: 20px; font-size: 11px; color: #94A3B8; border-top: 1px solid #E2E8F0; margin-top: 40px; }
 
 /* ── Print ── */
 @media print {
@@ -152,14 +136,14 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
 
 <!-- ═══════ HERO ═══════ -->
 <div class="hero">
-  <div class="hero-badge">Image Loading Analysis</div>
+  <div class="hero-badge">Image Loading Analysis — 5 Week Trend</div>
   <h1>Toomics 이미지 로딩 이슈 분석</h1>
-  <div class="subtitle">2026년 2월 CS 데이터 기반 이미지 로딩 실패 vs 느린 로딩 심층 분석</div>
+  <div class="subtitle">2026년 W1~W5 (01/31~03/06) 최근 5주 CS 데이터 기반 이미지 로딩 실패 + 콘텐츠 접근 불가 심층 분석</div>
   <div class="hero-meta">
     <span>작성자: 유종선</span>
-    <span>분석 기간: 2026-01-31 ~ 02-27 (W1~W4)</span>
-    <span>데이터: 1,770건 중 106건 (6.0%)</span>
-    <span>v1.0 | 2026-03-06</span>
+    <span>분석 기간: 2026-01-31 ~ 03-06 (W1~W5)</span>
+    <span>데이터: 11,711건 중 236건 (2.0%)</span>
+    <span>v2.0 | 2026-03-06</span>
   </div>
 </div>
 
@@ -168,61 +152,66 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
   <div class="section-title"><div class="icon">1</div> Executive Summary</div>
   <div class="kpi-strip">
     <div class="kpi-card alert">
-      <div class="value">48</div>
+      <div class="value">136</div>
       <div class="label">이미지 로딩 실패</div>
       <div class="sub">리로드 버튼 / 깨짐</div>
     </div>
     <div class="kpi-card warn">
-      <div class="value">58</div>
+      <div class="value">100</div>
       <div class="label">콘텐츠 접근 불가</div>
       <div class="sub">VIP 미적용 / 에피소드</div>
     </div>
     <div class="kpi-card ok">
-      <div class="value">6.0%</div>
+      <div class="value">2.0%</div>
       <div class="label">전체 CS 대비</div>
-      <div class="sub">106 / 1,770건</div>
+      <div class="sub">236 / 11,711건</div>
     </div>
-    <div class="kpi-card">
-      <div class="value">8</div>
+    <div class="kpi-card info">
+      <div class="value">10</div>
       <div class="label">영향 마켓</div>
-      <div class="sub">ES·EN·DE·FR·PT·JP·TH·IT</div>
+      <div class="sub">전 글로벌 마켓</div>
+    </div>
+    <div class="kpi-card alert">
+      <div class="value">21.8h</div>
+      <div class="label">평균 FRT</div>
+      <div class="sub">중위 12.4h</div>
     </div>
   </div>
   <div style="background:#FEF2F2; border-left:4px solid #EF4444; border-radius:8px; padding:16px 20px; margin-top:8px;">
     <p style="font-size:13px; color:#991B1B; font-weight:600; margin-bottom:6px;">핵심 발견</p>
     <ul style="font-size:13px; color:#475569; padding-left:18px;">
-      <li><strong>이미지 로딩 실패</strong>(48건)와 <strong>느린 로딩/접근 불가</strong>(58건)는 <strong>별개 이슈</strong>입니다.</li>
-      <li>이미지 로딩 실패의 83%(40건)은 특정 작품 회차에서 <strong>리로드 버튼 노출</strong> — CDN/서버 문제</li>
-      <li>콘텐츠 접근 불가의 ~52%(30건)은 <strong>VIP 결제 후 에피소드 열리지 않음</strong> — 권한/동기화 문제</li>
-      <li>W3(2/14~20)에 이미지 에러 <strong>스파이크 19건</strong> (W1:13, W2:8, W4:3) — 일시적 CDN 장애 가능성</li>
+      <li><strong>W5(02/28~03/06)</strong>에 이미지 실패 <strong>42건으로 급증</strong> — W4(33건) 대비 +27%. <strong>3/5 하루에만 19건</strong> (TH 10건, PT 6건)</li>
+      <li>5주간 <strong>상승 추세</strong>: W1(15) → W2(13) → W3(33) → W4(33) → W5(42). W3부터 2배 이상 증가 후 지속</li>
+      <li>마켓별: <strong>FR(50건)</strong> · <strong>ES(49건)</strong> · <strong>TH(35건)</strong> 3개 마켓이 전체의 56.8% 차지</li>
+      <li>이미지 첨부 스크린샷은 <strong>5건</strong>만 존재 — 대부분 정형화된 subject로 텍스트 신고</li>
     </ul>
   </div>
 </div>
 
 <!-- ═══════ 2. 핵심 구분 ═══════ -->
 <div class="section">
-  <div class="section-title"><div class="icon">2</div> 이슈 유형 구분: 로딩 실패 vs 느린 로딩</div>
+  <div class="section-title"><div class="icon">2</div> 이슈 유형 구분: 로딩 실패 vs 콘텐츠 접근 불가</div>
   <div class="distinction-box">
     <div class="dist-card failure">
-      <h4>이미지 로딩 실패 <span class="tag tag-server">서버/CDN</span></h4>
+      <h4>이미지 로딩 실패 (136건) <span class="tag tag-server">서버/CDN</span></h4>
       <ul>
         <li>이미지 자체를 <strong>불러오지 못함</strong></li>
         <li><strong>리로드 버튼</strong> 노출 (โหลดเว็บตูนอีกครั้ง)</li>
-        <li>이미지 깨짐/빈 화면/에러 표시</li>
+        <li>이미지 깨짐 / 빈 화면 / 에러 표시</li>
         <li>특정 작품·회차에 <strong>집중 발생</strong></li>
         <li>원인: CDN 캐시 무효화, 이미지 서버 장애, 에셋 누락</li>
         <li><strong>대응: 기술팀 에스컬레이션 필요</strong></li>
       </ul>
     </div>
     <div class="dist-card slow">
-      <h4>느린 로딩 / 버퍼링 <span class="tag tag-client">사용자 환경</span></h4>
+      <h4>콘텐츠 접근 불가 (100건) <span class="tag tag-client">접근/권한</span></h4>
       <ul>
-        <li>이미지가 <strong>느리게 로딩</strong>됨 (스피너 표시)</li>
-        <li>กำลังโหลดเว็บตูน (웹툰 로딩 중) 상태 지속</li>
-        <li>서버 지역·사용자 네트워크에 따라 편차</li>
-        <li>특정 작품에 <strong>집중되지 않음</strong></li>
-        <li>원인: 사용자 대역폭, 지역 CDN 거리, 디바이스 성능</li>
-        <li><strong>대응: 사용자 가이드(캐시 삭제, 네트워크 전환)</strong></li>
+        <li>VIP 결제 후 <strong>에피소드 열리지 않음</strong></li>
+        <li>콘텐츠 재생 불가 / 읽기 불가</li>
+        <li>특정 마켓·작품에 집중되지 않음 (분산)</li>
+        <li>Subject: "Otros" / "Autre" / "Other issues" 범용</li>
+        <li>원인: VIP 상태 동기화 실패, 에피소드 권한 오류</li>
+        <li><strong>대응: VIP 상태 확인 + 재동기화 가이드</strong></li>
       </ul>
     </div>
   </div>
@@ -233,265 +222,370 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
   <div class="section-title"><div class="icon">3</div> 실제 화면 캡쳐</div>
   <div class="screenshot-grid">
     <div class="screenshot-card">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23f8fafc'%3E%3Crect width='400' height='250' fill='%23FEF2F2'/%3E%3Ccircle cx='180' cy='110' r='18' fill='none' stroke='%23EF4444' stroke-width='4' stroke-dasharray='20 10'/%3E%3Ctext x='210' y='116' font-size='14' fill='%23475569' font-family='sans-serif'%3Eโหลดเว็บตูนอีกครั้ง%3C/text%3E%3Ctext x='130' y='180' font-size='11' fill='%2394A3B8' font-family='sans-serif'%3E(리로드 버튼 노출 상태)%3C/text%3E%3C/svg%3E" alt="리로드 버튼">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23f8fafc'%3E%3Crect width='400' height='250' fill='%23FEF2F2'/%3E%3Ccircle cx='180' cy='110' r='18' fill='none' stroke='%23EF4444' stroke-width='4' stroke-dasharray='20 10'/%3E%3Ctext x='210' y='116' font-size='14' fill='%23475569' font-family='sans-serif'%3E%E0%B9%82%E0%B8%AB%E0%B8%A5%E0%B8%94%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%95%E0%B8%B9%E0%B8%99%E0%B8%AD%E0%B8%B5%E0%B8%81%E0%B8%84%E0%B8%A3%E0%B8%B1%E0%B9%89%E0%B8%87%3C/text%3E%3Ctext x='130' y='180' font-size='11' fill='%2394A3B8' font-family='sans-serif'%3E(%EB%A6%AC%EB%A1%9C%EB%93%9C %EB%B2%84%ED%8A%BC %EB%85%B8%EC%B6%9C %EC%83%81%ED%83%9C)%3C/text%3E%3C/svg%3E" alt="리로드 버튼">
       <div class="caption" style="color:#DC2626;">이미지 로딩 실패</div>
       <div class="sub-caption">리로드 버튼 노출 — CDN/서버 이슈</div>
       <div class="sub-caption" style="margin-top:4px;">โหลดเว็บตูนอีกครั้ง = "웹툰 다시 로드"</div>
     </div>
     <div class="screenshot-card">
-      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23f8fafc'%3E%3Crect width='400' height='250' fill='%23FFFBEB'/%3E%3Ccircle cx='180' cy='110' r='18' fill='none' stroke='%23F59E0B' stroke-width='4' stroke-dasharray='30 5'/%3E%3Ctext x='210' y='116' font-size='14' fill='%23475569' font-family='sans-serif'%3Eกำลังโหลดเว็บตูน%3C/text%3E%3Ctext x='130' y='180' font-size='11' fill='%2394A3B8' font-family='sans-serif'%3E(로딩 스피너 지속 상태)%3C/text%3E%3C/svg%3E" alt="스피너">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='250' fill='%23f8fafc'%3E%3Crect width='400' height='250' fill='%23FFFBEB'/%3E%3Ccircle cx='180' cy='110' r='18' fill='none' stroke='%23F59E0B' stroke-width='4' stroke-dasharray='30 5'/%3E%3Ctext x='210' y='116' font-size='14' fill='%23475569' font-family='sans-serif'%3E%E0%B8%81%E0%B8%B3%E0%B8%A5%E0%B8%B1%E0%B8%87%E0%B9%82%E0%B8%AB%E0%B8%A5%E0%B8%94%E0%B9%80%E0%B8%A7%E0%B9%87%E0%B8%9A%E0%B8%95%E0%B8%B9%E0%B8%99%3C/text%3E%3Ctext x='130' y='180' font-size='11' fill='%2394A3B8' font-family='sans-serif'%3E(%EB%A1%9C%EB%94%A9 %EC%8A%A4%ED%94%BC%EB%84%88 %EC%A7%80%EC%86%8D %EC%83%81%ED%83%9C)%3C/text%3E%3C/svg%3E" alt="스피너">
       <div class="caption" style="color:#D97706;">느린 로딩 / 버퍼링</div>
       <div class="sub-caption">스피너 지속 — 사용자 환경/서버 지역</div>
       <div class="sub-caption" style="margin-top:4px;">กำลังโหลดเว็บตูน = "웹툰 로딩 중"</div>
     </div>
   </div>
   <p style="font-size:12px; color:#94A3B8; text-align:center; margin-top:8px;">
-    * 실제 캡쳐: TH 마켓 사용자 신고 화면 (image Load.png / image Load 2.png)
+    * 실제 캡쳐: TH 마켓 사용자 신고 화면 참조
   </p>
 </div>
 
-<!-- ═══════ 4. 데이터 분석 ═══════ -->
+<!-- ═══════ 4. 주차별 트렌드 ═══════ -->
 <div class="section">
-  <div class="section-title"><div class="icon">4</div> 이미지 로딩 실패 분석 (48건)</div>
+  <div class="section-title"><div class="icon">4</div> 5주 트렌드 분석</div>
 
-  <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px;">4.1 주차별 트렌드</h3>
-  <div class="bar-visual" style="height:150px;">
+  <h3 style="font-size:14px; font-weight:700; margin:0 0 10px;">4.1 주차별 이슈 현황</h3>
+  <table>
+    <tr>
+      <th>주차</th><th>기간</th><th>전체 CS</th><th>이미지 실패</th><th>접근 불가</th><th>합계</th><th>비율</th><th>WoW</th>
+    </tr>
+    <tr>
+      <td><strong>W1</strong></td><td>01/31~02/06</td><td>2,536</td>
+      <td>15</td><td>29</td><td>44</td><td>1.7%</td><td class="wow-flat">—</td>
+    </tr>
+    <tr>
+      <td><strong>W2</strong></td><td>02/07~02/13</td><td>2,450</td>
+      <td>13</td><td>10</td><td>23</td><td>0.9%</td><td class="wow-down">-47.7%</td>
+    </tr>
+    <tr>
+      <td><strong>W3</strong></td><td>02/14~02/20</td><td>2,314</td>
+      <td>33</td><td>23</td><td>56</td><td>2.4%</td><td class="wow-up">+143.5%</td>
+    </tr>
+    <tr>
+      <td><strong>W4</strong></td><td>02/21~02/27</td><td>2,317</td>
+      <td>33</td><td>14</td><td>47</td><td>2.0%</td><td class="wow-down">-16.1%</td>
+    </tr>
+    <tr style="background:#FEF2F2;">
+      <td><strong style="color:#DC2626;">W5</strong></td><td>02/28~03/06</td><td>2,094</td>
+      <td style="color:#DC2626; font-weight:700;">42</td><td>24</td><td style="color:#DC2626; font-weight:700;">66</td><td style="color:#DC2626; font-weight:700;">3.2%</td><td class="wow-up">+40.4%</td>
+    </tr>
+    <tr style="background:#F1F5F9;">
+      <td><strong>합계</strong></td><td>5주</td><td><strong>11,711</strong></td>
+      <td><strong>136</strong></td><td><strong>100</strong></td><td><strong>236</strong></td><td><strong>2.0%</strong></td><td></td>
+    </tr>
+  </table>
+
+  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">4.2 주차별 시각화 (이미지 실패 + 접근 불가)</h3>
+  <div class="bar-visual" style="height:180px;">
     <div class="bar-col">
-      <div class="bar-label">13</div>
-      <div class="bar" style="height:68%; background:linear-gradient(180deg,#EF4444,#FCA5A5);"></div>
+      <div class="bar-label">44</div>
+      <div class="bar-stacked" style="height:67%;">
+        <div class="seg" style="height:34%; background:#EF4444;" title="이미지 실패 15"></div>
+        <div class="seg" style="height:66%; background:#F59E0B;" title="접근 불가 29"></div>
+      </div>
       <div class="bar-bottom">W1</div>
     </div>
     <div class="bar-col">
-      <div class="bar-label">8</div>
-      <div class="bar" style="height:42%; background:linear-gradient(180deg,#F59E0B,#FDE68A);"></div>
+      <div class="bar-label">23</div>
+      <div class="bar-stacked" style="height:35%;">
+        <div class="seg" style="height:57%; background:#EF4444;" title="이미지 실패 13"></div>
+        <div class="seg" style="height:43%; background:#F59E0B;" title="접근 불가 10"></div>
+      </div>
       <div class="bar-bottom">W2</div>
     </div>
     <div class="bar-col">
-      <div class="bar-label" style="color:#DC2626;">19</div>
-      <div class="bar" style="height:100%; background:linear-gradient(180deg,#DC2626,#EF4444);">
+      <div class="bar-label">56</div>
+      <div class="bar-stacked" style="height:85%;">
+        <div class="seg" style="height:59%; background:#EF4444;" title="이미지 실패 33"></div>
+        <div class="seg" style="height:41%; background:#F59E0B;" title="접근 불가 23"></div>
       </div>
       <div class="bar-bottom">W3</div>
     </div>
     <div class="bar-col">
-      <div class="bar-label">3</div>
-      <div class="bar" style="height:16%; background:linear-gradient(180deg,#10B981,#6EE7B7);"></div>
+      <div class="bar-label">47</div>
+      <div class="bar-stacked" style="height:71%;">
+        <div class="seg" style="height:70%; background:#EF4444;" title="이미지 실패 33"></div>
+        <div class="seg" style="height:30%; background:#F59E0B;" title="접근 불가 14"></div>
+      </div>
       <div class="bar-bottom">W4</div>
     </div>
+    <div class="bar-col">
+      <div class="bar-label" style="color:#DC2626; font-size:13px;">66</div>
+      <div class="bar-stacked" style="height:100%;">
+        <div class="seg" style="height:64%; background:linear-gradient(180deg,#DC2626,#EF4444);" title="이미지 실패 42"></div>
+        <div class="seg" style="height:36%; background:#F59E0B;" title="접근 불가 24"></div>
+      </div>
+      <div class="bar-bottom"><strong>W5</strong></div>
+    </div>
   </div>
-  <p style="font-size:12px; color:#DC2626; font-weight:600; text-align:center;">
-    W3(2/14~20) 스파이크: 19건 — 전후 주차 대비 2.4배. CDN 일시 장애 가능성.
+  <div style="display:flex; gap:16px; justify-content:center; font-size:12px; margin-top:8px;">
+    <span style="display:flex; align-items:center; gap:4px;"><span style="width:12px; height:12px; background:#EF4444; border-radius:2px; display:inline-block;"></span> 이미지 실패</span>
+    <span style="display:flex; align-items:center; gap:4px;"><span style="width:12px; height:12px; background:#F59E0B; border-radius:2px; display:inline-block;"></span> 접근 불가</span>
+  </div>
+  <p style="font-size:12px; color:#DC2626; font-weight:600; text-align:center; margin-top:12px;">
+    W5 이미지 실패 42건 — 5주 최고치. 3/5(수) 하루에만 19건 집중 (TH 10건, PT 6건, FR 1건, CN 1건, EN 1건)
   </p>
 
-  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">4.2 마켓별 분포</h3>
+  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">4.3 W5 일별 상세 (02/28~03/06)</h3>
   <table>
-    <tr>
-      <th>마켓</th><th>건수</th><th>비중</th><th>비율</th>
+    <tr><th>날짜</th><th>요일</th><th>이미지 실패</th><th>접근 불가</th><th>합계</th><th>비고</th></tr>
+    <tr><td>02/28</td><td>토</td><td>6</td><td>4</td><td>10</td><td></td></tr>
+    <tr><td>03/01</td><td>일</td><td>0</td><td>2</td><td>2</td><td>주말 최소</td></tr>
+    <tr><td>03/02</td><td>월</td><td>5</td><td>4</td><td>9</td><td></td></tr>
+    <tr><td>03/03</td><td>화</td><td>4</td><td>1</td><td>5</td><td>TH 집중 (4건)</td></tr>
+    <tr><td>03/04</td><td>수</td><td>7</td><td>7</td><td>14</td><td>JP 3건 발생</td></tr>
+    <tr style="background:#FEF2F2;">
+      <td><strong>03/05</strong></td><td>목</td>
+      <td style="color:#DC2626; font-weight:700;">19</td><td>5</td>
+      <td style="color:#DC2626; font-weight:700;">24</td>
+      <td style="color:#DC2626;">TH 10건 + PT 6건 스파이크</td>
     </tr>
-    <tr>
-      <td>ES (스페인어)</td><td><strong>11</strong></td><td>22.9%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:22.9%; background:#EF4444;"></div></div></td>
-    </tr>
-    <tr>
-      <td>EN (영어)</td><td><strong>9</strong></td><td>18.8%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:18.8%; background:#F59E0B;"></div></div></td>
-    </tr>
-    <tr>
-      <td>DE (독일어)</td><td><strong>8</strong></td><td>16.7%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:16.7%; background:#F59E0B;"></div></div></td>
-    </tr>
-    <tr>
-      <td>FR (프랑스어)</td><td>5</td><td>10.4%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:10.4%; background:#0EA5E9;"></div></div></td>
-    </tr>
-    <tr>
-      <td>PT (포르투갈어)</td><td>5</td><td>10.4%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:10.4%; background:#0EA5E9;"></div></div></td>
-    </tr>
-    <tr>
-      <td>JP (일본어)</td><td>4</td><td>8.3%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:8.3%; background:#6366F1;"></div></div></td>
-    </tr>
-    <tr>
-      <td>TH (태국어)</td><td>4</td><td>8.3%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:8.3%; background:#6366F1;"></div></div></td>
-    </tr>
-    <tr>
-      <td>IT (이탈리아어)</td><td>2</td><td>4.2%</td>
-      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:4.2%; background:#94A3B8;"></div></div></td>
-    </tr>
+    <tr><td>03/06</td><td>금</td><td>1</td><td>1</td><td>2</td><td>오전 기준 (진행중)</td></tr>
   </table>
-  <p style="font-size:12px; color:#64748B; margin-top:8px;">유럽권(ES+DE+FR+IT) = 54.2% — 유럽 CDN 노드 점검 우선 필요</p>
+</div>
 
-  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">4.3 작품별 에러 집중도</h3>
+<!-- ═══════ 5. 마켓별 분석 ═══════ -->
+<div class="section">
+  <div class="section-title"><div class="icon">5</div> 마켓별 분석</div>
+
+  <h3 style="font-size:14px; font-weight:700; margin:0 0 10px;">5.1 마켓별 분포</h3>
   <table>
-    <tr><th>작품</th><th>건수</th><th>마켓</th><th>비고</th></tr>
-    <tr><td>Someone Stop Her!</td><td><strong>4</strong></td><td>EN</td><td>동일 작품 반복 신고</td></tr>
-    <tr><td>Hipnotizame</td><td>3</td><td>ES</td><td>에피소드 0, 2에 집중</td></tr>
-    <tr><td>Alerta, problemas en la empresa!</td><td>3</td><td>ES</td><td>에피소드 81</td></tr>
-    <tr><td>Knock Knock</td><td>2</td><td>JP</td><td>-</td></tr>
-    <tr><td>แขกไม่รับเชิญ (Uninvited Guest)</td><td>2</td><td>TH</td><td>-</td></tr>
-    <tr><td>Quelle vie de chien !</td><td>2</td><td>FR</td><td>-</td></tr>
-    <tr><td>기타 (1건씩)</td><td>32</td><td>혼합</td><td>분산 발생</td></tr>
+    <tr><th>마켓</th><th>이미지 실패</th><th>접근 불가</th><th>합계</th><th>비중</th><th>분포</th></tr>
+    <tr>
+      <td><strong>FR (프랑스어)</strong></td><td>31</td><td>19</td><td><strong>50</strong></td><td>21.2%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:100%; background:#EF4444;"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>ES (스페인어)</strong></td><td>18</td><td>31</td><td><strong>49</strong></td><td>20.8%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:98%; background:#EF4444;"></div></div></td>
+    </tr>
+    <tr>
+      <td><strong>TH (태국어)</strong></td><td>27</td><td>8</td><td><strong>35</strong></td><td>14.8%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:70%; background:#F59E0B;"></div></div></td>
+    </tr>
+    <tr>
+      <td>PT (포르투갈어)</td><td>16</td><td>15</td><td>31</td><td>13.1%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:62%; background:#F59E0B;"></div></div></td>
+    </tr>
+    <tr>
+      <td>EN (영어)</td><td>17</td><td>10</td><td>27</td><td>11.4%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:54%; background:#0EA5E9;"></div></div></td>
+    </tr>
+    <tr>
+      <td>DE (독일어)</td><td>7</td><td>5</td><td>12</td><td>5.1%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:24%; background:#6366F1;"></div></div></td>
+    </tr>
+    <tr>
+      <td>JP (일본어)</td><td>10</td><td>1</td><td>11</td><td>4.7%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:22%; background:#6366F1;"></div></div></td>
+    </tr>
+    <tr>
+      <td>IT (이탈리아어)</td><td>2</td><td>7</td><td>9</td><td>3.8%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:18%; background:#94A3B8;"></div></div></td>
+    </tr>
+    <tr>
+      <td>CN (중국어)</td><td>6</td><td>2</td><td>8</td><td>3.4%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:16%; background:#94A3B8;"></div></div></td>
+    </tr>
+    <tr>
+      <td>KR (한국어)</td><td>2</td><td>2</td><td>4</td><td>1.7%</td>
+      <td><div class="progress-bar" style="width:120px;"><div class="progress-fill" style="width:8%; background:#94A3B8;"></div></div></td>
+    </tr>
   </table>
-  <p style="font-size:12px; color:#DC2626; margin-top:8px;">
-    상위 3작품(10건, 20.8%)에 에러 집중 — 해당 작품 이미지 에셋 우선 점검 필요
+
+  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">5.2 지역별 패턴</h3>
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:14px;">
+    <div style="background:#FEF2F2; border-radius:12px; padding:16px; border-left:4px solid #EF4444;">
+      <h4 style="font-size:13px; font-weight:700; color:#DC2626; margin-bottom:8px;">유럽권 (FR+ES+DE+IT+PT) = 151건 (64.0%)</h4>
+      <ul style="font-size:12px; color:#475569; padding-left:16px;">
+        <li>FR·ES 2개 마켓만으로 42.0%</li>
+        <li>유럽 CDN 엣지 노드 점검 최우선</li>
+        <li>FR: 이미지 실패(31) > 접근 불가(19)</li>
+        <li>ES: 접근 불가(31) > 이미지 실패(18)</li>
+      </ul>
+    </div>
+    <div style="background:#FFFBEB; border-radius:12px; padding:16px; border-left:4px solid #F59E0B;">
+      <h4 style="font-size:13px; font-weight:700; color:#D97706; margin-bottom:8px;">아시아권 (TH+JP+CN+KR) = 58건 (24.6%)</h4>
+      <ul style="font-size:12px; color:#475569; padding-left:16px;">
+        <li>TH 단독 35건 (60.3%)</li>
+        <li>W5 3/5 TH 10건 스파이크 — CDN 장애 의심</li>
+        <li>JP: 이미지 실패 10건 (접근 불가 1건만)</li>
+        <li>KR: 4건으로 상대적 안정</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════ 6. 신고 패턴 분석 ═══════ -->
+<div class="section">
+  <div class="section-title"><div class="icon">6</div> 신고 패턴 분석</div>
+
+  <h3 style="font-size:14px; font-weight:700; margin:0 0 10px;">6.1 이미지 실패 — Subject 분포 (136건)</h3>
+  <table>
+    <tr><th>Subject</th><th>건수</th><th>마켓</th><th>의미</th></tr>
+    <tr><td>ภาพมีปัญหา</td><td><strong>24</strong></td><td>TH</td><td>"이미지에 문제가 있습니다"</td></tr>
+    <tr><td>There is an error in the image.</td><td>16</td><td>EN</td><td>이미지 에러 신고</td></tr>
+    <tr><td>Il y a un problème sur l'image.</td><td>13</td><td>FR</td><td>"이미지에 문제가 있습니다"</td></tr>
+    <tr><td>Il y a une erreur d'orthographe.</td><td>11</td><td>FR</td><td>"오타 에러" (이미지 오류로 분류)</td></tr>
+    <tr><td>Hay un error en la imagen.</td><td>9</td><td>ES</td><td>"이미지에 에러가 있습니다"</td></tr>
+    <tr><td>画像にエラーがあります</td><td>8</td><td>JP</td><td>"이미지에 에러가 있습니다"</td></tr>
+    <tr><td>Bildfehler</td><td>8</td><td>DE, KR</td><td>"이미지 오류"</td></tr>
+    <tr><td>Erro na imagem / Outros</td><td>15</td><td>PT</td><td>"이미지 에러" / 기타</td></tr>
+    <tr><td>기타 (4건 이하)</td><td>32</td><td>혼합</td><td>번역 오류, 무제 등</td></tr>
+  </table>
+  <p style="font-size:12px; color:#64748B; margin-top:8px;">
+    대부분 Zendesk 정형 subject 선택 → 텍스트 신고. 고객 스크린샷 첨부율 <strong>3.7%</strong> (5/136건)
   </p>
 
-  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">4.4 감성 분석</h3>
+  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">6.2 고객 첨부 스크린샷 (5건)</h3>
+  <table>
+    <tr><th>티켓</th><th>마켓</th><th>날짜</th><th>첨부</th><th>파일명</th></tr>
+    <tr><td>#123421</td><td>ES</td><td>02/17</td><td>3개</td><td>Screenshot_2026-02-17_Chrome.jpg 외</td></tr>
+    <tr><td>#125220</td><td>TH</td><td>02/22</td><td>1개</td><td>Screenshot_20260222_Chrome.jpg</td></tr>
+    <tr><td>#125435</td><td>ES</td><td>02/23</td><td>1개</td><td>IMG_4130.png</td></tr>
+    <tr><td>#128907</td><td>FR</td><td>03/05</td><td>1개</td><td>IMG_8449.png (1.2MB)</td></tr>
+    <tr><td>#122474</td><td>IT</td><td>02/15</td><td>1개</td><td>Screenshot_Gmail.jpg (접근 불가)</td></tr>
+  </table>
+
+  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">6.3 감성 분포</h3>
   <div style="display:flex; gap:16px; align-items:center;">
     <div style="flex:1;">
       <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
         <div style="width:60%; height:24px; background:#E2E8F0; border-radius:12px; overflow:hidden;">
-          <div style="width:87.5%; height:100%; background:#94A3B8; border-radius:12px;"></div>
+          <div style="width:49.6%; height:100%; background:#94A3B8; border-radius:12px;"></div>
         </div>
-        <span style="font-size:13px;">Neutral 87.5% (42건)</span>
+        <span style="font-size:13px;">Neutral 49.6% (117건)</span>
+      </div>
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;">
+        <div style="width:60%; height:24px; background:#E2E8F0; border-radius:12px; overflow:hidden;">
+          <div style="width:43.6%; height:100%; background:#F59E0B; border-radius:12px;"></div>
+        </div>
+        <span style="font-size:13px;">Negative 43.6% (103건)</span>
       </div>
       <div style="display:flex; align-items:center; gap:8px;">
         <div style="width:60%; height:24px; background:#E2E8F0; border-radius:12px; overflow:hidden;">
-          <div style="width:12.5%; height:100%; background:#EF4444; border-radius:12px;"></div>
+          <div style="width:6.8%; height:100%; background:#EF4444; border-radius:12px;"></div>
         </div>
-        <span style="font-size:13px;">Negative 12.5% (6건)</span>
+        <span style="font-size:13px;">Very Negative 6.8% (16건)</span>
       </div>
     </div>
-    <div style="font-size:12px; color:#64748B; max-width:240px;">
-      이미지 에러는 정형화된 신고(subject 자동 선택)라 감성은 대부분 Neutral. 반복 경험 시 Negative 전환 리스크.
+    <div style="font-size:12px; color:#64748B; max-width:260px;">
+      5주 누적 데이터에서 <strong>Negative + Very Negative = 50.4%</strong>로 절반 이상. 4주 데이터(v1.0)의 Neutral 87.5% 대비 악화 — 반복 경험 시 불만 누적 확인.
     </div>
   </div>
 </div>
 
-<!-- ═══════ 5. 콘텐츠 접근 불가 ═══════ -->
+<!-- ═══════ 7. 응답 시간 ═══════ -->
 <div class="section">
-  <div class="section-title"><div class="icon">5</div> 콘텐츠 접근 불가 분석 (58건)</div>
-  <div style="background:#FFFBEB; border-left:4px solid #F59E0B; border-radius:8px; padding:14px 18px; margin-bottom:16px;">
-    <p style="font-size:13px; color:#92400E;">
-      <strong>핵심:</strong> intent가 <code>content_play__cant_play</code>로 분류되었으나, 실제 내용의 ~52%는 <strong>VIP 구독 결제 후 에피소드 열리지 않음</strong> 문제. 이미지 로딩 이슈와는 별개.
-    </p>
-  </div>
-
-  <h3 style="font-size:14px; font-weight:700; margin:16px 0 10px;">5.1 실제 내용 분류</h3>
-  <table>
-    <tr><th>유형</th><th>건수</th><th>비중</th><th>설명</th></tr>
-    <tr><td style="color:#F59E0B; font-weight:700;">VIP/구독 접근 문제</td><td><strong>~30</strong></td><td>~52%</td><td>결제했으나 에피소드 못 봄, VIP 미적용</td></tr>
-    <tr><td>콘텐츠 품질/오류</td><td>~15</td><td>~26%</td><td>에피소드 순서 오류, 번역 문제, 검열 문의</td></tr>
-    <tr><td>기타 (분류 모호)</td><td>~10</td><td>~17%</td><td>이모지만, 최소 정보만 기재</td></tr>
-    <tr><td style="color:#EF4444;">실제 이미지 로딩 문제</td><td>~3</td><td>~5%</td><td>이미지 로딩 실패 + 느린 로딩</td></tr>
-  </table>
-
-  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">5.2 마켓별 분포</h3>
-  <table>
-    <tr><th>마켓</th><th>건수</th><th>주요 패턴</th></tr>
-    <tr><td>EN</td><td><strong>15</strong></td><td>"I can't watch/read episodes"</td></tr>
-    <tr><td>ES</td><td>12</td><td>"No me deja leer" (읽을 수 없음)</td></tr>
-    <tr><td>PT</td><td>11</td><td>"Não consigo ver" (볼 수 없음)</td></tr>
-    <tr><td>FR</td><td>8</td><td>"Je ne peux pas voir" (볼 수 없음)</td></tr>
-    <tr><td>IT</td><td>5</td><td>"Non mi fa vedere" (보여주지 않음)</td></tr>
-    <tr><td>TH</td><td>3</td><td>"ดูไม่ได้" (볼 수 없음)</td></tr>
-    <tr><td>DE</td><td>3</td><td>"Ladefehler" (로딩 오류)</td></tr>
-    <tr><td>JP</td><td>1</td><td>-</td></tr>
-  </table>
-
-  <h3 style="font-size:14px; font-weight:700; margin:24px 0 10px;">5.3 상위 집중 작품</h3>
-  <table>
-    <tr><th>작품</th><th>건수</th><th>마켓</th></tr>
-    <tr><td>Mi casa es tu casa</td><td><strong>6</strong></td><td>ES</td></tr>
-    <tr><td>Hipnose do Amor</td><td>3</td><td>PT</td></tr>
-    <tr><td>O de Casa</td><td>3</td><td>PT</td></tr>
-    <tr><td>XX Dungeon</td><td>2</td><td>EN</td></tr>
-    <tr><td>Sous hypnose</td><td>2</td><td>FR</td></tr>
-  </table>
-</div>
-
-<!-- ═══════ 6. 응답 시간 ═══════ -->
-<div class="section">
-  <div class="section-title"><div class="icon">6</div> 응답 시간 비교</div>
+  <div class="section-title"><div class="icon">7</div> 응답 시간 분석</div>
   <table>
     <tr>
       <th>지표</th>
-      <th>이미지 로딩 실패 (48건)</th>
-      <th>콘텐츠 접근 불가 (58건)</th>
-      <th>전체 평균</th>
+      <th>이미지 로딩 이슈 (236건)</th>
+      <th>전체 CS 평균</th>
+      <th>비교</th>
     </tr>
     <tr>
-      <td><strong>FRT (첫 응답)</strong></td>
-      <td>19.8h (중위 16.3h)</td>
-      <td>24.4h (중위 20.9h)</td>
-      <td>~22h</td>
+      <td><strong>평균 FRT</strong></td>
+      <td>21.8h</td>
+      <td>~15h</td>
+      <td class="wow-up">+45%</td>
     </tr>
     <tr>
-      <td><strong>RT (해결 시간)</strong></td>
-      <td style="color:#DC2626; font-weight:700;">156.8h (중위 181.1h)</td>
-      <td>91.5h (중위 50.8h)</td>
-      <td>~70h</td>
+      <td><strong>중위 FRT</strong></td>
+      <td>12.4h</td>
+      <td>~10h</td>
+      <td class="wow-up">+24%</td>
     </tr>
   </table>
   <div style="background:#FEF2F2; border-left:4px solid #EF4444; border-radius:8px; padding:14px 18px; margin-top:12px;">
     <p style="font-size:13px; color:#991B1B;">
-      <strong>주의:</strong> 이미지 로딩 실패의 해결 시간이 <strong>156.8h (6.5일)</strong>로 전체 평균의 2.2배. 이미지 에셋 수정이 서버 배포 사이클에 의존하기 때문으로 추정. 핫픽스 파이프라인 필요.
+      <strong>주의:</strong> 이미지 로딩 이슈의 FRT가 전체 평균보다 45% 높음. 이미지 에러 신고는 정형화된 subject로 접수되어 우선순위 분류가 지연되는 것으로 추정. 자동 태깅 + 에스컬레이션 루트 개선 필요.
     </p>
   </div>
 </div>
 
-<!-- ═══════ 7. 인사이트 ═══════ -->
+<!-- ═══════ 8. 인사이트 ═══════ -->
 <div class="section">
-  <div class="section-title"><div class="icon">7</div> Key Insights</div>
+  <div class="section-title"><div class="icon">8</div> Key Insights</div>
   <div class="insight-grid">
     <div class="insight-card">
-      <h4>W3 스파이크</h4>
-      <div class="metric">19건</div>
-      <p>W3(2/14~20)에 이미지 에러 급증. W2(8건) 대비 2.4배. 일시적 CDN 장애 또는 콘텐츠 배포 이슈 가능성. W4에서 3건으로 급감하여 자연 해소.</p>
+      <h4>W5 스파이크 — 상승 추세 지속</h4>
+      <div class="metric">42건 (W5)</div>
+      <p>W3(33건)부터 2배 이상 증가 후 W4~W5 지속 상승. 자연 해소가 아닌 <strong>구조적 문제</strong> 가능성. 3/5 하루 19건은 TH·PT CDN 동시 장애 시사.</p>
     </div>
     <div class="insight-card">
       <h4>유럽 CDN 집중</h4>
-      <div class="metric">54.2%</div>
-      <p>ES+DE+FR+IT = 26건으로 유럽권 집중. 유럽 CDN 엣지 노드의 캐시 무효화 또는 이미지 동기화 지연 가능성.</p>
+      <div class="metric">64.0%</div>
+      <p>유럽권 5개 마켓이 151건(64.0%). 특히 FR(50건)·ES(49건) 2개만으로 42.0%. 유럽 CDN 엣지 노드의 캐시 무효화/이미지 동기화 상태 긴급 점검 필요.</p>
     </div>
     <div class="insight-card">
-      <h4>해결 시간 병목</h4>
-      <div class="metric">156.8h</div>
-      <p>이미지 에러 해결이 6.5일 소요. 이미지 에셋 교체가 서버 배포 사이클에 묶여 있어 핫픽스가 즉시 적용되지 않음.</p>
+      <h4>TH 마켓 급증</h4>
+      <div class="metric">35건 (14.8%)</div>
+      <p>TH 이미지 실패 27건 중 W5에만 15건(56%). 3/3~3/5에 집중. TH 리전 CDN 이슈 또는 특정 작품 에셋 배포 실패 의심.</p>
     </div>
     <div class="insight-card">
-      <h4>Intent 분류 부정확</h4>
-      <div class="metric">~52%</div>
-      <p>content_play__cant_play 58건 중 실제 이미지/로딩 이슈는 ~5%. 나머지는 VIP 접근 문제. intent 분류기 개선 필요.</p>
+      <h4>고객 불만 악화</h4>
+      <div class="metric">50.4%</div>
+      <p>Negative+Very Negative 비중이 50.4%로 절반 초과. v1.0(4주) 분석의 Neutral 87.5% 대비 크게 악화. 반복 경험으로 불만 누적 → 해지/차지백 리스크.</p>
     </div>
   </div>
 </div>
 
-<!-- ═══════ 8. 전략적 제언 ═══════ -->
+<!-- ═══════ 9. 전략적 제언 ═══════ -->
 <div class="section">
-  <div class="section-title"><div class="icon">8</div> Strategic Recommendations</div>
+  <div class="section-title"><div class="icon">9</div> Strategic Recommendations</div>
   <table class="action-table">
     <tr>
       <th>우선순위</th><th>액션</th><th>담당</th><th>기대 효과</th>
     </tr>
     <tr>
       <td><span class="priority-p0">P0</span></td>
-      <td><strong>이미지 에러 모니터링 대시보드 구축</strong><br>
-        <span style="font-size:12px; color:#64748B;">작품별·회차별 이미지 로드 실패율 실시간 추적. threshold 초과 시 자동 알림.</span></td>
+      <td><strong>TH·PT CDN 긴급 점검</strong><br>
+        <span style="font-size:12px; color:#64748B;">3/5 TH 10건 + PT 6건 동시 스파이크. TH·PT 리전 CDN 엣지 노드 캐시 상태, 이미지 동기화 파이프라인 긴급 점검.</span></td>
+      <td>인프라팀</td>
+      <td>W5 스파이크 원인 제거</td>
+    </tr>
+    <tr>
+      <td><span class="priority-p0">P0</span></td>
+      <td><strong>이미지 에러 실시간 모니터링 대시보드</strong><br>
+        <span style="font-size:12px; color:#64748B;">작품별·회차별·리전별 이미지 로드 실패율 실시간 추적. threshold(일 10건+) 초과 시 자동 알림.</span></td>
       <td>개발팀</td>
-      <td>장애 감지 시간 단축</td>
+      <td>장애 감지 → 수시간 내</td>
     </tr>
     <tr>
       <td><span class="priority-p0">P0</span></td>
       <td><strong>이미지 에셋 핫픽스 파이프라인</strong><br>
-        <span style="font-size:12px; color:#64748B;">에러 신고된 작품 이미지를 배포 사이클 없이 즉시 교체 가능하도록 CDN 퍼지+리업로드 자동화.</span></td>
+        <span style="font-size:12px; color:#64748B;">에러 신고된 작품 이미지를 배포 사이클 없이 즉시 CDN 퍼지+리업로드 자동화. 현재 해결 지연 구조 해소.</span></td>
       <td>인프라팀</td>
-      <td>해결 시간 156.8h → 24h 이내</td>
+      <td>해결 시간 대폭 단축</td>
     </tr>
     <tr>
       <td><span class="priority-p1">P1</span></td>
-      <td><strong>유럽 CDN 엣지 노드 점검</strong><br>
-        <span style="font-size:12px; color:#64748B;">ES·DE·FR·IT 54.2% 집중. 유럽 노드의 캐시 정책 및 이미지 동기화 상태 점검.</span></td>
+      <td><strong>유럽 CDN 엣지 노드 전수 점검</strong><br>
+        <span style="font-size:12px; color:#64748B;">FR(50건)·ES(49건) 집중. 유럽 노드 캐시 정책, 이미지 origin 동기화 주기, purge 메커니즘 점검.</span></td>
       <td>인프라팀</td>
       <td>유럽권 에러 50% 감소</td>
     </tr>
     <tr>
       <td><span class="priority-p1">P1</span></td>
-      <td><strong>CS 매뉴얼 응대 템플릿 분리 완료</strong><br>
-        <span style="font-size:12px; color:#64748B;">Template 6.1.1(로딩 실패 → 기술팀) vs 6.1.2(느린 로딩 → 사용자 가이드) 분리 적용 완료.</span></td>
+      <td><strong>CS 응대 자동 라우팅</strong><br>
+        <span style="font-size:12px; color:#64748B;">image__screenshot 태그 자동 감지 → 기술팀 에스컬레이션 자동 트리거. FRT 21.8h → 목표 8h 이내.</span></td>
       <td>BizOps</td>
-      <td style="color:#10B981;">완료</td>
+      <td>FRT 60% 단축</td>
+    </tr>
+    <tr>
+      <td><span class="priority-p1">P1</span></td>
+      <td><strong>CS 매뉴얼 응대 템플릿 분리</strong><br>
+        <span style="font-size:12px; color:#64748B;">Template 6.1.1(로딩 실패 → 기술팀) vs 6.1.2(느린 로딩 → 사용자 가이드) 분리 적용.</span></td>
+      <td>BizOps</td>
+      <td style="color:#10B981; font-weight:700;">완료</td>
+    </tr>
+    <tr>
+      <td><span class="priority-p2">P2</span></td>
+      <td><strong>클라이언트 자동 리트라이 + fallback CDN</strong><br>
+        <span style="font-size:12px; color:#64748B;">이미지 로드 실패 시 3회 재시도 + 대체 CDN 경로 fallback. 사용자 체감 에러 감소.</span></td>
+      <td>프론트엔드팀</td>
+      <td>사용자 체감 에러 60% 감소</td>
     </tr>
     <tr>
       <td><span class="priority-p2">P2</span></td>
@@ -500,20 +594,14 @@ tr:nth-child(even):hover td { background: #F0F4FF; }
       <td>BizOps + 개발팀</td>
       <td>분석 정확도 향상</td>
     </tr>
-    <tr>
-      <td><span class="priority-p2">P2</span></td>
-      <td><strong>이미지 로드 실패 시 자동 리트라이 + fallback</strong><br>
-        <span style="font-size:12px; color:#64748B;">클라이언트에서 이미지 로드 실패 시 3회 자동 재시도 + 대체 CDN 경로 fallback 구현.</span></td>
-      <td>프론트엔드팀</td>
-      <td>사용자 체감 에러 60% 감소</td>
-    </tr>
   </table>
 </div>
 
 <!-- ═══════ FOOTER ═══════ -->
 <div class="footer">
-  <p>Toomics BizOps | Image Loading Issue Analysis v1.0 | 2026-03-06</p>
-  <p>Data: 26_FEB_extracted.csv (1,770건) | created_at 기준 W1~W4 (2026-01-31 ~ 02-27)</p>
+  <p>Toomics BizOps | Image Loading Issue Analysis v2.0 | 2026-03-06</p>
+  <p>Data: cs 5 weeks.json (11,711건) | created_at (KST) 기준 W1~W5 (2026-01-31 ~ 03-06)</p>
+  <p>v1.0 → v2.0: 분석 범위 4주→5주 확장, W5 스파이크 분석, 마켓별 지역 패턴, 감성 악화 추적 추가</p>
 </div>
 
 </div>
