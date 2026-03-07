@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="author" content="유종선">
+<meta name="description" content="CS AI Dashboard 퀵스타트 가이드 — 운영자용 실전 사용법">
+<title>CS AI Dashboard 퀵스타트 가이드 v1.0 — 유종선</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #6366F1;
+    --primary-light: #818CF8;
+    --primary-bg: #EEF2FF;
+    --accent: #F59E0B;
+    --accent-bg: #FFFBEB;
+    --success: #10B981;
+    --success-bg: #D1FAE5;
+    --danger: #EF4444;
+    --danger-bg: #FEE2E2;
+    --warning: #F97316;
+    --warning-bg: #FFF7ED;
+    --info: #3B82F6;
+    --info-bg: #DBEAFE;
+    --text: #1E1B4B;
+    --text-secondary: #6B7280;
+    --bg: #FAFAFE;
+    --card: #FFFFFF;
+    --border: #E5E7EB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.8; -webkit-font-smoothing: antialiased; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+
+  /* Header */
+  .header { background: linear-gradient(135deg, #4338CA 0%, #6366F1 50%, #818CF8 100%); color: white; padding: 48px 40px 40px; }
+  .header-inner { max-width: 860px; margin: 0 auto; }
+  .header-badge { display: inline-block; background: rgba(255,255,255,0.15); padding: 4px 14px; border-radius: 16px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 16px; }
+  .header h1 { font-size: 32px; font-weight: 900; line-height: 1.3; margin-bottom: 10px; }
+  .header h1 em { font-style: normal; color: #FCD34D; }
+  .header-sub { font-size: 15px; opacity: 0.85; }
+  .header-meta { margin-top: 20px; display: flex; gap: 20px; font-size: 12px; opacity: 0.7; }
+
+  /* Container */
+  .container { max-width: 860px; margin: 0 auto; padding: 0 40px; }
+
+  /* Step Section */
+  .step { padding: 40px 0; border-bottom: 1px solid var(--border); }
+  .step:last-child { border-bottom: none; }
+  .step-label { display: inline-flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .step-num { width: 32px; height: 32px; border-radius: 10px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 800; flex-shrink: 0; }
+  .step-tag { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--primary); }
+  .step h2 { font-size: 22px; font-weight: 800; margin-bottom: 14px; letter-spacing: -0.3px; }
+  .step-desc { font-size: 14px; color: var(--text-secondary); margin-bottom: 20px; max-width: 700px; }
+
+  /* Info boxes */
+  .box { border-radius: 12px; padding: 20px 24px; margin-bottom: 16px; font-size: 14px; }
+  .box-info { background: var(--info-bg); border-left: 4px solid var(--info); }
+  .box-success { background: var(--success-bg); border-left: 4px solid var(--success); }
+  .box-warning { background: var(--warning-bg); border-left: 4px solid var(--warning); }
+  .box-danger { background: var(--danger-bg); border-left: 4px solid var(--danger); }
+  .box-primary { background: var(--primary-bg); border-left: 4px solid var(--primary); }
+  .box h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+  .box p, .box ul { color: var(--text-secondary); line-height: 1.7; }
+  .box ul { padding-left: 18px; }
+  .box li { margin-bottom: 4px; }
+
+  /* Table */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); margin-bottom: 20px; font-size: 13px; }
+  thead { background: var(--primary); color: white; }
+  th { padding: 10px 14px; font-weight: 600; text-align: left; font-size: 12px; letter-spacing: 0.3px; }
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: #FAFAFF; }
+
+  /* Badge inline */
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 8px; font-size: 11px; font-weight: 600; }
+  .b-blue { background: #DBEAFE; color: #1D4ED8; }
+  .b-green { background: #D1FAE5; color: #059669; }
+  .b-amber { background: #FEF3C7; color: #D97706; }
+  .b-purple { background: #EDE9FE; color: #7C3AED; }
+  .b-red { background: #FEE2E2; color: #DC2626; }
+  .b-orange { background: #FFF7ED; color: #EA580C; }
+  .b-gray { background: #F3F4F6; color: #6B7280; }
+
+  /* Flow diagram */
+  .flow { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 20px; font-family: 'JetBrains Mono', monospace; font-size: 13px; line-height: 2; overflow-x: auto; }
+  .flow .hl { color: var(--primary); font-weight: 600; }
+  .flow .ac { color: var(--warning); font-weight: 600; }
+  .flow .ok { color: var(--success); font-weight: 600; }
+  .flow .no { color: var(--danger); font-weight: 600; }
+
+  /* Action card grid */
+  .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px; }
+  .action-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .action-card h4 { font-size: 14px; font-weight: 700; margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+  .action-card p { font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .action-card .ac-badge { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
+
+  /* Checklist */
+  .checklist { list-style: none; padding: 0; }
+  .checklist li { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid #F3F4F6; font-size: 13px; }
+  .checklist li:last-child { border-bottom: none; }
+  .check-icon { width: 22px; height: 22px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; flex-shrink: 0; margin-top: 2px; }
+  .check-do { background: var(--success-bg); color: var(--success); }
+  .check-dont { background: var(--danger-bg); color: var(--danger); }
+
+  /* KPI strip mock */
+  .kpi-strip { display: flex; gap: 10px; margin-bottom: 20px; }
+  .kpi-mock { flex: 1; background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; text-align: center; border-top: 3px solid var(--border); }
+  .kpi-mock .kpi-num { font-size: 24px; font-weight: 800; }
+  .kpi-mock .kpi-lbl { font-size: 11px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-mock.k-blue { border-top-color: #3B82F6; }
+  .kpi-mock.k-amber { border-top-color: #F59E0B; }
+  .kpi-mock.k-purple { border-top-color: #8B5CF6; }
+  .kpi-mock.k-orange { border-top-color: #F97316; }
+  .kpi-mock.k-green { border-top-color: #10B981; }
+
+  /* Score bar */
+  .score-bar { display: flex; align-items: center; gap: 10px; margin: 10px 0; }
+  .score-track { flex: 1; height: 10px; background: #E5E7EB; border-radius: 5px; overflow: hidden; }
+  .score-fill { height: 100%; border-radius: 5px; }
+  .score-fill.s-green { background: var(--success); }
+  .score-fill.s-amber { background: var(--accent); }
+  .score-fill.s-red { background: var(--danger); }
+  .score-label { font-size: 14px; font-weight: 700; min-width: 40px; }
+
+  /* Footer */
+  .footer { background: var(--text); color: rgba(255,255,255,0.6); padding: 32px; text-align: center; font-size: 12px; }
+  .footer strong { color: white; }
+
+  /* TOC */
+  .toc { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin: 32px 0; }
+  .toc h3 { font-size: 14px; font-weight: 700; margin-bottom: 12px; color: var(--primary); }
+  .toc ol { padding-left: 20px; font-size: 13px; }
+  .toc li { margin-bottom: 6px; }
+  .toc a { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .toc a:hover { text-decoration: underline; }
+
+  /* Keyboard shortcut */
+  kbd { background: #F3F4F6; border: 1px solid #D1D5DB; border-radius: 4px; padding: 1px 6px; font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+
+  @media print {
+    * { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    @page { margin: 15mm; }
+    .header { padding: 30px 20px; }
+    .header h1 { font-size: 24px; }
+    .step { padding: 24px 0; }
+    .action-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<div class="header">
+  <div class="header-inner">
+    <div class="header-badge">CS AI Dashboard — Quick Start Guide</div>
+    <h1>운영자를 위한 <em>실전 사용 가이드</em></h1>
+    <p class="header-sub">로그인부터 AI Draft 생성, 답변 발송까지 — 5분만에 마스터하는 단계별 안내</p>
+    <div class="header-meta">
+      <span>작성: 유종선</span>
+      <span>v1.0 · 2026년 3월 7일</span>
+      <span>Toomics Global</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <h3>목차</h3>
+  <ol>
+    <li><a href="#step1">로그인 & 대시보드 진입</a></li>
+    <li><a href="#step2">KPI 카드 & 필터로 티켓 찾기</a></li>
+    <li><a href="#step3">티켓 상세 확인</a></li>
+    <li><a href="#step4">AI Draft 생성</a></li>
+    <li><a href="#step5">스팸 / NO_MATCH / 운영자 확인 대응</a></li>
+    <li><a href="#step6">품질 점수 확인 & 수정</a></li>
+    <li><a href="#step7">답변 발송 — 4가지 액션</a></li>
+    <li><a href="#step8">상태 직접 변경</a></li>
+    <li><a href="#step9">Do & Don't 체크리스트</a></li>
+    <li><a href="#step10">FAQ & 트러블슈팅</a></li>
+  </ol>
+</div>
+
+<!-- ===== STEP 1 ===== -->
+<div class="step" id="step1">
+  <div class="step-label"><div class="step-num">1</div><span class="step-tag">시작하기</span></div>
+  <h2>로그인 & 대시보드 진입</h2>
+
+  <div class="box box-info">
+    <h4>접속 URL</h4>
+    <p><strong>운영:</strong> <code>https://cs-dashboard.duckdns.org</code><br>
+    <strong>로컬:</strong> <code>http://localhost:8100</code></p>
+  </div>
+
+  <table>
+    <thead><tr><th style="width:25%">항목</th><th>설명</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Username</strong></td><td>관리자에게 발급받은 ID 입력</td></tr>
+      <tr><td><strong>Password</strong></td><td>관리자에게 발급받은 PW 입력</td></tr>
+      <tr><td><strong>세션 유지</strong></td><td>8시간 후 자동 로그아웃 → 재로그인 필요</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box-warning">
+    <h4>로그인 실패 시</h4>
+    <ul>
+      <li>에러 메시지가 입력 필드 아래에 표시됩니다</li>
+      <li>3회 연속 실패 시 잠시 대기 후 재시도</li>
+      <li>계정 문제 → 관리자에게 문의</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== STEP 2 ===== -->
+<div class="step" id="step2">
+  <div class="step-label"><div class="step-num">2</div><span class="step-tag">티켓 탐색</span></div>
+  <h2>KPI 카드 & 필터로 티켓 찾기</h2>
+  <p class="step-desc">로그인 후 상단에 5개의 KPI 카드가 표시됩니다. 카드를 클릭하면 해당 상태의 티켓만 필터링됩니다.</p>
+
+  <div class="kpi-strip">
+    <div class="kpi-mock k-blue"><div class="kpi-num">12</div><div class="kpi-lbl">New</div></div>
+    <div class="kpi-mock k-amber"><div class="kpi-num">8</div><div class="kpi-lbl">Open</div></div>
+    <div class="kpi-mock k-purple"><div class="kpi-num">15</div><div class="kpi-lbl">Pending</div></div>
+    <div class="kpi-mock k-orange"><div class="kpi-num">3</div><div class="kpi-lbl">In Progress</div></div>
+    <div class="kpi-mock k-green"><div class="kpi-num">24</div><div class="kpi-lbl">Solved Today</div></div>
+  </div>
+
+  <table>
+    <thead><tr><th style="width:20%">KPI 카드</th><th style="width:30%">의미</th><th>클릭 시 동작</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-blue">NEW</span></td><td>신규 미배정 티켓</td><td>New 상태 티켓만 표시</td></tr>
+      <tr><td><span class="badge b-amber">OPEN</span></td><td>상담원 작업 중</td><td>Open 상태 티켓만 표시</td></tr>
+      <tr><td><span class="badge b-purple">PENDING</span></td><td>고객 응답 대기</td><td>Pending 상태 티켓만 표시</td></tr>
+      <tr><td><span class="badge b-orange">IN PROGRESS</span></td><td>에스컬레이션 처리 중</td><td>In Progress 티켓만 표시</td></tr>
+      <tr><td><span class="badge b-green">SOLVED TODAY</span></td><td>오늘(KST 08:00~) 해결 건수</td><td>Solved 티켓만 표시</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box-primary">
+    <h4>필터 바 사용법</h4>
+    <ul>
+      <li><strong>Status:</strong> All / New / Open / Pending / In Progress / Solved</li>
+      <li><strong>Market:</strong> All / EN / FR / DE / ES / PT / IT / JP / TH / CN / TW</li>
+      <li><strong>Category:</strong> All / Subscription / Refund / Account / Payment / Content / Technical / Fraud / Other</li>
+      <li><strong>Search:</strong> 티켓 번호, 고객 이름, 제목 검색 → <kbd>Enter</kbd> 또는 검색 버튼 클릭</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== STEP 3 ===== -->
+<div class="step" id="step3">
+  <div class="step-label"><div class="step-num">3</div><span class="step-tag">티켓 상세</span></div>
+  <h2>티켓 상세 확인</h2>
+  <p class="step-desc">좌측 목록에서 티켓을 클릭하면 우측 패널에 상세 정보가 표시됩니다.</p>
+
+  <div class="flow">
+    <span class="hl">티켓 클릭</span> → 헤더(제목/상태/마켓/카테고리) + <span class="hl">상태 타임라인</span> + <span class="ac">대화 스레드</span> + Compose 영역
+  </div>
+
+  <table>
+    <thead><tr><th style="width:20%">영역</th><th>표시 내용</th></tr></thead>
+    <tbody>
+      <tr><td><strong>헤더</strong></td><td>티켓 번호, 제목, 상태/마켓/카테고리 뱃지, 생성 날짜</td></tr>
+      <tr><td><strong>상태 타임라인</strong></td><td>New → Open → Pending 등 상태 전이 이력 (시간 포함)</td></tr>
+      <tr><td><strong>대화 스레드</strong></td><td>고객 메시지(👤), 상담원 답변(👨‍💼), 내부 메모(📄) 구분 표시</td></tr>
+      <tr><td><strong>Compose</strong></td><td>AI Draft 생성 버튼 + 답변 입력 + 품질 점수 + 액션 버튼</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box-info">
+    <h4>패널 크기 조절</h4>
+    <p>좌측 목록과 우측 상세 사이의 구분선을 드래그하면 패널 너비를 조절할 수 있습니다. (좌측 최소 300px, 우측 최소 400px)</p>
+  </div>
+</div>
+
+<!-- ===== STEP 4 ===== -->
+<div class="step" id="step4">
+  <div class="step-label"><div class="step-num">4</div><span class="step-tag">핵심 기능</span></div>
+  <h2>AI Draft 생성</h2>
+  <p class="step-desc">Compose 영역의 <strong>"✨ Generate AI Draft"</strong> 버튼을 클릭하면 AI가 자동으로 답변 초안을 생성합니다.</p>
+
+  <div class="flow">
+    <span class="hl">✨ Generate AI Draft</span> 클릭<br>
+    → 스팸 체크 → RAG(매뉴얼 매칭) → 과거 사례 검색 → <span class="ac">Claude AI 호출</span><br>
+    → 품질 채점 → 운영자 확인 체크 → <span class="ok">Draft 표시</span>
+  </div>
+
+  <div class="box box-success">
+    <h4>95/5 규칙</h4>
+    <p>AI는 새로운 정보를 만들어내지 않습니다.<br>
+    <strong>95%</strong> = CS 매뉴얼 + FAQ + 과거 상담원 답변에서 가져온 내용<br>
+    <strong>5%</strong> = 인사말, 고객명, 연결어 등 형식적 조정만</p>
+  </div>
+
+  <div class="box box-primary">
+    <h4>생성 결과 3가지 경우</h4>
+    <ul>
+      <li><span class="badge b-green">정상</span> Draft가 textarea에 표시 → 확인/수정 후 발송</li>
+      <li><span class="badge b-red">스팸 감지</span> 빨간 배너 표시 → Mark as Spam 또는 무시</li>
+      <li><span class="badge b-amber">NO_MATCH</span> 매뉴얼에 매칭 없음 → 에스컬레이션 권장</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== STEP 5 ===== -->
+<div class="step" id="step5">
+  <div class="step-label"><div class="step-num">5</div><span class="step-tag">특수 상황</span></div>
+  <h2>스팸 / NO_MATCH / 운영자 확인 대응</h2>
+
+  <h3 style="font-size:16px; margin: 20px 0 12px; color: var(--danger);">⚠️ 스팸 감지 (빨간 배너)</h3>
+  <p class="step-desc">9종 패턴(P1~P9)으로 자동 감지됩니다. AI Draft 생성이 차단되고 경고 배너가 표시됩니다.</p>
+  <table>
+    <thead><tr><th style="width:10%">패턴</th><th style="width:30%">유형</th><th>주요 감지 키워드</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-red">P1</span></td><td>법률사무소 사칭</td><td>"LLC", "DMCA notice", "evidence record"</td></tr>
+      <tr><td><span class="badge b-red">P2</span></td><td>랜덤 해시 문자열</td><td>30자+ hex 문자열, 의미없는 긴 코드</td></tr>
+      <tr><td><span class="badge b-red">P3</span></td><td>외부 링크/다운로드</td><td>.exe 파일, bit.ly, "click to download"</td></tr>
+      <tr><td><span class="badge b-red">P4</span></td><td>긴급성 압박</td><td>"urgent action", "within 48 hours", "legal action"</td></tr>
+      <tr><td><span class="badge b-red">P5</span></td><td>파트너십 사칭</td><td>"creator partnership", "exclusive offer"</td></tr>
+      <tr><td><span class="badge b-red">P6</span></td><td>가짜 구독 해제</td><td>about:{LINK}, {UNSUBSCRIBE_LINK}</td></tr>
+      <tr><td><span class="badge b-red">P7</span></td><td>외부 서비스 홍보</td><td>"CapCut Pro", "Netflix free"</td></tr>
+      <tr><td><span class="badge b-red">P8</span></td><td>외부 이메일 응답</td><td>reply@non-toomics-domain.com</td></tr>
+      <tr><td><span class="badge b-red">P9</span></td><td>소셜미디어 사칭</td><td>"Facebook policy violation" + "permanently disabled"</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box-danger">
+    <h4>"Mark as Spam" 버튼 주의사항</h4>
+    <p>클릭 시 확인 다이얼로그가 뜹니다. <strong>확인하면:</strong></p>
+    <ul>
+      <li>해당 티켓이 <strong>삭제</strong>됩니다</li>
+      <li>요청자(고객) 계정이 <strong>정지</strong>됩니다</li>
+      <li><strong>되돌릴 수 없습니다</strong> — 반드시 스팸이 확실할 때만 사용</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:16px; margin: 24px 0 12px; color: var(--warning);">⚠️ NO_MATCH (주황 배너)</h3>
+  <div class="box box-warning">
+    <h4>매뉴얼/과거 사례에 매칭 없음</h4>
+    <ul>
+      <li>AI Draft가 생성되지 않습니다</li>
+      <li>"Escalate to Team Lead" 버튼으로 팀 리드에게 전달</li>
+      <li>직접 답변 작성 후 Reply로 처리해도 됩니다</li>
+    </ul>
+  </div>
+
+  <h3 style="font-size:16px; margin: 24px 0 12px; color: var(--info);">ℹ️ 운영자 확인 필요 (파란 배너)</h3>
+  <p class="step-desc">Draft는 정상 생성되지만, 고객 주장 중 사실 확인이 필요한 항목이 감지되었습니다.</p>
+  <table>
+    <thead><tr><th style="width:8%">ID</th><th style="width:22%">확인 항목</th><th style="width:35%">감지 예시</th><th>확인 방법</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-blue">V1</span></td><td>작품 서비스 상태</td><td>"can't read purchased title"</td><td>관리자 패널 → 해당 작품 상태 확인</td></tr>
+      <tr><td><span class="badge b-blue">V2</span></td><td>결제 내역</td><td>"charged twice", "unauthorized"</td><td>관리자 패널 → 결제 이력 확인</td></tr>
+      <tr><td><span class="badge b-blue">V3</span></td><td>계정 상태</td><td>"account suspended", "can't login"</td><td>관리자 패널 → 계정 상태/제재 이력</td></tr>
+      <tr><td><span class="badge b-blue">V4</span></td><td>VIP 구독 상태</td><td>"paid but no VIP", "subscription inactive"</td><td>관리자 패널 → VIP 구독 상태</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box box-info">
+    <h4>처리 흐름</h4>
+    <p>파란 배너 확인 → 관리자 패널에서 사실 확인 → Draft 내용 수정 (필요시) → Reply & Pending 또는 Reply & Solved</p>
+  </div>
+</div>
+
+<!-- ===== STEP 6 ===== -->
+<div class="step" id="step6">
+  <div class="step-label"><div class="step-num">6</div><span class="step-tag">품질 관리</span></div>
+  <h2>품질 점수 확인 & 수정</h2>
+  <p class="step-desc">AI Draft 생성 후 자동으로 품질 점수가 표시됩니다. 6가지 차원으로 평가됩니다.</p>
+
+  <table>
+    <thead><tr><th style="width:25%">차원</th><th style="width:15%">가중치</th><th>채점 기준</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Template Match</strong></td><td>20%</td><td>매뉴얼 템플릿 사용 여부</td></tr>
+      <tr><td><strong>Completeness</strong></td><td>15%</td><td>인사말 + 본문(80자+) + 맺음말</td></tr>
+      <tr><td><strong>Safety</strong></td><td>30%</td><td>금지 패턴 (경쟁사명, 잘못된 도메인, 미치환 변수)</td></tr>
+      <tr><td><strong>Length</strong></td><td>10%</td><td>100~2,000자 최적</td></tr>
+      <tr><td><strong>Accuracy</strong></td><td>15%</td><td>매뉴얼 내용과의 일치도</td></tr>
+      <tr><td><strong>Tone</strong></td><td>10%</td><td>마켓별 톤 가이드 준수</td></tr>
+    </tbody>
+  </table>
+
+  <h3 style="font-size:15px; margin: 16px 0 10px;">점수별 해석</h3>
+
+  <div style="margin-bottom: 8px;">
+    <div class="score-bar">
+      <span style="font-size:13px; font-weight:600; min-width:80px;"><span class="badge b-green">80%+</span></span>
+      <div class="score-track"><div class="score-fill s-green" style="width:85%"></div></div>
+      <span class="score-label" style="color:var(--success)">Good</span>
+    </div>
+    <p style="font-size:12px; color:var(--text-secondary); margin-left:90px;">→ 바로 발송 가능. 내용 한번 훑어보고 Reply & Solved</p>
+  </div>
+  <div style="margin-bottom: 8px;">
+    <div class="score-bar">
+      <span style="font-size:13px; font-weight:600; min-width:80px;"><span class="badge b-amber">60~79%</span></span>
+      <div class="score-track"><div class="score-fill s-amber" style="width:70%"></div></div>
+      <span class="score-label" style="color:var(--accent)">Fair</span>
+    </div>
+    <p style="font-size:12px; color:var(--text-secondary); margin-left:90px;">→ 일부 수정 필요. 특히 Safety 관련 항목 확인</p>
+  </div>
+  <div style="margin-bottom: 8px;">
+    <div class="score-bar">
+      <span style="font-size:13px; font-weight:600; min-width:80px;"><span class="badge b-red">&lt;60%</span></span>
+      <div class="score-track"><div class="score-fill s-red" style="width:45%"></div></div>
+      <span class="score-label" style="color:var(--danger)">Poor</span>
+    </div>
+    <p style="font-size:12px; color:var(--text-secondary); margin-left:90px;">→ 전면 재작성 권장. Draft 삭제 후 직접 작성하거나 에스컬레이션</p>
+  </div>
+
+  <div class="box box-primary">
+    <h4>Re-score 버튼</h4>
+    <p>Draft를 수정한 후 <strong>"Re-score"</strong> 버튼을 클릭하면 수정된 내용으로 품질 점수를 재계산합니다. 수정 → Re-score → 점수 확인 → 발송 흐름을 권장합니다.</p>
+  </div>
+</div>
+
+<!-- ===== STEP 7 ===== -->
+<div class="step" id="step7">
+  <div class="step-label"><div class="step-num">7</div><span class="step-tag">핵심 액션</span></div>
+  <h2>답변 발송 — 4가지 액션</h2>
+  <p class="step-desc">Draft 확인/수정 후 아래 4가지 버튼 중 하나를 선택합니다.</p>
+
+  <div class="action-grid">
+    <div class="action-card" style="border-top: 3px solid var(--primary);">
+      <h4><div class="ac-badge" style="background:var(--primary-bg); color:var(--primary);">📨</div> Reply & Pending</h4>
+      <p>공개 답변 발송 후 상태를 <strong>Pending</strong>(고객 응답 대기)으로 변경.<br><br>
+      <strong>사용 시점:</strong> 고객에게 추가 정보를 요청할 때, 고객 확인이 필요할 때</p>
+    </div>
+    <div class="action-card" style="border-top: 3px solid var(--success);">
+      <h4><div class="ac-badge" style="background:var(--success-bg); color:var(--success);">✅</div> Reply & Solved</h4>
+      <p>공개 답변 발송 후 상태를 <strong>Solved</strong>(해결 완료)로 변경.<br><br>
+      <strong>사용 시점:</strong> 답변으로 문제가 해결되는 경우 (환불 안내, 방법 안내 등)</p>
+    </div>
+    <div class="action-card" style="border-top: 3px solid var(--text-secondary);">
+      <h4><div class="ac-badge" style="background:#F3F4F6; color:var(--text-secondary);">📄</div> Internal Note</h4>
+      <p><strong>내부 메모</strong>만 추가. 고객에게는 보이지 않음.<br><br>
+      <strong>사용 시점:</strong> 팀 공유 메모, 진행 상황 기록, 내부 커뮤니케이션</p>
+    </div>
+    <div class="action-card" style="border-top: 3px solid var(--warning);">
+      <h4><div class="ac-badge" style="background:var(--warning-bg); color:var(--warning);">🔺</div> Escalate</h4>
+      <p>내부 메모 추가 + 상태를 <strong>In Progress</strong>로 변경 + "escalated" 태그 추가.<br><br>
+      <strong>사용 시점:</strong> 팀 리드 확인 필요, 복잡한 환불/결제 분쟁, NO_MATCH</p>
+    </div>
+  </div>
+
+  <div class="box box-warning">
+    <h4>에스컬레이션 규칙</h4>
+    <ul>
+      <li>에스컬레이션 시 <strong>사유를 반드시 Compose에 작성</strong> (빈 메모 금지)</li>
+      <li>팀 리드가 <strong>24시간 이내</strong> 확인 필요</li>
+      <li>처리 완료 후 <strong>Reply & Solved</strong>로 마감</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== STEP 8 ===== -->
+<div class="step" id="step8">
+  <div class="step-label"><div class="step-num">8</div><span class="step-tag">상태 관리</span></div>
+  <h2>상태 직접 변경</h2>
+  <p class="step-desc">Draft 없이 상태만 변경해야 할 때, 티켓 상세 화면 상단의 드롭다운 + Update 버튼을 사용합니다.</p>
+
+  <table>
+    <thead><tr><th style="width:20%">변경 가능 상태</th><th>사용 시점</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-amber">Open</span></td><td>작업 시작을 명시, 또는 Pending에서 상담원이 추가 조치할 때</td></tr>
+      <tr><td><span class="badge b-orange">In Progress</span></td><td>에스컬레이션 처리 중 (Escalate 버튼과 동일 효과)</td></tr>
+      <tr><td><span class="badge b-purple">Pending</span></td><td>고객 응답 대기로 전환 (답변 없이 상태만 변경)</td></tr>
+      <tr><td><span class="badge b-green">Solved</span></td><td>문제 해결 완료 (답변 없이 종결 — 이미 다른 채널로 처리된 경우)</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ===== STEP 9 ===== -->
+<div class="step" id="step9">
+  <div class="step-label"><div class="step-num">9</div><span class="step-tag">체크리스트</span></div>
+  <h2>Do & Don't</h2>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px;">
+    <div>
+      <h3 style="font-size:15px; font-weight:700; color:var(--success); margin-bottom:12px;">✅ DO — 이렇게 하세요</h3>
+      <ul class="checklist">
+        <li><div class="check-icon check-do">✓</div><div>AI Draft를 <strong>반드시 읽어본 후</strong> 발송</div></li>
+        <li><div class="check-icon check-do">✓</div><div>V1~V4 배너가 뜨면 <strong>관리자 패널에서 사실 확인 후</strong> 발송</div></li>
+        <li><div class="check-icon check-do">✓</div><div>Draft 수정 후 <strong>Re-score</strong>로 품질 재확인</div></li>
+        <li><div class="check-icon check-do">✓</div><div>환불/결제 민감 건은 <strong>팩트 확인 후</strong> Reply</div></li>
+        <li><div class="check-icon check-do">✓</div><div>확실한 스팸만 <strong>Mark as Spam</strong></div></li>
+        <li><div class="check-icon check-do">✓</div><div>모르겠으면 <strong>Escalate</strong> (사유 기재)</div></li>
+        <li><div class="check-icon check-do">✓</div><div>고객 이름/이메일이 Draft에 정확히 들어갔는지 확인</div></li>
+      </ul>
+    </div>
+    <div>
+      <h3 style="font-size:15px; font-weight:700; color:var(--danger); margin-bottom:12px;">❌ DON'T — 이것은 금지</h3>
+      <ul class="checklist">
+        <li><div class="check-icon check-dont">✕</div><div>Draft를 <strong>읽지 않고 바로 발송</strong></div></li>
+        <li><div class="check-icon check-dont">✕</div><div>스팸 의심 티켓에 <strong>답변 발송</strong></div></li>
+        <li><div class="check-icon check-dont">✕</div><div>매뉴얼에 없는 <strong>환불 약속/할인 제공</strong></div></li>
+        <li><div class="check-icon check-dont">✕</div><div><strong>경쟁사</strong>(Webtoon, Tapas 등) 언급</div></li>
+        <li><div class="check-icon check-dont">✕</div><div><strong>en.toomics.com</strong> 링크 사용 (마켓별 도메인 사용)</div></li>
+        <li><div class="check-icon check-dont">✕</div><div>에스컬레이션 시 <strong>사유 미기재</strong></div></li>
+        <li><div class="check-icon check-dont">✕</div><div>품질 60% 미만 Draft를 <strong>수정 없이 발송</strong></div></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 10 ===== -->
+<div class="step" id="step10">
+  <div class="step-label"><div class="step-num">10</div><span class="step-tag">도움말</span></div>
+  <h2>FAQ & 트러블슈팅</h2>
+
+  <table>
+    <thead><tr><th style="width:35%">문제</th><th>해결 방법</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>"Generate AI Draft" 버튼이 안 눌려요</strong></td>
+        <td>티켓을 먼저 선택해야 합니다. 좌측 목록에서 티켓 클릭 후 시도</td>
+      </tr>
+      <tr>
+        <td><strong>Draft 생성 중 "Loading..." 이 오래 걸려요</strong></td>
+        <td>Claude AI 호출 중 (보통 3~8초). 30초 이상 소요 시 페이지 새로고침 후 재시도</td>
+      </tr>
+      <tr>
+        <td><strong>갑자기 로그인 화면으로 돌아갔어요</strong></td>
+        <td>세션 만료(8시간). 다시 로그인하면 됩니다</td>
+      </tr>
+      <tr>
+        <td><strong>티켓 목록이 비어있어요</strong></td>
+        <td>필터 확인 — Status/Market/Category가 "All"인지 체크. Search에 오타가 없는지 확인</td>
+      </tr>
+      <tr>
+        <td><strong>Reply 발송 후 에러가 났어요</strong></td>
+        <td>Zendesk 연결 문제일 수 있습니다. 1~2분 후 재시도. 반복 시 관리자에게 보고</td>
+      </tr>
+      <tr>
+        <td><strong>Draft 내용이 영어인데 고객은 일본어예요</strong></td>
+        <td>마켓 자동 감지가 작동합니다. 감지 실패 시 Draft를 수동으로 해당 언어로 수정</td>
+      </tr>
+      <tr>
+        <td><strong>Mark as Spam을 실수로 눌렀어요</strong></td>
+        <td>확인 다이얼로그에서 "취소" 가능. 이미 확인한 경우 Zendesk 관리자만 복구 가능 → 즉시 보고</td>
+      </tr>
+      <tr>
+        <td><strong>품질 점수가 0%로 나와요</strong></td>
+        <td>Safety 위반 (경쟁사명, 잘못된 URL 등). Draft 내용에서 해당 문구 삭제 후 Re-score</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="box box-info">
+    <h4>추가 도움이 필요할 때</h4>
+    <ul>
+      <li><strong>기술 문제:</strong> 관리자에게 Slack 또는 이메일로 문의</li>
+      <li><strong>정책 질문:</strong> CS AI Dashboard 운영 매뉴얼 참조 (상세 정책서 + API 레퍼런스 포함)</li>
+      <li><strong>전략 배경:</strong> AI CS 통합 로드맵 프레젠테이션 참조</li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- /container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <strong>Toomics Global — 유종선</strong><br>
+  CS AI Dashboard 퀵스타트 가이드 v1.0 · 2026년 3월 7일
+</div>
+
+</body>
+</html>
