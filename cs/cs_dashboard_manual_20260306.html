@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS CS AI Dashboard — Operation Manual v1.1</title>
+    <title>TOOMICS CS AI Dashboard — Operation Manual v1.2</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -155,7 +155,7 @@
     <h1>CS AI Dashboard</h1>
     <div class="subtitle">Operation Manual &amp; Policy Guide</div>
     <div class="meta">
-        <span>v1.1</span>
+        <span>v1.2</span>
         <span>Author: 유종선</span>
         <span>Last Updated: 2026-03-07</span>
         <span>Classification: Internal</span>
@@ -469,7 +469,7 @@ tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --po
         <span class="flow-arrow">&rarr;</span>
         <div class="flow-step">SOLVED</div>
         <span class="flow-arrow">&rarr;</span>
-        <div class="flow-step">CLOSED (auto 24h)</div>
+        <div class="flow-step">CLOSED (auto 28d)</div>
     </div>
 
     <h3>6.2 액션 버튼 (3개)</h3>
@@ -664,20 +664,41 @@ We are looking into your request and will get back to you shortly.
         <tr><td>Refund</td><td>Ch.3 — 환불 정책</td><td>section-3</td></tr>
         <tr><td>Account / Login</td><td>Ch.4 — 계정 관리</td><td>section-4</td></tr>
         <tr><td>Payment</td><td>Ch.5 — 결제 이슈</td><td>section-5</td></tr>
-        <tr><td>Content / Technical</td><td>Ch.6 — 콘텐츠/기술</td><td>section-6</td></tr>
-        <tr><td>Fraud</td><td>Ch.7 — 부정 이용</td><td>section-7</td></tr>
+        <tr><td>Coin</td><td>Ch.5 — 결제 이슈 (코인)</td><td>section-5</td></tr>
+        <tr><td>Content</td><td>Ch.6 — 콘텐츠 접근</td><td>section-6</td></tr>
+        <tr><td>Technical</td><td>Ch.6 — 기술 이슈</td><td>section-6</td></tr>
+        <tr><td>Fraud</td><td>Ch.9 — 부정 이용 감지</td><td>section-9</td></tr>
+        <tr><td>IP</td><td>Ch.9 — 저작권/IP</td><td>section-9</td></tr>
+        <tr><td>Chargeback</td><td>Ch.3 — 분쟁/차지백</td><td>section-3</td></tr>
         <tr><td>Other</td><td>Ch.1 — 일반 안내</td><td>section-1</td></tr>
     </table>
 
     <h3>8.3 지식베이스 빌드</h3>
-    <pre><code>python3 dashboard/scripts/build_knowledge.py</code></pre>
-    <p>CS 매뉴얼 HTML에서 섹션을 추출하여 <code>dashboard/knowledge/cs_manual_sections.json</code>을 생성합니다. 매뉴얼 업데이트 시 재빌드가 필요합니다.</p>
+    <pre><code># EN 기본 빌드
+python3 dashboard/scripts/build_knowledge.py
 
-    <h3>8.4 컨텍스트 주입</h3>
+# 다국어 빌드 (FR/DE/ES/JP/PT)
+python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
+    <p>CS 매뉴얼 HTML에서 섹션을 추출하여 <code>dashboard/knowledge/cs_manual_sections.json</code>을 생성합니다. <code>--lang all</code> 옵션 시 5개 마켓별 knowledge JSON도 생성됩니다.</p>
+
+    <h3>8.4 다국어 RAG 라우팅</h3>
+    <p>티켓의 마켓(언어)에 따라 해당 언어의 knowledge JSON을 우선 사용하고, 없으면 EN으로 fallback합니다.</p>
+    <table>
+        <tr><th>마켓</th><th>Knowledge 파일</th><th>톤 가이드</th></tr>
+        <tr><td>FR</td><td><code>cs_manual_sections_FR.json</code></td><td>formal_polite (vous), 구독 중심</td></tr>
+        <tr><td>DE</td><td><code>cs_manual_sections_DE.json</code></td><td>formal_sie (Sie), SEPA/GDPR 컨텍스트</td></tr>
+        <tr><td>ES</td><td><code>cs_manual_sections_ES.json</code></td><td>warm_usted, 공감 우선</td></tr>
+        <tr><td>JP</td><td><code>cs_manual_sections_JP.json</code></td><td>ultra_polite_keigo, 초간결 (&#8804;400자)</td></tr>
+        <tr><td>PT</td><td><code>cs_manual_sections_PT.json</code></td><td>warm_reassurance, PIX/BRL, 디에스컬레이션</td></tr>
+        <tr><td>EN/기타</td><td><code>cs_manual_sections.json</code></td><td>기본 EN 톤</td></tr>
+    </table>
+
+    <h3>8.5 컨텍스트 주입</h3>
     <ul>
         <li>최대 <strong>4,000자</strong>까지 매뉴얼 텍스트를 Claude prompt에 주입</li>
         <li>초과 시 마지막 섹션을 절삭하여 토큰 한도 내 유지</li>
-        <li>매칭 섹션이 없으면 일반 가이드라인 메시지로 대체</li>
+        <li>마켓별 <code>tone_guide</code>가 있으면 System Prompt에 톤 가이드 블록 추가</li>
+        <li>매칭 섹션이 없으면 일반 가이드라인 메시지로 대체 (EN fallback)</li>
     </ul>
 </section>
 
@@ -685,29 +706,39 @@ We are looking into your request and will get back to you shortly.
 <section class="section" id="s9">
     <h2>9. Quality Scoring System</h2>
 
-    <h3>9.1 4차원 채점</h3>
-    <p>각 차원 0.0~1.0 점, 가중 평균(x0.25)으로 총점 산출</p>
+    <h3>9.1 6차원 차등 가중치 채점</h3>
+    <p>각 차원 0.0~1.0 점, <strong>차등 가중치</strong>로 총점 산출. Safety에 최고 가중치(30%)를 부여하여 안전성을 최우선합니다.</p>
     <table>
         <tr><th>차원</th><th>가중치</th><th>채점 기준</th></tr>
         <tr>
             <td><strong>Template Match</strong></td>
-            <td>25%</td>
+            <td>20%</td>
             <td>매뉴얼 템플릿 사용 여부: 사용=1.0, 미사용=0.3, Fallback=0.5</td>
         </tr>
         <tr>
             <td><strong>Completeness</strong></td>
-            <td>25%</td>
+            <td>15%</td>
             <td>인사말(0.33) + 본문 80자+(0.34) + 맺음말(0.33) 유무</td>
         </tr>
         <tr>
             <td><strong>Safety</strong></td>
-            <td>25%</td>
-            <td>금지 패턴 감지: 위반당 -0.25 (최소 0.0)</td>
+            <td><strong>30%</strong></td>
+            <td>금지 패턴 감지: 위반당 -0.25 (최소 0.0). 최고 가중치</td>
         </tr>
         <tr>
             <td><strong>Length</strong></td>
-            <td>25%</td>
+            <td>10%</td>
             <td>100~2,000자 최적 (1.0), 미달/초과 시 감점</td>
+        </tr>
+        <tr>
+            <td><strong>Accuracy</strong></td>
+            <td>15%</td>
+            <td>매뉴얼 내용과의 일치도. 소스에 없는 문구 포함 시 즉시 0점</td>
+        </tr>
+        <tr>
+            <td><strong>Tone</strong></td>
+            <td>10%</td>
+            <td>마켓별 톤 가이드 준수 (FR: vous, DE: Sie, JP: 敬語 등)</td>
         </tr>
     </table>
 
@@ -733,7 +764,7 @@ We are looking into your request and will get back to you shortly.
 <section class="section" id="s10">
     <h2>10. Spam/Phishing Detection</h2>
 
-    <h3>10.1 감지 패턴 (4개 그룹)</h3>
+    <h3>10.1 감지 패턴 (9개 그룹, P1~P9)</h3>
     <table>
         <tr><th>#</th><th>패턴</th><th>감지 대상</th><th>예시</th></tr>
         <tr>
@@ -759,6 +790,36 @@ We are looking into your request and will get back to you shortly.
             <td><strong>긴급성 압박</strong></td>
             <td>"urgent action required" + 짧은 기한</td>
             <td>"within 48 hours", "legal action will be taken"</td>
+        </tr>
+        <tr>
+            <td>P5</td>
+            <td><strong>파트너십 사칭</strong></td>
+            <td>"partnership program", "creator partnership", "exclusive offer"</td>
+            <td>"selected creators for CapCut partnership"</td>
+        </tr>
+        <tr>
+            <td>P6</td>
+            <td><strong>가짜 구독 해제</strong></td>
+            <td>about:{LINK}, {UNSUBSCRIBE_LINK} 미치환 변수</td>
+            <td>"about:{unsubscribe}"</td>
+        </tr>
+        <tr>
+            <td>P7</td>
+            <td><strong>외부 서비스 홍보</strong></td>
+            <td>CapCut Pro, Netflix free, TikTok premium 등</td>
+            <td>"Get CapCut Pro free for creators"</td>
+        </tr>
+        <tr>
+            <td>P8</td>
+            <td><strong>외부 이메일 응답</strong></td>
+            <td>reply@non-toomics-domain.com 형태</td>
+            <td>"reply@marketing-platform.inc"</td>
+        </tr>
+        <tr>
+            <td>P9</td>
+            <td><strong>소셜미디어 사칭</strong></td>
+            <td>"Facebook/Meta policy violation" + "permanently disabled" + "appeal"</td>
+            <td>"Your page will be permanently disabled. Submit an appeal here"</td>
         </tr>
     </table>
 
@@ -871,15 +932,24 @@ We are looking into your request and will get back to you shortly.
     <h3>12.4 Rate Limit 처리</h3>
     <p>Zendesk 429 응답 시 <code>Retry-After</code> 헤더 값만큼 대기 후 자동 재시도합니다. 추가로 연결 오류/타임아웃 시 exponential backoff (1~10s, 최대 3회)로 재시도합니다.</p>
 
-    <h3>12.5 카테고리 분류</h3>
-    <p>티켓의 <code>tags</code> 배열에서 키워드를 추출하여 카테고리를 결정합니다:</p>
+    <h3>12.5 카테고리 분류 (4단계 + 후보정)</h3>
+    <p>티켓의 메타데이터와 콘텐츠를 기반으로 4단계 우선순위 분류 후, 내용 기반 후보정(reclassification)을 수행합니다:</p>
     <table>
-        <tr><th>Tag Keyword</th><th>Category</th><th>Tag Keyword</th><th>Category</th></tr>
-        <tr><td>subscription</td><td>Subscription</td><td>content</td><td>Content</td></tr>
-        <tr><td>refund</td><td>Refund</td><td>technical</td><td>Technical</td></tr>
-        <tr><td>account</td><td>Account</td><td>fraud</td><td>Fraud</td></tr>
-        <tr><td>payment</td><td>Payment</td><td>login</td><td>Login</td></tr>
+        <tr><th>단계</th><th>소스</th><th>설명</th><th>신뢰도</th></tr>
+        <tr><td><strong>1. custom_field</strong></td><td>Zendesk 커스텀 필드</td><td>고객이 접수 시 선택한 카테고리</td><td>중간</td></tr>
+        <tr><td><strong>2. intent_tag</strong></td><td>Zendesk AI 인텐트 태그</td><td><code>intent__billing__refund</code> 등 자동 태깅</td><td>높음</td></tr>
+        <tr><td><strong>3. bare_tag</strong></td><td>Zendesk 일반 태그</td><td><code>subscription</code>, <code>refund</code> 등</td><td>중간</td></tr>
+        <tr><td><strong>4. keyword</strong></td><td>제목/본문 키워드</td><td>"cancel subscription" 등 텍스트 매칭</td><td>낮음</td></tr>
     </table>
+
+    <h4>12.5.1 내용 기반 후보정 (Reclassification)</h4>
+    <p>분류 후 subject + customer_inquiry 내용을 분석하여 오분류를 자동 교정합니다 (9개 언어 지원):</p>
+    <ul>
+        <li><strong>intent_tag 분류는 건너뜀</strong> — AI 인텐트 태그의 신뢰도가 높으므로 후보정 제외</li>
+        <li><strong>허용된 전환 쌍만 교정</strong> — 예: Payment→Refund(허용), Account→IP(불허)</li>
+        <li><strong>보수적 규칙</strong> — 원 카테고리에도 시그널이 있으면 새 카테고리가 2배 점수 필요</li>
+        <li><strong>교정률</strong>: 약 3.8% (67건/1,779 — 2026년 2월 데이터 기준)</li>
+    </ul>
 </section>
 
 <!-- ========== 13. OPERATIONAL POLICIES ========== -->
@@ -990,6 +1060,7 @@ tmux capture-pane -t dashboard -p | grep -i spam</code></pre>
     <h2>15. Revision History</h2>
     <table class="revision-table">
         <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
+        <tr><td>v1.2</td><td>2026-03-07</td><td>유종선</td><td>다국어 RAG(§8.4), 6차원 품질 채점(§9.1), 스팸 P5~P9(§10.1), 카테고리 후보정(§12.5.1), Fraud/Coin/Chargeback/IP RAG 매핑(§8.2) 추가</td></tr>
         <tr><td>v1.1</td><td>2026-03-07</td><td>유종선</td><td>운영자 확인 필요 (Verification Checker V1~V4) 추가 — §7.8 신규, §7.1/7.2 플로우 업데이트, §1.1/2.3 feature card &amp; directory 반영</td></tr>
         <tr><td>v1.0</td><td>2026-03-06</td><td>유종선</td><td>Initial release — System overview, architecture, authentication, UI guide, ticket workflow, AI draft generation, RAG knowledge base, quality scoring, spam detection, API reference, Zendesk integration, operational policies, troubleshooting</td></tr>
     </table>
