@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS CS AI Dashboard — Operation Manual v1.2</title>
+    <title>TOOMICS CS AI Dashboard — Operation Manual v1.3</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -155,7 +155,7 @@
     <h1>CS AI Dashboard</h1>
     <div class="subtitle">Operation Manual &amp; Policy Guide</div>
     <div class="meta">
-        <span>v1.2</span>
+        <span>v1.3</span>
         <span>Author: 유종선</span>
         <span>Last Updated: 2026-03-07</span>
         <span>Classification: Internal</span>
@@ -361,15 +361,6 @@ tmux attach -t dashboard
 tmux kill-session -t dashboard
 tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --port 8100"</code></pre>
 
-    <h3>3.5 Health Check</h3>
-    <pre><code>curl http://localhost:8100/health
-# 응답: {"status":"ok","zendesk":"connected","claude_mode":"proxy"}</code></pre>
-    <table>
-        <tr><th>필드</th><th>값</th><th>설명</th></tr>
-        <tr><td><code>status</code></td><td>ok / degraded</td><td>Zendesk 연결 상태</td></tr>
-        <tr><td><code>zendesk</code></td><td>connected / disconnected</td><td>Zendesk API 인증 결과</td></tr>
-        <tr><td><code>claude_mode</code></td><td>sdk / proxy</td><td>Claude 연동 모드</td></tr>
-    </table>
 </section>
 
 <!-- ========== 4. AUTHENTICATION ========== -->
@@ -557,6 +548,32 @@ tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --po
         <li><strong>Quality Score</strong> — 생성된 텍스트를 4차원 채점 (§9 참조)</li>
         <li><strong>Verification Check</strong> — 고객 주장 중 운영자 확인 필요 항목 감지 (V1~V4). Draft와 함께 하이라이트 배너 표시 (§7.8 참조)</li>
     </ol>
+
+    <h3>7.2.1 참조 소스 표시 (Reference Sources)</h3>
+    <p>AI Draft 생성 후, 초안 하단에 AI가 참조한 소스가 <strong>두 행</strong>으로 분리 표시됩니다:</p>
+    <div style="margin: 12px 0; display: flex; flex-direction: column; gap: 6px;">
+        <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; background: #EFF6FF; border: 1px solid #BFDBFE; font-size: 13px;">
+            <span style="font-size: 15px;">&#128214;</span>
+            <span style="font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; min-width: 72px;">Manual</span>
+            <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 600; background: #DBEAFE; color: #1E40AF;">2. Subscription Management</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px; padding: 6px 10px; border-radius: 8px; background: #FFF7ED; border: 1px solid #FED7AA; font-size: 13px;">
+            <span style="font-size: 15px;">&#128196;</span>
+            <span style="font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: #6B7280; min-width: 72px;">Past Cases</span>
+            <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; background: #FFEDD5; color: #C2410C; font-family: monospace;">#42582</span>
+            <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; background: #FFEDD5; color: #C2410C; font-family: monospace;">#58204</span>
+            <span style="display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 11px; font-weight: 700; background: #FFEDD5; color: #C2410C; font-family: monospace;">#91208</span>
+        </div>
+    </div>
+    <table>
+        <tr><th>행</th><th>아이콘</th><th>색상</th><th>내용</th></tr>
+        <tr><td><strong>Manual</strong></td><td>&#128214;</td><td>파란 배경</td><td>RAG로 매칭된 CS 매뉴얼 섹션명 (예: 2. Subscription Management)</td></tr>
+        <tr><td><strong>Past Cases</strong></td><td>&#128196;</td><td>주황 배경</td><td>유사 해결 티켓 ID (모노스페이스, 최대 3건)</td></tr>
+    </table>
+    <div class="callout callout-info">
+        <strong>참조 소스 활용</strong>
+        상담원은 이 표시를 통해 AI가 <strong>어떤 매뉴얼 섹션</strong>과 <strong>어떤 과거 사례</strong>를 기반으로 답변을 생성했는지 즉시 파악할 수 있습니다. Past Cases 티켓 ID는 Zendesk에서 직접 조회하여 맥락을 추가 확인할 수 있습니다.
+    </div>
 
     <h3>7.3 Claude AI 이중 모드</h3>
     <table>
@@ -932,23 +949,45 @@ python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
     <h3>12.4 Rate Limit 처리</h3>
     <p>Zendesk 429 응답 시 <code>Retry-After</code> 헤더 값만큼 대기 후 자동 재시도합니다. 추가로 연결 오류/타임아웃 시 exponential backoff (1~10s, 최대 3회)로 재시도합니다.</p>
 
-    <h3>12.5 카테고리 분류 (4단계 + 후보정)</h3>
-    <p>티켓의 메타데이터와 콘텐츠를 기반으로 4단계 우선순위 분류 후, 내용 기반 후보정(reclassification)을 수행합니다:</p>
+    <h3>12.5 카테고리 분류 (4-Stage Pipeline)</h3>
+    <p><code>category_classifier.py</code>의 4단계 파이프라인으로 Zendesk 인텐트 태그와 콘텐츠를 결합 분석하여 최적 카테고리를 결정합니다:</p>
     <table>
-        <tr><th>단계</th><th>소스</th><th>설명</th><th>신뢰도</th></tr>
-        <tr><td><strong>1. custom_field</strong></td><td>Zendesk 커스텀 필드</td><td>고객이 접수 시 선택한 카테고리</td><td>중간</td></tr>
-        <tr><td><strong>2. intent_tag</strong></td><td>Zendesk AI 인텐트 태그</td><td><code>intent__billing__refund</code> 등 자동 태깅</td><td>높음</td></tr>
-        <tr><td><strong>3. bare_tag</strong></td><td>Zendesk 일반 태그</td><td><code>subscription</code>, <code>refund</code> 등</td><td>중간</td></tr>
-        <tr><td><strong>4. keyword</strong></td><td>제목/본문 키워드</td><td>"cancel subscription" 등 텍스트 매칭</td><td>낮음</td></tr>
+        <tr><th>Stage</th><th>이름</th><th>입력</th><th>출력</th><th>신뢰도</th></tr>
+        <tr><td><strong>1. Intent</strong></td><td>인텐트 분석</td><td>Zendesk <code>intent__</code> 태그</td><td>카테고리 + 신뢰도 + 모호 여부</td><td>0.9 (high) / 0.5 (ambiguous)</td></tr>
+        <tr><td><strong>2. Content</strong></td><td>콘텐츠 스코어링</td><td>제목 + 본문 텍스트</td><td>카테고리별 가중 점수 (10개 언어)</td><td>점수 기반</td></tr>
+        <tr><td><strong>3. Consensus</strong></td><td>종합 판정</td><td>Stage 1 + 2 결과</td><td>최종 카테고리 + 신뢰도</td><td>가중 결합</td></tr>
+        <tr><td><strong>4. Post-correct</strong></td><td>후보정</td><td>Stage 3 결과 + 텍스트</td><td>B2B 감지 → Other 오버라이드</td><td>규칙 기반</td></tr>
     </table>
 
-    <h4>12.5.1 내용 기반 후보정 (Reclassification)</h4>
-    <p>분류 후 subject + customer_inquiry 내용을 분석하여 오분류를 자동 교정합니다 (9개 언어 지원):</p>
+    <h4>12.5.1 Intent 매핑 (Stage 1)</h4>
+    <p>Zendesk Intelligent Triage가 부여하는 <code>intent__</code> 태그를 24개 high-confidence + 6개 ambiguous 패턴으로 분류합니다:</p>
     <ul>
-        <li><strong>intent_tag 분류는 건너뜀</strong> — AI 인텐트 태그의 신뢰도가 높으므로 후보정 제외</li>
-        <li><strong>허용된 전환 쌍만 교정</strong> — 예: Payment→Refund(허용), Account→IP(불허)</li>
-        <li><strong>보수적 규칙</strong> — 원 카테고리에도 시그널이 있으면 새 카테고리가 2배 점수 필요</li>
-        <li><strong>교정률</strong>: 약 3.8% (67건/1,779 — 2026년 2월 데이터 기준)</li>
+        <li><strong>High-confidence (0.9)</strong>: <code>intent__billing__refund</code>→Refund, <code>intent__billing__subscription_cancel</code>→Subscription, <code>intent__software__login</code>→Login 등 24개</li>
+        <li><strong>Ambiguous (0.5)</strong>: <code>intent__software__premium</code>→Subscription/[Technical], <code>intent__order__cancellation__cancel</code>→Subscription/[Refund] 등 6개 — Stage 2 content로 해소</li>
+    </ul>
+
+    <h4>12.5.2 Content Scoring (Stage 2)</h4>
+    <p>제목과 본문을 9개 카테고리 × 10개 언어의 가중 키워드로 스코어링합니다 (pre-compiled regex):</p>
+    <ul>
+        <li><strong>9개 카테고리</strong>: Subscription, Refund, Account, Payment, Content, Technical, Login, IP, Other</li>
+        <li><strong>10개 언어</strong>: EN, FR, DE, ES, PT, IT, JP, TH, CN, KR</li>
+        <li><strong>가중치</strong>: 핵심 키워드 4.0, 주요 키워드 2.0, 보조 키워드 1.0</li>
+        <li><strong>Override threshold</strong>: content 점수 ≥ 3.0이면 ambiguous intent의 대안 카테고리로 전환</li>
+    </ul>
+
+    <h4>12.5.3 B2B 감지 (Stage 4 Post-correction)</h4>
+    <p>최종 분류 후 B2B/파트너십 제안을 감지하여 Other로 재분류합니다:</p>
+    <ul>
+        <li><strong>14개 시그널 키워드</strong>: partnership, monetize, ad revenue, SDK integration, API integration 등</li>
+        <li><strong>Threshold</strong>: 2개 이상 매칭 시 Other로 오버라이드</li>
+    </ul>
+
+    <h3>12.6 언어 자동 감지</h3>
+    <p><code>language_detector.py</code>로 고객 메시지 본문의 실제 언어를 감지하여 Zendesk 태그 불일치를 자동 교정합니다:</p>
+    <ul>
+        <li><strong>지원 언어</strong>: EN, FR, DE, ES, PT, IT, JP, TH, CN, KR (Unicode 범위 + 키워드 기반)</li>
+        <li><strong>동작</strong>: 감지 언어 ≠ Zendesk 태그 → <code>update_ticket_tags()</code> API로 태그 교정 + 올바른 언어로 Draft 생성</li>
+        <li><strong>UI 알림</strong>: 교정 시 노란색 배너 표시 (예: "🔄 EN → PT 태그 변경 완료")</li>
     </ul>
 </section>
 
@@ -1060,6 +1099,7 @@ tmux capture-pane -t dashboard -p | grep -i spam</code></pre>
     <h2>15. Revision History</h2>
     <table class="revision-table">
         <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
+        <tr><td>v1.3</td><td>2026-03-07</td><td>유종선</td><td>4-Stage 카테고리 분류 파이프라인(§12.5 전면 재작성), 언어 자동 감지(§12.6 신규), 검색 ID 매칭, 차트 페이지네이션</td></tr>
         <tr><td>v1.2</td><td>2026-03-07</td><td>유종선</td><td>다국어 RAG(§8.4), 6차원 품질 채점(§9.1), 스팸 P5~P9(§10.1), 카테고리 후보정(§12.5.1), Fraud/Coin/Chargeback/IP RAG 매핑(§8.2) 추가</td></tr>
         <tr><td>v1.1</td><td>2026-03-07</td><td>유종선</td><td>운영자 확인 필요 (Verification Checker V1~V4) 추가 — §7.8 신규, §7.1/7.2 플로우 업데이트, §1.1/2.3 feature card &amp; directory 반영</td></tr>
         <tr><td>v1.0</td><td>2026-03-06</td><td>유종선</td><td>Initial release — System overview, architecture, authentication, UI guide, ticket workflow, AI draft generation, RAG knowledge base, quality scoring, spam detection, API reference, Zendesk integration, operational policies, troubleshooting</td></tr>
