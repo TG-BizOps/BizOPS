@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS Operations Manual v2.5</title>
+    <title>TOOMICS Global CS Operations Manual v2.6</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -649,7 +649,7 @@
         <h1 style="border:none; color:#fff; margin:0; padding:0; font-size:32px;">TOOMICS Global CS Operations Manual</h1>
         <div class="subtitle">Version 2.3 &mdash; Enhanced Edition</div>
         <div class="meta">
-            <span>Last Updated: March 6, 2026</span>
+            <span>Last Updated: March 7, 2026</span>
             <span>Prepared by: Chongsun Yu (유종선)</span>
             <span>Data Period: July 2025 ~ January 2026</span>
             <span>11,621 tickets analyzed</span>
@@ -1980,6 +1980,127 @@ Customer Ticket Received
         <p><strong>Closing:</strong> "Cordiali saluti, Toomics"</p>
         <div class="note-box"><strong>Action needed:</strong> As IT market grows rapidly, consider dedicated IT agent allocation.</div>
 
+        <h2>8.10 AI Draft &mdash; Market-Specific Tone &amp; Style Guide</h2>
+        <p>The following guidelines are used by the AI Draft system to generate language-appropriate responses. Agents should also reference these when manually composing replies for non-EN markets.</p>
+
+        <h3>8.10.1 Tone &amp; Formality Requirements</h3>
+        <table>
+            <thead>
+                <tr><th>Market</th><th>Formality</th><th>Tone Guide</th><th>Avg Reply Length</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>FR</strong></td>
+                    <td>Formal (<em>vous</em>, never <em>tu</em>)</td>
+                    <td>Formal but warm. Polite formulas at opening and closing. Avoid overly casual language.</td>
+                    <td>912 chars</td>
+                </tr>
+                <tr>
+                    <td><strong>DE</strong></td>
+                    <td>Formal (<em>Sie</em>, never <em>du</em>)</td>
+                    <td>Professional and factual. Direct communication preferred. Always confirm cancellation in writing (K&uuml;ndigungsbest&auml;tigung).</td>
+                    <td>859 chars</td>
+                </tr>
+                <tr>
+                    <td><strong>ES</strong></td>
+                    <td>Formal (<em>usted</em>)</td>
+                    <td>Empathy-first approach. Customers often combine cancel + refund in one message &mdash; address both points. Warm and reassuring tone.</td>
+                    <td>982 chars</td>
+                </tr>
+                <tr>
+                    <td><strong>JP</strong></td>
+                    <td>Ultra-formal (keigo: &#x4E01;&#x5BE7;&#x8A9E;&#x30FB;&#x5C0A;&#x656C;&#x8A9E;&#x30FB;&#x8B19;&#x8B72;&#x8A9E;)</td>
+                    <td>Concise responses (&le;400 chars recommended). Empathize with the customer while providing clear guidance.</td>
+                    <td>390 chars</td>
+                </tr>
+                <tr>
+                    <td><strong>PT</strong></td>
+                    <td>Semi-formal (<em>voc&ecirc;</em>)</td>
+                    <td>Warm and reassuring. Prioritize de-escalation. Confirm PIX processing times (2&ndash;10 business days). Show understanding before explaining policies.</td>
+                    <td>977 chars</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>8.10.2 Payment Methods &amp; Legal Context</h3>
+        <table>
+            <thead>
+                <tr><th>Market</th><th>Primary Payment Methods</th><th>Legal Context</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>FR</strong></td>
+                    <td>PayPal, Checkout, Airwallex</td>
+                    <td>Droit de r&eacute;tractation 14 jours (Code de la consommation L221-18)</td>
+                </tr>
+                <tr>
+                    <td><strong>DE</strong></td>
+                    <td>PayPal, Checkout, SEPA</td>
+                    <td>Fernabsatzrecht &sect;355 BGB, DSGVO (GDPR), K&uuml;ndigungsbest&auml;tigung required</td>
+                </tr>
+                <tr>
+                    <td><strong>ES</strong></td>
+                    <td>PayPal, Checkout, Airwallex</td>
+                    <td>LOPD (data protection), combined cancel + refund requests common</td>
+                </tr>
+                <tr>
+                    <td><strong>JP</strong></td>
+                    <td>PayPal, Apple Pay, Google Pay, Carrier billing (docomo/au/SoftBank)</td>
+                    <td>Consumer Contract Act (&#x6D88;&#x8CBB;&#x8005;&#x5951;&#x7D04;&#x6CD5;), LINE/Docomo social login</td>
+                </tr>
+                <tr>
+                    <td><strong>PT</strong></td>
+                    <td>PIX, Boleto, PayPal, Checkout</td>
+                    <td>CDC (C&oacute;digo de Defesa do Consumidor), PIX processing 1&ndash;3 business days</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>8.10.3 Common Empathy Phrases by Market</h3>
+        <table>
+            <thead>
+                <tr><th>Market</th><th>Empathy Phrases (Use in responses)</th></tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>FR</strong></td>
+                    <td>"Nous comprenons votre situation" / "Nous sommes d&eacute;sol&eacute;s" / "N'h&eacute;sitez pas &agrave; nous recontacter"</td>
+                </tr>
+                <tr>
+                    <td><strong>DE</strong></td>
+                    <td>"Wir entschuldigen uns f&uuml;r die Unannehmlichkeiten" / "Es tut uns leid" / "Wir verstehen Ihr Anliegen"</td>
+                </tr>
+                <tr>
+                    <td><strong>ES</strong></td>
+                    <td>"Entendemos su situaci&oacute;n" / "Lamentamos las molestias" / "No dude en contactarnos"</td>
+                </tr>
+                <tr>
+                    <td><strong>JP</strong></td>
+                    <td>"&#x7533;&#x3057;&#x8A33;&#x3054;&#x3056;&#x3044;&#x307E;&#x305B;&#x3093;" / "&#x3054;&#x4E0D;&#x4FBF;&#x3092;&#x304A;&#x304B;&#x3051;&#x3057;&#x3066;" / "&#x304A;&#x8A2B;&#x3073;&#x7533;&#x3057;&#x4E0A;&#x3052;&#x307E;&#x3059;"</td>
+                </tr>
+                <tr>
+                    <td><strong>PT</strong></td>
+                    <td>"Pedimos desculpas pelo inconveniente" / "Lamentamos a situa&ccedil;&atilde;o" / "N&atilde;o hesite em nos contatar"</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <h3>8.10.4 Category Priority by Market</h3>
+        <p>Top 4 categories per market (3-month data analysis, 8,031 tickets):</p>
+        <table>
+            <thead>
+                <tr><th>Market</th><th>#1</th><th>#2</th><th>#3</th><th>#4</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><strong>FR</strong> (2,560)</td><td>Subscription 41.6%</td><td>Refund 30.7%</td><td>Account 10.9%</td><td>Content 5.7%</td></tr>
+                <tr><td><strong>DE</strong> (1,262)</td><td>Subscription 48.0%</td><td>Refund 24.0%</td><td>Account 15.0%</td><td>Content 4.0%</td></tr>
+                <tr><td><strong>ES</strong> (2,080)</td><td>Subscription 40.2%</td><td>Refund 26.8%</td><td>Account 14.1%</td><td>Payment 6.6%</td></tr>
+                <tr><td><strong>JP</strong> (701)</td><td>Subscription 31.0%</td><td>Account 22.8%</td><td>Refund 20.1%</td><td>Content 9.1%</td></tr>
+                <tr><td><strong>PT</strong> (1,428)</td><td>Refund 28.2%</td><td>Subscription 22.3%</td><td>Payment 18.4%</td><td>Account 13.1%</td></tr>
+            </tbody>
+        </table>
+        <div class="note-box"><strong>Key insight:</strong> JP is the only market where Account outranks Refund (#2 vs #3). PT is the only market where Refund is #1 and Payment is in the top 3 (PIX-driven). These priorities are used by the AI Draft system for section routing.</div>
+
         <hr>
 
         <!-- ======================== SECTION 9 ======================== -->
@@ -2346,6 +2467,7 @@ Customer Ticket Received
                     <tr><td>2.3</td><td>2026-03-06</td><td>Added Section 11.4: Zendesk Automation Rules — auto-solve (pending→solved 24h) and auto-close (solved→closed 24h) ticket lifecycle (Chongsun Yu)</td></tr>
                     <tr><td>2.4</td><td>2026-03-07</td><td>FAQ sync: VIP refund coin condition detail (Section 3.1), CN/TW VIP sharing exception (Section 2.6) (Chongsun Yu)</td></tr>
                     <tr><td>2.5</td><td>2026-03-07</td><td>Section 11.4: Auto-close timer updated from 24h to 28 days (672h) — Zendesk maximum (Chongsun Yu)</td></tr>
+                    <tr><td>2.6</td><td>2026-03-07</td><td>Section 8.10: AI Draft Market-Specific Tone &amp; Style Guide — tone/formality, payment methods, legal context, empathy phrases, category priority by market (3-month data analysis, 8,031 tickets) (Chongsun Yu)</td></tr>
                 </tbody>
             </table>
         </div>
