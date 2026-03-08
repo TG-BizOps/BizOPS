@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS Operations Manual v2.10</title>
+    <title>TOOMICS Global CS Operations Manual v2.11</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -950,6 +950,39 @@ Customer Ticket Received
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
+        <h2>2.7 Subscription Cancellation + Refund (Combined Request)</h2>
+
+        <div class="note-box" style="background:#FFF7ED; border-left:4px solid #F59E0B; padding:14px 18px; border-radius:6px; margin:18px 0;">
+            <p><strong>&#128203; Combined Cancel + Refund Requests</strong></p>
+            <p>Many customers request subscription cancellation AND a refund in the same message (e.g., "I want to cancel my subscription and get a refund"). This is especially frequent in the <strong>ES market (~30% of ES refund tickets)</strong>.</p>
+            <p><strong>Handling rule:</strong></p>
+            <ol>
+                <li>Use <strong>Template 2.7.1</strong> to address both requests in a single response</li>
+                <li>Confirm subscription cancellation immediately (or guide to app store cancellation)</li>
+                <li>Simultaneously acknowledge the refund request and explain eligibility criteria</li>
+                <li>After eligibility review → follow up with 3.2 (Approved) or 3.3 (Denied)</li>
+            </ol>
+            <p>&#9888;&#65039; Do NOT split into two separate responses — address both in one reply.</p>
+        </div>
+
+        <h3 class="template-title">Template 2.7.1: Subscription Cancellation + Refund Request</h3>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>We understand you would like to <strong>cancel your subscription</strong> and <strong>request a refund</strong>.</p>
+            <p><strong>Regarding your subscription cancellation:</strong><br>
+            We have processed the cancellation of your VIP subscription. You will continue to have access to VIP content until the end of your current billing period (<strong>_____</strong>). No further charges will be made after this date.</p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have received your refund request and will review your account to determine eligibility. For reference, our refund policy requires <strong>all three</strong> of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested <strong>within 14 days</strong> of the original purchase date</li>
+                <li><strong>No VIP content</strong> has been accessed through the account</li>
+                <li>No coins (including Gift or Bonus Coins from VIP Purchase) have been used during the refund month</li>
+            </ol>
+            <p>We will review your account and get back to you with the refund eligibility result as soon as possible.</p>
+            <p>Thank you for your patience.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
         <hr>
 
         <!-- ======================== SECTION 3 ======================== -->
@@ -1086,6 +1119,23 @@ Customer Ticket Received
             </ul>
             <p>Your VIP Membership has been canceled and no further charges will be made. Your VIP access remains valid until <strong>_____ (expiry date)</strong>.</p>
             <p>We sincerely apologize for the inconvenience.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 3.3.4: Refund Denied &mdash; Bonus Coins Used</h3>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>We are very sorry to hear that you are not satisfied with your purchase. However, in accordance with our Terms of Use, you may request a refund only if <strong>all three</strong> of the following conditions are met:</p>
+            <ol>
+                <li>You request it <strong>within 14 days</strong> after the purchase; AND</li>
+                <li><strong>No VIP content</strong> is accessed through the account; AND</li>
+                <li>There is <strong>no record of any coins</strong> (including Gift or Bonus Coins) being used</li>
+            </ol>
+            <p>After carefully reviewing your account, we found that <strong>coins provided through your VIP Purchase (including Gift or Bonus Coins) have been used</strong> during the refund period.</p>
+            <p>Unfortunately, we are unable to process a refund at this time.</p>
+            <p>Your VIP Membership will end on <strong>_____ (expiry date)</strong>.<br>
+            No further recurring payments will be charged, as your subscription has been successfully canceled.</p>
+            <p>If you have any further questions, please feel free to contact us.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
