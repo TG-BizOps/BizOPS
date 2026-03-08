@@ -82,10 +82,11 @@
   /* ── Hero ── */
   .hero {
     background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
-    color: #fff; padding: 28px 32px; text-align: left;
+    color: #fff; padding: 28px 32px 20px; text-align: left;
   }
-  .hero-inner {
-    max-width: 1080px; margin: 0 auto;
+  .hero-inner { max-width: 1080px; margin: 0 auto; }
+  .hero-top {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
   }
   .hero h1 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; margin-bottom: 2px; }
   .hero .subtitle { font-size: 13px; opacity: 0.7; }
@@ -93,7 +94,7 @@
     display: flex; gap: 16px; margin-top: 8px; font-size: 11px; opacity: 0.55;
   }
   .hero-actions {
-    display: flex; gap: 8px; margin-top: 12px; align-items: center;
+    display: flex; gap: 10px; align-items: center; flex-shrink: 0;
   }
   .hero-cta {
     display: inline-flex; align-items: center; gap: 6px;
@@ -116,25 +117,33 @@
   .hero-link svg { flex-shrink: 0; }
   .hero-cta svg { flex-shrink: 0; }
 
+  /* ── Hero Stat Strip (inside hero) ── */
+  .hero-stat-strip {
+    display: flex; gap: 8px; margin-top: 20px;
+  }
+  .hero-stat-strip .stat-card {
+    flex: 1; min-width: 0;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; padding: 10px 4px; text-align: center;
+    border-top: 3px solid rgba(255,255,255,0.2);
+    text-decoration: none; color: #fff;
+    transition: background var(--transition);
+    cursor: pointer; backdrop-filter: blur(4px);
+  }
+  .hero-stat-strip .stat-card:hover { background: rgba(255,255,255,0.14); }
+  .hero-stat-strip .stat-card .num {
+    font-family: var(--font-heading); font-size: 20px; font-weight: 800;
+    font-variant-numeric: tabular-nums; color: #fff;
+  }
+  .hero-stat-strip .stat-card .lbl {
+    font-family: var(--font-body); font-size: 11px; font-weight: 500;
+    color: rgba(255,255,255,0.7); margin-top: 1px;
+  }
+
   .container { max-width: 1080px; margin: 0 auto; padding: 16px 24px 64px; }
 
-  /* ── Stat Cards (horizontal strip) ── */
-  .stats {
-    display: flex; gap: 8px; max-width: 1080px; margin: 0 auto;
-    padding: 16px 24px;
-  }
-  .stat-card {
-    flex: 1; min-width: 0;
-    background: var(--color-surface); border: 1px solid var(--color-border);
-    border-radius: 10px; padding: 12px 8px; text-align: center;
-    border-top: 3px solid var(--color-primary);
-    text-decoration: none; color: var(--color-text);
-    transition: box-shadow var(--transition), transform var(--transition);
-    cursor: pointer;
-  }
-  .stat-card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
-  .stat-card .num { font-family: var(--font-heading); font-size: 20px; font-weight: 800; font-variant-numeric: tabular-nums; }
-  .stat-card .lbl { font-family: var(--font-body); font-size: 11px; font-weight: 500; color: var(--color-text-muted); margin-top: 1px; }
+  /* ── Stat Cards (hidden — inside hero) ── */
+  .stats { display: none; }
 
   /* ── Accordion ── */
   .accordion {
@@ -604,14 +613,14 @@
     .navbar-status { display: none; }
     .hero { padding: 20px 16px; }
     .hero h1 { font-size: 22px; }
-    .stats {
-      overflow-x: auto; padding: 12px 16px;
-      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+    .hero-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .hero-stat-strip {
+      overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none;
     }
-    .stats::-webkit-scrollbar { display: none; }
-    .stat-card { flex: 0 0 90px; }
-    .stat-card .num { font-size: 18px; }
-    .stat-card .lbl { font-size: 10px; }
+    .hero-stat-strip::-webkit-scrollbar { display: none; }
+    .hero-stat-strip .stat-card { flex: 0 0 90px; }
+    .hero-stat-strip .stat-card .num { font-size: 18px; }
+    .hero-stat-strip .stat-card .lbl { font-size: 10px; }
     .link-grid { grid-template-columns: 1fr; }
     .container { padding: 12px 16px 48px; }
     .filter-pills { gap: 4px; }
@@ -643,18 +652,51 @@
 
 <header class="hero">
   <div class="hero-inner">
-    <h1>BizOps Portal</h1>
-    <div class="subtitle">Global Platform Operations &middot; Week 10, 2026</div>
-    <div class="hero-meta">
-      <span>작성자: 유종선</span>
-      <span>문서 61건 &middot; 9개 카테고리</span>
+    <div class="hero-top">
+      <div class="hero-text">
+        <h1>BizOps Portal</h1>
+        <div class="subtitle">Global Platform Operations &middot; Week 10, 2026</div>
+        <div class="hero-meta">
+          <span>작성자: 유종선</span>
+          <span>문서 61건 &middot; 9개 카테고리</span>
+        </div>
+      </div>
+      <div class="hero-actions">
+        <a href="weekly-reports/" class="hero-cta">Weekly Report</a>
+        <a href="portal_manual_v1_20260303.html" class="hero-link">
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+          포탈 매뉴얼
+        </a>
+      </div>
     </div>
-    <div class="hero-actions">
-      <a href="weekly-reports/" class="hero-cta">Weekly Report</a>
-      <a href="portal_manual_v1_20260303.html" class="hero-link">
-        <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
-        포탈 매뉴얼
-      </a>
+    <div class="hero-stat-strip">
+      <div class="stat-card" data-target="sec-cs" style="border-top-color:#2563EB">
+        <div class="num">10</div><div class="lbl">CS 운영</div>
+      </div>
+      <div class="stat-card" data-target="sec-faq" style="border-top-color:#0891B2">
+        <div class="num">10</div><div class="lbl">FAQ</div>
+      </div>
+      <div class="stat-card" data-target="sec-chatbot" style="border-top-color:#7C3AED">
+        <div class="num">13</div><div class="lbl">AI 챗봇</div>
+      </div>
+      <div class="stat-card" data-target="sec-cb" style="border-top-color:#F59E0B">
+        <div class="num">4</div><div class="lbl">차지백</div>
+      </div>
+      <div class="stat-card" data-target="sec-ip" style="border-top-color:#10B981">
+        <div class="num">1</div><div class="lbl">IP 보호</div>
+      </div>
+      <div class="stat-card" data-target="sec-cs-dashboard" style="border-top-color:#6366F1">
+        <div class="num">3</div><div class="lbl">CS Dashboard</div>
+      </div>
+      <div class="stat-card" data-target="sec-ticket" style="border-top-color:#EF4444">
+        <div class="num">2</div><div class="lbl">대시보드</div>
+      </div>
+      <div class="stat-card" data-target="sec-legal" style="border-top-color:#0F766E">
+        <div class="num">10</div><div class="lbl">정책/약관</div>
+      </div>
+      <div class="stat-card" data-target="sec-tpl" style="border-top-color:#475569">
+        <div class="num">4</div><div class="lbl">기타</div>
+      </div>
     </div>
   </div>
 </header>
