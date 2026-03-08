@@ -46,9 +46,9 @@
   /* ── Navbar ── */
   .navbar {
     position: sticky; top: 0; z-index: 50;
-    height: 52px; background: var(--color-primary-dark);
+    height: 52px; background: #0F172A;
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 0 24px; border-bottom: 1px solid rgba(255,255,255,0.1);
   }
   .navbar-logo {
     font-family: var(--font-heading); font-size: 16px; font-weight: 700;
@@ -88,7 +88,7 @@
     max-width: 1280px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between; gap: 32px;
   }
-  .hero-text { flex: 1; min-width: 0; }
+  .hero-text { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
   .hero h1 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; margin-bottom: 2px; }
   .hero .subtitle { font-size: 13px; opacity: 0.7; }
   .hero-meta {
@@ -100,27 +100,29 @@
   .hero-cta {
     display: inline-flex; align-items: center; gap: 6px;
     background: var(--color-cta); color: #fff; border: none;
-    border-radius: 6px; padding: 8px 16px;
+    border-radius: 6px; padding: 10px 20px;
     font-family: var(--font-body); font-size: 12px; font-weight: 700;
     text-decoration: none; cursor: pointer; white-space: nowrap;
     transition: all var(--transition);
     box-shadow: 0 2px 6px rgba(245,158,11,0.25);
   }
   .hero-cta:hover { background: var(--color-cta-hover); transform: translateY(-1px); box-shadow: 0 3px 10px rgba(245,158,11,0.35); }
-  .hero-cta-secondary {
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-    box-shadow: none; color: #fff; font-size: 12px; padding: 8px 16px;
+  .hero-link {
+    background: none; border: none; box-shadow: none;
+    color: rgba(255,255,255,0.7); font-size: 12px; font-weight: 600;
+    text-decoration: underline; text-underline-offset: 3px;
+    padding: 0; cursor: pointer; transition: opacity var(--transition);
+    display: inline-flex; align-items: center; gap: 5px;
   }
-  .hero-cta-secondary:hover {
-    background: rgba(255,255,255,0.2); box-shadow: none; transform: translateY(-1px);
-  }
+  .hero-link:hover { opacity: 1; color: #fff; }
+  .hero-link svg { flex-shrink: 0; }
   .hero-cta svg { flex-shrink: 0; }
 
   /* ── Hero Stats Grid (3x3 inside hero) ── */
   .hero-stats-grid {
     flex: 0 0 auto;
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
+    gap: 8px;
   }
   .hero-stats-grid .stat-card {
     background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12);
@@ -289,8 +291,8 @@
 
   /* ── Search + Filter Row ── */
   .search-filter-row {
-    display: flex; align-items: flex-start; gap: 8px;
-    margin-bottom: 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+    margin-bottom: 16px; max-width: 960px; margin-left: auto; margin-right: auto;
   }
   .search-wrap {
     position: relative; flex: 1; min-width: 0;
@@ -675,11 +677,11 @@
         <span>문서 61건 &middot; 9개 카테고리</span>
       </div>
       <div class="hero-actions">
-        <a href="portal_manual_v1_20260303.html" class="hero-cta hero-cta-secondary">
-          <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
-          매뉴얼
-        </a>
         <a href="#request-section" class="hero-cta">Weekly Report</a>
+        <a href="portal_manual_v1_20260303.html" class="hero-link">
+          <svg width="12" height="12" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+          포탈 매뉴얼
+        </a>
       </div>
     </div>
     <div class="hero-stats-grid">
