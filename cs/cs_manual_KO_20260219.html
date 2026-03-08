@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS 운영 매뉴얼 v3.0</title>
+    <title>TOOMICS Global CS 운영 매뉴얼 v2.10</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -982,49 +982,55 @@
         <p><span class="volume-badge">~3,084건 / 7개월</span> <span class="volume-badge">전체의 25%</span></p>
         <p class="stat-line"><strong>1회 응대 해결률:</strong> ~85%</p>
 
-        <h2>3.1 환불 자격 조건 (Refund Eligibility Criteria)</h2>
-        <p><em>General &mdash; 모든 결제수단 공통 (PayPal, 신용카드, Google Play, Airwallex, PIX, MyCard 등)</em></p>
+        <h2>3.1 환불 자격 조건</h2>
 
-        <div class="note-box" style="background:#FFF3E0; border-left:4px solid #E65100; padding:14px 18px;">
-            <strong>&#9888;&#65039; 필수: 환불 응대 전 반드시 고객 데이터를 조회하여 아래 3가지 조건 충족 여부를 직접 확인할 것. 데이터 조회 없이 환불 승인/거절 판단 금지.</strong><br><br>
-            <strong>확인 경로:</strong> Zendesk 고객 프로필 &rarr; 회원 상세 페이지(어드민 링크) &rarr; 확인 항목: <strong>(1)</strong> 결제일, <strong>(2)</strong> VIP 콘텐츠 열람 이력, <strong>(3)</strong> 보너스 코인 사용 내역.
-        </div>
-
-        <p><strong>3-Boolean 규칙 &mdash; 아래 3가지 조건을 모두 충족해야 환불 가능:</strong></p>
+        <p><strong>아래 3가지 조건을 모두 충족해야 환불이 가능합니다:</strong></p>
 
         <table>
             <thead>
-                <tr><th>#</th><th>조건</th><th>상세</th><th>확인 방법</th></tr>
+                <tr><th>#</th><th>조건</th><th>확인 방법</th></tr>
             </thead>
             <tbody>
-                <tr><td><strong>1</strong></td><td>결제일로부터 <strong>14일 이내</strong></td><td>결제일 기준 역일(calendar days). 주말/공휴일에도 기한 연장 없음.</td><td>빌링 시스템에서 <code>created_at</code>과 결제일 비교</td></tr>
-                <tr><td><strong>2</strong></td><td><strong>VIP 콘텐츠 미열람</strong> (또는 최소 열람)</td><td>VIP 전용 챕터/에피소드를 1회라도 열면 &ldquo;열람&rdquo;으로 간주. 미리보기 및 무료 콘텐츠는 해당 없음.</td><td>콘텐츠 접근 로그 &mdash; VIP 전용 열람 확인</td></tr>
-                <tr><td><strong>3</strong></td><td><strong>보너스 코인 미사용</strong></td><td>VIP 결제 시 지급되는 Gift/Bonus 코인(VIP 할인가 구매 코인 포함)이 해당 환불 월에 사용된 기록이 없어야 함.</td><td>환불 월 기준 코인 사용 내역 확인</td></tr>
+                <tr><td>1</td><td>구매일로부터 <strong>14일 이내</strong> 요청</td><td><code>created_at</code>과 결제일 비교</td></tr>
+                <tr><td>2</td><td><strong>VIP 콘텐츠 접근 이력 없음</strong></td><td>콘텐츠 접근 로그 확인</td></tr>
+                <tr><td>3</td><td>VIP 구매를 통해 지급되거나 할인된 가격으로 구매한 코인(<strong>Gift, Bonus Coins 포함</strong>)이 해당 환불 월에 사용된 기록이 없음</td><td>환불 월 기준 코인 사용 내역 확인</td></tr>
             </tbody>
         </table>
 
         <p><strong>판정 매트릭스:</strong></p>
         <table>
             <thead>
-                <tr><th>콘텐츠 접근?</th><th>14일 이내?</th><th>코인 사용?</th><th>결과</th><th>다음 단계</th></tr>
+                <tr><th>콘텐츠 접근?</th><th>14일 이내?</th><th>코인 사용?</th><th>결과</th></tr>
             </thead>
             <tbody>
-                <tr><td>No</td><td>Yes</td><td>No</td><td class="result-approved">승인</td><td>&rarr; <strong>Template 3.2.1</strong>: 표준 환불 승인</td></tr>
-                <tr><td>Yes</td><td>Yes</td><td>No</td><td class="result-denied">거절</td><td>&rarr; Template 3.3.1: 콘텐츠 접근</td></tr>
-                <tr><td>No</td><td>No</td><td>No</td><td class="result-denied">거절</td><td>&rarr; Template 3.3.2: 14일 초과</td></tr>
-                <tr><td>No</td><td>Yes</td><td>Yes</td><td class="result-denied">거절</td><td>&rarr; 거절 사유: 보너스 코인 사용 + 구독 종료일 안내</td></tr>
-                <tr><td>Yes</td><td>Yes</td><td>Yes</td><td class="result-denied">거절</td><td>&rarr; Template 3.3.1 (미충족 조건 모두 명시)</td></tr>
-                <tr><td>Yes</td><td>No</td><td>Yes</td><td class="result-denied">거절</td><td>&rarr; 미충족 조건 모두 명시 + 구독 종료일 안내</td></tr>
+                <tr><td>No</td><td>Yes</td><td>No</td><td class="result-approved">환불 승인</td></tr>
+                <tr><td>Yes</td><td>Yes</td><td>No</td><td class="result-denied">환불 거절</td></tr>
+                <tr><td>No</td><td>No</td><td>No</td><td class="result-denied">환불 거절</td></tr>
+                <tr><td>No</td><td>Yes</td><td>Yes</td><td class="result-denied">환불 거절</td></tr>
+                <tr><td>Yes</td><td>Yes</td><td>Yes</td><td class="result-denied">환불 거절</td></tr>
             </tbody>
         </table>
 
-        <p><strong>라우팅 요약:</strong></p>
-        <div class="note-box" style="background:#E8F5E9; border-left:4px solid #4CAF50;">
-            <strong>3가지 조건 모두 충족 &rarr; 승인:</strong> <strong>Template 3.2.1</strong>(표준 환불 승인) 사용. 환불 금액, 결제수단, 예상 처리 기간 포함. VIP 해지 처리 후 추가 과금 없음 안내.
+        <div class="note-box" style="background:#EDE8FF; border-left:4px solid #5B3CC4; padding:14px 18px; border-radius:6px; margin:18px 0;">
+            <p><strong>환불 기본 응대 규칙</strong></p>
+            <p>고객이 환불을 요청하면 <strong>항상 Template 3.1.1을 먼저 사용</strong>합니다. 이 템플릿은 요청 접수 확인 + 적격 기준 안내 + 계정 검토 진행을 알려줍니다. 적격 여부 확인이 완료되기 전까지 승인(3.2) 또는 거절(3.3) 템플릿을 사용하지 마세요.</p>
         </div>
-        <div class="note-box" style="background:#FFEBEE; border-left:4px solid #F44336;">
-            <strong>조건 미충족 &rarr; 거절:</strong> (1) 미충족 조건 구체적 명시. (2) 3-Boolean 규칙 인용. (3) 구독 종료일 안내: &ldquo;VIP 멤버십은 <strong>_____ KST</strong>에 종료됩니다. 추가 결제는 발생하지 않습니다.&rdquo; (4) 해당 거절 템플릿 사용 (3.3.1 / 3.3.2 / 3.3.3).
-        </div>
+
+        <h3 class="template-title">Template 3.1.1: 환불 요청 — 접수 확인 &amp; 적격 검토</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 환불 요청 최초 접수 시 (적격 여부 미확인 상태)</p>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+            <p>We have received your refund request and will review your account to determine eligibility.</p>
+            <p>For reference, our refund policy requires <strong>all three</strong> of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested <strong>within 14 days</strong> of the original purchase date</li>
+                <li><strong>No VIP content</strong> has been accessed through the account</li>
+                <li>No coins (including Gift or Bonus Coins from VIP Purchase) have been used during the refund month</li>
+            </ol>
+            <p>We will review your account and get back to you with the result as soon as possible.</p>
+            <p>Thank you for your patience.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
 
         <h2>3.2 환불 승인</h2>
 
@@ -2634,7 +2640,6 @@
                     <tr><td>2.7</td><td>2026-03-07</td><td>Section 8.10: TH/CN/IT 3개 마켓 추가 — 8개 비영어 마켓 완전 커버 (9,893건) (유종선)</td></tr>
                     <tr><td>2.8</td><td>2026-03-07</td><td>Section 12.3: B2B / 비요청 사업 제안 — 거절 템플릿, 상담원 가이드라인 (유종선)</td></tr>
                     <tr><td>2.9</td><td>2026-03-08</td><td>Section 6.5: 콘텐츠 오류 리포팅 — Template 6.5.2 (정보 수집) &amp; 6.5.3 (L2 에스컬레이션 후속 안내) 추가, 플랫폼 리포팅 처리 흐름 노트 (유종선)</td></tr>
-                    <tr><td>3.0</td><td>2026-03-08</td><td>Section 3.1 보강: 환불 자격 조건 — 3-Boolean 규칙 상세화, 판정 매트릭스에 템플릿 라우팅 추가, 데이터 조회 필수 경고 박스, 승인/거절 라우팅 요약 (유종선)</td></tr>
                 </tbody>
             </table>
         </div>
