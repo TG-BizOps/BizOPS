@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS Operations Manual v2.11</title>
+    <title>TOOMICS Global CS Operations Manual v2.12</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -955,22 +955,35 @@ Customer Ticket Received
         <div class="note-box" style="background:#FFF7ED; border-left:4px solid #F59E0B; padding:14px 18px; border-radius:6px; margin:18px 0;">
             <p><strong>&#128203; Combined Cancel + Refund Requests</strong></p>
             <p>Many customers request subscription cancellation AND a refund in the same message (e.g., "I want to cancel my subscription and get a refund"). This is especially frequent in the <strong>ES market (~30% of ES refund tickets)</strong>.</p>
-            <p><strong>Handling rule:</strong></p>
+            <p><strong>Response structure — Fixed Header + Refund Decision:</strong></p>
             <ol>
-                <li>Use <strong>Template 2.7.1</strong> to address both requests in a single response</li>
-                <li>Confirm subscription cancellation immediately (or guide to app store cancellation)</li>
-                <li>Simultaneously acknowledge the refund request and explain eligibility criteria</li>
-                <li>After eligibility review → follow up with 3.2 (Approved) or 3.3 (Denied)</li>
+                <li><strong>Fixed header</strong> (always the same): Cancellation confirmation + "no recurring bill"</li>
+                <li><strong>Variable section</strong> (based on refund eligibility review):
+                    <ul>
+                        <li><strong>2.7.1</strong> — Initial: Review pending (before eligibility check)</li>
+                        <li><strong>2.7.2</strong> — Approved: All 3 conditions met</li>
+                        <li><strong>2.7.3</strong> — Denied: Content accessed</li>
+                        <li><strong>2.7.4</strong> — Denied: Outside 14-day window</li>
+                        <li><strong>2.7.5</strong> — Denied: Bonus coins used</li>
+                    </ul>
+                </li>
             </ol>
             <p>&#9888;&#65039; Do NOT split into two separate responses — address both in one reply.</p>
+            <p><strong>AI Dashboard:</strong> Cancel+Refund 자동 감지 → 초안(2.7.1) 생성 후 환불 결정 4-button UI 표시 → 운영자 선택 시 2.7.2~2.7.5 자동 재생성.</p>
         </div>
 
-        <h3 class="template-title">Template 2.7.1: Subscription Cancellation + Refund Request</h3>
+        <div class="note-box" style="background:#F0F4FF; border-left:4px solid #6366F1; padding:14px 18px; border-radius:6px; margin:18px 0;">
+            <p><strong>&#128274; Fixed Header (all 2.7.x templates share this opening):</strong></p>
+            <blockquote style="border-left:3px solid #6366F1; padding-left:12px; margin:10px 0;">
+                <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+                <p>We are sorry to see you go :(</p>
+                <p>We have canceled your VIP Membership, so there will be no recurring bill onward.</p>
+            </blockquote>
+        </div>
+
+        <h3 class="template-title">Template 2.7.1: Cancel + Refund — Review Pending</h3>
         <blockquote>
-            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
-            <p>We understand you would like to <strong>cancel your subscription</strong> and <strong>request a refund</strong>.</p>
-            <p><strong>Regarding your subscription cancellation:</strong><br>
-            We have processed the cancellation of your VIP subscription. You will continue to have access to VIP content until the end of your current billing period (<strong>_____</strong>). No further charges will be made after this date.</p>
+            <p><em>[Fixed Header]</em></p>
             <p><strong>Regarding your refund request:</strong><br>
             We have received your refund request and will review your account to determine eligibility. For reference, our refund policy requires <strong>all three</strong> of the following conditions to be met:</p>
             <ol>
@@ -980,6 +993,59 @@ Customer Ticket Received
             </ol>
             <p>We will review your account and get back to you with the refund eligibility result as soon as possible.</p>
             <p>Thank you for your patience.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.2: Cancel + Refund Approved</h3>
+        <blockquote>
+            <p><em>[Fixed Header]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account and confirmed that all refund conditions have been met.</p>
+            <p>Your refund of <strong>[amount]</strong> will be processed to your original payment method (<strong>[payment method]</strong>). Please allow <strong>2 weeks to 1 month</strong> for the refund to appear on your statement, depending on your payment provider.</p>
+            <p>If you have any further questions, please don't hesitate to reach out.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.3: Cancel + Refund Denied — Content Accessed</h3>
+        <blockquote>
+            <p><em>[Fixed Header]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires all three of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested within 14 days of the original purchase date</li>
+                <li><strong>No VIP content has been accessed</strong> through the account &#10060;</li>
+                <li>No coins (including Gift or Bonus Coins from VIP Purchase) have been used</li>
+            </ol>
+            <p>Our records show that <strong>VIP content has been accessed</strong> on your account, which does not meet condition #2.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.4: Cancel + Refund Denied — Outside 14-Day Window</h3>
+        <blockquote>
+            <p><em>[Fixed Header]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires the request to be made <strong>within 14 days</strong> of the original purchase date.</p>
+            <p>Your most recent payment was made on <strong>[purchase date]</strong>, which is beyond the 14-day refund window.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.5: Cancel + Refund Denied — Bonus Coins Used</h3>
+        <blockquote>
+            <p><em>[Fixed Header]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires all three of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested within 14 days of the original purchase date</li>
+                <li>No VIP content has been accessed through the account</li>
+                <li><strong>No coins (including Gift or Bonus Coins from VIP Purchase) have been used</strong> &#10060;</li>
+            </ol>
+            <p>Our records show that <strong>Gift or Bonus Coins from your VIP Purchase have been used</strong>, which does not meet condition #3.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 

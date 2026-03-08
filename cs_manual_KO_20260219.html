@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS 운영 매뉴얼 v2.11</title>
+    <title>TOOMICS Global CS 운영 매뉴얼 v2.12</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -979,23 +979,36 @@
         <div class="note-box" style="background:#FFF7ED; border-left:4px solid #F59E0B; padding:14px 18px; border-radius:6px; margin:18px 0;">
             <p><strong>&#128203; 해지 + 환불 복합 요청 처리 가이드</strong></p>
             <p>고객이 구독 해지와 환불을 동시에 요청하는 경우가 빈번합니다 (예: "구독 취소하고 환불 받고 싶어요"). <strong>ES 마켓에서 특히 빈도가 높습니다 (~30%)</strong>.</p>
-            <p><strong>처리 규칙:</strong></p>
+            <p><strong>응답 구조 — 고정 헤더 + 환불 판정:</strong></p>
             <ol>
-                <li><strong>Template 2.7.1</strong>을 사용하여 하나의 답변으로 두 요청을 모두 처리</li>
-                <li>구독 해지는 즉시 처리 확인 (또는 앱스토어 해지 안내)</li>
-                <li>환불 요청은 동시에 접수 확인 + 자격 조건 안내</li>
-                <li>자격 심사 후 → 3.2 (승인) 또는 3.3 (거절) 후속 답변</li>
+                <li><strong>고정 헤더</strong> (항상 동일): 해지 확인 + "추가 결제 없음"</li>
+                <li><strong>변동 섹션</strong> (환불 자격 심사 결과에 따라):
+                    <ul>
+                        <li><strong>2.7.1</strong> — 초기: 심사 대기 (자격 확인 전)</li>
+                        <li><strong>2.7.2</strong> — 승인: 3가지 조건 충족</li>
+                        <li><strong>2.7.3</strong> — 거절: 콘텐츠 접근</li>
+                        <li><strong>2.7.4</strong> — 거절: 14일 초과</li>
+                        <li><strong>2.7.5</strong> — 거절: 보너스 코인 사용</li>
+                    </ul>
+                </li>
             </ol>
             <p>&#9888;&#65039; 두 건을 별도 답변으로 분리하지 마세요 — 반드시 하나의 답변으로 처리합니다.</p>
+            <p><strong>AI 대시보드:</strong> Cancel+Refund 자동 감지 → 초안(2.7.1) 생성 후 환불 결정 4-button UI 표시 → 운영자 선택 시 2.7.2~2.7.5 자동 재생성.</p>
         </div>
 
-        <h3 class="template-title">Template 2.7.1: 구독 해지 + 환불 요청</h3>
-        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객이 구독 해지와 환불을 동시에 요청한 경우</p>
+        <div class="note-box" style="background:#F0F4FF; border-left:4px solid #6366F1; padding:14px 18px; border-radius:6px; margin:18px 0;">
+            <p><strong>&#128274; 고정 헤더 (2.7.x 템플릿 공통 시작부):</strong></p>
+            <blockquote style="border-left:3px solid #6366F1; padding-left:12px; margin:10px 0;">
+                <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
+                <p>We are sorry to see you go :(</p>
+                <p>We have canceled your VIP Membership, so there will be no recurring bill onward.</p>
+            </blockquote>
+        </div>
+
+        <h3 class="template-title">Template 2.7.1: 해지 + 환불 — 심사 대기</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객이 해지+환불을 동시에 요청, 환불 자격 미확인 단계</p>
         <blockquote>
-            <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
-            <p>We understand you would like to <strong>cancel your subscription</strong> and <strong>request a refund</strong>.</p>
-            <p><strong>Regarding your subscription cancellation:</strong><br>
-            We have processed the cancellation of your VIP subscription. You will continue to have access to VIP content until the end of your current billing period (<strong>_____</strong>). No further charges will be made after this date.</p>
+            <p><em>[고정 헤더]</em></p>
             <p><strong>Regarding your refund request:</strong><br>
             We have received your refund request and will review your account to determine eligibility. For reference, our refund policy requires <strong>all three</strong> of the following conditions to be met:</p>
             <ol>
@@ -1005,6 +1018,63 @@
             </ol>
             <p>We will review your account and get back to you with the refund eligibility result as soon as possible.</p>
             <p>Thank you for your patience.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.2: 해지 + 환불 승인</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 해지+환불 요청, 3가지 환불 조건 모두 충족 확인됨</p>
+        <blockquote>
+            <p><em>[고정 헤더]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account and confirmed that all refund conditions have been met.</p>
+            <p>Your refund of <strong>[amount]</strong> will be processed to your original payment method (<strong>[payment method]</strong>). Please allow <strong>2 weeks to 1 month</strong> for the refund to appear on your statement, depending on your payment provider.</p>
+            <p>If you have any further questions, please don't hesitate to reach out.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.3: 해지 + 환불 거절 — 콘텐츠 접근</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 해지+환불 요청, VIP 콘텐츠 접근 이력 확인됨</p>
+        <blockquote>
+            <p><em>[고정 헤더]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires all three of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested within 14 days of the original purchase date</li>
+                <li><strong>No VIP content has been accessed</strong> through the account &#10060;</li>
+                <li>No coins (including Gift or Bonus Coins from VIP Purchase) have been used</li>
+            </ol>
+            <p>Our records show that <strong>VIP content has been accessed</strong> on your account, which does not meet condition #2.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.4: 해지 + 환불 거절 — 14일 초과</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 해지+환불 요청, 구매일로부터 14일 경과</p>
+        <blockquote>
+            <p><em>[고정 헤더]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires the request to be made <strong>within 14 days</strong> of the original purchase date.</p>
+            <p>Your most recent payment was made on <strong>[purchase date]</strong>, which is beyond the 14-day refund window.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 2.7.5: 해지 + 환불 거절 — 보너스 코인 사용</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 해지+환불 요청, VIP 보너스/기프트 코인 사용 이력</p>
+        <blockquote>
+            <p><em>[고정 헤더]</em></p>
+            <p><strong>Regarding your refund request:</strong><br>
+            We have reviewed your account. Unfortunately, we are unable to process a refund at this time. Our refund policy requires all three of the following conditions to be met:</p>
+            <ol>
+                <li>The refund is requested within 14 days of the original purchase date</li>
+                <li>No VIP content has been accessed through the account</li>
+                <li><strong>No coins (including Gift or Bonus Coins from VIP Purchase) have been used</strong> &#10060;</li>
+            </ol>
+            <p>Our records show that <strong>Gift or Bonus Coins from your VIP Purchase have been used</strong>, which does not meet condition #3.</p>
+            <p>Your VIP access will remain active until <strong>[expiry date]</strong>, and no further charges will be made.</p>
+            <p>We appreciate your understanding.</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
