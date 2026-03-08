@@ -738,9 +738,10 @@
 <pre>
 고객 티켓 접수
     |
-    +-- 계정을 확인할 수 있는가?
-    |   +-- YES --> 카테고리별 템플릿으로 진행
-    |   +-- NO  --> 템플릿 1.1 사용 (계정 정보 요청)
+    +-- 계정 조회 (운영자가 고객 이메일로 내부 검색)
+    |   +-- 확인됨 --> 카테고리별 템플릿으로 진행
+    |   +-- 미확인 --> 운영자가 수기로 고객에게 문의 (L1/L2 에스컬레이션)
+    |   참고: AI Draft는 이메일/로그인 방법을 절대 묻지 않음
     |
     +-- 마켓 언어와 다른 언어로 작성되었는가?
     |   +-- YES --> 해당 언어 팀으로 라우팅
@@ -757,8 +758,11 @@
 </pre>
 
         <h2>1.5 공통 첫 응대 템플릿</h2>
-        <p>&#9888;&#65039; <strong>사용 시점:</strong> 계정 확인이 불가능할 때</p>
-        <h3 class="template-title">Template 1.5: 계정 정보 요청 (Account Credentials Request)</h3>
+        <div class="note-box" style="border-left: 4px solid #e74c3c; background: #fff5f5; padding: 12px 16px; margin-bottom: 12px;">
+            <strong>⚠️ 운영자 전용 템플릿</strong> — AI Draft 사용 금지.<br>
+            이 템플릿은 운영자가 고객 이메일로 내부 검색 후에도 계정을 찾을 수 없을 때만 수기로 사용합니다. AI Draft는 이메일/로그인 방법을 절대 묻지 않습니다.
+        </div>
+        <h3 class="template-title">Template 1.5: 계정 정보 요청 (Account Credentials Request) — 운영자 전용</h3>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>In order to assist you, could you please provide us with the following:</p>
@@ -935,7 +939,6 @@
             <p>If the issue persists after trying the above steps, please provide us with:</p>
             <ul>
                 <li>A screenshot of your My Page showing your subscription status</li>
-                <li>The email address or social login method you used</li>
             </ul>
             <p>We will investigate further and resolve this for you.</p>
             <p>Best regards,<br>Toomics</p>

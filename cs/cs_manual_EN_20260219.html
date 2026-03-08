@@ -738,9 +738,10 @@
 <pre>
 Customer Ticket Received
     |
-    +-- Can you identify the account?
-    |   +-- YES --> Proceed to category-specific template
-    |   +-- NO  --> Use Template 1.1 (Request Account Credentials)
+    +-- Account lookup (operator uses customer email from ticket)
+    |   +-- Found --> Proceed to category-specific template
+    |   +-- Not found --> Operator manually asks customer (L1/L2 escalation)
+    |   NOTE: AI Draft must NEVER ask for email or login method.
     |
     +-- Is the request in a different language than the market?
     |   +-- YES --> Route to correct language team
@@ -912,7 +913,6 @@ Customer Ticket Received
             <p>If the issue persists after trying the above steps, please provide us with:</p>
             <ul>
                 <li>A screenshot of your My Page showing your subscription status</li>
-                <li>The email address or social login method you used</li>
             </ul>
             <p>We will investigate further and resolve this for you.</p>
             <p>Best regards,<br>Toomics</p>
@@ -2574,6 +2574,10 @@ Customer Ticket Received
         <h2>12.1 General Response Templates</h2>
 
         <h3 class="template-title">Template 12.1.1: Need Account Credentials</h3>
+        <div class="note-box" style="border-left: 4px solid #e74c3c; background: #fff5f5; padding: 12px 16px; margin-bottom: 12px;">
+            <strong>⚠️ OPERATOR-ONLY Template</strong> — NOT for AI Draft use.<br>
+            This template is for operators who have already searched internally using the customer's email and cannot find the account. AI Draft must NEVER ask for email or login method.
+        </div>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us.</p>
             <p>In order to assist you, could you please provide us with the following:</p>
@@ -2599,7 +2603,6 @@ Customer Ticket Received
             <p>We apologize, but we were unable to fully understand your request. Could you please provide more details about the issue you are experiencing?</p>
             <p>If possible, please include:</p>
             <ul>
-                <li>Your account email address</li>
                 <li>A description of the problem</li>
                 <li>Screenshots (if applicable)</li>
             </ul>
