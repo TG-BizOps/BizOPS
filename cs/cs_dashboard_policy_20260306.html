@@ -334,32 +334,7 @@
     </div>
 
     <h3>3.2 접속</h3>
-    <table>
-        <tr><th>환경</th><th>URL</th></tr>
-        <tr><td><strong>운영</strong></td><td><a href="https://cs-dashboard.duckdns.org/" target="_blank">https://cs-dashboard.duckdns.org/</a></td></tr>
-        <tr><td>로컬</td><td>http://localhost:8100</td></tr>
-    </table>
-
-    <h3>3.3 설치 &amp; 실행 (로컬)</h3>
-    <pre><code># 1. 의존성 설치
-pip install -r dashboard/requirements.txt
-
-# 2. 지식베이스 빌드 (최초 1회)
-python3 dashboard/scripts/build_knowledge.py
-
-# 3. 서버 실행
-uvicorn dashboard.main:app --host 0.0.0.0 --port 8100</code></pre>
-
-    <h3>3.4 tmux 백그라운드 실행 (권장)</h3>
-    <pre><code># 세션 생성 + 서버 시작
-tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --port 8100"
-
-# 로그 확인
-tmux attach -t dashboard
-
-# 서버 재시작
-tmux kill-session -t dashboard
-tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --port 8100"</code></pre>
+    <p><strong>운영 URL:</strong> <a href="https://cs-dashboard.duckdns.org/" target="_blank">https://cs-dashboard.duckdns.org/</a></p>
 
 </section>
 
