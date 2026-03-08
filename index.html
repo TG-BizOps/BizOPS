@@ -86,9 +86,9 @@
   }
   .hero-inner {
     max-width: 1080px; margin: 0 auto;
-    display: flex; align-items: center; gap: 48px;
+    display: flex; align-items: stretch; gap: 32px;
   }
-  .hero-text { flex: 1; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+  .hero-text { flex: 1; min-width: 0; max-width: 480px; display: flex; flex-direction: column; justify-content: center; align-self: center; }
   .hero h1 { font-family: var(--font-heading); font-size: 26px; font-weight: 800; margin-bottom: 2px; }
   .hero .subtitle { font-size: 13px; opacity: 0.7; }
   .hero-meta {
@@ -149,7 +149,7 @@
 
   /* ── Accordion ── */
   .accordion {
-    margin-bottom: 12px; border-radius: var(--radius-md);
+    margin-bottom: 6px; border-radius: var(--radius-md);
     overflow: hidden; border: 1px solid var(--color-border);
     border-left: 4px solid var(--color-text-subtle);
     background: var(--color-surface);
@@ -167,7 +167,7 @@
   #sec-tpl { border-left-color: #475569; }
   .accordion-header {
     display: flex; align-items: center; gap: 10px;
-    padding: 14px 20px; background: var(--color-surface); cursor: pointer;
+    padding: 12px 16px; background: var(--color-surface); cursor: pointer;
     font-family: var(--font-heading); font-size: 15px; font-weight: 700; user-select: none;
     transition: background var(--transition);
     border: none; width: 100%; text-align: left; color: var(--color-text);
@@ -175,9 +175,10 @@
   }
   .accordion-header:hover { background: #FAFBFC; }
   .accordion-header .icon {
-    width: 28px; height: 28px; border-radius: 50%;
+    width: 32px; height: 32px; min-width: 32px; min-height: 32px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    font-size: 11px; font-weight: 700; color: #fff; flex-shrink: 0;
+    font-size: 10px; font-weight: 700; color: #fff; flex-shrink: 0;
+    line-height: 1; letter-spacing: -0.3px;
   }
   .accordion-header .count {
     font-family: var(--font-heading); font-size: 11px; font-weight: 600;
@@ -559,6 +560,7 @@
   .recent-panel {
     background: var(--color-surface); border: 1px solid var(--color-border);
     border-radius: var(--radius-md); padding: 16px 20px; margin-bottom: 20px;
+    margin-top: 24px; border-top: 1px solid var(--color-border);
   }
   .recent-panel-header {
     font-family: var(--font-heading); font-size: 12px; font-weight: 700;
