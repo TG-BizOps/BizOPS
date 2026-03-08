@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS Operations Manual v2.9</title>
+    <title>TOOMICS Global CS Operations Manual v3.0</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -959,33 +959,48 @@ Customer Ticket Received
         <p class="stat-line"><strong>Single-touch resolution rate:</strong> ~85%</p>
 
         <h2>3.1 Refund Eligibility Criteria</h2>
+        <p><em>General &mdash; applies to all payment methods (PayPal, Credit Card, Google Play, Airwallex, PIX, MyCard, etc.)</em></p>
 
-        <p><strong>All three conditions must be met for a refund:</strong></p>
+        <div class="note-box" style="background:#FFF3E0; border-left:4px solid #E65100; padding:14px 18px;">
+            <strong>&#9888;&#65039; MANDATORY: Before approving or denying any refund, you MUST look up the customer&rsquo;s data and verify all 3 conditions below. Do NOT make a refund decision without data verification.</strong><br><br>
+            <strong>Verification path:</strong> Zendesk Customer Profile &rarr; Member Detail Page (admin link) &rarr; Confirm: <strong>(1)</strong> Payment date, <strong>(2)</strong> VIP content access history, <strong>(3)</strong> Bonus coin usage history.
+        </div>
+
+        <p><strong>The 3-Boolean Rule &mdash; ALL three conditions must be met for a refund:</strong></p>
 
         <table>
             <thead>
-                <tr><th>#</th><th>Condition</th><th>Verification Method</th></tr>
+                <tr><th>#</th><th>Condition</th><th>Detail</th><th>Verification Method</th></tr>
             </thead>
             <tbody>
-                <tr><td>1</td><td>Requested within <strong>14 days</strong> of purchase</td><td>Check <code>created_at</code> vs payment date</td></tr>
-                <tr><td>2</td><td><strong>No VIP content</strong> has been accessed</td><td>Check content access log</td></tr>
-                <tr><td>3</td><td>There is no record of any coins, given or purchased at a discounted price through <strong>VIP Purchase (including Gift, Bonus Coins)</strong> in the specific month of refund, being used</td><td>Check coin usage history for the refund month</td></tr>
+                <tr><td><strong>1</strong></td><td>Within <strong>14 days</strong> of purchase</td><td>Calendar days from payment date. Weekends/holidays do not extend the deadline.</td><td>Compare <code>created_at</code> vs payment date in billing system</td></tr>
+                <tr><td><strong>2</strong></td><td><strong>No VIP content</strong> accessed (or minimal access)</td><td>Any chapter/episode opened under VIP counts as &ldquo;accessed.&rdquo; Preview pages and free content do not count.</td><td>Check content access log &mdash; VIP-only reads</td></tr>
+                <tr><td><strong>3</strong></td><td><strong>No Bonus Coins</strong> used</td><td>VIP purchase grants Gift/Bonus Coins. If any of these (including coins bought at VIP-discounted price) were spent in the refund month, refund is denied.</td><td>Check coin usage history for the refund month</td></tr>
             </tbody>
         </table>
 
         <p><strong>Decision Matrix:</strong></p>
         <table>
             <thead>
-                <tr><th>Content Accessed?</th><th>Within 14 Days?</th><th>Coins Used?</th><th>Result</th></tr>
+                <tr><th>Content Accessed?</th><th>Within 14 Days?</th><th>Coins Used?</th><th>Result</th><th>Next Step</th></tr>
             </thead>
             <tbody>
-                <tr><td>No</td><td>Yes</td><td>No</td><td class="result-approved">REFUND APPROVED</td></tr>
-                <tr><td>Yes</td><td>Yes</td><td>No</td><td class="result-denied">REFUND DENIED</td></tr>
-                <tr><td>No</td><td>No</td><td>No</td><td class="result-denied">REFUND DENIED</td></tr>
-                <tr><td>No</td><td>Yes</td><td>Yes</td><td class="result-denied">REFUND DENIED</td></tr>
-                <tr><td>Yes</td><td>Yes</td><td>Yes</td><td class="result-denied">REFUND DENIED</td></tr>
+                <tr><td>No</td><td>Yes</td><td>No</td><td class="result-approved">APPROVED</td><td>&rarr; <strong>Template 3.2.1</strong>: Standard Refund Approved</td></tr>
+                <tr><td>Yes</td><td>Yes</td><td>No</td><td class="result-denied">DENIED</td><td>&rarr; Template 3.3.1: Content Accessed</td></tr>
+                <tr><td>No</td><td>No</td><td>No</td><td class="result-denied">DENIED</td><td>&rarr; Template 3.3.2: Outside 14-Day Window</td></tr>
+                <tr><td>No</td><td>Yes</td><td>Yes</td><td class="result-denied">DENIED</td><td>&rarr; Deny with reason: Bonus Coins used + subscription end date</td></tr>
+                <tr><td>Yes</td><td>Yes</td><td>Yes</td><td class="result-denied">DENIED</td><td>&rarr; Template 3.3.1 (cite all failed conditions)</td></tr>
+                <tr><td>Yes</td><td>No</td><td>Yes</td><td class="result-denied">DENIED</td><td>&rarr; Cite all failed conditions + subscription end date</td></tr>
             </tbody>
         </table>
+
+        <p><strong>Routing Summary:</strong></p>
+        <div class="note-box" style="background:#E8F5E9; border-left:4px solid #4CAF50;">
+            <strong>All 3 conditions met &rarr; APPROVED:</strong> Use <strong>Template 3.2.1</strong> (Standard Refund Approved). Include refund amount, payment method, and estimated processing time. Cancel VIP and confirm no further charges.
+        </div>
+        <div class="note-box" style="background:#FFEBEE; border-left:4px solid #F44336;">
+            <strong>Any condition not met &rarr; DENIED:</strong> (1) State which condition(s) failed. (2) Quote the 3-Boolean rule. (3) Inform subscription end date: &ldquo;Your VIP Membership will end on <strong>_____ KST</strong>. No further recurring payments will be charged.&rdquo; (4) Use the matching denial template (3.3.1 / 3.3.2 / 3.3.3).
+        </div>
 
         <h2>3.2 Refund Approved</h2>
 
@@ -2602,6 +2617,7 @@ Customer Ticket Received
                     <tr><td>2.7</td><td>2026-03-07</td><td>Section 8.10: Added TH/CN/IT markets — full coverage of 8 non-EN markets (9,893 tickets) (Chongsun Yu)</td></tr>
                     <tr><td>2.8</td><td>2026-03-07</td><td>Section 12.3: B2B / Unsolicited Business Proposals — rejection templates, agent guidelines (Chongsun Yu)</td></tr>
                     <tr><td>2.9</td><td>2026-03-08</td><td>Section 6.5: Content Error Reporting — added Templates 6.5.2 (Information Gathering) &amp; 6.5.3 (L2 Escalation Follow-up), platform reporting flow note (Chongsun Yu)</td></tr>
+                    <tr><td>3.0</td><td>2026-03-08</td><td>Section 3.1 enhanced: Refund Eligibility Criteria — 3-Boolean rule with detailed conditions, expanded decision matrix with routing to templates, mandatory data verification warning box, approved/denied routing summary (Chongsun Yu)</td></tr>
                 </tbody>
             </table>
         </div>
