@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="author" content="유종선">
 <meta name="description" content="CS AI Dashboard 퀵스타트 가이드 — 운영자용 실전 사용법">
-<title>CS AI Dashboard 퀵스타트 가이드 v1.0 — 유종선</title>
+<title>CS AI Dashboard 퀵스타트 가이드 v1.1 — 유종선</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -159,7 +159,7 @@
     <p class="header-sub">로그인부터 AI Draft 생성, 답변 발송까지 — 5분만에 마스터하는 단계별 안내</p>
     <div class="header-meta">
       <span>작성: 유종선</span>
-      <span>v1.0 · 2026년 3월 7일</span>
+      <span>v1.1 · 2026년 3월 8일</span>
       <span>Toomics Global</span>
     </div>
   </div>
@@ -218,7 +218,7 @@
 <div class="step" id="step2">
   <div class="step-label"><div class="step-num">2</div><span class="step-tag">티켓 탐색</span></div>
   <h2>KPI 카드 & 필터로 티켓 찾기</h2>
-  <p class="step-desc">로그인 후 상단에 5개의 KPI 카드가 표시됩니다. 카드를 클릭하면 해당 상태의 티켓만 필터링됩니다.</p>
+  <p class="step-desc">로그인 후 상단에 5개의 KPI 카드가 표시됩니다. 카드를 클릭하면 해당 상태의 티켓만 필터링되고, 선택된 카드에 <strong>활성 표시</strong>(파란 하이라이트)가 됩니다. 다시 클릭하면 필터가 해제됩니다.</p>
 
   <div class="kpi-strip">
     <div class="kpi-mock k-blue"><div class="kpi-num">12</div><div class="kpi-lbl">New</div></div>
@@ -244,8 +244,31 @@
     <ul>
       <li><strong>Status:</strong> All / New / Open / Pending / In Progress / Solved</li>
       <li><strong>Market:</strong> All / EN / FR / DE / ES / PT / IT / JP / TH / CN / TW</li>
-      <li><strong>Category:</strong> All / Subscription / Refund / Account / Payment / Content / Technical / Fraud / Other</li>
-      <li><strong>Search:</strong> 티켓 번호, 고객 이름, 제목 검색 → <kbd>Enter</kbd> 또는 검색 버튼 클릭</li>
+      <li><strong>Category:</strong> All / Subscription / Refund / Account / Payment / Content / Technical / Login / IP/Copyright / Fraud / Other</li>
+      <li><strong>Search:</strong> 티켓 번호(숫자만 입력 시 정확한 ID 매칭), 고객 이름, 제목 검색 → <kbd>Enter</kbd> 또는 검색 버튼 클릭</li>
+    </ul>
+  </div>
+
+  <div class="box box-success">
+    <h4>차트 클릭 필터링</h4>
+    <p>티켓을 선택하지 않은 상태에서 우측에 표시되는 <strong>차트(도넛/바)</strong>를 클릭하면 해당 마켓 또는 카테고리로 자동 필터링됩니다. 예를 들어 Market Distribution 도넛에서 "FR" 영역을 클릭하면 FR 마켓 티켓만 표시됩니다.</p>
+  </div>
+
+  <div class="box box-info">
+    <h4>페이지네이션 &amp; 자동 새로고침</h4>
+    <ul>
+      <li><strong>페이지네이션:</strong> 한 페이지당 <strong>15건</strong>씩 표시. 하단 페이지 버튼으로 이동. 총 건수와 현재 페이지가 표시됩니다.</li>
+      <li><strong>자동 새로고침:</strong> <strong>30초</strong>마다 KPI 수치와 티켓 목록이 자동 갱신됩니다. 헤더에 마지막 갱신 시간이 표시되며, &#8635; 버튼으로 수동 즉시 갱신도 가능합니다.</li>
+    </ul>
+  </div>
+
+  <div class="box box-warning">
+    <h4>우선순위 표시</h4>
+    <p>티켓 목록의 각 항목 좌측에 <strong>우선순위 dot</strong>이 표시됩니다:</p>
+    <ul>
+      <li><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#EF4444;"></span> <strong>HIGH</strong> — 빨간색 (urgent/high)</li>
+      <li><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#F59E0B;"></span> <strong>MEDIUM</strong> — 주황색 (normal)</li>
+      <li><span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#94A3B8;"></span> <strong>LOW</strong> — 회색 (low)</li>
     </ul>
   </div>
 </div>
@@ -263,16 +286,33 @@
   <table>
     <thead><tr><th style="width:20%">영역</th><th>표시 내용</th></tr></thead>
     <tbody>
-      <tr><td><strong>헤더</strong></td><td>티켓 번호, 제목, 상태/마켓/카테고리 뱃지, 생성 날짜</td></tr>
+      <tr><td><strong>헤더</strong></td><td>티켓 번호, 제목(없으면 본문 첫 줄 자동 표시), 상태/마켓/카테고리 뱃지, 생성 날짜</td></tr>
+      <tr><td><strong>고객 프로필</strong></td><td>고객 아바타 + 이름 + 이메일. 클릭 시 <strong>프로필 모달</strong> 오픈</td></tr>
       <tr><td><strong>상태 타임라인</strong></td><td>New → Open → Pending 등 상태 전이 이력 (시간 포함)</td></tr>
-      <tr><td><strong>대화 스레드</strong></td><td>고객 메시지(👤), 상담원 답변(👨‍💼), 내부 메모(📄) 구분 표시</td></tr>
+      <tr><td><strong>대화 스레드</strong></td><td>고객 메시지, 상담원 답변, 내부 메모 구분 표시</td></tr>
       <tr><td><strong>Compose</strong></td><td>AI Draft 생성 버튼 + 답변 입력 + 품질 점수 + 액션 버튼</td></tr>
     </tbody>
   </table>
 
+  <div class="box box-success">
+    <h4>고객 프로필 모달</h4>
+    <p>고객 프로필 카드를 클릭하면 상세 정보 모달이 표시됩니다:</p>
+    <table>
+      <thead><tr><th style="width:30%">필드</th><th>설명</th><th style="width:25%">소스</th></tr></thead>
+      <tbody>
+        <tr><td><strong>회원 고유번호</strong></td><td>Zendesk user_fields의 user_id</td><td>user_fields.user_id</td></tr>
+        <tr><td><strong>아이디</strong></td><td>로그인 ID</td><td>user_fields.user_email</td></tr>
+        <tr><td><strong>이메일</strong></td><td>Zendesk 등록 이메일</td><td>email</td></tr>
+        <tr><td><strong>언어</strong></td><td>사용 언어</td><td>locale</td></tr>
+        <tr><td><strong>상태</strong></td><td>계정 상태 (활성/정지)</td><td>user_fields.state</td></tr>
+        <tr><td><strong>링크(어드민)</strong></td><td>어드민 패널 바로가기</td><td>user_fields.link</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="box box-info">
     <h4>패널 크기 조절</h4>
-    <p>좌측 목록과 우측 상세 사이의 구분선을 드래그하면 패널 너비를 조절할 수 있습니다. (좌측 최소 300px, 우측 최소 400px)</p>
+    <p>좌측 목록과 우측 상세 사이의 구분선을 드래그하면 패널 너비를 조절할 수 있습니다. (좌측 최소 280px, 우측 최소 400px)</p>
   </div>
 </div>
 
@@ -311,7 +351,7 @@
   <h2>스팸 / NO_MATCH / 운영자 확인 대응</h2>
 
   <h3 style="font-size:16px; margin: 20px 0 12px; color: var(--danger);">⚠️ 스팸 감지 (빨간 배너)</h3>
-  <p class="step-desc">9종 패턴(P1~P9)으로 자동 감지됩니다. AI Draft 생성이 차단되고 경고 배너가 표시됩니다.</p>
+  <p class="step-desc">11종 패턴(P1~P11)으로 자동 감지됩니다. AI Draft 생성이 차단되고 경고 배너가 표시됩니다.</p>
   <table>
     <thead><tr><th style="width:10%">패턴</th><th style="width:30%">유형</th><th>주요 감지 키워드</th></tr></thead>
     <tbody>
@@ -323,7 +363,9 @@
       <tr><td><span class="badge b-red">P6</span></td><td>가짜 구독 해제</td><td>about:{LINK}, {UNSUBSCRIBE_LINK}</td></tr>
       <tr><td><span class="badge b-red">P7</span></td><td>외부 서비스 홍보</td><td>"CapCut Pro", "Netflix free"</td></tr>
       <tr><td><span class="badge b-red">P8</span></td><td>외부 이메일 응답</td><td>reply@non-toomics-domain.com</td></tr>
-      <tr><td><span class="badge b-red">P9</span></td><td>소셜미디어 사칭</td><td>"Facebook policy violation" + "permanently disabled"</td></tr>
+      <tr><td><span class="badge b-red">P9</span></td><td>소셜미디어 사칭</td><td>"Facebook/Twitter/YouTube policy violation" + "permanently disabled"</td></tr>
+      <tr><td><span class="badge b-red">P10</span></td><td>보안 사칭</td><td>"cybersecurity researcher" + "CVSS" + PayPal/crypto 결제 요구</td></tr>
+      <tr><td><span class="badge b-red">P11</span></td><td>영업 스팸</td><td>SEO/마케팅/앱개발/웹디자인 B2B 영업 이메일</td></tr>
     </tbody>
   </table>
 
@@ -348,7 +390,7 @@
   </div>
 
   <h3 style="font-size:16px; margin: 24px 0 12px; color: var(--info);">ℹ️ 운영자 확인 필요 (파란 배너)</h3>
-  <p class="step-desc">Draft는 정상 생성되지만, 고객 주장 중 사실 확인이 필요한 항목이 감지되었습니다.</p>
+  <p class="step-desc">Draft는 정상 생성되지만, 고객 주장 중 사실 확인이 필요한 항목이 감지되었습니다. 10개 언어(EN/FR/DE/ES/PT/IT/JP/TH/CN/KR)로 패턴을 감지합니다.</p>
   <table>
     <thead><tr><th style="width:8%">ID</th><th style="width:22%">확인 항목</th><th style="width:35%">감지 예시</th><th>확인 방법</th></tr></thead>
     <tbody>
@@ -374,12 +416,12 @@
   <table>
     <thead><tr><th style="width:25%">차원</th><th style="width:15%">가중치</th><th>채점 기준</th></tr></thead>
     <tbody>
-      <tr><td><strong>Template Match</strong></td><td>20%</td><td>매뉴얼 템플릿 사용 여부</td></tr>
-      <tr><td><strong>Completeness</strong></td><td>15%</td><td>인사말 + 본문(80자+) + 맺음말</td></tr>
-      <tr><td><strong>Safety</strong></td><td>30%</td><td>금지 패턴 (경쟁사명, 잘못된 도메인, 미치환 변수)</td></tr>
-      <tr><td><strong>Length</strong></td><td>10%</td><td>100~2,000자 최적</td></tr>
-      <tr><td><strong>Accuracy</strong></td><td>15%</td><td>매뉴얼 내용과의 일치도</td></tr>
-      <tr><td><strong>Tone</strong></td><td>10%</td><td>마켓별 톤 가이드 준수</td></tr>
+      <tr><td><strong>Template Match</strong></td><td>25%</td><td>매뉴얼 템플릿 사용 여부</td></tr>
+      <tr><td><strong>Completeness</strong></td><td>10%</td><td>인사말 + 본문(80자+) + 맺음말</td></tr>
+      <tr><td><strong>Safety</strong></td><td>20%</td><td>금지 패턴 (경쟁사명, 잘못된 도메인, 미치환 변수)</td></tr>
+      <tr><td><strong>Length</strong></td><td>10%</td><td>100~2,000자 최적 (CJK 문자 2배 카운트)</td></tr>
+      <tr><td><strong>Relevance</strong></td><td>15%</td><td>매뉴얼 내용과의 일치도</td></tr>
+      <tr><td><strong>Actionability</strong></td><td>20%</td><td>실행 가능한 안내 포함 (다국어 패턴 매칭)</td></tr>
     </tbody>
   </table>
 
@@ -563,7 +605,7 @@
 <!-- ===== FOOTER ===== -->
 <div class="footer">
   <strong>Toomics Global — 유종선</strong><br>
-  CS AI Dashboard 퀵스타트 가이드 v1.0 · 2026년 3월 7일
+  CS AI Dashboard 퀵스타트 가이드 v1.1 · 2026년 3월 8일
 </div>
 
 </body>
