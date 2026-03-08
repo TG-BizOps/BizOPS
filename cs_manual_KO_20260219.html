@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS Global CS 운영 매뉴얼 v2.7</title>
+    <title>TOOMICS Global CS 운영 매뉴얼 v2.9</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -649,7 +649,7 @@
         <h1 style="border:none; color:#fff; margin:0; padding:0; font-size:32px;">TOOMICS Global CS 운영 매뉴얼</h1>
         <div class="subtitle">Version 2.3 &mdash; 한국어 가이드 에디션</div>
         <div class="meta">
-            <span>최종 업데이트: 2026년 3월 7일</span>
+            <span>최종 업데이트: 2026년 3월 8일</span>
             <span>작성: 유종선</span>
             <span>데이터 기간: 2025년 7월 ~ 2026년 1월</span>
             <span>11,621건 분석</span>
@@ -1803,13 +1803,58 @@
 
         <h2>6.5 디자인/번역/교정 이슈</h2>
 
-        <h3 class="template-title">Template 6.5.1: 콘텐츠 품질 리포트</h3>
-        <p>&#9888;&#65039; <strong>사용 시점:</strong> 번역/디자인 오류 신고</p>
+        <h3 class="template-title">Template 6.5.1: 콘텐츠 품질 리포트 (일반)</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 번역/디자인 오류 신고 (간단 접수 후 즉시 전달)</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us and for bringing this to our attention.</p>
             <p>We apologize for the issue you encountered with <strong>_____ (title)</strong>. We have forwarded your feedback to our content team for review and correction.</p>
             <p>We strive to provide the best reading experience for our users, and your feedback helps us improve.</p>
             <p>Thank you for your patience and for being a valued Toomics reader!</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <div class="note-box" style="background:#EDE8FF; border-left:4px solid #5B3CC4; padding:14px 18px; border-radius:6px; margin:18px 0;">
+            <p><strong>플랫폼 콘텐츠 오류 리포팅 기능</strong></p>
+            <p>Toomics 리더 내 작품정보/회차정보 페이지에서 콘텐츠 오류 신고 기능을 제공합니다. 이 기능을 통해 접수된 신고는 구조화된 포맷(작품명, 에피소드, 증상 설명)으로 들어옵니다.</p>
+            <p><strong>처리 흐름 (3단계):</strong></p>
+            <ol>
+                <li><strong>정보 수집</strong> &mdash; Template 6.5.2를 사용하여 고객으로부터 필요 정보를 모두 수집</li>
+                <li><strong>L2 에스컬레이션</strong> &mdash; 수집된 정보를 내부 노트로 콘텐츠/QA팀에 전달</li>
+                <li><strong>후속 안내</strong> &mdash; Template 6.5.3으로 접수 확인 및 수정 완료 알림 약속</li>
+            </ol>
+        </div>
+
+        <h3 class="template-title">Template 6.5.2: 콘텐츠 오류 리포트 &mdash; 정보 수집</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 오류 신고 접수 시 상세 정보 수집 (7가지 항목)</p>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for contacting us and for reporting this issue.</p>
+            <p>To help us investigate and resolve the content error as quickly as possible, could you please provide the following information:</p>
+            <ol>
+                <li><strong>Title name</strong> &mdash; The name of the webtoon/comic</li>
+                <li><strong>Episode number</strong> &mdash; The specific episode(s) where the issue occurs</li>
+                <li><strong>Symptom description</strong> &mdash; What exactly is wrong? (e.g., missing text, wrong translation, image cut off, text overlapping, wrong episode order, etc.)</li>
+                <li><strong>Device</strong> &mdash; Phone, tablet, or PC</li>
+                <li><strong>OS</strong> &mdash; iOS, Android, Windows, macOS, etc.</li>
+                <li><strong>Access method</strong> &mdash; Website (browser name) or App</li>
+                <li><strong>Screenshot</strong> &mdash; A screenshot showing the error (if possible)</li>
+            </ol>
+            <p>Once we have these details, we will immediately forward your report to our content team for review and correction.</p>
+            <p>Thank you for helping us improve the reading experience!</p>
+            <p>Best regards,<br>Toomics</p>
+        </blockquote>
+
+        <h3 class="template-title">Template 6.5.3: 콘텐츠 오류 &mdash; L2 에스컬레이션 후속 안내</h3>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 고객으로부터 정보 수집 완료 후 → 콘텐츠/QA팀 전달 확인 + 수정 완료 알림 약속</p>
+        <blockquote>
+            <p>Hello, this is Toomics.<br>Thank you for providing the detailed information.</p>
+            <p>We have forwarded your content error report to our content/QA team for review and correction:</p>
+            <ul>
+                <li><strong>Title:</strong> _____ (title)</li>
+                <li><strong>Episode:</strong> _____ (episode number)</li>
+                <li><strong>Issue:</strong> _____ (brief symptom summary)</li>
+            </ul>
+            <p>Our team will review the reported issue and apply the necessary corrections. While we are unable to provide an exact timeline, content fixes are typically processed within the next update cycle.</p>
+            <p>We will notify you once the correction has been applied. Thank you for your patience and for helping us maintain the quality of our content!</p>
             <p>Best regards,<br>Toomics</p>
         </blockquote>
 
@@ -2586,6 +2631,8 @@
                     <tr><td>2.5</td><td>2026-03-07</td><td>Section 11.4: 자동 종료 타이머 24h→28일(672h)로 변경 — Zendesk 최대값 (유종선)</td></tr>
                     <tr><td>2.6</td><td>2026-03-07</td><td>Section 8.10: AI Draft 마켓별 톤 &amp; 스타일 가이드 — 톤/격식, 결제수단, 법적맥락, 공감표현, 마켓별 카테고리 우선순위 (3개월 데이터 분석, 8,031건) (유종선)</td></tr>
                     <tr><td>2.7</td><td>2026-03-07</td><td>Section 8.10: TH/CN/IT 3개 마켓 추가 — 8개 비영어 마켓 완전 커버 (9,893건) (유종선)</td></tr>
+                    <tr><td>2.8</td><td>2026-03-07</td><td>Section 12.3: B2B / 비요청 사업 제안 — 거절 템플릿, 상담원 가이드라인 (유종선)</td></tr>
+                    <tr><td>2.9</td><td>2026-03-08</td><td>Section 6.5: 콘텐츠 오류 리포팅 — Template 6.5.2 (정보 수집) &amp; 6.5.3 (L2 에스컬레이션 후속 안내) 추가, 플랫폼 리포팅 처리 흐름 노트 (유종선)</td></tr>
                 </tbody>
             </table>
         </div>
