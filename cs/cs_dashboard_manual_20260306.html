@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS CS AI Dashboard — Operation Manual v1.4</title>
+    <title>TOOMICS CS AI Dashboard — Operation Manual v1.5</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -155,7 +155,7 @@
     <h1>CS AI Dashboard</h1>
     <div class="subtitle">Operation Manual &amp; Policy Guide</div>
     <div class="meta">
-        <span>v1.4</span>
+        <span>v1.5</span>
         <span>Author: 유종선</span>
         <span>Last Updated: 2026-03-08</span>
         <span>Classification: Internal</span>
@@ -1029,6 +1029,13 @@ python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
         <li>Safety 위반(경쟁사 언급, 내부 정보 노출 등)이 있는 Draft는 해당 부분을 반드시 제거/수정해야 합니다.</li>
     </ul>
 
+    <h3>13.1.1 계정 조회 정책</h3>
+    <ul>
+        <li>AI Draft는 고객에게 <strong>이메일 주소나 로그인 방법을 절대 묻지 않습니다</strong>.</li>
+        <li>모든 Zendesk 티켓에는 고객 이메일이 포함되어 있으므로, 운영자가 내부에서 해당 이메일로 계정을 조회합니다.</li>
+        <li>계정을 찾을 수 없는 경우 (<strong>L1/L2 에스컬레이션</strong>), 운영자가 <strong>수기로</strong> 고객에게 추가 정보를 요청합니다 (Template 4.1.1 사용).</li>
+    </ul>
+
     <h3>13.2 스팸 처리 정책</h3>
     <ul>
         <li>스팸 감지 경고가 뜬 티켓은 반드시 내용을 확인합니다.</li>
@@ -1125,7 +1132,7 @@ tmux capture-pane -t dashboard -p | grep -i spam</code></pre>
     <h2>15. Revision History</h2>
     <table class="revision-table">
         <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
-        <tr><td>v1.4</td><td>2026-03-08</td><td>유종선</td><td>환불 Followup 4-button flow(§7.7.1), Cancel+Refund 복합 자동 감지(Template 2.7.1), 스팸 P10/P11(§10.1), 품질 점수 가중치 정정(§9.1), CS 매뉴얼 v2.11 동기화</td></tr>
+        <tr><td>v1.5</td><td>2026-03-08</td><td>유종선</td><td>§13.1.1 계정 조회 정책 (이메일 묻지 않음), Template 2.7.1~2.7.5 고정 헤더+환불 결정 분기, 환불 Followup 4-button flow(§7.7.1), P10/P11(§10.1), 품질 가중치 정정(§9.1), CS 매뉴얼 v2.12 동기화</td></tr>
         <tr><td>v1.3</td><td>2026-03-07</td><td>유종선</td><td>4-Stage 카테고리 분류 파이프라인(§12.5 전면 재작성), 언어 자동 감지(§12.6 신규), 검색 ID 매칭, 차트 페이지네이션</td></tr>
         <tr><td>v1.2</td><td>2026-03-07</td><td>유종선</td><td>다국어 RAG(§8.4), 6차원 품질 채점(§9.1), 스팸 P5~P9(§10.1), 카테고리 후보정(§12.5.1), Fraud/Coin/Chargeback/IP RAG 매핑(§8.2) 추가</td></tr>
         <tr><td>v1.1</td><td>2026-03-07</td><td>유종선</td><td>운영자 확인 필요 (Verification Checker V1~V4) 추가 — §7.8 신규, §7.1/7.2 플로우 업데이트, §1.1/2.3 feature card &amp; directory 반영</td></tr>
