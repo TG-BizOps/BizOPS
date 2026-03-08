@@ -1815,7 +1815,7 @@
 
         <div class="note-box" style="background:#EDE8FF; border-left:4px solid #5B3CC4; padding:14px 18px; border-radius:6px; margin:18px 0;">
             <p><strong>플랫폼 콘텐츠 오류 리포팅 기능</strong></p>
-            <p>Toomics 리더 내 작품정보/회차정보 페이지에서 콘텐츠 오류 신고 기능을 제공합니다. 이 기능을 통해 접수된 신고는 구조화된 포맷(작품명, 에피소드, 증상 설명)으로 들어옵니다.</p>
+            <p>Toomics 리더 내 작품정보/회차정보 페이지에서 콘텐츠 오류 신고 기능을 제공합니다. 이 기능을 통해 접수된 신고는 <strong>작품명, 에피소드 번호, 기기, OS, 접속환경</strong>이 API로 자동 전달되므로, 상담원은 <strong>증상 설명</strong>과 <strong>스크린샷</strong>만 요청하면 됩니다.</p>
             <p><strong>처리 흐름 (3단계):</strong></p>
             <ol>
                 <li><strong>정보 수집</strong> &mdash; Template 6.5.2를 사용하여 고객으로부터 필요 정보를 모두 수집</li>
@@ -1825,17 +1825,13 @@
         </div>
 
         <h3 class="template-title">Template 6.5.2: 콘텐츠 오류 리포트 &mdash; 정보 수집</h3>
-        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 오류 신고 접수 시 상세 정보 수집 (7가지 항목)</p>
+        <p>&#9888;&#65039; <strong>사용 시점:</strong> 콘텐츠 오류 신고 접수 시 — 작품명/에피소드/기기/OS/접속환경은 API 자동 수집, 증상+스크린샷만 요청</p>
         <blockquote>
             <p>Hello, this is Toomics.<br>Thank you for contacting us and for reporting this issue.</p>
-            <p>To help us investigate and resolve the content error as quickly as possible, could you please provide the following information:</p>
+            <p>We have received your report regarding <strong>_____ (title)</strong>, Episode <strong>_____ (episode number)</strong>.</p>
+            <p>To help us investigate and resolve this content error as quickly as possible, could you please provide the following:</p>
             <ol>
-                <li><strong>Title name</strong> &mdash; The name of the webtoon/comic</li>
-                <li><strong>Episode number</strong> &mdash; The specific episode(s) where the issue occurs</li>
                 <li><strong>Symptom description</strong> &mdash; What exactly is wrong? (e.g., missing text, wrong translation, image cut off, text overlapping, wrong episode order, etc.)</li>
-                <li><strong>Device</strong> &mdash; Phone, tablet, or PC</li>
-                <li><strong>OS</strong> &mdash; iOS, Android, Windows, macOS, etc.</li>
-                <li><strong>Access method</strong> &mdash; Website (browser name) or App</li>
                 <li><strong>Screenshot</strong> &mdash; A screenshot showing the error (if possible)</li>
             </ol>
             <p>Once we have these details, we will immediately forward your report to our content team for review and correction.</p>
