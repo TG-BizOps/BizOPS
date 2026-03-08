@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TOOMICS CS AI Dashboard — Operation Manual v1.3</title>
+    <title>TOOMICS CS AI Dashboard — Operation Manual v1.4</title>
     <style>
         /* ===== Base & Typography ===== */
         :root {
@@ -155,9 +155,9 @@
     <h1>CS AI Dashboard</h1>
     <div class="subtitle">Operation Manual &amp; Policy Guide</div>
     <div class="meta">
-        <span>v1.3</span>
+        <span>v1.4</span>
         <span>Author: 유종선</span>
-        <span>Last Updated: 2026-03-07</span>
+        <span>Last Updated: 2026-03-08</span>
         <span>Classification: Internal</span>
     </div>
 </header>
@@ -545,7 +545,7 @@ tmux new-session -d -s dashboard "uvicorn dashboard.main:app --host 0.0.0.0 --po
         <li><strong>Spam Check</strong> — 스팸/피싱 패턴 탐지 (§10 참조). 스팸이면 경고 배너 표시, Draft 미생성</li>
         <li><strong>RAG Lookup</strong> — 티켓 카테고리 → CS 매뉴얼 섹션 매핑 → 최대 4,000자 컨텍스트 추출</li>
         <li><strong>Claude Generation</strong> — System Prompt (매뉴얼 컨텍스트 + 다국어 인사/맺음말) + User Message (티켓 정보) → Claude Sonnet 호출</li>
-        <li><strong>Quality Score</strong> — 생성된 텍스트를 4차원 채점 (§9 참조)</li>
+        <li><strong>Quality Score</strong> — 생성된 텍스트를 6차원 차등 가중치 채점 (§9 참조)</li>
         <li><strong>Verification Check</strong> — 고객 주장 중 운영자 확인 필요 항목 감지 (V1~V4). Draft와 함께 하이라이트 배너 표시 (§7.8 참조)</li>
     </ol>
 
@@ -611,6 +611,20 @@ We are looking into your request and will get back to you shortly.
 
     <h3>7.7 Draft 편집 &amp; Re-score</h3>
     <p>AI가 생성한 초안은 textarea에서 자유롭게 편집할 수 있습니다. 편집 후 <strong>Re-score</strong> 버튼을 눌러 수정된 텍스트의 품질 점수를 재계산할 수 있습니다.</p>
+
+    <h3>7.7.1 환불 결정 흐름 (Refund Followup Flow)</h3>
+    <p>고객이 환불을 요청하면 AI가 <strong>Template 3.1.1</strong> (접수 확인 + 자격 조건 안내) 초안을 먼저 생성합니다. 초안 위에 4개 결정 버튼이 표시됩니다:</p>
+    <table>
+        <tr><th>버튼</th><th>결정</th><th>재생성 템플릿</th></tr>
+        <tr><td style="color:#22C55E;"><strong>환불 승인</strong></td><td>3가지 조건 충족</td><td>Template 3.2.1 (Standard Refund Approved)</td></tr>
+        <tr><td style="color:#EF4444;"><strong>콘텐츠 접근</strong></td><td>VIP 콘텐츠 열람됨</td><td>Template 3.3.1 (Denied — Content Accessed)</td></tr>
+        <tr><td style="color:#EF4444;"><strong>14일 초과</strong></td><td>구매 후 14일 경과</td><td>Template 3.3.2 (Denied — Outside 14-Day)</td></tr>
+        <tr><td style="color:#EF4444;"><strong>코인 사용</strong></td><td>Gift/Bonus 코인 사용됨</td><td>Template 3.3.4 (Denied — Bonus Coins Used)</td></tr>
+    </table>
+    <div class="callout callout-info">
+        <strong>Cancel + Refund 복합 요청 자동 감지</strong>
+        고객 메시지에 구독 해지(cancel, annuler, kündigen 등)와 환불(refund, remboursement 등) 키워드가 <strong>둘 다</strong> 포함되면 Template 2.7.1 (단일 답변으로 해지 확인 + 환불 심사 동시 안내)이 자동 선택됩니다. 9개 언어 지원.
+    </div>
 
     <h3>7.8 운영자 확인 필요 (Verification Checker)</h3>
     <p>고객이 주장하는 내용 중 <strong>운영자가 사실 확인해야 하는 항목</strong>을 자동 감지합니다. 스팸/NO_MATCH와 달리 Draft는 정상 생성되며, 확인 필요 배너가 Draft <strong>상단에 추가</strong>로 표시됩니다.</p>
@@ -724,38 +738,38 @@ python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
     <h2>9. Quality Scoring System</h2>
 
     <h3>9.1 6차원 차등 가중치 채점</h3>
-    <p>각 차원 0.0~1.0 점, <strong>차등 가중치</strong>로 총점 산출. Safety에 최고 가중치(30%)를 부여하여 안전성을 최우선합니다.</p>
+    <p>각 차원 0.0~1.0 점, <strong>차등 가중치</strong>로 총점 산출.</p>
     <table>
         <tr><th>차원</th><th>가중치</th><th>채점 기준</th></tr>
         <tr>
             <td><strong>Template Match</strong></td>
-            <td>20%</td>
+            <td><strong>25%</strong></td>
             <td>매뉴얼 템플릿 사용 여부: 사용=1.0, 미사용=0.3, Fallback=0.5</td>
         </tr>
         <tr>
-            <td><strong>Completeness</strong></td>
-            <td>15%</td>
-            <td>인사말(0.33) + 본문 80자+(0.34) + 맺음말(0.33) 유무</td>
+            <td><strong>Safety</strong></td>
+            <td><strong>20%</strong></td>
+            <td>금지 패턴 감지: 위반당 -0.25 (최소 0.0)</td>
         </tr>
         <tr>
-            <td><strong>Safety</strong></td>
-            <td><strong>30%</strong></td>
-            <td>금지 패턴 감지: 위반당 -0.25 (최소 0.0). 최고 가중치</td>
+            <td><strong>Actionability</strong></td>
+            <td><strong>20%</strong></td>
+            <td>실행 가능한 안내 포함 (링크, 절차, 단계별 지침). 다국어 패턴 매칭</td>
+        </tr>
+        <tr>
+            <td><strong>Relevance</strong></td>
+            <td>15%</td>
+            <td>고객 문의에 대한 정확한 응답 여부</td>
+        </tr>
+        <tr>
+            <td><strong>Completeness</strong></td>
+            <td>10%</td>
+            <td>인사말(0.33) + 본문 80자+(0.34) + 맺음말(0.33) 유무</td>
         </tr>
         <tr>
             <td><strong>Length</strong></td>
             <td>10%</td>
-            <td>100~2,000자 최적 (1.0), 미달/초과 시 감점</td>
-        </tr>
-        <tr>
-            <td><strong>Accuracy</strong></td>
-            <td>15%</td>
-            <td>매뉴얼 내용과의 일치도. 소스에 없는 문구 포함 시 즉시 0점</td>
-        </tr>
-        <tr>
-            <td><strong>Tone</strong></td>
-            <td>10%</td>
-            <td>마켓별 톤 가이드 준수 (FR: vous, DE: Sie, JP: 敬語 등)</td>
+            <td>100~2,000자 최적 (1.0), 미달/초과 시 감점. CJK 문자 2배 카운트</td>
         </tr>
     </table>
 
@@ -781,7 +795,7 @@ python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
 <section class="section" id="s10">
     <h2>10. Spam/Phishing Detection</h2>
 
-    <h3>10.1 감지 패턴 (9개 그룹, P1~P9)</h3>
+    <h3>10.1 감지 패턴 (11개 그룹, P1~P11)</h3>
     <table>
         <tr><th>#</th><th>패턴</th><th>감지 대상</th><th>예시</th></tr>
         <tr>
@@ -837,6 +851,18 @@ python3 dashboard/scripts/build_knowledge.py --lang all</code></pre>
             <td><strong>소셜미디어 사칭</strong></td>
             <td>"Facebook/Meta policy violation" + "permanently disabled" + "appeal"</td>
             <td>"Your page will be permanently disabled. Submit an appeal here"</td>
+        </tr>
+        <tr>
+            <td>P10</td>
+            <td><strong>보안 사칭</strong></td>
+            <td>cybersecurity researcher + 취약점 키워드(CVSS, subdomain) + 결제 요구</td>
+            <td>"penetration tester... CVSS score... PayPal payment"</td>
+        </tr>
+        <tr>
+            <td>P11</td>
+            <td><strong>B2B 영업 스팸</strong></td>
+            <td>SEO/마케팅/앱개발 서비스 제안 + 영업 피치 + 아웃리치</td>
+            <td>"SEO services... increase traffic... contact us"</td>
         </tr>
     </table>
 
@@ -1099,6 +1125,7 @@ tmux capture-pane -t dashboard -p | grep -i spam</code></pre>
     <h2>15. Revision History</h2>
     <table class="revision-table">
         <tr><th>Version</th><th>Date</th><th>Author</th><th>Changes</th></tr>
+        <tr><td>v1.4</td><td>2026-03-08</td><td>유종선</td><td>환불 Followup 4-button flow(§7.7.1), Cancel+Refund 복합 자동 감지(Template 2.7.1), 스팸 P10/P11(§10.1), 품질 점수 가중치 정정(§9.1), CS 매뉴얼 v2.11 동기화</td></tr>
         <tr><td>v1.3</td><td>2026-03-07</td><td>유종선</td><td>4-Stage 카테고리 분류 파이프라인(§12.5 전면 재작성), 언어 자동 감지(§12.6 신규), 검색 ID 매칭, 차트 페이지네이션</td></tr>
         <tr><td>v1.2</td><td>2026-03-07</td><td>유종선</td><td>다국어 RAG(§8.4), 6차원 품질 채점(§9.1), 스팸 P5~P9(§10.1), 카테고리 후보정(§12.5.1), Fraud/Coin/Chargeback/IP RAG 매핑(§8.2) 추가</td></tr>
         <tr><td>v1.1</td><td>2026-03-07</td><td>유종선</td><td>운영자 확인 필요 (Verification Checker V1~V4) 추가 — §7.8 신규, §7.1/7.2 플로우 업데이트, §1.1/2.3 feature card &amp; directory 반영</td></tr>
